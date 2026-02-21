@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automação para Corretor de Imóveis · Paulo Growth AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030810;--bg2:#060d18;--acc:#1a8cff;--acc2:#00d4ff;--grn:#00e676;--ylw:#ffd740;--card:#080f20;--line:rgba(0,140,255,.1);--line2:rgba(255,255,255,.05);--text:#dde4f0;--muted:#5a6480;--r:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--acc);border-radius:2px}
+
+/* BACK BAR */
+.back-bar{background:var(--bg2);border-bottom:1px solid var(--line);padding:.85rem 4rem;display:flex;align-items:center;gap:1rem}
+.back-link{color:var(--muted);text-decoration:none;font-size:.75rem;letter-spacing:.05em;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+.back-link:hover{color:var(--acc2)}
+.back-sep{color:var(--muted);font-size:.7rem}
+.back-cur{font-size:.75rem;color:var(--text)}
+
+/* HERO */
+.hero{padding:5rem 4rem 4rem;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-orb{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(100px);background:rgba(26,140,255,.1);top:-100px;right:-100px;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(26,140,255,.07);border:1px solid rgba(26,140,255,.2);padding:.35rem .9rem;border-radius:100px;font-size:.68rem;color:var(--acc2);letter-spacing:.08em;margin-bottom:1.5rem}
+.seg-icon{font-size:.8rem}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;letter-spacing:-.03em;margin-bottom:1rem}
+h1 em{font-style:italic;background:linear-gradient(135deg,#1a8cff,#00d4ff);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:2rem}
+.hero-desc strong{color:var(--text);font-weight:600}
+.result-strip{display:flex;gap:2rem;flex-wrap:wrap;padding:1.5rem 0;border-top:1px solid var(--line2)}
+.rs-item{display:flex;flex-direction:column}
+.rs-n{font-family:'DM Serif Display',serif;font-size:2rem;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.rs-l{font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:.2rem}
+
+/* MAIN LAYOUT */
+.main{padding:4rem;display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:start;max-width:1300px;margin:0 auto}
+
+/* N8N AUTOMATION DEMO */
+.n8n-demo{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:sticky;top:2rem}
+.n8n-header{background:#0a0f20;border-bottom:1px solid var(--line);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.n8n-title{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--acc2);letter-spacing:.1em}
+.n8n-status{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--grn);font-family:'DM Mono',monospace}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--grn);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+.n8n-canvas{padding:1.5rem;min-height:420px;position:relative}
+
+/* FLOW NODES */
+.flow{display:flex;flex-direction:column;gap:0}
+.fnode{display:flex;align-items:stretch;gap:.75rem;position:relative}
+.fnode-line{display:flex;flex-direction:column;align-items:center;width:40px;flex-shrink:0}
+.fnode-circle{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0;border:2px solid transparent;transition:all .4s;position:relative;z-index:1}
+.fnode-vert{width:2px;flex:1;min-height:16px;background:linear-gradient(to bottom,rgba(26,140,255,.3),transparent);margin-top:2px}
+.fnode-content{flex:1;padding-bottom:1rem}
+.fnode-title{font-size:.78rem;font-weight:600;color:var(--text);margin-bottom:.15rem}
+.fnode-sub{font-size:.67rem;color:var(--muted);line-height:1.4}
+.fnode-badge{display:inline-block;font-family:'DM Mono',monospace;font-size:.58rem;padding:.15rem .5rem;border-radius:100px;margin-top:.3rem}
+
+/* NODE STATES */
+.nd-idle .fnode-circle{background:rgba(255,255,255,.04);border-color:rgba(255,255,255,.08)}
+.nd-run .fnode-circle{background:rgba(26,140,255,.15);border-color:var(--acc);box-shadow:0 0 20px rgba(26,140,255,.3);animation:nodeRun 1s ease-in-out infinite}
+.nd-done .fnode-circle{background:rgba(0,230,118,.1);border-color:var(--grn)}
+@keyframes nodeRun{0%,100%{box-shadow:0 0 15px rgba(26,140,255,.25)}50%{box-shadow:0 0 30px rgba(26,140,255,.5)}}
+.nd-run .fnode-badge{background:rgba(26,140,255,.1);color:var(--acc2)}
+.nd-done .fnode-badge{background:rgba(0,230,118,.08);color:var(--grn)}
+.nd-idle .fnode-badge{background:rgba(255,255,255,.04);color:var(--muted)}
+
+/* LOG */
+.n8n-log{border-top:1px solid var(--line);padding:1rem 1.5rem;background:#040810;max-height:140px;overflow-y:auto}
+.log-title{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted);letter-spacing:.1em;margin-bottom:.6rem}
+.log-entry{font-family:'DM Mono',monospace;font-size:.62rem;line-height:1.6;color:var(--muted)}
+.log-entry .ts{color:rgba(26,140,255,.5);margin-right:.5rem}
+.log-entry .ok{color:var(--grn)}
+.log-entry .run{color:var(--acc);animation:pt 1s ease-in-out infinite}
+@keyframes pt{0%,100%{opacity:1}50%{opacity:.4}}
+.log-entry .info{color:var(--ylw)}
+
+/* LEFT CONTENT */
+.left-content h2{font-family:'DM Serif Display',serif;font-size:1.8rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.left-content h2 em{font-style:italic;color:var(--acc2)}
+.section-lbl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--acc);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem;margin-top:3rem;display:block}
+.section-lbl:first-child{margin-top:0}
+
+.problem-box{background:rgba(255,77,109,.05);border:1px solid rgba(255,77,109,.15);border-radius:10px;padding:1.5rem;margin-bottom:2.5rem}
+.problem-box h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.75rem;color:#ff8fa3}
+.prob-item{display:flex;align-items:flex-start;gap:.6rem;font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+.prob-item::before{content:'✗';color:#ff4d6d;font-weight:700;flex-shrink:0;margin-top:.1rem}
+
+.solution-box{background:rgba(0,230,118,.04);border:1px solid rgba(0,230,118,.12);border-radius:10px;padding:1.5rem;margin-bottom:2.5rem}
+.solution-box h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.75rem;color:#69f0ae}
+.sol-item{display:flex;align-items:flex-start;gap:.6rem;font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+.sol-item::before{content:'✓';color:var(--grn);font-weight:700;flex-shrink:0;margin-top:.1rem}
+
+/* STEPS */
+.steps{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:3rem}
+.step{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;transition:all .3s}
+.step:hover{border-color:rgba(26,140,255,.2);transform:translateX(4px)}
+.step-num{width:36px;height:36px;border-radius:8px;background:linear-gradient(135deg,rgba(26,140,255,.2),rgba(0,212,255,.1));border:1px solid rgba(26,140,255,.3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--acc2);flex-shrink:0}
+.step h4{font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:.3rem}
+.step p{font-size:.76rem;color:var(--muted);line-height:1.7}
+
+/* TECH STACK */
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:3rem}
+.tech-item{background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:1rem;text-align:center;transition:all .2s}
+.tech-item:hover{border-color:rgba(26,140,255,.25)}
+.tech-icon{font-size:1.4rem;margin-bottom:.4rem;display:block}
+.tech-name{font-size:.68rem;font-weight:600;margin-bottom:.15rem}
+.tech-role{font-size:.62rem;color:var(--muted)}
+
+/* CTA */
+.cta-box{background:linear-gradient(135deg,rgba(26,140,255,.1),rgba(0,212,255,.05));border:1px solid rgba(26,140,255,.2);border-radius:12px;padding:2.5rem;text-align:center;margin-top:4rem}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.6rem}
+.cta-box p{font-size:.82rem;color:var(--muted);margin-bottom:2rem;line-height:1.7}
+.btn-wpp{background:#25D366;color:#fff;padding:1rem 2.5rem;border-radius:var(--r);font-weight:700;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s;margin-right:.75rem}
+.btn-wpp:hover{background:#1ebe59;transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,211,102,.3)}
+.btn-back{background:transparent;color:var(--text);padding:1rem 2rem;border-radius:var(--r);font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line2);transition:all .25s}
+.btn-back:hover{border-color:rgba(26,140,255,.3);color:var(--acc2)}
+
+/* WPP FLOAT */
+.wpp-float{position:fixed;bottom:2rem;right:2rem;z-index:999;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.4);transition:all .3s}
+.wpp-float:hover{transform:scale(1.1)}
+.wpp-float::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:ring 2.5s ease-in-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+
+@media(max-width:900px){.main{grid-template-columns:1fr;padding:2rem}.hero{padding:3rem 2rem}.back-bar{padding:.8rem 1.5rem}.tech-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+
+<a href="https://wa.me/5511999999999" target="_blank" class="wpp-float">💬</a>
+
+<!-- BACK -->
+<div class="back-bar">
+  <a href="paulo-growth-ai.html" class="back-link">← Voltar ao portfólio</a>
+  <span class="back-sep">/</span>
+  <span class="back-cur">Automação para Corretor de Imóveis</span>
+</div>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-badge"><span class="seg-icon">🏠</span> Segmento: Mercado Imobiliário</div>
+  <h1>Automação com <em>IA</em><br>para Corretor<br>de Imóveis</h1>
+  <p class="hero-desc">O corretor perde horas qualificando leads que não têm intenção real de compra. Com este sistema de automação, a <strong>IA faz toda a triagem e qualificação automaticamente</strong> — o corretor só atende quem já está pronto para comprar.</p>
+  <div class="result-strip">
+    <div class="rs-item"><div class="rs-n">3×</div><div class="rs-l">Mais reuniões agendadas</div></div>
+    <div class="rs-item"><div class="rs-n">-70%</div><div class="rs-l">Tempo qualificando leads</div></div>
+    <div class="rs-item"><div class="rs-n">24/7</div><div class="rs-l">Atendimento automático</div></div>
+    <div class="rs-item"><div class="rs-n">100%</div><div class="rs-l">Leads no CRM</div></div>
+  </div>
+</section>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="left-content">
+
+    <span class="section-lbl">// O problema</span>
+    <div class="problem-box">
+      <h3>Dores do corretor sem automação</h3>
+      <div class="prob-item">Responde a mesma dúvida dezenas de vezes por dia no WhatsApp</div>
+      <div class="prob-item">Perde leads por demorar a responder fora do horário comercial</div>
+      <div class="prob-item">Não tem como saber quais leads têm real potencial de fechar</div>
+      <div class="prob-item">Dados espalhados em WhatsApp, planilhas e anotações</div>
+      <div class="prob-item">Sem dados para saber de onde vêm os melhores clientes</div>
+    </div>
+
+    <span class="section-lbl">// A solução</span>
+    <div class="solution-box">
+      <h3>Com automação + IA</h3>
+      <div class="sol-item">Lead responde formulário e recebe resposta automática em segundos</div>
+      <div class="sol-item">IA analisa o perfil e classifica: quente, morno ou frio</div>
+      <div class="sol-item">CRM atualizado automaticamente com histórico completo</div>
+      <div class="sol-item">Follow-up automático com cadência inteligente por WhatsApp</div>
+      <div class="sol-item">Dashboard com métricas de conversão por canal e período</div>
+    </div>
+
+    <span class="section-lbl">// Como funciona — passo a passo</span>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><h4>Lead entra pelo anúncio ou site</h4><p>O lead preenche um formulário rápido no Instagram, Google ou site. As informações vão automaticamente para o n8n via webhook.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div><h4>IA classifica e pontua o lead</h4><p>GPT-4 analisa o perfil: renda, localização, urgência, tipo de imóvel desejado. Gera uma pontuação de 0 a 100 e define a prioridade de atendimento.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div><h4>WhatsApp automático enviado</h4><p>Mensagem personalizada enviada em segundos com base no perfil. Leads quentes recebem proposta de reunião imediata. Leads frios entram em cadência de nutrição.</p></div></div>
+      <div class="step"><div class="step-num">04</div><div><h4>CRM atualizado automaticamente</h4><p>Todos os dados do lead, histórico de conversas e pontuação são salvos no CRM (Pipedrive, HubSpot ou planilha). Zero trabalho manual.</p></div></div>
+      <div class="step"><div class="step-num">05</div><div><h4>Dashboard de performance</h4><p>Painel em tempo real com: custo por lead, taxa de conversão por canal, pipeline de vendas e previsão de comissões do mês.</p></div></div>
+    </div>
+
+    <span class="section-lbl">// Tecnologias utilizadas</span>
+    <div class="tech-grid">
+      <div class="tech-item"><span class="tech-icon">⚡</span><div class="tech-name">n8n</div><div class="tech-role">Orquestração</div></div>
+      <div class="tech-item"><span class="tech-icon">🤖</span><div class="tech-name">GPT-4</div><div class="tech-role">Classificação IA</div></div>
+      <div class="tech-item"><span class="tech-icon">💬</span><div class="tech-name">WhatsApp API</div><div class="tech-role">Mensagens auto</div></div>
+      <div class="tech-item"><span class="tech-icon">📊</span><div class="tech-name">Google Sheets</div><div class="tech-role">CRM base</div></div>
+      <div class="tech-item"><span class="tech-icon">🐍</span><div class="tech-name">Python</div><div class="tech-role">Lógica de scoring</div></div>
+      <div class="tech-item"><span class="tech-icon">📈</span><div class="tech-name">Looker Studio</div><div class="tech-role">Dashboard</div></div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Quer este sistema para sua imobiliária?</h3>
+      <p>Me manda uma mensagem no WhatsApp. Em até 24h faço uma análise do seu processo atual e proponho uma solução personalizada.</p>
+      <a href="https://wa.me/5511999999999?text=Olá%20Paulo!%20Vi%20o%20projeto%20de%20automação%20para%20corretor%20e%20quero%20saber%20mais." target="_blank" class="btn-wpp">💬 Falar no WhatsApp</a>
+      <a href="paulo-growth-ai.html" class="btn-back">← Ver outros projetos</a>
+    </div>
+  </div>
+
+  <!-- N8N DEMO -->
+  <div>
+    <div class="n8n-demo">
+      <div class="n8n-header">
+        <div class="n8n-title">n8n · corretor_flow.json</div>
+        <div class="n8n-status"><span class="status-dot"></span>EXECUTANDO</div>
+      </div>
+      <div class="n8n-canvas">
+        <div class="flow" id="corrFlow">
+          <div class="fnode nd-idle" id="cn1">
+            <div class="fnode-line"><div class="fnode-circle">📥</div><div class="fnode-vert"></div></div>
+            <div class="fnode-content"><div class="fnode-title">Webhook Trigger</div><div class="fnode-sub">Lead recebido do formulário</div><span class="fnode-badge nd-idle" id="cb1">aguardando</span></div>
+          </div>
+          <div class="fnode nd-idle" id="cn2">
+            <div class="fnode-line"><div class="fnode-circle">🔍</div><div class="fnode-vert"></div></div>
+            <div class="fnode-content"><div class="fnode-title">Filtrar Dados</div><div class="fnode-sub">Extrair nome, telefone, interesse</div><span class="fnode-badge" id="cb2">aguardando</span></div>
+          </div>
+          <div class="fnode nd-idle" id="cn3">
+            <div class="fnode-line"><div class="fnode-circle">🤖</div><div class="fnode-vert"></div></div>
+            <div class="fnode-content"><div class="fnode-title">IA · Classificar Lead</div><div class="fnode-sub">GPT-4: score 0–100 + prioridade</div><span class="fnode-badge" id="cb3">aguardando</span></div>
+          </div>
+          <div class="fnode nd-idle" id="cn4">
+            <div class="fnode-line"><div class="fnode-circle">💬</div><div class="fnode-vert"></div></div>
+            <div class="fnode-content"><div class="fnode-title">WhatsApp · Enviar</div><div class="fnode-sub">Mensagem personalizada por perfil</div><span class="fnode-badge" id="cb4">aguardando</span></div>
+          </div>
+          <div class="fnode nd-idle" id="cn5">
+            <div class="fnode-line"><div class="fnode-circle">📋</div><div class="fnode-vert"></div></div>
+            <div class="fnode-content"><div class="fnode-title">Google Sheets · Salvar</div><div class="fnode-sub">CRM atualizado automaticamente</div><span class="fnode-badge" id="cb5">aguardando</span></div>
+          </div>
+          <div class="fnode nd-idle" id="cn6">
+            <div class="fnode-line"><div class="fnode-circle">✅</div></div>
+            <div class="fnode-content"><div class="fnode-title">Notificar Corretor</div><div class="fnode-sub">Alerta se lead score > 70</div><span class="fnode-badge" id="cb6">aguardando</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="n8n-log">
+        <div class="log-title">// execution log</div>
+        <div id="logContainer"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// SCROLL REVEAL
+const obs=new IntersectionObserver((es)=>{es.forEach(e=>{if(e.isIntersecting)e.target.style.opacity=1})},{threshold:.1});
+
+// N8N AUTOMATION ANIMATION
+const nodeData = [
+  {id:'cn1',bid:'cb1',log:'[INFO] Webhook recebido · lead: João Silva'},
+  {id:'cn2',bid:'cb2',log:'[INFO] Dados extraídos · interesse: Apartamento 2q'},
+  {id:'cn3',bid:'cb3',log:'[AI] Score calculado: 84/100 · Prioridade: QUENTE'},
+  {id:'cn4',bid:'cb4',log:'[OK] WhatsApp enviado · template: lead_quente'},
+  {id:'cn5',bid:'cb5',log:'[OK] CRM atualizado · row 247 inserida'},
+  {id:'cn6',bid:'cb6',log:'[ALERTA] Corretor notificado · score alto'},
+];
+let cur=0;
+const logEl=document.getElementById('logContainer');
+
+function addLog(text,type='info'){
+  const d=new Date();
+  const ts=`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`;
+  const cls=type==='ok'?'ok':type==='run'?'run':'info';
+  const el=document.createElement('div');
+  el.className='log-entry';
+  el.innerHTML=`<span class="ts">${ts}</span><span class="${cls}">${text}</span>`;
+  logEl.appendChild(el);
+  logEl.scrollTop=logEl.scrollHeight;
+}
+
+function runFlow(){
+  if(cur>0){
+    const prev=nodeData[cur-1];
+    document.getElementById(prev.id).className='fnode nd-done';
+    document.getElementById(prev.bid).textContent='✓ concluído';
+    addLog(prev.log,'ok');
+  }
+  if(cur<nodeData.length){
+    const curr=nodeData[cur];
+    document.getElementById(curr.id).className='fnode nd-run';
+    document.getElementById(curr.bid).textContent='● executando...';
+    addLog(curr.log.replace('[OK]','[RUN]').replace('[AI]','[AI ▶]'),'run');
+    cur++;
+    setTimeout(runFlow,1400);
+  } else {
+    addLog('[DONE] Fluxo concluído em 4.2s','ok');
+    setTimeout(()=>{
+      cur=0;
+      logEl.innerHTML='';
+      nodeData.forEach(n=>{
+        document.getElementById(n.id).className='fnode nd-idle';
+        document.getElementById(n.bid).textContent='aguardando';
+      });
+      setTimeout(runFlow,1000);
+    },3000);
+  }
+}
+setTimeout(runFlow,1000);
+</script>
+</body>
+</html>

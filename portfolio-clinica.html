@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Automação para Clínicas · Paulo Growth AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#030d0b;--bg2:#060f0d;--acc:#00c896;--acc2:#00ffb3;--blue:#2979ff;--ylw:#ffd740;--card:#07150f;--line:rgba(0,200,150,.1);--line2:rgba(255,255,255,.05);--text:#d8f0ea;--muted:#4a6860;--r:8px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--acc);border-radius:2px}
+
+.back-bar{background:var(--bg2);border-bottom:1px solid var(--line);padding:.85rem 4rem;display:flex;align-items:center;gap:1rem}
+.back-link{color:var(--muted);text-decoration:none;font-size:.75rem;letter-spacing:.05em;display:flex;align-items:center;gap:.4rem;transition:color .2s}
+.back-link:hover{color:var(--acc2)}
+.back-sep{color:var(--muted);font-size:.7rem}
+.back-cur{font-size:.75rem;color:var(--text)}
+
+.hero{padding:5rem 4rem 4rem;position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-orb{position:absolute;width:500px;height:500px;border-radius:50%;filter:blur(100px);background:rgba(0,200,150,.08);top:-100px;right:-100px;pointer-events:none}
+.hero-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(0,200,150,.07);border:1px solid rgba(0,200,150,.2);padding:.35rem .9rem;border-radius:100px;font-size:.68rem;color:var(--acc2);letter-spacing:.08em;margin-bottom:1.5rem}
+h1{font-family:'DM Serif Display',serif;font-size:clamp(2.5rem,5vw,4rem);line-height:1.05;letter-spacing:-.03em;margin-bottom:1rem}
+h1 em{font-style:italic;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero-desc{font-size:.95rem;color:var(--muted);line-height:1.8;max-width:600px;margin-bottom:2rem}
+.hero-desc strong{color:var(--text);font-weight:600}
+.result-strip{display:flex;gap:2rem;flex-wrap:wrap;padding:1.5rem 0;border-top:1px solid var(--line2)}
+.rs-item{display:flex;flex-direction:column}
+.rs-n{font-family:'DM Serif Display',serif;font-size:2rem;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.rs-l{font-size:.65rem;color:var(--muted);letter-spacing:.08em;margin-top:.2rem}
+
+.main{padding:4rem;display:grid;grid-template-columns:1fr 400px;gap:4rem;align-items:start;max-width:1300px;margin:0 auto}
+
+/* CALENDAR DEMO */
+.cal-demo{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;position:sticky;top:2rem}
+.cal-header{background:#040e0c;border-bottom:1px solid var(--line);padding:1rem 1.5rem;display:flex;align-items:center;justify-content:space-between}
+.cal-title{font-family:'DM Mono',monospace;font-size:.7rem;color:var(--acc2);letter-spacing:.1em}
+.cal-status{display:flex;align-items:center;gap:.4rem;font-size:.6rem;color:var(--acc);font-family:'DM Mono',monospace}
+.status-dot{width:6px;height:6px;border-radius:50%;background:var(--acc);animation:blink 1.5s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+
+/* WHATSAPP CHAT MOCKUP */
+.wpp-chat{padding:1.2rem;background:#0a1a14;min-height:200px;border-bottom:1px solid var(--line)}
+.wpp-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid rgba(0,200,150,.1)}
+.wpp-avatar{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--acc),var(--acc2));display:flex;align-items:center;justify-content:center;font-size:1rem;flex-shrink:0}
+.wpp-info strong{display:block;font-size:.75rem;font-weight:600}
+.wpp-info span{font-size:.62rem;color:var(--acc)}
+.chat-msgs{display:flex;flex-direction:column;gap:.6rem}
+.msg{max-width:85%;padding:.55rem .85rem;border-radius:10px;font-size:.72rem;line-height:1.5;position:relative}
+.msg-recv{background:rgba(255,255,255,.06);align-self:flex-start;border-radius:10px 10px 10px 2px}
+.msg-send{background:rgba(0,200,150,.15);align-self:flex-end;border-radius:10px 10px 2px 10px;text-align:right}
+.msg-send.ai-flag{border:1px solid rgba(0,200,150,.2)}
+.msg-time{font-size:.56rem;color:var(--muted);margin-top:.25rem}
+.ai-badge{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--acc);background:rgba(0,200,150,.08);padding:.1rem .4rem;border-radius:100px;margin-bottom:.25rem;display:inline-block}
+.typing{display:flex;align-items:center;gap:.3rem;padding:.5rem .85rem;background:rgba(255,255,255,.06);border-radius:10px;align-self:flex-start;width:fit-content}
+.typing-dot{width:5px;height:5px;border-radius:50%;background:var(--acc);animation:tdot .8s ease-in-out infinite}
+.typing-dot:nth-child(2){animation-delay:.15s}.typing-dot:nth-child(3){animation-delay:.3s}
+@keyframes tdot{0%,100%{transform:translateY(0);opacity:.4}50%{transform:translateY(-4px);opacity:1}}
+
+/* SCHEDULE WIDGET */
+.sched-widget{padding:1.2rem;border-bottom:1px solid var(--line)}
+.sw-title{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--acc);letter-spacing:.12em;text-transform:uppercase;margin-bottom:.75rem}
+.sched-day{margin-bottom:.6rem}
+.sd-label{font-size:.62rem;color:var(--muted);margin-bottom:.35rem}
+.sd-slots{display:flex;gap:.35rem;flex-wrap:wrap}
+.slot{font-size:.62rem;padding:.25rem .6rem;border-radius:6px;font-family:'DM Mono',monospace;border:1px solid}
+.slot.busy{background:rgba(255,77,109,.08);border-color:rgba(255,77,109,.2);color:#ff8fa3}
+.slot.free{background:rgba(0,200,150,.08);border-color:rgba(0,200,150,.2);color:var(--acc2)}
+.slot.new{background:rgba(41,121,255,.12);border-color:rgba(41,121,255,.3);color:#82b1ff;animation:slotPop .4s ease}
+@keyframes slotPop{from{transform:scale(.8);opacity:0}to{transform:scale(1);opacity:1}}
+
+/* METRICS */
+.cal-metrics{padding:1.2rem;display:grid;grid-template-columns:1fr 1fr;gap:.6rem}
+.cm{background:rgba(0,200,150,.05);border:1px solid rgba(0,200,150,.1);border-radius:8px;padding:.85rem;text-align:center}
+.cm-n{font-family:'DM Serif Display',serif;font-size:1.5rem;background:linear-gradient(135deg,var(--acc),var(--acc2));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.cm-l{font-size:.6rem;color:var(--muted);margin-top:.2rem}
+
+/* LEFT */
+.left-content h2{font-family:'DM Serif Display',serif;font-size:1.8rem;letter-spacing:-.02em;margin-bottom:.5rem}
+.left-content h2 em{font-style:italic;color:var(--acc2)}
+.section-lbl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--acc);letter-spacing:.2em;text-transform:uppercase;margin-bottom:.75rem;margin-top:3rem;display:block}
+.section-lbl:first-child{margin-top:0}
+.problem-box{background:rgba(255,77,109,.04);border:1px solid rgba(255,77,109,.12);border-radius:10px;padding:1.5rem;margin-bottom:2.5rem}
+.problem-box h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.75rem;color:#ff8fa3}
+.prob-item{display:flex;align-items:flex-start;gap:.6rem;font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+.prob-item::before{content:'✗';color:#ff4d6d;font-weight:700;flex-shrink:0}
+.solution-box{background:rgba(0,200,150,.04);border:1px solid rgba(0,200,150,.1);border-radius:10px;padding:1.5rem;margin-bottom:2.5rem}
+.solution-box h3{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.75rem;color:var(--acc2)}
+.sol-item{display:flex;align-items:flex-start;gap:.6rem;font-size:.78rem;color:var(--muted);line-height:1.6;margin-bottom:.5rem}
+.sol-item::before{content:'✓';color:var(--acc);font-weight:700;flex-shrink:0}
+.steps{display:flex;flex-direction:column;gap:1.5rem;margin-bottom:3rem}
+.step{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.5rem;display:flex;gap:1.25rem;align-items:flex-start;transition:all .3s}
+.step:hover{border-color:rgba(0,200,150,.2);transform:translateX(4px)}
+.step-num{width:36px;height:36px;border-radius:8px;background:rgba(0,200,150,.1);border:1px solid rgba(0,200,150,.25);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--acc2);flex-shrink:0}
+.step h4{font-family:'DM Serif Display',serif;font-size:1rem;margin-bottom:.3rem}
+.step p{font-size:.76rem;color:var(--muted);line-height:1.7}
+.tech-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem;margin-bottom:3rem}
+.tech-item{background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:1rem;text-align:center;transition:all .2s}
+.tech-item:hover{border-color:rgba(0,200,150,.25)}
+.tech-icon{font-size:1.4rem;margin-bottom:.4rem;display:block}
+.tech-name{font-size:.68rem;font-weight:600;margin-bottom:.15rem}
+.tech-role{font-size:.62rem;color:var(--muted)}
+.cta-box{background:linear-gradient(135deg,rgba(0,200,150,.08),rgba(0,255,179,.04));border:1px solid rgba(0,200,150,.2);border-radius:12px;padding:2.5rem;text-align:center;margin-top:4rem}
+.cta-box h3{font-family:'DM Serif Display',serif;font-size:1.6rem;margin-bottom:.6rem}
+.cta-box p{font-size:.82rem;color:var(--muted);margin-bottom:2rem;line-height:1.7}
+.btn-wpp{background:#25D366;color:#fff;padding:1rem 2.5rem;border-radius:var(--r);font-weight:700;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s;margin-right:.75rem}
+.btn-wpp:hover{background:#1ebe59;transform:translateY(-2px);box-shadow:0 12px 30px rgba(37,211,102,.3)}
+.btn-back{background:transparent;color:var(--text);padding:1rem 2rem;border-radius:var(--r);font-size:.82rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line2);transition:all .25s}
+.btn-back:hover{border-color:rgba(0,200,150,.3);color:var(--acc2)}
+.wpp-float{position:fixed;bottom:2rem;right:2rem;z-index:999;background:#25D366;color:#fff;width:54px;height:54px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.4rem;text-decoration:none;box-shadow:0 6px 24px rgba(37,211,102,.4);transition:all .3s}
+.wpp-float:hover{transform:scale(1.1)}
+.wpp-float::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:ring 2.5s ease-in-out infinite}
+@keyframes ring{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+@media(max-width:900px){.main{grid-template-columns:1fr;padding:2rem}.hero{padding:3rem 2rem}.back-bar{padding:.8rem 1.5rem}.tech-grid{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<a href="https://wa.me/5511999999999" target="_blank" class="wpp-float">💬</a>
+<div class="back-bar"><a href="paulo-growth-ai.html" class="back-link">← Voltar ao portfólio</a><span class="back-sep">/</span><span class="back-cur">Automação para Clínicas</span></div>
+
+<section class="hero">
+  <div class="hero-orb"></div>
+  <div class="hero-badge">🏥 Segmento: Clínicas & Saúde</div>
+  <h1>IA de <em>Agendamento</em><br>e Gestão para<br>Clínicas</h1>
+  <p class="hero-desc">Sua recepcionista virtual nunca dorme. Com IA integrada ao WhatsApp, a clínica <strong>agenda automaticamente, confirma consultas, envia lembretes e reduz faltas</strong> — sem nenhum trabalho manual da equipe.</p>
+  <div class="result-strip">
+    <div class="rs-item"><div class="rs-n">-80%</div><div class="rs-l">Tempo de agendamento</div></div>
+    <div class="rs-item"><div class="rs-n">-60%</div><div class="rs-l">Taxa de falta</div></div>
+    <div class="rs-item"><div class="rs-n">24/7</div><div class="rs-l">Atendimento ativo</div></div>
+    <div class="rs-item"><div class="rs-n">+35%</div><div class="rs-l">Ocupação da agenda</div></div>
+  </div>
+</section>
+
+<div class="main">
+  <div class="left-content">
+    <span class="section-lbl">// O problema</span>
+    <div class="problem-box">
+      <h3>Dores da clínica sem automação</h3>
+      <div class="prob-item">Recepcionista passa horas ligando para confirmar consultas</div>
+      <div class="prob-item">Alto índice de faltas sem aviso prévio — horário perdido</div>
+      <div class="prob-item">Atendimento fora do horário comercial perde pacientes para concorrência</div>
+      <div class="prob-item">Histórico de pacientes em papel ou planilhas desorganizadas</div>
+      <div class="prob-item">Nenhuma visão de faturamento, ocupação ou taxa de retorno</div>
+    </div>
+
+    <span class="section-lbl">// A solução</span>
+    <div class="solution-box">
+      <h3>Com automação + IA</h3>
+      <div class="sol-item">Paciente agenda direto no WhatsApp, a qualquer hora do dia</div>
+      <div class="sol-item">IA verifica agenda disponível e confirma em segundos</div>
+      <div class="sol-item">Lembretes automáticos 48h, 24h e 2h antes da consulta</div>
+      <div class="sol-item">Se paciente cancelar, slot liberado e próximo na fila avisado</div>
+      <div class="sol-item">Dashboard de ocupação, faturamento e taxa de retorno em tempo real</div>
+    </div>
+
+    <span class="section-lbl">// Como funciona</span>
+    <div class="steps">
+      <div class="step"><div class="step-num">01</div><div><h4>Paciente entra em contato pelo WhatsApp</h4><p>A IA responde automaticamente, coleta nome e especialidade desejada e verifica disponibilidade na agenda em tempo real.</p></div></div>
+      <div class="step"><div class="step-num">02</div><div><h4>Agendamento confirmado em segundos</h4><p>A IA oferece os horários disponíveis, o paciente escolhe, e o agendamento é confirmado automaticamente — sem a recepcionista precisar intervir.</p></div></div>
+      <div class="step"><div class="step-num">03</div><div><h4>Sequência de lembretes automáticos</h4><p>48h antes: lembrete com informações. 24h antes: confirmação (sim/não). 2h antes: lembrete final. Se não confirmado, recepcionista é alertada.</p></div></div>
+      <div class="step"><div class="step-num">04</div><div><h4>Cancelamento inteligente e lista de espera</h4><p>Se o paciente cancela, o horário é liberado e o sistema avisa automaticamente outros pacientes na fila de espera.</p></div></div>
+      <div class="step"><div class="step-num">05</div><div><h4>Dashboard da clínica em tempo real</h4><p>Taxa de ocupação, faturamento estimado, taxa de faltas, retorno de pacientes e comparativo mensal — tudo em um único painel.</p></div></div>
+    </div>
+
+    <span class="section-lbl">// Tecnologias</span>
+    <div class="tech-grid">
+      <div class="tech-item"><span class="tech-icon">⚡</span><div class="tech-name">n8n</div><div class="tech-role">Fluxo principal</div></div>
+      <div class="tech-item"><span class="tech-icon">🤖</span><div class="tech-name">GPT-4</div><div class="tech-role">Atendimento IA</div></div>
+      <div class="tech-item"><span class="tech-icon">💬</span><div class="tech-name">WhatsApp API</div><div class="tech-role">Canal principal</div></div>
+      <div class="tech-item"><span class="tech-icon">📅</span><div class="tech-name">Google Calendar</div><div class="tech-role">Agenda online</div></div>
+      <div class="tech-item"><span class="tech-icon">🐍</span><div class="tech-name">Python</div><div class="tech-role">Lógica e regras</div></div>
+      <div class="tech-item"><span class="tech-icon">📊</span><div class="tech-name">Looker Studio</div><div class="tech-role">Dashboard</div></div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Quer este sistema para sua clínica?</h3>
+      <p>Me manda uma mensagem no WhatsApp. Faço um diagnóstico gratuito do seu processo atual e proponho a melhor solução.</p>
+      <a href="https://wa.me/5511999999999?text=Olá%20Paulo!%20Vi%20o%20projeto%20de%20automação%20para%20clínica%20e%20quero%20saber%20mais." target="_blank" class="btn-wpp">💬 Falar no WhatsApp</a>
+      <a href="paulo-growth-ai.html" class="btn-back">← Ver outros projetos</a>
+    </div>
+  </div>
+
+  <!-- CHAT + CALENDAR DEMO -->
+  <div>
+    <div class="cal-demo">
+      <div class="cal-header">
+        <div class="cal-title">IA · agendamento_clinica</div>
+        <div class="cal-status"><span class="status-dot"></span>ATIVO 24/7</div>
+      </div>
+      <div class="wpp-chat">
+        <div class="wpp-head">
+          <div class="wpp-avatar">🏥</div>
+          <div class="wpp-info"><strong>Clínica Dr. Silva</strong><span>⚡ Respondendo agora com IA</span></div>
+        </div>
+        <div class="chat-msgs" id="chatMsgs"></div>
+      </div>
+      <div class="sched-widget">
+        <div class="sw-title">// Agenda de hoje</div>
+        <div class="sched-day">
+          <div class="sd-label">Segunda-feira · 23 Jun</div>
+          <div class="sd-slots" id="slots">
+            <span class="slot busy">08:00</span>
+            <span class="slot busy">09:00</span>
+            <span class="slot free">10:00</span>
+            <span class="slot free">11:00</span>
+            <span class="slot busy">14:00</span>
+            <span class="slot free">15:00</span>
+            <span class="slot free">16:00</span>
+          </div>
+        </div>
+      </div>
+      <div class="cal-metrics">
+        <div class="cm"><div class="cm-n" id="ocupacao">78%</div><div class="cm-l">Ocupação hoje</div></div>
+        <div class="cm"><div class="cm-n" id="confirmados">12</div><div class="cm-l">Confirmados</div></div>
+        <div class="cm"><div class="cm-n" id="lembretes">8</div><div class="cm-l">Lembretes enviados</div></div>
+        <div class="cm"><div class="cm-n" id="faltas">-60%</div><div class="cm-l">Redução faltas</div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const chatMsgs=document.getElementById('chatMsgs');
+const conversation=[
+  {type:'recv',text:'Olá! Gostaria de agendar uma consulta com a Dra. Carla.',delay:500},
+  {type:'ai',text:'Olá! 😊 Claro! Tenho horários disponíveis amanhã às 10h e 15h. Qual prefere?',delay:2000},
+  {type:'recv',text:'Prefiro às 10h.',delay:4000},
+  {type:'ai',text:'✅ Consulta agendada!\n📅 Amanhã, 10:00\n👩‍⚕️ Dra. Carla\nVocê receberá um lembrete amanhã às 8h.',delay:5500},
+  {type:'recv',text:'Obrigada! Pode cancelar se precisar?',delay:8000},
+  {type:'ai',text:'Sim! É só responder "CANCELAR" aqui no WhatsApp a qualquer momento. Às 8h te mando o lembrete. Até amanhã! 🌟',delay:9500},
+];
+function addMsg(type,text,delay){
+  setTimeout(()=>{
+    if(type==='typing'){
+      const t=document.createElement('div');t.className='typing';t.id='typing';
+      t.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+      chatMsgs.appendChild(t);chatMsgs.scrollTop=chatMsgs.scrollHeight;return;
+    }
+    const old=document.getElementById('typing');if(old)old.remove();
+    const d=document.createElement('div');
+    const now=new Date();const ts=`${now.getHours()}:${String(now.getMinutes()).padStart(2,'0')}`;
+    if(type==='recv'){
+      d.className='msg msg-recv';d.innerHTML=`${text}<div class="msg-time">${ts}</div>`;
+    }else{
+      d.className='msg msg-send ai-flag';
+      d.innerHTML=`<div class="ai-badge">🤖 IA</div>${text.replace(/\n/g,'<br>')}<div class="msg-time">${ts} ✓✓</div>`;
+    }
+    chatMsgs.appendChild(d);chatMsgs.scrollTop=chatMsgs.scrollHeight;
+    if(type==='ai'){
+      const slots=document.getElementById('slots');
+      const freeSlot=slots.querySelector('.slot.free');
+      if(freeSlot){freeSlot.className='slot new';freeSlot.textContent='10:00 ✓';}
+    }
+  },delay);
+  if(type==='ai') setTimeout(()=>{
+    const t=document.createElement('div');t.className='typing';t.id='typing';
+    t.innerHTML='<div class="typing-dot"></div><div class="typing-dot"></div><div class="typing-dot"></div>';
+    chatMsgs.appendChild(t);chatMsgs.scrollTop=chatMsgs.scrollHeight;
+  },delay-700);
+}
+conversation.forEach(m=>addMsg(m.type,m.text,m.delay));
+setTimeout(()=>{
+  const n=document.getElementById('confirmados');if(n){let v=12;setInterval(()=>{n.textContent=++v;if(v>=15)v=12;},3000);}
+},2000);
+</script>
+</body>
+</html>
