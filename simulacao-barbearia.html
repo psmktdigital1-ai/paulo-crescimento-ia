@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Barbearia · Simulação de Automação · Paulo Growth AI</title>
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#06080f;--bg2:#090c16;--bg3:#0d1220;--a:#e2e8f0;--a2:#f1f5f9;--a3:#fff;--g:#22c55e;--g2:#4ade80;--r:#ef4444;--y:#f59e0b;--p:#a855f7;--b:#3b82f6;--text:#e1e7f5;--muted:#475b80;--muted2:#1e2840;--card:#080c18;--line:rgba(226,232,240,.08);--line2:rgba(255,255,255,.05)}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:#475b80;border-radius:2px}
+.top{position:sticky;top:0;z-index:100;background:rgba(6,8,15,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.top-brand{display:flex;align-items:center;gap:.75rem}.top-ic{width:36px;height:36px;background:linear-gradient(135deg,#475b80,#1a1a2e);border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.top-name{font-size:1.05rem;font-weight:600}.top-name span{color:var(--a2)}.top-tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);background:var(--muted2);padding:.25rem .7rem;border-radius:5px}
+.top-nav{display:flex;gap:.35rem}.tn{padding:.42rem .9rem;border-radius:7px;font-size:.7rem;font-weight:500;cursor:pointer;border:none;transition:all .2s;font-family:'Sora',sans-serif}
+.tn.act{background:#2d3748;color:#fff;border:1px solid #4a5568}.tn.idle{background:transparent;color:var(--muted);border:1px solid var(--line2)}.tn.idle:hover{border-color:rgba(226,232,240,.2);color:var(--a2)}
+.page{display:none;animation:pgIn .35s ease}.page.on{display:block}@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.hero-sec{padding:4rem 3rem 3rem;max-width:1300px;margin:0 auto}.hs-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hs-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);padding:.3rem .9rem;border-radius:100px;font-size:.66rem;font-family:'JetBrains Mono',monospace;color:#fca5a5;margin-bottom:1.25rem}
+.hs-title{font-size:2.6rem;font-weight:700;line-height:1.12;letter-spacing:-.03em;margin-bottom:1rem}
+.hs-title em{font-style:italic;background:linear-gradient(135deg,#e2e8f0,#94a3b8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hs-sub{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}.hs-sub strong{color:var(--text)}
+.dores-list{display:flex;flex-direction:column;gap:.55rem}.dor{display:flex;align-items:flex-start;gap:.65rem;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.12);border-radius:8px;padding:.75rem 1rem}
+.dor-ic{font-size:1.1rem;flex-shrink:0}.dor-t{font-size:.75rem;font-weight:600;color:#fca5a5;margin-bottom:.18rem}.dor-d{font-size:.69rem;color:var(--muted);line-height:1.6}
+.hs-right{display:flex;flex-direction:column;gap:.75rem}.stat-card{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}.stat-card.red::before{background:var(--r)}.stat-card.white::before{background:#e2e8f0}.stat-card.blue::before{background:var(--b)}.stat-card.gold::before{background:#f59e0b}
+.sc-val{font-size:2rem;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:.3rem}
+.sc-val.red{color:var(--r)}.sc-val.white{color:#e2e8f0}.sc-val.blue{color:#60a5fa}.sc-val.gold{color:#fde68a}
+.sc-lbl{font-size:.7rem;color:var(--muted);line-height:1.5}
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:10px;overflow:hidden;max-width:1300px;margin:2rem auto 0}
+.sol-c{background:var(--card);padding:2rem 1.75rem;position:relative;transition:background .3s}.sol-c:hover{background:#0b0f1e}
+.sol-n{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--muted2);position:absolute;top:1.25rem;right:1.25rem}
+.sol-ic{font-size:2rem;display:block;margin-bottom:.85rem}.sol-t{font-size:1.05rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.55rem}.sol-d{font-size:.72rem;color:var(--muted);line-height:1.75}
+.sol-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.85rem}.sol-tag{font-size:.54rem;padding:.18rem .5rem;border:1px solid rgba(226,232,240,.12);color:#94a3b8;border-radius:100px;font-family:'JetBrains Mono',monospace}
+.flow-wrap{max-width:1300px;margin:0 auto;padding:2.5rem 3rem}.fw-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;margin-bottom:.4rem}.fw-sub{font-size:.8rem;color:var(--muted);margin-bottom:2.5rem}
+.flow-layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start}
+.stages{display:flex;flex-direction:column;gap:1.5rem}.stage{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s}
+.stage.active-stage{border-color:rgba(226,232,240,.25);box-shadow:0 0 28px rgba(226,232,240,.06)}
+.stage-hdr{display:flex;align-items:center;gap:.85rem;padding:1.1rem 1.4rem;cursor:pointer}
+.stage-num{width:32px;height:32px;border-radius:8px;background:var(--muted2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;transition:all .3s;flex-shrink:0}
+.stage.active-stage .stage-num{background:#2d3748;color:#e2e8f0;border:1px solid #4a5568}.stage.done-stage .stage-num{background:var(--g);color:#fff}
+.stage-info{flex:1}.stage-title{font-size:.88rem;font-weight:600;margin-bottom:.18rem}.stage-desc{font-size:.68rem;color:var(--muted)}
+.stage-badge{font-size:.58rem;padding:.2rem .55rem;border-radius:100px;font-family:'JetBrains Mono',monospace}
+.sb-idle{background:var(--muted2);color:var(--muted)}.sb-run{background:rgba(226,232,240,.06);color:#e2e8f0;border:1px solid rgba(226,232,240,.2);animation:sbpulse .9s ease-in-out infinite}
+@keyframes sbpulse{0%,100%{opacity:1}50%{opacity:.35}}.sb-done{background:rgba(34,197,94,.08);color:var(--g2);border:1px solid rgba(34,197,94,.2)}
+.stage-body{padding:0 1.4rem 1.4rem;display:none}.stage.active-stage .stage-body,.stage.done-stage .stage-body{display:block}
+.nodes-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.node{display:flex;flex-direction:column;align-items:center;gap:.3rem}.node-box{background:var(--bg3);border:1.5px solid var(--line2);border-radius:8px;padding:.6rem .55rem;text-align:center;min-width:80px;max-width:90px;transition:all .35s}
+.node-box.n-run{border-color:#e2e8f0;background:rgba(226,232,240,.05);box-shadow:0 0 14px rgba(226,232,240,.08);animation:nrun .9s ease-in-out infinite}
+.node-box.n-done{border-color:var(--g);background:rgba(34,197,94,.05)}
+@keyframes nrun{0%,100%{box-shadow:0 0 8px rgba(226,232,240,.06)}50%{box-shadow:0 0 20px rgba(226,232,240,.14)}}
+.node-ic{font-size:1.2rem;display:block}.node-nm{font-size:.56rem;color:var(--muted);line-height:1.35;font-family:'JetBrains Mono',monospace}
+.node-box.n-run .node-nm{color:#e2e8f0}.node-box.n-done .node-nm{color:var(--g2)}.node-arr{color:var(--muted2);font-size:.8rem}
+.result-box{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:.85rem 1rem;font-size:.72rem;color:var(--g2);line-height:1.65}
+.result-box strong{display:block;font-size:.75rem;margin-bottom:.35rem;color:var(--g)}
+.side-panel{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;position:sticky;top:75px}
+.sp-tabs{display:flex;border-bottom:1px solid var(--line2)}.sp-tab{flex:1;padding:.6rem;font-size:.6rem;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;transition:all .2s}
+.sp-tab.on{color:#e2e8f0;border-bottom-color:#4a5568}
+.sp-panel{display:none;height:420px;overflow-y:auto;padding:.9rem}.sp-panel.on{display:flex;flex-direction:column;gap:.35rem}
+.lg{font-family:'JetBrains Mono',monospace;font-size:.59rem;line-height:1.55;padding:.3rem .5rem;border-radius:4px;border-left:2px solid transparent;background:rgba(255,255,255,.02)}
+.lg.i{border-color:#4a5568;color:#94a3b8}.lg.s{border-color:var(--g);color:var(--g2)}.lg.w{border-color:var(--y);color:#fde68a}.lg-ts{color:var(--muted2);margin-right:.35rem}
+.lg.new{animation:lgi .3s ease}@keyframes lgi{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:none}}
+.wpp{background:#0a1612;border-radius:8px;overflow:hidden}.wpp-h{background:#1a1a2e;padding:.55rem .8rem;display:flex;align-items:center;gap:.5rem}
+.wpp-av{width:26px;height:26px;border-radius:50%;background:#2d3748;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.wpp-i b{display:block;font-size:.68rem}.wpp-i small{font-size:.55rem;color:#94a3b8}
+.wpp-b{padding:.65rem;min-height:100px;display:flex;flex-direction:column;gap:.45rem}
+.wm{padding:.48rem .65rem;border-radius:7px;font-size:.66rem;line-height:1.5;max-width:92%}
+.wm.out{background:#1a1a2e;align-self:flex-end;border-radius:7px 7px 2px 7px;white-space:pre-line;border:1px solid #2d3748}.wm.out::before{content:'✂️ BarberBot · ';font-size:.52rem;color:#94a3b8;display:block}
+.wm.in{background:#1f2c34;align-self:flex-start}.wmt{font-size:.52rem;opacity:.35;margin-top:.18rem;text-align:right}
+.play-bar{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.75rem;background:rgba(6,8,15,.95);border:1px solid rgba(226,232,240,.08);border-radius:100px;padding:.65rem 1.75rem;backdrop-filter:blur(14px);z-index:200}
+.pb-steps{display:flex;gap:.38rem}.pb-s{width:7px;height:7px;border-radius:50%;background:var(--muted2);transition:all .3s}.pb-s.dn{background:var(--g)}.pb-s.ac{background:#e2e8f0;box-shadow:0 0 8px rgba(226,232,240,.3);width:20px;border-radius:3px}
+.pb-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:#94a3b8;min-width:200px}
+.pb-btn{padding:.42rem 1.2rem;border-radius:100px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;font-family:'Sora',sans-serif;transition:all .2s}.pb-play{background:#2d3748;color:#e2e8f0;border:1px solid #4a5568}.pb-play:hover{background:#3d4f66;}.pb-reset{background:var(--muted2);color:var(--muted)}
+.m-wrap{max-width:1300px;margin:0 auto;padding:2.5rem 3rem}.m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.mk{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.1rem 1.2rem}.mk-ic{font-size:1.4rem;display:block;margin-bottom:.5rem}.mk-v{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:500;color:#e2e8f0;margin-bottom:.25rem}.mk-l{font-size:.64rem;color:var(--muted)}.mk-d{font-size:.62rem;color:var(--g2);margin-top:.25rem;font-family:'JetBrains Mono',monospace}
+.m2{display:grid;grid-template-columns:1fr 1fr;gap:1rem}.m2c{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.25rem}.m2c-t{font-size:.75rem;font-weight:600;margin-bottom:1rem}
+.br{display:flex;align-items:center;gap:.75rem;margin-bottom:.65rem;font-size:.7rem}.br-l{width:90px;color:var(--muted);flex-shrink:0}.br-w{flex:1;height:6px;background:var(--muted2);border-radius:3px;overflow:hidden}.br-b{height:100%;border-radius:3px}.br-v{width:35px;text-align:right;font-family:'JetBrains Mono',monospace;color:#e2e8f0}
+</style>
+</head>
+<body>
+<div class="top">
+  <div class="top-brand"><div class="top-ic">✂️</div><div class="top-name">Barbearia <span>Bot</span></div><div class="top-tag">Agenda · Pontos · Reativação</div></div>
+  <div class="top-nav">
+    <button class="tn act" onclick="showPage('dores',this)">Diagnóstico</button>
+    <button class="tn idle" onclick="showPage('flow',this)">Automação ao Vivo</button>
+    <button class="tn idle" onclick="showPage('fidelidade',this)">Fidelidade & Pontos</button>
+    <button class="tn idle" onclick="showPage('metrics',this)">Resultados</button>
+  </div>
+</div>
+
+<!-- PAGE 1 DIAGNÓSTICO -->
+<div class="page on" id="pg-dores">
+  <div class="hero-sec">
+    <div class="hs-grid">
+      <div>
+        <div class="hs-badge">🔴 Diagnóstico real da barbearia</div>
+        <h1 class="hs-title">Agenda caótica,<br>clientes sumindo <em>sem fidelidade</em>.</h1>
+        <p class="hs-sub">Barbeiro gerenciando agenda no improviso pelo WhatsApp. Clientes indo embora depois de 30 dias sem contato. Sem programa de fidelidade para competir com redes maiores. A solução é <strong>automação completa</strong> — do agendamento à reativação.</p>
+        <div class="dores-list">
+          <div class="dor"><span class="dor-ic">📱</span><div><div class="dor-t">Agenda gerenciada no improviso pelo WhatsApp</div><div class="dor-d">Cada barbeiro tem seu próprio WhatsApp, anota em papel ou aplicativo separado. Conflito de horário, cliente esperando resposta por horas, confusão total.</div></div></div>
+          <div class="dor"><span class="dor-ic">❌</span><div><div class="dor-t">No-shows derrubando o faturamento</div><div class="dor-d">4-5 faltas por semana sem aviso. Barbeiro esperando, horário vago, dinheiro perdido. Sem lembrete automático, o cliente esquece.</div></div></div>
+          <div class="dor"><span class="dor-ic">🔁</span><div><div class="dor-t">Clientes sumindo após 25-30 dias</div><div class="dor-d">Cortou o cabelo, amou, mas não voltou em 3 semanas. Sem nenhuma mensagem da barbearia, foi para a mais próxima de casa.</div></div></div>
+          <div class="dor"><span class="dor-ic">🏆</span><div><div class="dor-t">Sem programa de fidelidade para competir</div><div class="dor-d">Redes têm app com pontos, desconto na 5ª visita, promoções. Barbearia independente não tem nada disso. Desvantagem competitiva direta.</div></div></div>
+        </div>
+      </div>
+      <div class="hs-right">
+        <div class="stat-card red"><div class="sc-val red">-80%</div><div class="sc-lbl">No-shows após automação<br><strong style="color:var(--text)">Lembrete 24h antes · confirmação ou cancelamento</strong></div></div>
+        <div class="stat-card white"><div class="sc-val white">+60%</div><div class="sc-lbl">Clientes que voltaram após reativação<br><strong style="color:var(--text)">Campanha automática em 25 dias sem visita</strong></div></div>
+        <div class="stat-card blue"><div class="sc-val blue">24/7</div><div class="sc-lbl">Agendamento automático via WhatsApp<br><strong style="color:var(--text)">Bot responde e agenda a qualquer hora</strong></div></div>
+        <div class="stat-card gold"><div class="sc-val gold">Pontos</div><div class="sc-lbl">Programa de fidelidade sem app<br><strong style="color:var(--text)">Tudo pelo WhatsApp — sem download, sem complicação</strong></div></div>
+      </div>
+    </div>
+  </div>
+  <div style="max-width:1300px;margin:0 auto;padding:0 3rem 1rem"><div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;color:#94a3b8;letter-spacing:.14em;text-transform:uppercase;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem"><span style="display:block;width:10px;height:1px;background:#94a3b8"></span>O que vamos automatizar</div></div>
+  <div class="sol-grid" style="margin:0 3rem 4rem">
+    <div class="sol-c"><span class="sol-n">01</span><span class="sol-ic">💬</span><div class="sol-t">Agendamento 24h</div><p class="sol-d">Bot WhatsApp recebe pedido, verifica disponibilidade de cada barbeiro e confirma o horário — sem intervenção humana, a qualquer hora.</p><div class="sol-tags"><span class="sol-tag">WhatsApp Bot</span><span class="sol-tag">GPT-4</span><span class="sol-tag">Agenda Online</span></div></div>
+    <div class="sol-c"><span class="sol-n">02</span><span class="sol-ic">🔔</span><div class="sol-t">Lembrete & Confirmação</div><p class="sol-d">24h antes: mensagem pedindo SIM ou NÃO. Cancela? Lista de espera notificada automaticamente. Nenhum horário desperdiçado.</p><div class="sol-tags"><span class="sol-tag">n8n</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">Fila de Espera</span></div></div>
+    <div class="sol-c"><span class="sol-n">03</span><span class="sol-ic">🏆</span><div class="sol-t">Programa de Pontos</div><p class="sol-d">A cada visita, pontos creditados automaticamente. Bot informa saldo. Na 5ª visita: serviço grátis. Tudo pelo WhatsApp — sem app.</p><div class="sol-tags"><span class="sol-tag">Pontos</span><span class="sol-tag">Recompensas</span><span class="sol-tag">WhatsApp</span></div></div>
+    <div class="sol-c"><span class="sol-n">04</span><span class="sol-ic">🔄</span><div class="sol-t">Reativação em 25 dias</div><p class="sol-d">Cliente sumiu? Sistema detecta e dispara mensagem personalizada em 25 dias. Taxa de retorno de 40-55% dos contatados.</p><div class="sol-tags"><span class="sol-tag">Monitor</span><span class="sol-tag">Campanha</span><span class="sol-tag">CRM</span></div></div>
+    <div class="sol-c"><span class="sol-n">05</span><span class="sol-ic">⭐</span><div class="sol-t">Avaliação + Upsell</div><p class="sol-d">2h após o corte: "Como foi?" 5 estrelas = pede indicação. Baixa = alerta para o dono. Sugere próximo serviço automaticamente.</p><div class="sol-tags"><span class="sol-tag">NPS</span><span class="sol-tag">Upsell</span><span class="sol-tag">Indicação</span></div></div>
+    <div class="sol-c"><span class="sol-n">06</span><span class="sol-ic">📊</span><div class="sol-t">Relatório Semanal</div><p class="sol-d">Toda segunda: cortes realizados, no-shows, clientes fiéis, promoções resgatadas e top barbeiro da semana.</p><div class="sol-tags"><span class="sol-tag">Dashboard</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">Automático</span></div></div>
+  </div>
+</div>
+
+<!-- PAGE 2 FLOW -->
+<div class="page" id="pg-flow">
+  <div class="flow-wrap">
+    <div class="fw-title">Jornada do Cliente · Ao Vivo</div>
+    <div class="fw-sub">Clique em ▶ Executar para ver cada etapa da automação em tempo real</div>
+    <div class="flow-layout">
+      <div class="stages">
+        <div class="stage" id="s0">
+          <div class="stage-hdr"><div class="stage-num">01</div><div class="stage-info"><div class="stage-title">Agendamento pelo WhatsApp (21h30)</div><div class="stage-desc">Cliente novo · Bot verifica agenda · Confirma horário</div></div><span class="stage-badge sb-idle" id="b0">aguardando</span></div>
+          <div class="stage-body"><div class="nodes-row"><div class="node"><div class="node-box" id="n0a"><span class="node-ic">💬</span><span class="node-nm">WhatsApp</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n0b"><span class="node-ic">⚡</span><span class="node-nm">n8n</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n0c"><span class="node-ic">🧠</span><span class="node-nm">GPT-4</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n0d"><span class="node-ic">📅</span><span class="node-nm">Agenda</span></div></div></div><div class="result-box"><strong>✅ Horário confirmado automaticamente às 21h30</strong>"João! ✂️ Seu corte com Rafael está confirmado para amanhã às 15h. Rua XV, 234. Até amanhã!"</div></div>
+        </div>
+        <div class="stage" id="s1">
+          <div class="stage-hdr"><div class="stage-num">02</div><div class="stage-info"><div class="stage-title">Lembrete 24h antes + pontos creditados</div><div class="stage-desc">Confirmação · Pontos na 1ª visita · Saldo informado</div></div><span class="stage-badge sb-idle" id="b1">aguardando</span></div>
+          <div class="stage-body"><div class="nodes-row"><div class="node"><div class="node-box" id="n1a"><span class="node-ic">⏰</span><span class="node-nm">Scheduler</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n1b"><span class="node-ic">💬</span><span class="node-nm">Lembrete</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n1c"><span class="node-ic">✅</span><span class="node-nm">Atendim.</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n1d"><span class="node-ic">🏆</span><span class="node-nm">Pontos</span></div></div></div><div class="result-box"><strong>✅ Visita registrada · 1 ponto creditado</strong>"João, seu corte foi ótimo! ✂️ Você tem agora 1/5 pontos para um corte grátis 🏆 Faltam 4 visitas!"</div></div>
+        </div>
+        <div class="stage" id="s2">
+          <div class="stage-hdr"><div class="stage-num">03</div><div class="stage-info"><div class="stage-title">Avaliação e upsell automático</div><div class="stage-desc">NPS 2h após corte · Sugestão de próximo serviço</div></div><span class="stage-badge sb-idle" id="b2">aguardando</span></div>
+          <div class="stage-body"><div class="nodes-row"><div class="node"><div class="node-box" id="n2a"><span class="node-ic">⭐</span><span class="node-nm">NPS 2h</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n2b"><span class="node-ic">🧠</span><span class="node-nm">Análise</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n2c"><span class="node-ic">💬</span><span class="node-nm">Upsell</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n2d"><span class="node-ic">💾</span><span class="node-nm">CRM</span></div></div></div><div class="result-box"><strong>✅ 5 estrelas · Indicação solicitada</strong>"João deu 5 ⭐ · Sistema enviou link de indicação automático · Sugeriu hidratação na próxima visita (+R$35)"</div></div>
+        </div>
+        <div class="stage" id="s3">
+          <div class="stage-hdr"><div class="stage-num">04</div><div class="stage-info"><div class="stage-title">Reativação automática após 25 dias</div><div class="stage-desc">Monitor detecta ausência · Mensagem personalizada</div></div><span class="stage-badge sb-idle" id="b3">aguardando</span></div>
+          <div class="stage-body"><div class="nodes-row"><div class="node"><div class="node-box" id="n3a"><span class="node-ic">🔍</span><span class="node-nm">Monitor</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n3b"><span class="node-ic">🧠</span><span class="node-nm">IA</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n3c"><span class="node-ic">💬</span><span class="node-nm">WhatsApp</span></div></div><span class="node-arr">→</span><div class="node"><div class="node-box" id="n3d"><span class="node-ic">📅</span><span class="node-nm">Agenda</span></div></div></div><div class="result-box"><strong>✅ João voltou! Consulta agendada</strong>"João, faz 25 dias desde seu corte ✂️ Já está na hora! Tem horário amanhã com Rafael. Quer agendar?" → João respondeu SIM</div></div>
+        </div>
+      </div>
+      <div class="side-panel">
+        <div class="sp-tabs"><button class="sp-tab on" onclick="switchTab(this,'log')">LOG</button><button class="sp-tab" onclick="switchTab(this,'wpp')">WHATSAPP</button></div>
+        <div class="sp-panel on" id="tab-log"><div class="lg i"><span class="lg-ts">sistema</span>Aguardando execução...</div></div>
+        <div class="sp-panel" id="tab-wpp"><div class="wpp"><div class="wpp-h"><div class="wpp-av">✂️</div><div class="wpp-i"><b>Barbearia Rafael</b><small>bot ativo 24h</small></div></div><div class="wpp-b" id="wpp-msgs"><div class="wm in">Oi! Quero marcar um corte pra amanhã com o Rafael <span class="wmt">21:30</span></div></div></div></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 3 FIDELIDADE -->
+<div class="page" id="pg-fidelidade">
+  <div class="flow-wrap">
+    <div class="fw-title">Programa de Fidelidade · Pontos</div>
+    <div class="fw-sub">Sem app, sem cadastro complicado. Tudo pelo WhatsApp que o cliente já usa.</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.5rem">
+      <div style="background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:1.5rem">
+        <div style="font-size:.78rem;font-weight:600;margin-bottom:1.25rem">🏆 Como funciona o programa</div>
+        <div style="display:flex;flex-direction:column;gap:.75rem">
+          <div style="display:flex;align-items:flex-start;gap:.9rem;padding:1rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px">
+            <div style="width:36px;height:36px;background:#2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">1️⃣</div>
+            <div><div style="font-size:.82rem;font-weight:600;margin-bottom:.25rem">Cada visita = 1 ponto</div><div style="font-size:.7rem;color:var(--muted)">Após cada corte, sistema credita o ponto automaticamente e envia saldo atualizado no WhatsApp</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;padding:1rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px">
+            <div style="width:36px;height:36px;background:#2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">5️⃣</div>
+            <div><div style="font-size:.82rem;font-weight:600;margin-bottom:.25rem">5 pontos = 1 corte grátis</div><div style="font-size:.7rem;color:var(--muted)">Sistema detecta automaticamente e manda a conquista: "Parabéns! Seu próximo corte é por nossa conta 🎉"</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;padding:1rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px">
+            <div style="width:36px;height:36px;background:#2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">💬</div>
+            <div><div style="font-size:.82rem;font-weight:600;margin-bottom:.25rem">Cliente consulta saldo quando quiser</div><div style="font-size:.7rem;color:var(--muted)">Manda "PONTOS" no WhatsApp → recebe saldo em segundos. Sem app, sem senha, sem complicação.</div></div>
+          </div>
+          <div style="display:flex;align-items:flex-start;gap:.9rem;padding:1rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px">
+            <div style="width:36px;height:36px;background:#2d3748;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;flex-shrink:0">🎁</div>
+            <div><div style="font-size:.82rem;font-weight:600;margin-bottom:.25rem">Promoções exclusivas para fiéis</div><div style="font-size:.7rem;color:var(--muted)">Clientes com 3+ visitas recebem ofertas exclusivas antes dos demais. Sistema segmenta automaticamente.</div></div>
+          </div>
+        </div>
+      </div>
+      <div style="background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:1.5rem">
+        <div style="font-size:.78rem;font-weight:600;margin-bottom:1.25rem">👥 Top Clientes · Saldo de Pontos</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem">
+          <div style="display:flex;align-items:center;gap:.75rem;background:var(--bg3);border:1px solid rgba(245,158,11,.15);border-radius:8px;padding:.75rem 1rem">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(245,158,11,.15);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🥇</div>
+            <div style="flex:1"><div style="font-size:.77rem;font-weight:600">Rodrigo Alves</div><div style="font-size:.62rem;color:var(--muted)">12 visitas · cliente há 4 meses</div></div>
+            <div style="text-align:right"><div style="font-size:.85rem;font-weight:700;color:#fde68a;font-family:'JetBrains Mono',monospace">4 pts</div><div style="font-size:.58rem;color:var(--muted)">1 para grátis!</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px;padding:.75rem 1rem">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(226,232,240,.06);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🥈</div>
+            <div style="flex:1"><div style="font-size:.77rem;font-weight:600">Carlos Mendes</div><div style="font-size:.62rem;color:var(--muted)">9 visitas · cliente há 3 meses</div></div>
+            <div style="text-align:right"><div style="font-size:.85rem;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace">3 pts</div><div style="font-size:.58rem;color:var(--muted)">2 para grátis</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px;padding:.75rem 1rem">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(226,232,240,.06);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🥉</div>
+            <div style="flex:1"><div style="font-size:.77rem;font-weight:600">João Paulo</div><div style="font-size:.62rem;color:var(--muted)">8 visitas · cliente há 2 meses</div></div>
+            <div style="text-align:right"><div style="font-size:.85rem;font-weight:700;color:#e2e8f0;font-family:'JetBrains Mono',monospace">3 pts</div><div style="font-size:.58rem;color:var(--muted)">2 para grátis</div></div>
+          </div>
+          <div style="display:flex;align-items:center;gap:.75rem;background:var(--bg3);border:1px solid var(--line2);border-radius:8px;padding:.75rem 1rem">
+            <div style="width:32px;height:32px;border-radius:50%;background:rgba(16,185,129,.1);display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0">🎉</div>
+            <div style="flex:1"><div style="font-size:.77rem;font-weight:600">Marcelo Souza</div><div style="font-size:.62rem;color:var(--g2)">RESGATOU corte grátis na semana passada!</div></div>
+            <div style="text-align:right"><div style="font-size:.85rem;font-weight:700;color:var(--g2);font-family:'JetBrains Mono',monospace">0 pts</div><div style="font-size:.58rem;color:var(--muted)">resgatou ✓</div></div>
+          </div>
+          <div style="margin-top:.75rem;padding:.75rem;background:rgba(245,158,11,.05);border:1px solid rgba(245,158,11,.15);border-radius:8px;font-size:.68rem"><strong style="color:#fde68a;display:block;margin-bottom:.35rem">📊 Resumo do programa</strong><span style="color:var(--muted)">Clientes ativos: 47 · Pontos emitidos: 183 · Resgates: 8 · Taxa de retorno: <strong style="color:#fde68a">+60%</strong></span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PAGE 4 METRICS -->
+<div class="page" id="pg-metrics">
+  <div class="m-wrap">
+    <div class="fw-title">Resultados · Últimos 30 dias</div>
+    <div class="fw-sub">Impacto real da automação no faturamento e na fidelização</div>
+    <div class="m-grid">
+      <div class="mk"><span class="mk-ic">❌</span><div class="mk-v">-82%</div><div class="mk-l">No-shows</div><div class="mk-d">↓ Era 5/semana · Agora 0.9/semana</div></div>
+      <div class="mk"><span class="mk-ic">🔄</span><div class="mk-v">+60%</div><div class="mk-l">Retorno de inativos</div><div class="mk-d">↑ 18 clientes reativados esse mês</div></div>
+      <div class="mk"><span class="mk-ic">🏆</span><div class="mk-v">47</div><div class="mk-l">Clientes no programa</div><div class="mk-d">↑ 12 novos essa semana</div></div>
+      <div class="mk"><span class="mk-ic">💰</span><div class="mk-v">R$2.9k</div><div class="mk-l">Receita adicional/mês</div><div class="mk-d">↑ vs antes da automação</div></div>
+    </div>
+    <div class="m2">
+      <div class="m2c">
+        <div class="m2c-t">📊 Como os clientes agendam</div>
+        <div class="br"><span class="br-l">WhatsApp Bot</span><div class="br-w"><div class="br-b" style="width:72%;background:#4a5568"></div></div><span class="br-v">72%</span></div>
+        <div class="br"><span class="br-l">Direto c/ barbeiro</span><div class="br-w"><div class="br-b" style="width:18%;background:#3b82f6"></div></div><span class="br-v">18%</span></div>
+        <div class="br"><span class="br-l">Reativação auto</span><div class="br-w"><div class="br-b" style="width:10%;background:#a855f7"></div></div><span class="br-v">10%</span></div>
+        <div style="margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--line2)">
+          <div class="m2c-t">⏰ Horário dos Agendamentos</div>
+          <div class="br"><span class="br-l">09h-18h</span><div class="br-w"><div class="br-b" style="width:55%;background:#4a5568"></div></div><span class="br-v">55%</span></div>
+          <div class="br"><span class="br-l">18h-22h</span><div class="br-w"><div class="br-b" style="width:33%;background:#f59e0b"></div></div><span class="br-v">33%</span></div>
+          <div class="br"><span class="br-l">22h-09h</span><div class="br-w"><div class="br-b" style="width:12%;background:#ef4444"></div></div><span class="br-v">12%</span></div>
+        </div>
+      </div>
+      <div class="m2c">
+        <div class="m2c-t">📈 Indicadores chave</div>
+        <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem">
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(74,85,104,.1);border:1px solid rgba(74,85,104,.2);border-radius:6px"><span style="color:var(--muted)">Tempo médio para agendar</span><span style="color:#e2e8f0;font-family:'JetBrains Mono',monospace">&lt; 2 min</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(74,85,104,.1);border:1px solid rgba(74,85,104,.2);border-radius:6px"><span style="color:var(--muted)">Clientes no programa de pontos</span><span style="color:#e2e8f0;font-family:'JetBrains Mono',monospace">47 clientes</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(74,85,104,.1);border:1px solid rgba(74,85,104,.2);border-radius:6px"><span style="color:var(--muted)">Frequência média de retorno</span><span style="color:#e2e8f0;font-family:'JetBrains Mono',monospace">22 dias</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(74,85,104,.1);border:1px solid rgba(74,85,104,.2);border-radius:6px"><span style="color:var(--muted)">Ticket médio com upsell</span><span style="color:#e2e8f0;font-family:'JetBrains Mono',monospace">+22%</span></div>
+          <div style="margin-top:.5rem;padding:.75rem;background:rgba(74,85,104,.12);border:1px solid rgba(74,85,104,.25);border-radius:8px;font-size:.7rem;text-align:center;color:#e2e8f0">Sistema ativo há 60 dias · <strong>R$ 5.800 de retorno acumulado</strong></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="play-bar" id="playBar" style="display:none">
+  <div class="pb-steps" id="pbSteps"></div>
+  <span class="pb-lbl" id="pbLbl">Pronto para executar</span>
+  <button class="pb-btn pb-play" id="btnPlay" onclick="nextStep()">▶ Executar</button>
+  <button class="pb-btn pb-reset" onclick="resetFlow()">↺ Reiniciar</button>
+</div>
+
+<script>
+function showPage(p,btn){
+  document.querySelectorAll('.page').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.tn').forEach(x=>{x.classList.remove('act');x.classList.add('idle')});
+  document.getElementById('pg-'+p).classList.add('on');
+  if(btn){btn.classList.add('act');btn.classList.remove('idle');}
+  document.getElementById('playBar').style.display=p==='flow'?'flex':'none';
+  if(p==='flow')initFlow();
+}
+function switchTab(btn,t){
+  document.querySelectorAll('.sp-tab').forEach(x=>x.classList.remove('on'));
+  document.querySelectorAll('.sp-panel').forEach(x=>x.classList.remove('on'));
+  btn.classList.add('on');document.getElementById('tab-'+t).classList.add('on');
+}
+const STEPS=[
+  {stage:0,nodes:['n0a','n0b','n0c','n0d'],label:'Cliente agendando via WhatsApp às 21h30...',
+   logs:[['i','21:30:11','Webhook recebido · WhatsApp · Cliente novo'],['i','21:30:12','GPT-4: intenção AGENDAMENTO · Rafael'],['i','21:30:13','Verificando agenda: amanhã 15h disponível'],['s','21:30:14','Horário confirmado · cliente notificado']],
+   wpp:'João! ✂️\n\nSeu corte com Rafael está confirmado:\n📅 Amanhã às 15h00\n📍 Rua XV, 234 — 2º Andar\n\nAté amanhã! 😎'},
+  {stage:1,nodes:['n1a','n1b','n1c','n1d'],label:'Enviando lembrete + creditando pontos...',
+   logs:[['i','14:00:01','Scheduler: consultas de amanhã'],['s','14:00:03','Lembrete enviado para João'],['s','15:05:00','João confirmou: SIM ✓'],['s','15:05:01','Visita registrada · 1 ponto creditado'],['s','15:05:01','Total João: 1/5 pontos']],
+   wpp:'João! ✂️ Acabei de ver que você ficou incrível!\n\n🏆 Você ganhou +1 ponto de fidelidade!\nSeu saldo atual: 1/5 pontos\n\nNa 5ª visita o corte é por nossa conta! 🎉'},
+  {stage:2,nodes:['n2a','n2b','n2c','n2d'],label:'Coletando NPS e sugerindo upsell...',
+   logs:[['i','17:00:00','NPS automático enviado para João'],['s','17:03:22','João respondeu: 5 ⭐'],['p','17:03:23','Solicitando indicação automática'],['p','17:03:24','Sugerindo hidratação na próxima visita']],
+   wpp:'Que bom que gostou João! 😊\n\nVocê conhece alguém que precisaria de um bom barbeiro? Compartilha o link e seu amigo ganha 10% de desconto na primeira visita! 🔗\n\nNa próxima, que tal adicionar uma hidratação? R$35 apenas 💪'},
+  {stage:3,nodes:['n3a','n3b','n3c','n3d'],label:'Reativando João após 25 dias sem visita...',
+   logs:[['i','11:00:01','Monitor: João sem visita há 25 dias'],['i','11:00:02','IA gerando mensagem personalizada'],['s','11:00:04','Mensagem enviada para João'],['s','11:00:31','João respondeu SIM'],['s','11:00:45','Agendado: amanhã 16h com Rafael']],
+   wpp:'Ei João! 💈\n\nFaz 25 dias desde seu último corte com o Rafael — já tá na hora!\n\nTem horário amanhã às 16h. Quer confirmar?\n\nResponde SIM que a gente garante! 😎'}
+];
+let cur=-1;
+function initFlow(){
+  const pb=document.getElementById('pbSteps');
+  pb.innerHTML=STEPS.map((_,i)=>`<div class="pb-s" id="pbs${i}"></div>`).join('');
+  resetFlow();
+}
+function resetFlow(){
+  cur=-1;
+  STEPS.forEach((_,i)=>{
+    const s=document.getElementById('s'+i);if(!s)return;
+    s.className='stage';
+    const b=document.getElementById('b'+i);if(b){b.className='stage-badge sb-idle';b.textContent='aguardando';}
+    const pbs=document.getElementById('pbs'+i);if(pbs)pbs.className='pb-s';
+  });
+  document.querySelectorAll('[id^="n"]').forEach(n=>{if(/^n\d/.test(n.id))n.className='node-box';});
+  document.getElementById('pbLbl').textContent='Pronto para executar';
+  document.getElementById('btnPlay').textContent='▶ Executar';
+  document.getElementById('tab-log').innerHTML='<div class="lg i"><span class="lg-ts">sistema</span>Aguardando execução...</div>';
+  document.getElementById('wpp-msgs').innerHTML='<div class="wm in">Oi! Quero marcar um corte pra amanhã com o Rafael <span class="wmt">21:30</span></div>';
+}
+function nextStep(){
+  if(cur>=STEPS.length-1){resetFlow();return;}
+  if(cur>=0){
+    document.getElementById('s'+cur).className='stage done-stage';
+    const b=document.getElementById('b'+cur);if(b){b.className='stage-badge sb-done';b.textContent='concluído ✓';}
+    STEPS[cur].nodes.forEach(n=>{const el=document.getElementById(n);if(el)el.className='node-box n-done';});
+    const pbs=document.getElementById('pbs'+cur);if(pbs)pbs.className='pb-s dn';
+  }
+  cur++;
+  const step=STEPS[cur];
+  document.getElementById('s'+cur).className='stage active-stage';
+  const bc=document.getElementById('b'+cur);if(bc){bc.className='stage-badge sb-run';bc.textContent='executando...';}
+  const pbsc=document.getElementById('pbs'+cur);if(pbsc)pbsc.className='pb-s ac';
+  document.getElementById('pbLbl').textContent=step.label;
+  document.getElementById('btnPlay').textContent=cur>=STEPS.length-1?'↺ Reiniciar':'▶ Próxima etapa';
+  step.nodes.forEach((nid,i)=>{
+    setTimeout(()=>{
+      step.nodes.slice(0,i).forEach(n=>{const el=document.getElementById(n);if(el)el.className='node-box n-done';});
+      const el=document.getElementById(nid);if(el)el.className='node-box n-run';
+    },i*400);
+  });
+  const logEl=document.getElementById('tab-log');
+  step.logs.forEach((lg,i)=>{
+    setTimeout(()=>{
+      const d=document.createElement('div');d.className=`lg ${lg[0]} new`;
+      d.innerHTML=`<span class="lg-ts">${lg[1]}</span>${lg[2]}`;
+      logEl.appendChild(d);logEl.scrollTop=logEl.scrollHeight;
+    },i*450);
+  });
+  setTimeout(()=>{
+    const wb=document.getElementById('wpp-msgs');
+    const m=document.createElement('div');m.className='wm out new';
+    m.innerHTML=step.wpp+'<span class="wmt">agora</span>';
+    wb.appendChild(m);wb.scrollTop=wb.scrollHeight;
+  },step.nodes.length*400+200);
+}
+</script>
+</body>
+</html>

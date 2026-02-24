@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Agência de Performance · Dashboard Unificado · Paulo Growth AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--bg2:#fff;--bg3:#f0ede8;
+  --ink:#0f0e0c;--ink2:#3d3a35;--ink3:#8a857c;
+  --cyan:#00b8a9;--cyan2:#00d4c3;--cyan3:#e6faf8;
+  --card:#fff;--line:#e8e3dc;--line2:#f0ede8;
+  --shadow:0 1px 3px rgba(15,14,12,.06),0 8px 24px rgba(15,14,12,.08);
+  --shadow-lg:0 4px 6px rgba(15,14,12,.04),0 20px 60px rgba(15,14,12,.12);
+  --accent:#00b8a9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;font-weight:400;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,244,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-ic{width:34px;height:34px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.nav-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-name span{color:var(--cyan)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:var(--ink);color:#fff!important;padding:.5rem 1.25rem;border-radius:7px;font-size:.78rem;font-weight:700;transition:all .2s}
+.nav-cta:hover{background:var(--cyan)!important;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,184,169,.35)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:1.25rem 3rem 0;display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--ink3);position:relative;z-index:1}
+.breadcrumb a{color:var(--ink3);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--cyan)}
+.breadcrumb-sep{opacity:.4}
+
+/* ── CASE HERO ── */
+.case-hero{max-width:1200px;margin:0 auto;padding:3.5rem 3rem 4rem;position:relative;z-index:1}
+.ch-top{display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;margin-bottom:4rem}
+.ch-category{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);padding:.35rem 1rem;border-radius:100px;font-size:.72rem;font-weight:600;color:var(--ink3);letter-spacing:.05em;margin-bottom:1.25rem}
+.ch-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.07;letter-spacing:-.04em;margin-bottom:1.25rem}
+.ch-title em{font-style:italic;color:var(--accent)}
+.ch-sub{font-size:1rem;color:var(--ink2);line-height:1.8;margin-bottom:2rem}
+.ch-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:#fff;padding:.85rem 2rem;border-radius:10px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,184,169,.35)}
+.btn-ghost{color:var(--ink2);padding:.85rem 1.5rem;font-size:.85rem;font-weight:600;text-decoration:none;border-bottom:1px solid var(--line);display:inline-flex;align-items:center;gap:.4rem;transition:all .2s}
+.btn-ghost:hover{color:var(--cyan);border-color:var(--cyan)}
+
+/* ── METRICS CARD (hero right) ── */
+.metrics-card{background:var(--ink);border-radius:20px;padding:2rem;position:relative;overflow:hidden}
+.metrics-card::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,184,169,.15),transparent 70%);pointer-events:none}
+.mc-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.25rem}
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.mc-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:1.1rem}
+.mc-val{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:.3rem}
+.mc-desc{font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+.container{max-width:1200px;margin:0 auto;padding:0 3rem}
+.section-pad{padding:5.5rem 0}
+.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
+.sec-eyebrow::before{content:'';width:16px;height:1px;background:var(--accent)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:.85rem}
+.sec-sub{font-size:.9rem;color:var(--ink2);line-height:1.8;max-width:580px}
+
+/* ── PAIN POINTS ── */
+.pain-section{background:var(--ink);padding:5.5rem 0}
+.pain-section .sec-eyebrow{color:rgba(0,212,195,.65)}
+.pain-section .sec-eyebrow::before{background:rgba(0,212,195,.65)}
+.pain-section .sec-title{color:#fff}
+.pain-section .sec-sub{color:rgba(255,255,255,.5)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;margin-top:3rem}
+.pain-card{background:rgba(255,255,255,.03);padding:2rem 1.75rem;transition:background .3s}
+.pain-card:hover{background:rgba(255,255,255,.06)}
+.pain-ic{font-size:1.8rem;display:block;margin-bottom:.9rem}
+.pain-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.5rem;line-height:1.35}
+.pain-desc{font-size:.77rem;color:rgba(255,255,255,.48);line-height:1.75}
+.pain-cost{margin-top:.9rem;font-size:.72rem;color:#fca5a5;font-family:'JetBrains Mono',monospace;padding:.3rem .7rem;background:rgba(239,68,68,.08);border-radius:5px;display:inline-block}
+
+/* ── HOW IT WORKS ── */
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem}
+.step-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:1.25rem;padding:1.5rem 0;border-bottom:1px solid var(--line2)}
+.step-item:last-child{border-bottom:none}
+.step-num{width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.1rem}
+.step-content{}
+.step-title{font-size:.92rem;font-weight:700;margin-bottom:.35rem}
+.step-desc{font-size:.78rem;color:var(--ink2);line-height:1.7}
+.step-result{margin-top:.5rem;font-size:.7rem;color:var(--cyan);font-family:'JetBrains Mono',monospace}
+
+/* ── FLOW VISUAL ── */
+.flow-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow)}
+.fc-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.1rem}
+.flow-nodes{display:flex;flex-direction:column;gap:.4rem}
+.fn{display:flex;align-items:center;gap:.85rem;background:var(--bg3);border:1px solid var(--line2);border-radius:9px;padding:.75rem 1rem;transition:all .35s;cursor:pointer}
+.fn:hover{border-color:var(--accent);background:var(--cyan3)}
+.fn-ic{font-size:1.1rem;flex-shrink:0}
+.fn-info{flex:1}
+.fn-name{font-size:.8rem;font-weight:600;margin-bottom:.1rem}
+.fn-tech{font-size:.62rem;color:var(--ink3);font-family:'JetBrains Mono',monospace}
+.fn-arrow{text-align:center;color:var(--line);font-size:.7rem;padding:.1rem 0}
+.fn-badge{font-size:.58rem;padding:.18rem .5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;background:var(--cyan3);color:var(--cyan);border:1px solid rgba(0,184,169,.2)}
+
+/* ── COMPARISON ── */
+.comp-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.comp-col{border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.comp-hdr{padding:1rem 1.5rem;display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:700}
+.comp-hdr.bad{background:#fdecea;color:#c62828}
+.comp-hdr.good{background:#e8f5e9;color:#2e7d32}
+.comp-list{background:var(--card);border:1px solid var(--line)}
+.comp-item{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.5rem;border-bottom:1px solid var(--line2)}
+.comp-item:last-child{border-bottom:none}
+.comp-item-ic{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.comp-item-text{font-size:.8rem;color:var(--ink2);line-height:1.6}
+.comp-item-text strong{display:block;color:var(--ink);font-size:.83rem;margin-bottom:.12rem}
+
+/* ── ROI TABLE ── */
+.roi-table{width:100%;border-collapse:collapse;margin-top:2rem;border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+.roi-table th{background:var(--ink);color:#fff;padding:.85rem 1.25rem;text-align:left;font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.roi-table td{padding:.85rem 1.25rem;font-size:.8rem;color:var(--ink2);border-bottom:1px solid var(--line2)}
+.roi-table tr:last-child td{border-bottom:none}
+.roi-table tr:nth-child(even) td{background:var(--bg3)}
+.roi-val{color:var(--cyan);font-weight:700;font-family:'JetBrains Mono',monospace}
+
+/* ── TECH STACK ── */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.tech-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.25rem;text-align:center;box-shadow:var(--shadow);transition:all .25s}
+.tech-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.tc-ic{font-size:1.8rem;display:block;margin-bottom:.65rem}
+.tc-name{font-size:.82rem;font-weight:700;margin-bottom:.2rem}
+.tc-role{font-size:.68rem;color:var(--ink3);line-height:1.5}
+.tc-price{margin-top:.6rem;font-size:.65rem;padding:.18rem .5rem;border-radius:5px;font-family:'JetBrains Mono',monospace;display:inline-block}
+.tc-free{background:#e8f5e9;color:#2e7d32}
+.tc-paid{background:#fff3e0;color:#e65100}
+
+/* ── TESTIMONIAL ── */
+.testimonial-card{background:var(--ink);border-radius:16px;padding:2.5rem;margin-top:3rem;position:relative;overflow:hidden}
+.testimonial-card::before{content:'❝';font-family:'Playfair Display',serif;font-size:8rem;color:rgba(0,184,169,.12);position:absolute;top:-1rem;left:1.5rem;line-height:1}
+.tc-quote{font-size:1.05rem;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:1.5rem;font-style:italic;position:relative;z-index:1}
+.tc-author{display:flex;align-items:center;gap:1rem}
+.tc-av{width:44px;height:44px;border-radius:50%;background:rgba(0,184,169,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2px solid rgba(0,184,169,.3)}
+.tc-name{font-size:.9rem;font-weight:700;color:#fff}
+.tc-role{font-size:.72rem;color:rgba(255,255,255,.45)}
+
+/* ── CTA BLOCK ── */
+.cta-block{background:var(--ink);border-radius:20px;padding:3rem;text-align:center;margin-top:5rem}
+.cta-block h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;margin-bottom:.75rem;letter-spacing:-.03em}
+.cta-block p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
+.btn-white{background:#fff;color:var(--ink);padding:.9rem 2.25rem;border-radius:10px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-white:hover{background:var(--cyan);color:#fff;transform:translateY(-2px)}
+
+/* ── OTHER CASES ── */
+.other-cases{padding:5rem 0;background:var(--bg3)}
+.cases-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.mini-case{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:all .25s;display:block}
+.mini-case:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.mini-stripe{height:3px}
+.mini-body{padding:1.25rem}
+.mini-cat{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.mini-title{font-size:.9rem;font-weight:700;line-height:1.3;margin-bottom:.6rem}
+.mini-results{display:flex;gap:1rem}
+.mr{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--accent)}
+.mr-l{font-size:.6rem;color:var(--ink3);font-family:'Manrope',sans-serif;font-weight:400}
+
+/* ── FOOTER ── */
+footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.foot-brand{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700}
+.foot-brand span{color:var(--cyan)}
+.foot-copy{font-size:.72rem;color:var(--ink3)}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.1s}[data-d="2"]{transition-delay:.2s}[data-d="3"]{transition-delay:.3s}[data-d="4"]{transition-delay:.4s}[data-d="5"]{transition-delay:.5s}
+
+@media(max-width:768px){
+  nav{padding:.85rem 1.25rem}
+  .nav-links{display:none}
+  .container,.case-hero,.breadcrumb{padding-left:1.25rem;padding-right:1.25rem}
+  .ch-top,.steps-grid,.comp-wrap,.tech-grid,.cases-row{grid-template-columns:1fr}
+  .pain-grid{grid-template-columns:1fr}
+  .mc-grid{grid-template-columns:1fr 1fr}
+  footer{flex-direction:column;gap:.75rem;text-align:center}
+}
+</style>
+<style>:root{--accent:#6366f1;--cyan:#6366f1;--cyan2:#818cf8;--cyan3:#eef2ff;}
+.sec-eyebrow,.mc-val,.cr-n,.roi-val,.mr{color:#6366f1!important}
+.sec-eyebrow::before{background:#6366f1!important}
+.fn:hover{border-color:#6366f1!important;background:#eef2ff!important}
+.fn-badge{background:#eef2ff!important;color:#6366f1!important;border-color:rgba(99,102,241,.2)!important}
+.btn-primary:hover{background:#6366f1!important}
+.tech-card:hover{border-color:#6366f1!important}
+.step-num{background:#6366f1!important}
+</style>
+</head>
+<body>
+<nav>
+  <a href="portfolio-paulo.html" class="nav-brand">
+    <div class="nav-ic">⚡</div>
+    <div class="nav-name">Paulo <span>Growth AI</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="portfolio-paulo.html#cases">← Todos os cases</a>
+    <a href="portfolio-paulo.html#precos">Preços</a>
+    <a href="portfolio-paulo.html#faq">FAQ</a>
+    <a href="https://wa.me/5511951131232" class="nav-cta" target="_blank">💬 Falar Agora</a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="portfolio-paulo.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Agência de Performance</span></div>
+
+<section class="case-hero">
+<div class="ch-top">
+  <div class="reveal">
+    <div class="ch-category" style="border-color:#e0e7ff;color:#6366f1;background:#eef2ff">📊 Agência de Performance Digital</div>
+    <h1 class="ch-title">Dashboard que une <em>6 plataformas</em> e chega todo dia às 9h automaticamente.</h1>
+    <p class="ch-sub">Gestores passavam 2 horas por dia abrindo Google Ads, Meta, TikTok, GA4, Programática e Afiliados separadamente. Sem visão consolidada, sem alertas de anomalia. Criamos um pipeline que faz tudo automaticamente.</p>
+    <div class="ch-actions">
+      <a href="https://wa.me/5511951131232?text=Quero%20dashboard%20unificado%20para%20minha%20agência" class="btn-primary" target="_blank">💬 Quero esse dashboard</a>
+      <a href="simulacao-agencia-performance.html" class="btn-ghost" target="_blank">▶ Ver simulação ao vivo</a>
+    </div>
+  </div>
+  <div class="metrics-card reveal" data-d="2">
+    <div class="mc-label">// o que o sistema entrega</div>
+    <div class="mc-grid">
+      <div class="mc-item"><div class="mc-val">6</div><div class="mc-desc">Plataformas consolidadas em 1 dashboard</div></div>
+      <div class="mc-item"><div class="mc-val">9h</div><div class="mc-desc">Relatório chegando todo dia sem precisar abrir nada</div></div>
+      <div class="mc-item"><div class="mc-val">Zero</div><div class="mc-desc">Trabalho manual de coleta de dados</div></div>
+      <div class="mc-item"><div class="mc-val">Real-time</div><div class="mc-desc">Alertas automáticos de anomalia de ROAS/CPA</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="pain-section">
+<div class="container">
+  <div class="sec-eyebrow reveal">O problema</div>
+  <h2 class="sec-title reveal">2 horas por dia jogadas fora em coleta manual.</h2>
+  <div class="pain-grid" style="grid-template-columns:repeat(3,1fr)">
+    <div class="pain-card reveal" data-d="1">
+      <span class="pain-ic">🔄</span>
+      <div class="pain-title">7+ abas abertas todo dia</div>
+      <p class="pain-desc">Google Ads, Meta Business, TikTok Ads, GA4, DSP Programática, Afiliados e ainda o Excel para consolidar. Processo repetitivo, demorado e sujeito a erro humano.</p>
+      <span class="pain-cost">Custo: 2h/dia × R$80/h × 22 dias = R$3.520/mês</span>
+    </div>
+    <div class="pain-card reveal" data-d="2">
+      <span class="pain-ic">📉</span>
+      <div class="pain-title">Sem visão de ROAS consolidado real</div>
+      <p class="pain-desc">Cada plataforma mostra um número diferente com atribuições distintas. Impossível calcular o ROI real do investimento total sem compilar na mão — e quando terminava, os dados já estavam desatualizados.</p>
+      <span class="pain-cost">Custo: decisões de orçamento baseadas em dados errados</span>
+    </div>
+    <div class="pain-card reveal" data-d="3">
+      <span class="pain-ic">🚨</span>
+      <div class="pain-title">Anomalias detectadas tarde demais</div>
+      <p class="pain-desc">ROAS caiu 40% numa campanha? CPA de uma ad set disparou? Ninguém sabia até a próxima vez que alguém olhava aquela plataforma específica. Dinheiro sendo queimado em silêncio.</p>
+      <span class="pain-cost">Custo: budget desperdiçado em campanhas com problema</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad">
+<div class="container">
+  <div class="sec-eyebrow reveal">A solução</div>
+  <h2 class="sec-title reveal">Pipeline automático de dados.<br>Relatório às 9h sem tocar em nada.</h2>
+  <div class="steps-grid">
+    <div class="step-list reveal">
+      <div class="step-item"><div class="step-num">01</div><div class="step-content"><div class="step-title">Coleta automática das 6 plataformas</div><div class="step-desc">n8n se conecta via API com Google Ads, Meta Graph, TikTok Business, GA4, plataforma de DSP e rede de afiliados. Todo dia às 6h coleta automaticamente: investimento, impressões, cliques, conversões e receita.</div><div class="step-result">→ Dados do dia disponíveis às 6:30h</div></div></div>
+      <div class="step-item"><div class="step-num">02</div><div class="step-content"><div class="step-title">Consolidação e cálculo de métricas</div><div class="step-desc">Dados unificados em modelo único com atribuição configurada pelo cliente. Cálculo automático de ROAS total, CPA blended, parcela de investimento por canal e comparativo com período anterior.</div><div class="step-result">→ Visão real do retorno total do investimento</div></div></div>
+      <div class="step-item"><div class="step-num">03</div><div class="step-content"><div class="step-title">Detecção de anomalias por IA</div><div class="step-desc">Sistema compara métricas do dia com a média dos últimos 7 dias. Variação acima do threshold configurado dispara alerta imediato no WhatsApp do gestor: "ROAS do Meta caiu 35% — verificar campanha X".</div><div class="step-result">→ Problemas detectados antes do gestor chegar</div></div></div>
+      <div class="step-item"><div class="step-num">04</div><div class="step-content"><div class="step-title">Relatório diário às 9h</div><div class="step-desc">Resumo executivo no WhatsApp e e-mail: performance por canal, destaques positivos e negativos, budget consumido vs planejado, projeção do mês. Dashboard visual em Google Sheets atualizado automaticamente.</div><div class="step-result">→ Gestor começa o dia já informado</div></div></div>
+    </div>
+    <div class="flow-card reveal" data-d="2">
+      <div class="fc-label">// pipeline diário · 6h às 9h</div>
+      <div class="flow-nodes">
+        <div class="fn"><span class="fn-ic">⏰</span><div class="fn-info"><div class="fn-name">Trigger Diário</div><div class="fn-tech">Todo dia às 06:00</div></div><span class="fn-badge">schedule</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">📡</span><div class="fn-info"><div class="fn-name">Coleta via API</div><div class="fn-tech">Google · Meta · TikTok · GA4 · DSP · Afil.</div></div><span class="fn-badge">collect</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">🧮</span><div class="fn-info"><div class="fn-name">Consolida e Calcula</div><div class="fn-tech">ROAS · CPA · Budget · Comparativo</div></div><span class="fn-badge">process</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">🚨</span><div class="fn-info"><div class="fn-name">Detecção de Anomalia</div><div class="fn-tech">IA · Variação vs média 7 dias</div></div><span class="fn-badge">alert</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">📊</span><div class="fn-info"><div class="fn-name">Atualiza Dashboard</div><div class="fn-tech">Google Sheets · Looker Studio</div></div><span class="fn-badge">update</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">💬</span><div class="fn-info"><div class="fn-name">Relatório 9h</div><div class="fn-tech">WhatsApp · E-mail · Gestores</div></div><span class="fn-badge">deliver</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad" style="background:var(--bg3);padding:5rem 0">
+<div class="container">
+  <div class="sec-eyebrow reveal">Stack tecnológica</div>
+  <h2 class="sec-title reveal">APIs e ferramentas integradas.</h2>
+  <div class="tech-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="tech-card reveal" data-d="1"><span class="tc-ic">⚡</span><div class="tc-name">n8n</div><div class="tc-role">Orquestrador — conecta todas as APIs e executa o pipeline</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="2"><span class="tc-ic">📊</span><div class="tc-name">Google Ads API</div><div class="tc-role">Campanhas Search, Display e YouTube</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="3"><span class="tc-ic">📘</span><div class="tc-name">Meta Graph API</div><div class="tc-role">Facebook Ads e Instagram Ads unificados</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="4"><span class="tc-ic">🎵</span><div class="tc-name">TikTok Business API</div><div class="tc-role">Campanhas TikTok Ads em tempo real</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="1"><span class="tc-ic">📈</span><div class="tc-name">GA4 API</div><div class="tc-role">Dados de sessão, conversão e comportamento</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="2"><span class="tc-ic">📋</span><div class="tc-name">Google Sheets</div><div class="tc-role">Banco de dados e dashboard atualizado em tempo real</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="3"><span class="tc-ic">📉</span><div class="tc-name">Looker Studio</div><div class="tc-role">Visualização avançada dos dados consolidados</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="4"><span class="tc-ic">💬</span><div class="tc-name">WhatsApp API</div><div class="tc-role">Relatório e alertas de anomalia para gestores</div><span class="tc-price tc-paid">~R$97/mês</span></div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad">
+<div class="container">
+  <div class="cta-block reveal">
+    <h3>Sua agência ainda abre<br>7 plataformas todo dia?</h3>
+    <p>Em 2 semanas entrego o pipeline rodando. Seus gestores começam o dia já com o relatório no WhatsApp e tempo para o que importa: otimizar campanhas.</p>
+    <a href="https://wa.me/5511951131232?text=Quero%20dashboard%20automático%20para%20minha%20agência" class="btn-white" target="_blank">💬 Quero o diagnóstico gratuito</a>
+  </div>
+</div>
+</section>
+<section class="other-cases">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Explore mais cases</div>
+    <h2 class="sec-title reveal">Outros negócios que<br>já automatizamos.</h2>
+    <div class="cases-row">
+      
+      <a href="case-corretora.html" class="mini-case reveal" data-d="1">
+        <div class="mini-stripe" style="background:#2563eb"></div>
+        <div class="mini-body">
+          <div class="mini-cat">🛡️ Corretora de Seguros</div>
+          <div class="mini-title">Sistema 360° para corretoras</div>
+          <div class="mini-results">
+            <div><div class="mr"><2s</div><div class="mr-l">Resp. lead</div></div>
+            <div><div class="mr">3×</div><div class="mr-l">Reuniões</div></div>
+          </div>
+        </div>
+      </a>
+      <a href="case-basquete.html" class="mini-case reveal" data-d="2">
+        <div class="mini-stripe" style="background:#ff6b00"></div>
+        <div class="mini-body">
+          <div class="mini-cat">🏀 App de Basquete</div>
+          <div class="mini-title">GPS + IA para atletas</div>
+          <div class="mini-results">
+            <div><div class="mr">GPS</div><div class="mr-l">Km auto</div></div>
+            <div><div class="mr">92/100</div><div class="mr-l">Score IA</div></div>
+          </div>
+        </div>
+      </a>
+      <a href="case-clinica.html" class="mini-case reveal" data-d="3">
+        <div class="mini-stripe" style="background:#10b981"></div>
+        <div class="mini-body">
+          <div class="mini-cat">🏥 Clínica Médica</div>
+          <div class="mini-title">Agendamento e fidelização</div>
+          <div class="mini-results">
+            <div><div class="mr">-70%</div><div class="mr-l">Faltas</div></div>
+            <div><div class="mr">+45%</div><div class="mr-l">Retorno</div></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="foot-brand">Paulo <span>Growth AI</span></div>
+  <div class="foot-copy">© 2025 · São Paulo, SP · (11) 95113-1232</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Flow node animation
+let fi=0;
+const fns=document.querySelectorAll('.fn');
+if(fns.length){
+  setInterval(()=>{
+    fns.forEach((n,i)=>{
+      n.style.borderColor=i===fi?'var(--accent)':'';
+      n.style.background=i===fi?'var(--cyan3)':'';
+    });
+    fi=(fi+1)%fns.length;
+  },1100);
+}
+</script>
+</body></html>

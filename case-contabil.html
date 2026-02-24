@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Escritório Contábil · Automação de Processos · Paulo Growth AI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#f8f7f4;--bg2:#fff;--bg3:#f0ede8;
+  --ink:#0f0e0c;--ink2:#3d3a35;--ink3:#8a857c;
+  --cyan:#00b8a9;--cyan2:#00d4c3;--cyan3:#e6faf8;
+  --card:#fff;--line:#e8e3dc;--line2:#f0ede8;
+  --shadow:0 1px 3px rgba(15,14,12,.06),0 8px 24px rgba(15,14,12,.08);
+  --shadow-lg:0 4px 6px rgba(15,14,12,.04),0 20px 60px rgba(15,14,12,.12);
+  --accent:#00b8a9;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--ink);font-family:'Manrope',sans-serif;font-weight:400;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--accent);border-radius:2px}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");pointer-events:none;z-index:0;opacity:.4}
+
+nav{position:sticky;top:0;z-index:100;background:rgba(248,247,244,.95);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.nav-brand{display:flex;align-items:center;gap:.75rem;text-decoration:none}
+.nav-ic{width:34px;height:34px;background:var(--ink);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.nav-name{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;letter-spacing:-.02em;color:var(--ink)}
+.nav-name span{color:var(--cyan)}
+.nav-links{display:flex;gap:1.5rem;align-items:center}
+.nav-links a{font-size:.8rem;font-weight:500;color:var(--ink2);text-decoration:none;transition:color .2s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-cta{background:var(--ink);color:#fff!important;padding:.5rem 1.25rem;border-radius:7px;font-size:.78rem;font-weight:700;transition:all .2s}
+.nav-cta:hover{background:var(--cyan)!important;transform:translateY(-1px);box-shadow:0 4px 16px rgba(0,184,169,.35)}
+
+/* ── BREADCRUMB ── */
+.breadcrumb{max-width:1200px;margin:0 auto;padding:1.25rem 3rem 0;display:flex;align-items:center;gap:.5rem;font-size:.75rem;color:var(--ink3);position:relative;z-index:1}
+.breadcrumb a{color:var(--ink3);text-decoration:none;transition:color .2s}
+.breadcrumb a:hover{color:var(--cyan)}
+.breadcrumb-sep{opacity:.4}
+
+/* ── CASE HERO ── */
+.case-hero{max-width:1200px;margin:0 auto;padding:3.5rem 3rem 4rem;position:relative;z-index:1}
+.ch-top{display:grid;grid-template-columns:1fr 420px;gap:4rem;align-items:center;margin-bottom:4rem}
+.ch-category{display:inline-flex;align-items:center;gap:.5rem;border:1px solid var(--line);padding:.35rem 1rem;border-radius:100px;font-size:.72rem;font-weight:600;color:var(--ink3);letter-spacing:.05em;margin-bottom:1.25rem}
+.ch-title{font-family:'Playfair Display',serif;font-size:clamp(2.2rem,5vw,3.8rem);font-weight:900;line-height:1.07;letter-spacing:-.04em;margin-bottom:1.25rem}
+.ch-title em{font-style:italic;color:var(--accent)}
+.ch-sub{font-size:1rem;color:var(--ink2);line-height:1.8;margin-bottom:2rem}
+.ch-actions{display:flex;gap:1rem;align-items:center;flex-wrap:wrap}
+.btn-primary{background:var(--ink);color:#fff;padding:.85rem 2rem;border-radius:10px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-primary:hover{background:var(--accent);transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,184,169,.35)}
+.btn-ghost{color:var(--ink2);padding:.85rem 1.5rem;font-size:.85rem;font-weight:600;text-decoration:none;border-bottom:1px solid var(--line);display:inline-flex;align-items:center;gap:.4rem;transition:all .2s}
+.btn-ghost:hover{color:var(--cyan);border-color:var(--cyan)}
+
+/* ── METRICS CARD (hero right) ── */
+.metrics-card{background:var(--ink);border-radius:20px;padding:2rem;position:relative;overflow:hidden}
+.metrics-card::before{content:'';position:absolute;top:-40px;right:-40px;width:200px;height:200px;background:radial-gradient(circle,rgba(0,184,169,.15),transparent 70%);pointer-events:none}
+.mc-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:rgba(255,255,255,.35);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.25rem}
+.mc-grid{display:grid;grid-template-columns:1fr 1fr;gap:1.25rem}
+.mc-item{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.07);border-radius:12px;padding:1.1rem}
+.mc-val{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--cyan);line-height:1;margin-bottom:.3rem}
+.mc-desc{font-size:.7rem;color:rgba(255,255,255,.45);line-height:1.5}
+
+/* ── SECTIONS ── */
+section{position:relative;z-index:1}
+.container{max-width:1200px;margin:0 auto;padding:0 3rem}
+.section-pad{padding:5.5rem 0}
+.sec-eyebrow{font-family:'JetBrains Mono',monospace;font-size:.63rem;color:var(--accent);letter-spacing:.18em;text-transform:uppercase;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem}
+.sec-eyebrow::before{content:'';width:16px;height:1px;background:var(--accent)}
+.sec-title{font-family:'Playfair Display',serif;font-size:clamp(1.8rem,3.5vw,2.6rem);font-weight:900;letter-spacing:-.03em;line-height:1.1;margin-bottom:.85rem}
+.sec-sub{font-size:.9rem;color:var(--ink2);line-height:1.8;max-width:580px}
+
+/* ── PAIN POINTS ── */
+.pain-section{background:var(--ink);padding:5.5rem 0}
+.pain-section .sec-eyebrow{color:rgba(0,212,195,.65)}
+.pain-section .sec-eyebrow::before{background:rgba(0,212,195,.65)}
+.pain-section .sec-title{color:#fff}
+.pain-section .sec-sub{color:rgba(255,255,255,.5)}
+.pain-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.07);border-radius:14px;overflow:hidden;margin-top:3rem}
+.pain-card{background:rgba(255,255,255,.03);padding:2rem 1.75rem;transition:background .3s}
+.pain-card:hover{background:rgba(255,255,255,.06)}
+.pain-ic{font-size:1.8rem;display:block;margin-bottom:.9rem}
+.pain-title{font-size:.95rem;font-weight:700;color:#fff;margin-bottom:.5rem;line-height:1.35}
+.pain-desc{font-size:.77rem;color:rgba(255,255,255,.48);line-height:1.75}
+.pain-cost{margin-top:.9rem;font-size:.72rem;color:#fca5a5;font-family:'JetBrains Mono',monospace;padding:.3rem .7rem;background:rgba(239,68,68,.08);border-radius:5px;display:inline-block}
+
+/* ── HOW IT WORKS ── */
+.steps-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:start;margin-top:3rem}
+.step-list{display:flex;flex-direction:column;gap:0}
+.step-item{display:flex;gap:1.25rem;padding:1.5rem 0;border-bottom:1px solid var(--line2)}
+.step-item:last-child{border-bottom:none}
+.step-num{width:34px;height:34px;border-radius:8px;background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:700;flex-shrink:0;margin-top:.1rem}
+.step-content{}
+.step-title{font-size:.92rem;font-weight:700;margin-bottom:.35rem}
+.step-desc{font-size:.78rem;color:var(--ink2);line-height:1.7}
+.step-result{margin-top:.5rem;font-size:.7rem;color:var(--cyan);font-family:'JetBrains Mono',monospace}
+
+/* ── FLOW VISUAL ── */
+.flow-card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:1.5rem;box-shadow:var(--shadow)}
+.fc-label{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--ink3);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1.1rem}
+.flow-nodes{display:flex;flex-direction:column;gap:.4rem}
+.fn{display:flex;align-items:center;gap:.85rem;background:var(--bg3);border:1px solid var(--line2);border-radius:9px;padding:.75rem 1rem;transition:all .35s;cursor:pointer}
+.fn:hover{border-color:var(--accent);background:var(--cyan3)}
+.fn-ic{font-size:1.1rem;flex-shrink:0}
+.fn-info{flex:1}
+.fn-name{font-size:.8rem;font-weight:600;margin-bottom:.1rem}
+.fn-tech{font-size:.62rem;color:var(--ink3);font-family:'JetBrains Mono',monospace}
+.fn-arrow{text-align:center;color:var(--line);font-size:.7rem;padding:.1rem 0}
+.fn-badge{font-size:.58rem;padding:.18rem .5rem;border-radius:4px;font-family:'JetBrains Mono',monospace;background:var(--cyan3);color:var(--cyan);border:1px solid rgba(0,184,169,.2)}
+
+/* ── COMPARISON ── */
+.comp-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.5rem;margin-top:3rem}
+.comp-col{border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.comp-hdr{padding:1rem 1.5rem;display:flex;align-items:center;gap:.6rem;font-size:.85rem;font-weight:700}
+.comp-hdr.bad{background:#fdecea;color:#c62828}
+.comp-hdr.good{background:#e8f5e9;color:#2e7d32}
+.comp-list{background:var(--card);border:1px solid var(--line)}
+.comp-item{display:flex;align-items:flex-start;gap:.75rem;padding:1rem 1.5rem;border-bottom:1px solid var(--line2)}
+.comp-item:last-child{border-bottom:none}
+.comp-item-ic{font-size:1rem;flex-shrink:0;margin-top:.05rem}
+.comp-item-text{font-size:.8rem;color:var(--ink2);line-height:1.6}
+.comp-item-text strong{display:block;color:var(--ink);font-size:.83rem;margin-bottom:.12rem}
+
+/* ── ROI TABLE ── */
+.roi-table{width:100%;border-collapse:collapse;margin-top:2rem;border-radius:10px;overflow:hidden;box-shadow:var(--shadow)}
+.roi-table th{background:var(--ink);color:#fff;padding:.85rem 1.25rem;text-align:left;font-size:.78rem;font-weight:600;letter-spacing:.04em}
+.roi-table td{padding:.85rem 1.25rem;font-size:.8rem;color:var(--ink2);border-bottom:1px solid var(--line2)}
+.roi-table tr:last-child td{border-bottom:none}
+.roi-table tr:nth-child(even) td{background:var(--bg3)}
+.roi-val{color:var(--cyan);font-weight:700;font-family:'JetBrains Mono',monospace}
+
+/* ── TECH STACK ── */
+.tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:2.5rem}
+.tech-card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:1.25rem;text-align:center;box-shadow:var(--shadow);transition:all .25s}
+.tech-card:hover{border-color:var(--accent);transform:translateY(-3px);box-shadow:var(--shadow-lg)}
+.tc-ic{font-size:1.8rem;display:block;margin-bottom:.65rem}
+.tc-name{font-size:.82rem;font-weight:700;margin-bottom:.2rem}
+.tc-role{font-size:.68rem;color:var(--ink3);line-height:1.5}
+.tc-price{margin-top:.6rem;font-size:.65rem;padding:.18rem .5rem;border-radius:5px;font-family:'JetBrains Mono',monospace;display:inline-block}
+.tc-free{background:#e8f5e9;color:#2e7d32}
+.tc-paid{background:#fff3e0;color:#e65100}
+
+/* ── TESTIMONIAL ── */
+.testimonial-card{background:var(--ink);border-radius:16px;padding:2.5rem;margin-top:3rem;position:relative;overflow:hidden}
+.testimonial-card::before{content:'❝';font-family:'Playfair Display',serif;font-size:8rem;color:rgba(0,184,169,.12);position:absolute;top:-1rem;left:1.5rem;line-height:1}
+.tc-quote{font-size:1.05rem;color:rgba(255,255,255,.85);line-height:1.8;margin-bottom:1.5rem;font-style:italic;position:relative;z-index:1}
+.tc-author{display:flex;align-items:center;gap:1rem}
+.tc-av{width:44px;height:44px;border-radius:50%;background:rgba(0,184,169,.15);display:flex;align-items:center;justify-content:center;font-size:1.2rem;border:2px solid rgba(0,184,169,.3)}
+.tc-name{font-size:.9rem;font-weight:700;color:#fff}
+.tc-role{font-size:.72rem;color:rgba(255,255,255,.45)}
+
+/* ── CTA BLOCK ── */
+.cta-block{background:var(--ink);border-radius:20px;padding:3rem;text-align:center;margin-top:5rem}
+.cta-block h3{font-family:'Playfair Display',serif;font-size:2rem;font-weight:900;color:#fff;margin-bottom:.75rem;letter-spacing:-.03em}
+.cta-block p{color:rgba(255,255,255,.55);font-size:.9rem;margin-bottom:2rem;max-width:500px;margin-left:auto;margin-right:auto;line-height:1.75}
+.btn-white{background:#fff;color:var(--ink);padding:.9rem 2.25rem;border-radius:10px;font-size:.88rem;font-weight:700;text-decoration:none;transition:all .25s;display:inline-flex;align-items:center;gap:.5rem}
+.btn-white:hover{background:var(--cyan);color:#fff;transform:translateY(-2px)}
+
+/* ── OTHER CASES ── */
+.other-cases{padding:5rem 0;background:var(--bg3)}
+.cases-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin-top:2.5rem}
+.mini-case{background:var(--card);border:1px solid var(--line);border-radius:12px;overflow:hidden;text-decoration:none;color:inherit;transition:all .25s;display:block}
+.mini-case:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:var(--accent)}
+.mini-stripe{height:3px}
+.mini-body{padding:1.25rem}
+.mini-cat{font-family:'JetBrains Mono',monospace;font-size:.58rem;color:var(--ink3);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.5rem}
+.mini-title{font-size:.9rem;font-weight:700;line-height:1.3;margin-bottom:.6rem}
+.mini-results{display:flex;gap:1rem}
+.mr{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:900;color:var(--accent)}
+.mr-l{font-size:.6rem;color:var(--ink3);font-family:'Manrope',sans-serif;font-weight:400}
+
+/* ── FOOTER ── */
+footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.foot-brand{font-family:'Playfair Display',serif;font-size:.95rem;font-weight:700}
+.foot-brand span{color:var(--cyan)}
+.foot-copy{font-size:.72rem;color:var(--ink3)}
+
+/* ── ANIMATIONS ── */
+.reveal{opacity:0;transform:translateY(20px);transition:opacity .65s ease,transform .65s ease}
+.reveal.visible{opacity:1;transform:none}
+[data-d="1"]{transition-delay:.1s}[data-d="2"]{transition-delay:.2s}[data-d="3"]{transition-delay:.3s}[data-d="4"]{transition-delay:.4s}[data-d="5"]{transition-delay:.5s}
+
+@media(max-width:768px){
+  nav{padding:.85rem 1.25rem}
+  .nav-links{display:none}
+  .container,.case-hero,.breadcrumb{padding-left:1.25rem;padding-right:1.25rem}
+  .ch-top,.steps-grid,.comp-wrap,.tech-grid,.cases-row{grid-template-columns:1fr}
+  .pain-grid{grid-template-columns:1fr}
+  .mc-grid{grid-template-columns:1fr 1fr}
+  footer{flex-direction:column;gap:.75rem;text-align:center}
+}
+</style>
+<style>:root{--accent:#c9a84c;--cyan:#c9a84c;--cyan2:#e8c96e;--cyan3:#fdf9ee;}
+.sec-eyebrow,.mc-val,.cr-n,.roi-val,.mr{color:#c9a84c!important}
+.sec-eyebrow::before{background:#c9a84c!important}
+.fn:hover{border-color:#c9a84c!important;background:#fdf9ee!important}
+.fn-badge{background:#fdf9ee!important;color:#c9a84c!important;border-color:rgba(201,168,76,.2)!important}
+.btn-primary:hover{background:#b8942e!important}
+.tech-card:hover{border-color:#c9a84c!important}
+.step-num{background:#c9a84c!important}
+.ch-category{border-color:#f0e4b8!important;color:#c9a84c!important;background:#fdf9ee!important}
+</style>
+</head>
+<body>
+<nav>
+  <a href="portfolio-paulo.html" class="nav-brand">
+    <div class="nav-ic">⚡</div>
+    <div class="nav-name">Paulo <span>Growth AI</span></div>
+  </a>
+  <div class="nav-links">
+    <a href="portfolio-paulo.html#cases">← Todos os cases</a>
+    <a href="portfolio-paulo.html#precos">Preços</a>
+    <a href="portfolio-paulo.html#faq">FAQ</a>
+    <a href="https://wa.me/5511951131232" class="nav-cta" target="_blank">💬 Falar Agora</a>
+  </div>
+</nav>
+<div class="breadcrumb"><a href="portfolio-paulo.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Escritório Contábil</span></div>
+
+<section class="case-hero">
+<div class="ch-top">
+  <div class="reveal">
+    <div class="ch-category">📋 Escritório Contábil</div>
+    <h1 class="ch-title">Documentos coletados <em>automaticamente</em>. Relatórios gerados por IA.</h1>
+    <p class="ch-sub">Contadores perdendo horas por mês cobrando documento de cliente por cliente, gerando relatórios manualmente e preocupados com prazos fiscais. Automatizamos a rotina inteira — equipe focou no que gera valor.</p>
+    <div class="ch-actions">
+      <a href="https://wa.me/5511951131232?text=Quero%20automação%20para%20meu%20escritório%20contábil" class="btn-primary" target="_blank">💬 Quero esse sistema</a>
+      <a href="portfolio-paulo.html#cases" class="btn-ghost">← Ver todos os cases</a>
+    </div>
+  </div>
+  <div class="metrics-card reveal" data-d="2">
+    <div class="mc-label">// o que o sistema faz</div>
+    <div class="mc-grid">
+      <div class="mc-item"><div class="mc-val">Auto</div><div class="mc-desc">Cobrança de documentos sem intervenção humana</div></div>
+      <div class="mc-item"><div class="mc-val">IA</div><div class="mc-desc">Relatórios gerenciais gerados automaticamente</div></div>
+      <div class="mc-item"><div class="mc-val">-80%</div><div class="mc-desc">Tempo manual em tarefas repetitivas</div></div>
+      <div class="mc-item"><div class="mc-val">Zero</div><div class="mc-desc">Prazos fiscais perdidos por falta de alerta</div></div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="pain-section">
+<div class="container">
+  <div class="sec-eyebrow reveal">O problema</div>
+  <h2 class="sec-title reveal">Contador formado para analisar. Perdendo tempo cobrando nota fiscal.</h2>
+  <div class="pain-grid">
+    <div class="pain-card reveal" data-d="1">
+      <span class="pain-ic">📄</span>
+      <div class="pain-title">Horas semanais cobrando documentos de clientes</div>
+      <p class="pain-desc">Todo mês o mesmo ritual: ligar ou mandar mensagem para cada cliente pedindo extrato bancário, notas fiscais, folha de ponto, recibos. Alguns ignoram. Outros mandam errado. Retrabalho constante e estresse.</p>
+      <span class="pain-cost">Custo: 20-30h/mês por contador em cobrança de documentos</span>
+    </div>
+    <div class="pain-card reveal" data-d="2">
+      <span class="pain-ic">📊</span>
+      <div class="pain-title">Relatórios gerenciais gerados manualmente</div>
+      <p class="pain-desc">DRE, balanço, fluxo de caixa, relatório de vendas — cada um montado do zero, formatado no Excel, exportado em PDF, enviado por e-mail. Horas de trabalho que a IA pode fazer em minutos.</p>
+      <span class="pain-cost">Custo: 3-5h por cliente por mês apenas em formatação</span>
+    </div>
+    <div class="pain-card reveal" data-d="3">
+      <span class="pain-ic">📅</span>
+      <div class="pain-title">Prazos fiscais esquecidos = multa para o cliente</div>
+      <p class="pain-desc">SPED, DCTF, DIRF, RAIS, folha de pagamento, guias de imposto — centenas de obrigações por cliente por ano. Uma esquecida = multa + problema de relacionamento + possível perda do cliente.</p>
+      <span class="pain-cost">Custo: multa mínima de R$500 por obrigação perdida</span>
+    </div>
+    <div class="pain-card reveal" data-d="1">
+      <span class="pain-ic">💸</span>
+      <div class="pain-title">Inadimplência não monitorada</div>
+      <p class="pain-desc">Cliente com honorário atrasado continua sendo atendido normalmente. Ninguém percebe que é o 3º mês sem pagamento. Sem cobrança automática, o problema só aparece quando já é grande demais.</p>
+      <span class="pain-cost">Custo: 15-20% de inadimplência não tratada nos escritórios</span>
+    </div>
+    <div class="pain-card reveal" data-d="2">
+      <span class="pain-ic">📧</span>
+      <div class="pain-title">Comunicação manual e inconsistente com clientes</div>
+      <p class="pain-desc">Cada contador se comunica do seu jeito, com sua frequência, pelo seu canal. Não existe padrão. Cliente de um contador recebe atenção diferente de cliente de outro. Qualidade do serviço percebida varia demais.</p>
+      <span class="pain-cost">Custo: NPS baixo, cliente sem sentir valor do serviço</span>
+    </div>
+    <div class="pain-card reveal" data-d="3">
+      <span class="pain-ic">📈</span>
+      <div class="pain-title">Sócios sem visão financeira do escritório</div>
+      <p class="pain-desc">Quantos clientes ativos? Qual a receita do mês? Qual cliente está mais atrasado? Qual serviço mais demanda tempo? Sem dados consolidados, a gestão do próprio escritório vai na intuição.</p>
+      <span class="pain-cost">Custo: crescimento limitado por falta de dados internos</span>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad">
+<div class="container">
+  <div class="sec-eyebrow reveal">A solução</div>
+  <h2 class="sec-title reveal">Automação que libera o contador para o que importa.</h2>
+  <div class="steps-grid">
+    <div class="step-list reveal">
+      <div class="step-item"><div class="step-num">01</div><div class="step-content"><div class="step-title">Cobrança automática de documentos</div><div class="step-desc">Todo dia 1 de cada mês, sistema envia mensagem personalizada para cada cliente listando exatamente quais documentos precisam ser enviados e qual o prazo. Lembretes automáticos no dia 5 e dia 10. Alerta para o contador se cliente não enviou.</div><div class="step-result">→ Zero mensagem manual de cobrança</div></div></div>
+      <div class="step-item"><div class="step-num">02</div><div class="step-content"><div class="step-title">Pasta de cliente criada automaticamente</div><div class="step-desc">Cliente manda documento por WhatsApp ou e-mail. Sistema identifica o tipo de documento, renomeia com padrão correto, organiza na pasta do Google Drive do cliente e confirma o recebimento. Audit trail completo.</div><div class="step-result">→ Organização perfeita sem esforço</div></div></div>
+      <div class="step-item"><div class="step-num">03</div><div class="step-content"><div class="step-title">Relatórios gerenciais gerados por IA</div><div class="step-desc">IA processa os dados dos documentos recebidos e gera automaticamente: DRE simplificado, evolução de faturamento, comparativo mensal e alertas de anomalia. Contador revisa e assina — não começa do zero mais.</div><div class="step-result">→ Relatório em 15min vs 3-5h manual</div></div></div>
+      <div class="step-item"><div class="step-num">04</div><div class="step-content"><div class="step-title">Calendário fiscal automatizado</div><div class="step-desc">Cada obrigação de cada cliente cadastrada no sistema com prazo. Alerta automático 7 dias antes para o contador responsável. 3 dias antes: segundo alerta. Dia do prazo: alerta urgente. Nunca mais prazo perdido.</div><div class="step-result">→ Zero multa por prazo esquecido</div></div></div>
+      <div class="step-item"><div class="step-num">05</div><div class="step-content"><div class="step-title">Cobrança de honorários automatizada</div><div class="step-desc">Honorário vencendo? Sistema envia boleto ou link Pix automaticamente. 3 dias sem pagamento: lembrete. 7 dias: segundo aviso. 15 dias: alerta para sócio ligar. Inadimplência monitorada 100%.</div><div class="step-result">→ Inadimplência controlada sem constrangimento</div></div></div>
+      <div class="step-item"><div class="step-num">06</div><div class="step-content"><div class="step-title">Dashboard dos sócios em tempo real</div><div class="step-desc">Painel atualizado automaticamente: clientes ativos, honorários pagos vs atrasados, documentos pendentes por cliente, prazo fiscal próximo e produtividade da equipe. Gestão com dados, não com intuição.</div><div class="step-result">→ Decisões baseadas em dados reais</div></div></div>
+    </div>
+    <div class="flow-card reveal" data-d="2">
+      <div class="fc-label">// ciclo mensal automatizado</div>
+      <div class="flow-nodes">
+        <div class="fn"><span class="fn-ic">📅</span><div class="fn-info"><div class="fn-name">Dia 1 — Cobrança de Docs</div><div class="fn-tech">WhatsApp personalizado por cliente</div></div><span class="fn-badge">schedule</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">📄</span><div class="fn-info"><div class="fn-name">Cliente Envia Documentos</div><div class="fn-tech">WhatsApp · E-mail · Drive</div></div><span class="fn-badge">input</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">📂</span><div class="fn-info"><div class="fn-name">Organiza e Nomeia</div><div class="fn-tech">Google Drive · Padrão automático</div></div><span class="fn-badge">organize</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">🧠</span><div class="fn-info"><div class="fn-name">IA Gera Relatório</div><div class="fn-tech">DRE · Comparativo · Anomalias</div></div><span class="fn-badge">analyze</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">🔔</span><div class="fn-info"><div class="fn-name">Alertas de Prazo Fiscal</div><div class="fn-tech">7d · 3d · 1d antes do vencimento</div></div><span class="fn-badge">alert</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">💰</span><div class="fn-info"><div class="fn-name">Cobrança de Honorários</div><div class="fn-tech">Pix · Boleto · Follow-up auto</div></div><span class="fn-badge">billing</span></div>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad" style="background:var(--bg3);padding:5rem 0">
+<div class="container">
+  <div class="sec-eyebrow reveal">Stack tecnológica</div>
+  <h2 class="sec-title reveal">Ferramentas que transformam a operação.</h2>
+  <div class="tech-grid">
+    <div class="tech-card reveal" data-d="1"><span class="tc-ic">⚡</span><div class="tc-name">n8n</div><div class="tc-role">Orquestrador — conecta tudo e executa os fluxos mensais e diários</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="2"><span class="tc-ic">🧠</span><div class="tc-name">GPT-4</div><div class="tc-role">Geração de relatórios, análise de documentos e alertas inteligentes</div><span class="tc-price tc-paid">~R$80/mês</span></div>
+    <div class="tech-card reveal" data-d="3"><span class="tc-ic">💬</span><div class="tc-name">WhatsApp API</div><div class="tc-role">Cobrança de docs, lembretes de prazo e comunicação com clientes</div><span class="tc-price tc-paid">~R$97/mês</span></div>
+    <div class="tech-card reveal" data-d="4"><span class="tc-ic">📂</span><div class="tc-name">Google Drive</div><div class="tc-role">Organização automática de documentos por cliente e período</div><span class="tc-price tc-free">Gratuito</span></div>
+  </div>
+</div>
+</section>
+
+<section class="section-pad">
+<div class="container">
+  <div class="testimonial-card reveal">
+    <p class="tc-quote">Eu passava os primeiros 10 dias de cada mês correndo atrás de documento de cliente. Hoje o sistema faz isso sozinho. Chegou a hora de eu focar em análise e consultoria — que é o que realmente agrega valor e o que me diferencia no mercado.</p>
+    <div class="tc-author">
+      <div class="tc-av">👨‍💼</div>
+      <div><div class="tc-name">Marcos T.</div><div class="tc-role">Contador · Escritório com 45 clientes · São Paulo</div></div>
+    </div>
+  </div>
+  <div class="cta-block reveal">
+    <h3>Quanto tempo seu escritório<br>perde em tarefas manuais?</h3>
+    <p>Calculamos juntos no diagnóstico gratuito. Em 1 hora mapeio o processo completo e mostro exatamente o que seria automatizado primeiro para ter resultado imediato.</p>
+    <a href="https://wa.me/5511951131232?text=Quero%20automação%20para%20meu%20escritório%20contábil" class="btn-white" target="_blank">💬 Fazer diagnóstico gratuito</a>
+  </div>
+</div>
+</section>
+<section class="other-cases">
+  <div class="container">
+    <div class="sec-eyebrow reveal">Explore mais cases</div>
+    <h2 class="sec-title reveal">Outros negócios que<br>já automatizamos.</h2>
+    <div class="cases-row">
+      
+      <a href="case-corretora.html" class="mini-case reveal" data-d="1">
+        <div class="mini-stripe" style="background:#2563eb"></div>
+        <div class="mini-body">
+          <div class="mini-cat">🛡️ Corretora de Seguros</div>
+          <div class="mini-title">Sistema 360° para corretoras</div>
+          <div class="mini-results">
+            <div><div class="mr"><2s</div><div class="mr-l">Resp. lead</div></div>
+            <div><div class="mr">3×</div><div class="mr-l">Reuniões</div></div>
+          </div>
+        </div>
+      </a>
+      <a href="case-basquete.html" class="mini-case reveal" data-d="2">
+        <div class="mini-stripe" style="background:#ff6b00"></div>
+        <div class="mini-body">
+          <div class="mini-cat">🏀 App de Basquete</div>
+          <div class="mini-title">GPS + IA para atletas</div>
+          <div class="mini-results">
+            <div><div class="mr">GPS</div><div class="mr-l">Km auto</div></div>
+            <div><div class="mr">92/100</div><div class="mr-l">Score IA</div></div>
+          </div>
+        </div>
+      </a>
+      <a href="case-agencia.html" class="mini-case reveal" data-d="3">
+        <div class="mini-stripe" style="background:#6366f1"></div>
+        <div class="mini-body">
+          <div class="mini-cat">📊 Agência Performance</div>
+          <div class="mini-title">Dashboard 6 plataformas</div>
+          <div class="mini-results">
+            <div><div class="mr">6</div><div class="mr-l">Plataformas</div></div>
+            <div><div class="mr">9h</div><div class="mr-l">Rel. diário</div></div>
+          </div>
+        </div>
+      </a>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="foot-brand">Paulo <span>Growth AI</span></div>
+  <div class="foot-copy">© 2025 · São Paulo, SP · (11) 95113-1232</div>
+</footer>
+
+<script>
+const obs = new IntersectionObserver(entries => {
+  entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('visible') });
+},{threshold:0.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+// Flow node animation
+let fi=0;
+const fns=document.querySelectorAll('.fn');
+if(fns.length){
+  setInterval(()=>{
+    fns.forEach((n,i)=>{
+      n.style.borderColor=i===fi?'var(--accent)':'';
+      n.style.background=i===fi?'var(--cyan3)':'';
+    });
+    fi=(fi+1)%fns.length;
+  },1100);
+}
+</script>
+</body></html>
