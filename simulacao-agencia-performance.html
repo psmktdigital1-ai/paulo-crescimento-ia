@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dashboard Agência de Performance · Simulação ao Vivo</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080b14;--bg2:#0c1020;--bg3:#111828;
+  --c1:#6366f1;--c2:#818cf8;--c3:#a5b4fc;
+  --g:#10b981;--g2:#34d399;
+  --r:#ef4444;--y:#f59e0b;--o:#f97316;
+  --text:#e2e8f5;--muted:#4b5680;--muted2:#252d45;
+  --line:rgba(99,102,241,.1);--line2:rgba(255,255,255,.05);
+  --card:#0d1120;
+  --gads:#4285F4;--meta:#1877F2;--ga4:#E37400;
+  --tiktok:#ff0050;--prog:#7c3aed;--afil:#059669;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Space Grotesk',sans-serif;font-weight:300;overflow:hidden;height:100vh;display:flex;flex-direction:column}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--c1);border-radius:2px}
+
+/* ── TOPBAR ── */
+.topbar{background:var(--bg2);border-bottom:1px solid var(--line);padding:.9rem 2rem;display:flex;align-items:center;justify-content:space-between;flex-shrink:0}
+.tb-left{display:flex;align-items:center;gap:1.25rem}
+.tb-logo{display:flex;align-items:center;gap:.6rem}
+.tb-ic{width:32px;height:32px;background:linear-gradient(135deg,var(--c1),var(--c3));border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1rem}
+.tb-name{font-size:1rem;font-weight:600;letter-spacing:-.02em}
+.tb-name span{color:var(--c3)}
+.tb-sep{width:1px;height:24px;background:var(--line2)}
+.tb-sub{font-size:.72rem;color:var(--muted);font-family:'JetBrains Mono',monospace}
+.tb-status{display:flex;align-items:center;gap:.45rem;background:rgba(16,185,129,.07);border:1px solid rgba(16,185,129,.18);padding:.3rem .8rem;border-radius:100px;font-size:.65rem;font-family:'JetBrains Mono',monospace;color:var(--g2)}
+.tb-dot{width:5px;height:5px;border-radius:50%;background:var(--g);animation:bl 1.8s ease-in-out infinite}
+@keyframes bl{0%,100%{opacity:1}50%{opacity:.15}}
+.tb-right{display:flex;gap:.6rem}
+.tb-btn{padding:.45rem 1.1rem;border-radius:7px;font-size:.71rem;font-weight:500;cursor:pointer;transition:all .2s;font-family:'Space Grotesk',sans-serif}
+.tb-btn.sec{background:transparent;border:1px solid var(--line2);color:var(--muted)}
+.tb-btn.sec:hover{border-color:rgba(99,102,241,.35);color:var(--c3)}
+.tb-btn.pri{background:linear-gradient(135deg,var(--c1),var(--c2));border:none;color:#fff}
+.tb-btn.pri:hover{box-shadow:0 4px 18px rgba(99,102,241,.4);transform:translateY(-1px)}
+.tb-date{font-family:'JetBrains Mono',monospace;font-size:.64rem;color:var(--muted);background:var(--muted2);padding:.3rem .75rem;border-radius:5px}
+
+/* ── MAIN ── */
+.main{flex:1;display:grid;grid-template-columns:1fr 340px;overflow:hidden}
+
+/* ── LEFT PANEL ── */
+.left{padding:1.5rem 1.5rem 1rem;overflow-y:auto;display:flex;flex-direction:column;gap:1.25rem}
+
+/* KPI STRIP */
+.kpi-strip{display:grid;grid-template-columns:repeat(5,1fr);gap:.75rem}
+.kpi{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:.9rem 1rem;position:relative;overflow:hidden;transition:all .3s}
+.kpi::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--c1),var(--c2));transform:scaleX(0);transition:transform .5s ease;transform-origin:left}
+.kpi.loaded::before{transform:scaleX(1)}
+.kpi-ic{font-size:1.1rem;margin-bottom:.4rem;display:block}
+.kpi-val{font-family:'JetBrains Mono',monospace;font-size:1.3rem;font-weight:500;color:var(--text);line-height:1;margin-bottom:.25rem}
+.kpi-val.loading{color:var(--muted2);animation:pulse .8s ease-in-out infinite}
+@keyframes pulse{0%,100%{opacity:.4}50%{opacity:1}}
+.kpi-lbl{font-size:.62rem;color:var(--muted);letter-spacing:.04em}
+.kpi-delta{font-size:.62rem;font-family:'JetBrains Mono',monospace;margin-top:.3rem}
+.kpi-delta.up{color:var(--g2)}
+.kpi-delta.dn{color:#fca5a5}
+
+/* CHANNEL GRID */
+.sec-lbl{font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--c2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.75rem;display:flex;align-items:center;gap:.5rem}
+.sec-lbl::before{content:'';width:10px;height:1px;background:var(--c2)}
+
+.ch-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.75rem}
+.ch{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1rem;position:relative;overflow:hidden;transition:all .4s}
+.ch.collecting{border-color:var(--c2);box-shadow:0 0 16px rgba(99,102,241,.15)}
+.ch.done{border-color:rgba(16,185,129,.25)}
+.ch.error{border-color:rgba(239,68,68,.25)}
+.ch-stripe{position:absolute;top:0;left:0;right:0;height:3px;border-radius:10px 10px 0 0}
+.ch-head{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.ch-id{display:flex;align-items:center;gap:.45rem}
+.ch-logo{font-size:1.1rem}
+.ch-nm{font-size:.75rem;font-weight:600}
+.ch-badge{font-size:.55rem;font-family:'JetBrains Mono',monospace;padding:.15rem .45rem;border-radius:100px}
+.badge-wait{background:rgba(255,255,255,.04);color:var(--muted);border:1px solid var(--line2)}
+.badge-col{background:rgba(99,102,241,.1);color:var(--c3);border:1px solid rgba(99,102,241,.2);animation:bdpulse .9s ease-in-out infinite}
+@keyframes bdpulse{0%,100%{opacity:1}50%{opacity:.4}}
+.badge-ok{background:rgba(16,185,129,.08);color:var(--g2);border:1px solid rgba(16,185,129,.2)}
+.badge-err{background:rgba(239,68,68,.08);color:#fca5a5;border:1px solid rgba(239,68,68,.2)}
+
+.ch-rows{display:flex;flex-direction:column;gap:.35rem}
+.ch-row{display:flex;justify-content:space-between;align-items:center}
+.ch-rl{font-size:.64rem;color:var(--muted)}
+.ch-rv{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted2)}
+.ch-rv.loaded{color:var(--text)}
+
+/* PROGRESS BAR */
+.ch-prog{margin-top:.75rem;height:3px;background:rgba(255,255,255,.05);border-radius:100px;overflow:hidden}
+.ch-prog-fill{height:100%;border-radius:100px;width:0;transition:width .5s ease}
+
+/* CONSOLIDATION */
+.consol{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.1rem 1.3rem}
+.consol-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.consol-title{font-size:.78rem;font-weight:600}
+.consol-status{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--muted)}
+.consol-bars{display:flex;flex-direction:column;gap:.55rem}
+.cb-row{display:flex;align-items:center;gap:.75rem}
+.cb-lbl{font-size:.66rem;width:90px;color:var(--muted)}
+.cb-track{flex:1;height:6px;background:var(--muted2);border-radius:100px;overflow:hidden}
+.cb-fill{height:100%;border-radius:100px;width:0;transition:width 1.2s ease}
+.cb-val{font-family:'JetBrains Mono',monospace;font-size:.65rem;width:70px;text-align:right;color:var(--muted2)}
+.cb-val.lv{color:var(--text)}
+
+/* ── RIGHT PANEL ── */
+.right{background:var(--bg2);border-left:1px solid var(--line);display:flex;flex-direction:column;overflow:hidden}
+.r-tabs{display:flex;border-bottom:1px solid var(--line)}
+.r-tab{flex:1;padding:.6rem .4rem;font-size:.62rem;font-family:'JetBrains Mono',monospace;letter-spacing:.07em;text-transform:uppercase;cursor:pointer;text-align:center;color:var(--muted);border:none;background:transparent;transition:all .2s;border-bottom:2px solid transparent}
+.r-tab.on{color:var(--c3);border-bottom-color:var(--c1)}
+.panel{display:none;flex:1;flex-direction:column;overflow-y:auto;padding:1rem}
+.panel.on{display:flex;gap:.45rem}
+
+/* LOG */
+.lg{font-family:'JetBrains Mono',monospace;font-size:.6rem;line-height:1.6;padding:.35rem .55rem;border-radius:5px;border-left:2px solid transparent;background:rgba(255,255,255,.02)}
+.lg.inf{border-color:var(--c1);color:#a5b4fc}
+.lg.suc{border-color:var(--g);color:var(--g2)}
+.lg.wrn{border-color:var(--y);color:#fde68a}
+.lg.err{border-color:var(--r);color:#fca5a5}
+.lg.ch{border-color:#c084fc;color:#e9d5ff}
+.lg-ts{color:var(--muted2);margin-right:.4rem}
+.lg.new{animation:li .3s ease}
+@keyframes li{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+
+/* WPP */
+.wpp{background:#0a1a12;border-radius:9px;overflow:hidden}
+.wpp-h{background:#075e54;padding:.6rem .85rem;display:flex;align-items:center;gap:.55rem}
+.wpp-av{width:28px;height:28px;border-radius:50%;background:#128c7e;display:flex;align-items:center;justify-content:center;font-size:.85rem}
+.wpp-info b{display:block;font-size:.7rem}
+.wpp-info small{font-size:.56rem;color:#80cbc4}
+.wpp-body{padding:.75rem;min-height:100px;display:flex;flex-direction:column;gap:.5rem}
+.wm{padding:.55rem .75rem;border-radius:8px;font-size:.68rem;line-height:1.55;max-width:90%;white-space:pre-line}
+.wm.out{background:#005c4b;align-self:flex-end;border-radius:8px 8px 2px 8px}
+.wm.out::before{content:'🤖 automático · ';font-size:.54rem;color:#80cbc4;display:block;margin-bottom:.15rem}
+.wm-t{font-size:.54rem;opacity:.4;margin-top:.2rem;text-align:right}
+
+/* ALERTS */
+.al{border-radius:8px;padding:.75rem;margin-bottom:.5rem}
+.al.crit{background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2)}
+.al.warn{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.18)}
+.al.ok{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.18)}
+.al-t{font-size:.68rem;font-weight:600;margin-bottom:.25rem}
+.al-t.crit{color:#fca5a5}
+.al-t.warn{color:#fde68a}
+.al-t.ok{color:var(--g2)}
+.al-d{font-size:.64rem;color:var(--muted);line-height:1.55}
+
+/* STEP NAV */
+.step-bar{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.4rem;background:rgba(8,11,20,.92);border:1px solid var(--line);border-radius:100px;padding:.55rem 1.4rem;backdrop-filter:blur(14px);z-index:200}
+.sb-dot{width:7px;height:7px;border-radius:50%;background:var(--muted2);transition:all .3s}
+.sb-dot.dn{background:var(--g)}
+.sb-dot.ac{background:var(--c2);box-shadow:0 0 8px rgba(99,102,241,.7);width:18px;border-radius:3px}
+.sb-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--c3);margin-left:.4rem;min-width:160px}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="topbar">
+  <div class="tb-left">
+    <div class="tb-logo">
+      <div class="tb-ic">📊</div>
+      <div class="tb-name">Agência <span>Performance</span></div>
+    </div>
+    <div class="tb-sep"></div>
+    <div class="tb-sub">dashboard_unificado.flow · n8n</div>
+  </div>
+  <div class="tb-status"><span class="tb-dot"></span>6 canais configurados</div>
+  <div class="tb-right">
+    <div class="tb-date" id="tbDate">—</div>
+    <button class="tb-btn sec" onclick="resetAll()">↺ Reset</button>
+    <button class="tb-btn pri" id="btnPlay" onclick="runDemo()">▶ Executar Coleta</button>
+  </div>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+
+  <!-- LEFT -->
+  <div class="left">
+
+    <!-- KPIs -->
+    <div>
+      <div class="sec-lbl">Métricas consolidadas</div>
+      <div class="kpi-strip">
+        <div class="kpi" id="kpi-gasto">
+          <span class="kpi-ic">💰</span>
+          <div class="kpi-val loading" id="kv-gasto">—</div>
+          <div class="kpi-lbl">Gasto Total</div>
+          <div class="kpi-delta" id="kd-gasto"></div>
+        </div>
+        <div class="kpi" id="kpi-conv">
+          <span class="kpi-ic">🎯</span>
+          <div class="kpi-val loading" id="kv-conv">—</div>
+          <div class="kpi-lbl">Conversões</div>
+          <div class="kpi-delta" id="kd-conv"></div>
+        </div>
+        <div class="kpi" id="kpi-roas">
+          <span class="kpi-ic">📈</span>
+          <div class="kpi-val loading" id="kv-roas">—</div>
+          <div class="kpi-lbl">ROAS</div>
+          <div class="kpi-delta" id="kd-roas"></div>
+        </div>
+        <div class="kpi" id="kpi-cpa">
+          <span class="kpi-ic">💡</span>
+          <div class="kpi-val loading" id="kv-cpa">—</div>
+          <div class="kpi-lbl">CPA Médio</div>
+          <div class="kpi-delta" id="kd-cpa"></div>
+        </div>
+        <div class="kpi" id="kpi-rec">
+          <span class="kpi-ic">💵</span>
+          <div class="kpi-val loading" id="kv-rec">—</div>
+          <div class="kpi-lbl">Receita</div>
+          <div class="kpi-delta" id="kd-rec"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CHANNELS -->
+    <div>
+      <div class="sec-lbl">Coleta por canal · tempo real</div>
+      <div class="ch-grid">
+        <!-- Google Ads -->
+        <div class="ch" id="ch-google">
+          <div class="ch-stripe" style="background:var(--gads)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">🔵</span><span class="ch-nm">Google Ads</span></div>
+            <span class="ch-badge badge-wait" id="cb-google">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Gasto</span><span class="ch-rv" id="cv-google-gasto">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Cliques</span><span class="ch-rv" id="cv-google-cliques">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Conversões</span><span class="ch-rv" id="cv-google-conv">—</span></div>
+            <div class="ch-row"><span class="ch-rl">ROAS</span><span class="ch-rv" id="cv-google-roas">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-google" style="background:var(--gads)"></div></div>
+        </div>
+        <!-- Meta -->
+        <div class="ch" id="ch-meta">
+          <div class="ch-stripe" style="background:var(--meta)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">📘</span><span class="ch-nm">Meta Ads</span></div>
+            <span class="ch-badge badge-wait" id="cb-meta">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Gasto</span><span class="ch-rv" id="cv-meta-gasto">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Alcance</span><span class="ch-rv" id="cv-meta-alcance">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Conversões</span><span class="ch-rv" id="cv-meta-conv">—</span></div>
+            <div class="ch-row"><span class="ch-rl">ROAS</span><span class="ch-rv" id="cv-meta-roas">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-meta" style="background:var(--meta)"></div></div>
+        </div>
+        <!-- GA4 -->
+        <div class="ch" id="ch-ga4">
+          <div class="ch-stripe" style="background:var(--ga4)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">📈</span><span class="ch-nm">GA4</span></div>
+            <span class="ch-badge badge-wait" id="cb-ga4">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Sessões</span><span class="ch-rv" id="cv-ga4-sessoes">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Usuários</span><span class="ch-rv" id="cv-ga4-users">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Tx. Rejeição</span><span class="ch-rv" id="cv-ga4-bounce">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Conversões</span><span class="ch-rv" id="cv-ga4-conv">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-ga4" style="background:var(--ga4)"></div></div>
+        </div>
+        <!-- TikTok -->
+        <div class="ch" id="ch-tiktok">
+          <div class="ch-stripe" style="background:var(--tiktok)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">🎵</span><span class="ch-nm">TikTok Ads</span></div>
+            <span class="ch-badge badge-wait" id="cb-tiktok">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Gasto</span><span class="ch-rv" id="cv-tiktok-gasto">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Views 6s</span><span class="ch-rv" id="cv-tiktok-views">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Conversões</span><span class="ch-rv" id="cv-tiktok-conv">—</span></div>
+            <div class="ch-row"><span class="ch-rl">CPConv.</span><span class="ch-rv" id="cv-tiktok-cpc">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-tiktok" style="background:var(--tiktok)"></div></div>
+        </div>
+        <!-- Programática -->
+        <div class="ch" id="ch-prog">
+          <div class="ch-stripe" style="background:var(--prog)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">🖥️</span><span class="ch-nm">Programática</span></div>
+            <span class="ch-badge badge-wait" id="cb-prog">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Gasto</span><span class="ch-rv" id="cv-prog-gasto">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Impressões</span><span class="ch-rv" id="cv-prog-impr">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Viewability</span><span class="ch-rv" id="cv-prog-view">—</span></div>
+            <div class="ch-row"><span class="ch-rl">CPM</span><span class="ch-rv" id="cv-prog-cpm">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-prog" style="background:var(--prog)"></div></div>
+        </div>
+        <!-- Afiliados -->
+        <div class="ch" id="ch-afil">
+          <div class="ch-stripe" style="background:var(--afil)"></div>
+          <div class="ch-head">
+            <div class="ch-id"><span class="ch-logo">🤝</span><span class="ch-nm">Afiliados</span></div>
+            <span class="ch-badge badge-wait" id="cb-afil">aguardando</span>
+          </div>
+          <div class="ch-rows">
+            <div class="ch-row"><span class="ch-rl">Comissão</span><span class="ch-rv" id="cv-afil-com">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Cliques</span><span class="ch-rv" id="cv-afil-cli">—</span></div>
+            <div class="ch-row"><span class="ch-rl">Vendas</span><span class="ch-rv" id="cv-afil-ven">—</span></div>
+            <div class="ch-row"><span class="ch-rl">ROAS</span><span class="ch-rv" id="cv-afil-roas">—</span></div>
+          </div>
+          <div class="ch-prog"><div class="ch-prog-fill" id="cp-afil" style="background:var(--afil)"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONSOLIDATION BARS -->
+    <div class="consol" id="consolCard">
+      <div class="consol-header">
+        <div class="consol-title">Distribuição de Gasto por Canal</div>
+        <div class="consol-status" id="consolStatus">aguardando coleta...</div>
+      </div>
+      <div class="consol-bars">
+        <div class="cb-row"><span class="cb-lbl">Google Ads</span><div class="cb-track"><div class="cb-fill" id="bar-google" style="background:var(--gads)"></div></div><span class="cb-val" id="bv-google">—</span></div>
+        <div class="cb-row"><span class="cb-lbl">Meta Ads</span><div class="cb-track"><div class="cb-fill" id="bar-meta" style="background:var(--meta)"></div></div><span class="cb-val" id="bv-meta">—</span></div>
+        <div class="cb-row"><span class="cb-lbl">TikTok</span><div class="cb-track"><div class="cb-fill" id="bar-tiktok" style="background:var(--tiktok)"></div></div><span class="cb-val" id="bv-tiktok">—</span></div>
+        <div class="cb-row"><span class="cb-lbl">Programática</span><div class="cb-track"><div class="cb-fill" id="bar-prog" style="background:var(--prog)"></div></div><span class="cb-val" id="bv-prog">—</span></div>
+        <div class="cb-row"><span class="cb-lbl">Afiliados</span><div class="cb-track"><div class="cb-fill" id="bar-afil" style="background:var(--afil)"></div></div><span class="cb-val" id="bv-afil">—</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- RIGHT PANEL -->
+  <div class="right">
+    <div class="r-tabs">
+      <button class="r-tab on" onclick="tab('log')">Log</button>
+      <button class="r-tab" onclick="tab('wpp')">WhatsApp</button>
+      <button class="r-tab" onclick="tab('alerts')">Alertas</button>
+    </div>
+    <div class="panel on" id="panel-log">
+      <div class="lg inf"><span class="lg-ts">09:00:00</span>Sistema iniciado. Aguardando execução...</div>
+    </div>
+    <div class="panel" id="panel-wpp">
+      <div class="wpp" id="wppBox">
+        <div class="wpp-h"><div class="wpp-av">👤</div><div class="wpp-info"><b>Gestor — Agência</b><small>online</small></div></div>
+        <div class="wpp-body" id="wppBody"><div style="font-size:.68rem;color:var(--muted);padding:.5rem;text-align:center">Aguardando envio...</div></div>
+      </div>
+    </div>
+    <div class="panel" id="panel-alerts">
+      <div style="font-size:.68rem;color:var(--muted);text-align:center;padding:1.5rem">Execute a simulação para ver alertas...</div>
+    </div>
+  </div>
+</div>
+
+<!-- STEP BAR -->
+<div class="step-bar">
+  <div class="sb-dot" id="sb0"></div>
+  <div class="sb-dot" id="sb1"></div>
+  <div class="sb-dot" id="sb2"></div>
+  <div class="sb-dot" id="sb3"></div>
+  <div class="sb-dot" id="sb4"></div>
+  <div class="sb-dot" id="sb5"></div>
+  <div class="sb-dot" id="sb6"></div>
+  <div class="sb-dot" id="sb7"></div>
+  <span class="sb-lbl" id="sbLbl">Pronto para executar</span>
+</div>
+
+<script>
+// ── HELPERS ──────────────────────────────────────────
+let running = false;
+
+const $ = id => document.getElementById(id);
+const delay = ms => new Promise(r => setTimeout(r, ms));
+const brl = v => 'R$ ' + parseFloat(v).toLocaleString('pt-BR', {minimumFractionDigits:2,maximumFractionDigits:2});
+const num = v => parseInt(v).toLocaleString('pt-BR');
+const ts = () => { const d=new Date(); return `${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`; };
+
+function log(msg, type='inf') {
+  const p = $('panel-log');
+  const el = document.createElement('div');
+  el.className = `lg ${type} new`;
+  el.innerHTML = `<span class="lg-ts">${ts()}</span>${msg}`;
+  p.appendChild(el);
+  p.scrollTop = 99999;
+}
+
+function wppMsg(msg) {
+  const body = $('wppBody');
+  const ph = body.querySelector('div[style]');
+  if (ph) ph.remove();
+  const el = document.createElement('div');
+  el.className = 'wm out';
+  el.innerHTML = msg + `<div class="wm-t">${ts()}</div>`;
+  body.appendChild(el);
+  body.scrollTop = 99999;
+  tab('wpp');
+}
+
+function setStep(n, lbl) {
+  for (let i=0;i<8;i++) {
+    const el = $(`sb${i}`);
+    el.classList.remove('ac','dn');
+    if (i < n) el.classList.add('dn');
+    else if (i === n) el.classList.add('ac');
+  }
+  $('sbLbl').textContent = lbl;
+}
+
+function tab(t) {
+  ['log','wpp','alerts'].forEach(id => {
+    $(`panel-${id}`).classList.toggle('on', id===t);
+  });
+  document.querySelectorAll('.r-tab').forEach((el,i) => {
+    el.classList.toggle('on', ['log','wpp','alerts'][i]===t);
+  });
+}
+
+// ── FAKE DATA PER CHANNEL ──────────────────────────
+const mockData = {
+  google:  { gasto:4820.50, cliques:18420, conv:342, receita:18943.20, roas:3.93 },
+  meta:    { gasto:3210.80, alcance:145000, conv:218, receita:10242.56, roas:3.19 },
+  ga4:     { sessoes:24820, users:18340, bounce:'38.4%', conv:589 },
+  tiktok:  { gasto:1540.20, views:'68.2k', conv:87, cpc:17.70 },
+  prog:    { gasto:980.40, impr:'2.1M', view:'72%', cpm:0.47 },
+  afil:    { com:620.80, cliques:8940, vendas:124, roas:4.1 }
+};
+
+async function collectChannel(id, label, color, fields, dataFn) {
+  const card = $(`ch-${id}`);
+  const badge = $(`cb-${id}`);
+  const fill = $(`cp-${id}`);
+
+  // start collecting
+  card.classList.add('collecting');
+  badge.className = 'ch-badge badge-col';
+  badge.textContent = '● coletando';
+  log(`Conectando à API ${label}...`, 'ch');
+
+  // animate progress
+  let pct = 0;
+  const iv = setInterval(() => { pct = Math.min(pct+8, 90); fill.style.width = pct+'%'; }, 80);
+
+  await delay(800 + Math.random()*600);
+  clearInterval(iv);
+  fill.style.width = '100%';
+
+  // fill values
+  const data = mockData[id];
+  dataFn(data);
+
+  // mark done
+  card.classList.remove('collecting');
+  card.classList.add('done');
+  badge.className = 'ch-badge badge-ok';
+  badge.textContent = '✓ coletado';
+  log(`✓ ${label} → ${Object.keys(data).length} métricas recebidas`, 'suc');
+}
+
+function setChVal(id, val, loaded=true) {
+  const el = $(id);
+  if (!el) return;
+  el.textContent = val;
+  if (loaded) el.classList.add('loaded');
+}
+
+function animKpi(id, val, prefix='', suffix='') {
+  const el = $(id);
+  el.classList.remove('loading');
+  el.textContent = prefix + val + suffix;
+  $(`kpi-${id.replace('kv-','')}`).classList.add('loaded');
+}
+
+// ── MAIN DEMO ──────────────────────────────────────
+async function runDemo() {
+  if (running) return;
+  running = true;
+  $('btnPlay').textContent = '⟳ Executando...';
+  $('btnPlay').disabled = true;
+
+  const today = new Date();
+  const ontem = new Date(today); ontem.setDate(ontem.getDate()-1);
+  $('tbDate').textContent = `Dados de ${ontem.toLocaleDateString('pt-BR')}`;
+
+  // STEP 0
+  setStep(0, 'Trigger disparado às 9h...');
+  log('⏰ Trigger diário ativado: 09:00', 'inf');
+  log(`Período: ${ontem.toLocaleDateString('pt-BR')}`, 'inf');
+  await delay(900);
+
+  // STEP 1
+  setStep(1, 'Coletando Google Ads...');
+  await collectChannel('google', 'Google Ads', '#4285F4',
+    ['gasto','cliques','conv','receita'],
+    d => {
+      setChVal('cv-google-gasto', brl(d.gasto), true);
+      setChVal('cv-google-cliques', num(d.cliques), true);
+      setChVal('cv-google-conv', num(d.conv), true);
+      setChVal('cv-google-roas', d.roas+'x', true);
+    }
+  );
+
+  // STEP 2
+  setStep(2, 'Coletando Meta Ads...');
+  await collectChannel('meta', 'Meta Ads', '#1877F2',
+    ['gasto','alcance','conv','receita'],
+    d => {
+      setChVal('cv-meta-gasto', brl(d.gasto), true);
+      setChVal('cv-meta-alcance', num(d.alcance), true);
+      setChVal('cv-meta-conv', num(d.conv), true);
+      setChVal('cv-meta-roas', d.roas+'x', true);
+    }
+  );
+
+  // STEP 3 — GA4, TikTok, Prog, Afil in parallel (simulate)
+  setStep(3, 'Coletando GA4, TikTok, Prog, Afiliados...');
+  log('Iniciando coleta paralela de 4 canais...', 'inf');
+
+  // Fire them sequentially with short delays to show animation
+  const p1 = collectChannel('ga4', 'GA4', '#E37400', [],
+    d => {
+      setChVal('cv-ga4-sessoes', num(d.sessoes), true);
+      setChVal('cv-ga4-users', num(d.users), true);
+      setChVal('cv-ga4-bounce', d.bounce, true);
+      setChVal('cv-ga4-conv', num(d.conv), true);
+    }
+  );
+  await delay(200);
+  const p2 = collectChannel('tiktok', 'TikTok Ads', '#ff0050', [],
+    d => {
+      setChVal('cv-tiktok-gasto', brl(d.gasto), true);
+      setChVal('cv-tiktok-views', d.views, true);
+      setChVal('cv-tiktok-conv', num(d.conv), true);
+      setChVal('cv-tiktok-cpc', brl(d.cpc), true);
+    }
+  );
+  await delay(200);
+  const p3 = collectChannel('prog', 'Programática', '#7c3aed', [],
+    d => {
+      setChVal('cv-prog-gasto', brl(d.gasto), true);
+      setChVal('cv-prog-impr', d.impr, true);
+      setChVal('cv-prog-view', d.view, true);
+      setChVal('cv-prog-cpm', brl(d.cpm), true);
+    }
+  );
+  await delay(200);
+  const p4 = collectChannel('afil', 'Afiliados', '#059669', [],
+    d => {
+      setChVal('cv-afil-com', brl(d.com), true);
+      setChVal('cv-afil-cli', num(d.cliques), true);
+      setChVal('cv-afil-ven', num(d.vendas), true);
+      setChVal('cv-afil-roas', d.roas+'x', true);
+    }
+  );
+  await Promise.all([p1,p2,p3,p4]);
+
+  // STEP 4 — Consolidação
+  setStep(4, 'Consolidando todos os canais...');
+  log('🔄 Consolidando dados de 6 canais...', 'ch');
+  await delay(800);
+
+  const totalGasto = mockData.google.gasto + mockData.meta.gasto + mockData.tiktok.gasto + mockData.prog.gasto + mockData.afil.com;
+  const totalConv = mockData.google.conv + mockData.meta.conv + mockData.tiktok.conv + mockData.ga4.conv;
+  const totalReceita = mockData.google.receita + mockData.meta.receita;
+  const roas = (totalReceita / (mockData.google.gasto + mockData.meta.gasto)).toFixed(2);
+  const cpa = (totalGasto / totalConv).toFixed(2);
+
+  // KPIs
+  animKpi('kv-gasto', brl(totalGasto));
+  $('kd-gasto').className = 'kpi-delta up'; $('kd-gasto').textContent = '↑ +12% vs semana';
+  await delay(200);
+  animKpi('kv-conv', num(totalConv));
+  $('kd-conv').className = 'kpi-delta up'; $('kd-conv').textContent = '↑ +8% vs semana';
+  await delay(200);
+  animKpi('kv-roas', roas+'x');
+  $('kd-roas').className = 'kpi-delta up'; $('kd-roas').textContent = '↑ Acima da meta';
+  await delay(200);
+  animKpi('kv-cpa', brl(cpa));
+  $('kd-cpa').className = 'kpi-delta dn'; $('kd-cpa').textContent = '↑ +5% vs meta';
+  await delay(200);
+  animKpi('kv-rec', brl(totalReceita));
+  $('kd-rec').className = 'kpi-delta up'; $('kd-rec').textContent = '↑ +18% vs semana';
+
+  // Bars
+  $('consolStatus').textContent = 'consolidado ✓';
+  const barData = [
+    { id:'google', val:mockData.google.gasto, pct:43 },
+    { id:'meta',   val:mockData.meta.gasto,   pct:29 },
+    { id:'tiktok', val:mockData.tiktok.gasto, pct:14 },
+    { id:'prog',   val:mockData.prog.gasto,   pct:9 },
+    { id:'afil',   val:mockData.afil.com,     pct:5 },
+  ];
+  for (const b of barData) {
+    $(`bar-${b.id}`).style.width = b.pct + '%';
+    $(`bv-${b.id}`).textContent = brl(b.val);
+    $(`bv-${b.id}`).classList.add('lv');
+    await delay(120);
+  }
+  log('✓ Dados consolidados: 6 canais · ' + Object.keys(mockData).length + ' fontes', 'suc');
+
+  // STEP 5 — Alertas
+  setStep(5, 'Analisando anomalias...');
+  log('🚨 Analisando métricas vs limites configurados...', 'ch');
+  await delay(700);
+
+  const alertPanel = $('panel-alerts');
+  alertPanel.innerHTML = '';
+  // OK alert
+  const al1 = document.createElement('div');
+  al1.className = 'al ok';
+  al1.innerHTML = `<div class="al-t ok">✅ ROAS dentro do esperado</div><div class="al-d">ROAS atual ${roas}x · Meta: 2.5x · Margem: +${((roas-2.5)/2.5*100).toFixed(0)}%</div>`;
+  alertPanel.appendChild(al1);
+  // Warning
+  const al2 = document.createElement('div');
+  al2.className = 'al warn';
+  al2.innerHTML = `<div class="al-t warn">⚠️ CPA acima da meta no Meta Ads</div><div class="al-d">CPA atual: R$ ${brl(mockData.meta.gasto/mockData.meta.conv)} · Meta: R$ 18,00. Considere ajustar públicos ou criativos.</div>`;
+  alertPanel.appendChild(al2);
+  // OK
+  const al3 = document.createElement('div');
+  al3.className = 'al ok';
+  al3.innerHTML = `<div class="al-t ok">✅ Todos os 6 canais coletados com sucesso</div><div class="al-d">Nenhuma falha de API detectada. Dados completos para o período.</div>`;
+  alertPanel.appendChild(al3);
+
+  log('⚠️ 1 alerta gerado: CPA Meta acima da meta', 'wrn');
+  log('✓ Restantes 5 indicadores dentro dos limites', 'suc');
+
+  // STEP 6 — Salva no Sheets
+  setStep(6, 'Salvando no Google Sheets...');
+  log('📋 Salvando linha diária no Google Sheets...', 'inf');
+  await delay(700);
+  log('✓ Linha salva · Aba "Dados Diários" · Row 182', 'suc');
+  log('✓ Power BI / Looker Studio atualizado automaticamente', 'suc');
+
+  // STEP 7 — WhatsApp
+  setStep(7, 'Enviando relatório ao gestor...');
+  log('💬 Gerando mensagem de relatório matinal...', 'ch');
+  await delay(600);
+
+  const today2 = new Date();
+  const diasSem = ['domingo','segunda','terça','quarta','quinta','sexta','sábado'];
+  const meses = ['jan','fev','mar','abr','mai','jun','jul','ago','set','out','nov','dez'];
+  const dataFormatada = `${diasSem[today2.getDay()]}, ${ontem.getDate()} de ${meses[ontem.getMonth()]}`;
+
+  const relMsg = `☀️ BOM DIA! Relatório de Performance\n📅 ${dataFormatada}\n\n📊 RESUMO GERAL\n💰 Gasto Total: ${brl(totalGasto)}\n🎯 Conversões: ${num(totalConv)}\n📈 ROAS: ${roas}x\n💡 CPA: ${brl(cpa)}\n💵 Receita: ${brl(totalReceita)}\n\n📡 POR CANAL\n  • Google Ads: ${brl(mockData.google.gasto)} · ${mockData.google.conv} conv.\n  • Meta Ads: ${brl(mockData.meta.gasto)} · ${mockData.meta.conv} conv.\n  • TikTok: ${brl(mockData.tiktok.gasto)}\n  • Programática: ${brl(mockData.prog.gasto)}\n  • Afiliados: ${brl(mockData.afil.com)}\n\n⚠️ 1 alerta: CPA Meta acima da meta. Verifique!`;
+
+  wppMsg(relMsg);
+  log('✓ Relatório enviado via WhatsApp ao gestor', 'suc');
+  log('──────────────────────────────────', 'inf');
+  log('✅ Execução completa · 6/6 canais · 1 alerta · 09:00', 'suc');
+
+  setStep(7, '✓ Coleta completa · Dashboard atualizado!');
+  $('btnPlay').textContent = '✓ Executado! Clique para repetir';
+  $('btnPlay').disabled = false;
+  running = false;
+}
+
+function resetAll() {
+  running = false;
+  $('btnPlay').textContent = '▶ Executar Coleta';
+  $('btnPlay').disabled = false;
+  $('tbDate').textContent = '—';
+
+  // Reset channels
+  ['google','meta','ga4','tiktok','prog','afil'].forEach(id => {
+    const card = $(`ch-${id}`);
+    card.classList.remove('collecting','done','error');
+    $(`cb-${id}`).className = 'ch-badge badge-wait';
+    $(`cb-${id}`).textContent = 'aguardando';
+    $(`cp-${id}`).style.width = '0';
+  });
+
+  // Reset kpis
+  ['gasto','conv','roas','cpa','rec'].forEach(id => {
+    $(`kv-${id}`).textContent = '—';
+    $(`kv-${id}`).className = 'kpi-val loading';
+    $(`kd-${id}`).textContent = '';
+    $(`kpi-${id}`).classList.remove('loaded');
+  });
+
+  // Reset bars
+  ['google','meta','tiktok','prog','afil'].forEach(id => {
+    $(`bar-${id}`).style.width = '0';
+    $(`bv-${id}`).textContent = '—';
+    $(`bv-${id}`).classList.remove('lv');
+  });
+  $('consolStatus').textContent = 'aguardando coleta...';
+
+  // Reset fields
+  ['google','meta','ga4','tiktok','prog','afil'].forEach(ch => {
+    document.querySelectorAll(`[id^="cv-${ch}"]`).forEach(el => {
+      el.textContent = '—'; el.classList.remove('loaded');
+    });
+  });
+
+  // Reset panels
+  $('panel-log').innerHTML = '<div class="lg inf"><span class="lg-ts">09:00:00</span>Sistema resetado. Aguardando execução...</div>';
+  $('wppBody').innerHTML = '<div style="font-size:.68rem;color:var(--muted);padding:.5rem;text-align:center">Aguardando envio...</div>';
+  $('panel-alerts').innerHTML = '<div style="font-size:.68rem;color:var(--muted);text-align:center;padding:1.5rem">Execute a simulação para ver alertas...</div>';
+
+  for (let i=0;i<8;i++) { const el=$(`sb${i}`); el.classList.remove('ac','dn'); }
+  $('sbLbl').textContent = 'Pronto para executar';
+  tab('log');
+}
+
+// Init date
+document.addEventListener('DOMContentLoaded', () => {
+  const d = new Date();
+  $('tbDate').textContent = `Hoje: ${d.toLocaleDateString('pt-BR')}`;
+});
+</script>
+</body>
+</html>

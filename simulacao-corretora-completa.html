@@ -1,0 +1,692 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Corretora de Seguros · Sistema Completo de Automação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#06080f;--bg2:#090c16;--bg3:#0d1220;
+  --a:#3b82f6;--a2:#60a5fa;--a3:#93c5fd;
+  --g:#22c55e;--g2:#4ade80;
+  --r:#ef4444;--y:#f59e0b;--p:#a855f7;
+  --text:#e1e7f5;--muted:#475b80;--muted2:#1e2840;
+  --card:#080c18;--line:rgba(59,130,246,.1);--line2:rgba(255,255,255,.05);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-weight:300;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--a);border-radius:2px}
+
+/* TOPBAR */
+.top{position:sticky;top:0;z-index:100;background:rgba(6,8,15,.95);backdrop-filter:blur(16px);border-bottom:1px solid var(--line);padding:.9rem 3rem;display:flex;align-items:center;justify-content:space-between}
+.top-brand{display:flex;align-items:center;gap:.75rem}
+.top-ic{width:36px;height:36px;background:linear-gradient(135deg,var(--a),var(--p));border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:1.1rem}
+.top-name{font-size:1.05rem;font-weight:600}
+.top-name span{color:var(--a2)}
+.top-tag{font-family:'JetBrains Mono',monospace;font-size:.62rem;color:var(--muted);background:var(--muted2);padding:.25rem .7rem;border-radius:5px}
+.top-nav{display:flex;gap:.35rem}
+.tn{padding:.42rem .9rem;border-radius:7px;font-size:.7rem;font-weight:500;cursor:pointer;border:none;transition:all .2s;font-family:'Sora',sans-serif}
+.tn.act{background:var(--a);color:#fff}
+.tn.idle{background:transparent;color:var(--muted);border:1px solid var(--line2)}
+.tn.idle:hover{border-color:rgba(59,130,246,.3);color:var(--a2)}
+
+/* PAGES */
+.page{display:none;animation:pgIn .35s ease}
+.page.on{display:block}
+@keyframes pgIn{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ── SECTION HERO ── */
+.hero-sec{padding:4rem 3rem 3rem;max-width:1300px;margin:0 auto}
+.hs-grid{display:grid;grid-template-columns:1fr 1fr;gap:4rem;align-items:center}
+.hs-badge{display:inline-flex;align-items:center;gap:.5rem;background:rgba(239,68,68,.07);border:1px solid rgba(239,68,68,.2);padding:.3rem .9rem;border-radius:100px;font-size:.66rem;font-family:'JetBrains Mono',monospace;color:#fca5a5;margin-bottom:1.25rem}
+.hs-title{font-size:2.6rem;font-weight:700;line-height:1.12;letter-spacing:-.03em;margin-bottom:1rem}
+.hs-title em{font-style:italic;background:linear-gradient(135deg,var(--a),var(--p));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hs-sub{font-size:.88rem;color:var(--muted);line-height:1.85;margin-bottom:2rem}
+.hs-sub strong{color:var(--text)}
+.dores-list{display:flex;flex-direction:column;gap:.55rem}
+.dor{display:flex;align-items:flex-start;gap:.65rem;background:rgba(239,68,68,.05);border:1px solid rgba(239,68,68,.12);border-radius:8px;padding:.75rem 1rem}
+.dor-ic{font-size:1.1rem;flex-shrink:0;margin-top:.05rem}
+.dor-t{font-size:.75rem;font-weight:600;color:#fca5a5;margin-bottom:.18rem}
+.dor-d{font-size:.69rem;color:var(--muted);line-height:1.6}
+
+/* RIGHT PANEL — quick stats */
+.hs-right{display:flex;flex-direction:column;gap:.75rem}
+.stat-card{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.2rem 1.4rem;position:relative;overflow:hidden}
+.stat-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px}
+.stat-card.red::before{background:var(--r)}
+.stat-card.blue::before{background:var(--a)}
+.stat-card.green::before{background:var(--g)}
+.stat-card.purple::before{background:var(--p)}
+.sc-val{font-size:2rem;font-weight:700;font-family:'JetBrains Mono',monospace;line-height:1;margin-bottom:.3rem}
+.sc-val.red{color:var(--r)}
+.sc-val.blue{color:var(--a2)}
+.sc-val.green{color:var(--g2)}
+.sc-val.purple{color:#d8b4fe}
+.sc-lbl{font-size:.7rem;color:var(--muted);line-height:1.5}
+
+/* SOLUCAO grid */
+.sol-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:10px;overflow:hidden;max-width:1300px;margin:2rem auto 0}
+.sol-c{background:var(--card);padding:2rem 1.75rem;position:relative;transition:background .3s}
+.sol-c:hover{background:#0b0f1e}
+.sol-n{font-family:'JetBrains Mono',monospace;font-size:.55rem;color:var(--muted2);position:absolute;top:1.25rem;right:1.25rem}
+.sol-ic{font-size:2rem;display:block;margin-bottom:.85rem}
+.sol-t{font-size:1.05rem;font-weight:600;letter-spacing:-.02em;margin-bottom:.55rem}
+.sol-d{font-size:.72rem;color:var(--muted);line-height:1.75}
+.sol-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.85rem}
+.sol-tag{font-size:.54rem;padding:.18rem .5rem;border:1px solid rgba(59,130,246,.18);color:var(--a2);border-radius:100px;font-family:'JetBrains Mono',monospace}
+
+/* ── FLOW PAGE ── */
+.flow-wrap{max-width:1300px;margin:0 auto;padding:2.5rem 3rem}
+.fw-title{font-size:1.5rem;font-weight:700;letter-spacing:-.03em;margin-bottom:.4rem}
+.fw-sub{font-size:.8rem;color:var(--muted);margin-bottom:2.5rem}
+.flow-layout{display:grid;grid-template-columns:1fr 320px;gap:1.5rem;align-items:start}
+
+/* FLOW STAGES */
+.stages{display:flex;flex-direction:column;gap:1.5rem}
+.stage{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s}
+.stage.active-stage{border-color:rgba(59,130,246,.35);box-shadow:0 0 28px rgba(59,130,246,.1)}
+.stage-hdr{display:flex;align-items:center;gap:.85rem;padding:1.1rem 1.4rem;cursor:pointer;user-select:none}
+.stage-num{width:32px;height:32px;border-radius:8px;background:var(--muted2);display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.72rem;font-weight:500;transition:all .3s;flex-shrink:0}
+.stage.active-stage .stage-num{background:var(--a);color:#fff}
+.stage.done-stage .stage-num{background:var(--g);color:#fff}
+.stage-info{flex:1}
+.stage-title{font-size:.88rem;font-weight:600;margin-bottom:.18rem}
+.stage-desc{font-size:.68rem;color:var(--muted)}
+.stage-badge{font-size:.58rem;padding:.2rem .55rem;border-radius:100px;font-family:'JetBrains Mono',monospace}
+.sb-idle{background:var(--muted2);color:var(--muted)}
+.sb-run{background:rgba(59,130,246,.12);color:var(--a2);border:1px solid rgba(59,130,246,.2);animation:sbpulse .9s ease-in-out infinite}
+@keyframes sbpulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sb-done{background:rgba(34,197,94,.08);color:var(--g2);border:1px solid rgba(34,197,94,.2)}
+.stage-body{padding:0 1.4rem 1.4rem;display:none}
+.stage.active-stage .stage-body,.stage.done-stage .stage-body{display:block}
+.nodes-row{display:flex;align-items:center;gap:.4rem;flex-wrap:wrap;margin-bottom:1rem}
+.node{display:flex;flex-direction:column;align-items:center;gap:.3rem}
+.node-box{background:var(--bg3);border:1.5px solid var(--line2);border-radius:8px;padding:.6rem .55rem;text-align:center;min-width:80px;max-width:90px;transition:all .35s;position:relative}
+.node-box.n-run{border-color:var(--a);background:rgba(59,130,246,.07);box-shadow:0 0 14px rgba(59,130,246,.15);animation:nrun .9s ease-in-out infinite}
+.node-box.n-done{border-color:var(--g);background:rgba(34,197,94,.05)}
+@keyframes nrun{0%,100%{box-shadow:0 0 10px rgba(59,130,246,.15)}50%{box-shadow:0 0 24px rgba(59,130,246,.3)}}
+.node-ic{font-size:1.2rem;display:block}
+.node-nm{font-size:.56rem;color:var(--muted);line-height:1.35;font-family:'JetBrains Mono',monospace}
+.node-box.n-run .node-nm{color:var(--a2)}
+.node-box.n-done .node-nm{color:var(--g2)}
+.node-arr{color:var(--muted2);font-size:.8rem;margin-top:-.3rem}
+.result-box{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:8px;padding:.85rem 1rem;font-size:.72rem;color:var(--g2);line-height:1.65}
+.result-box strong{display:block;font-size:.75rem;margin-bottom:.35rem;color:var(--g)}
+
+/* RIGHT — LOG + WPP */
+.side-panel{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;position:sticky;top:75px}
+.sp-tabs{display:flex;border-bottom:1px solid var(--line2)}
+.sp-tab{flex:1;padding:.6rem;font-size:.6rem;font-family:'JetBrains Mono',monospace;letter-spacing:.08em;text-transform:uppercase;cursor:pointer;text-align:center;color:var(--muted);background:transparent;border:none;border-bottom:2px solid transparent;transition:all .2s}
+.sp-tab.on{color:var(--a2);border-bottom-color:var(--a)}
+.sp-panel{display:none;height:420px;overflow-y:auto;padding:.9rem}
+.sp-panel.on{display:flex;flex-direction:column;gap:.35rem}
+.lg{font-family:'JetBrains Mono',monospace;font-size:.59rem;line-height:1.55;padding:.3rem .5rem;border-radius:4px;border-left:2px solid transparent;background:rgba(255,255,255,.02)}
+.lg.i{border-color:var(--a);color:#93c5fd}
+.lg.s{border-color:var(--g);color:var(--g2)}
+.lg.w{border-color:var(--y);color:#fde68a}
+.lg.p{border-color:var(--p);color:#d8b4fe}
+.lg-ts{color:var(--muted2);margin-right:.35rem}
+.lg.new{animation:lgi .3s ease}
+@keyframes lgi{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:none}}
+
+/* WPP preview */
+.wpp{background:#0a1612;border-radius:8px;overflow:hidden}
+.wpp-h{background:#075e54;padding:.55rem .8rem;display:flex;align-items:center;gap:.5rem}
+.wpp-av{width:26px;height:26px;border-radius:50%;background:#128c7e;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.wpp-i b{display:block;font-size:.68rem}.wpp-i small{font-size:.55rem;color:#80cbc4}
+.wpp-b{padding:.65rem;min-height:80px;display:flex;flex-direction:column;gap:.45rem}
+.wm{padding:.48rem .65rem;border-radius:7px;font-size:.66rem;line-height:1.5;max-width:92%}
+.wm.out{background:#005c4b;align-self:flex-end;border-radius:7px 7px 2px 7px;white-space:pre-line}
+.wm.out::before{content:'🤖 automação · ';font-size:.52rem;color:#80cbc4;display:block}
+.wm.in{background:#1f2c34;align-self:flex-start}
+.wmt{font-size:.52rem;opacity:.35;margin-top:.18rem;text-align:right}
+
+/* PLAY BAR */
+.play-bar{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.75rem;background:rgba(6,8,15,.95);border:1px solid var(--line);border-radius:100px;padding:.65rem 1.75rem;backdrop-filter:blur(14px);z-index:200}
+.pb-steps{display:flex;gap:.38rem}
+.pb-s{width:7px;height:7px;border-radius:50%;background:var(--muted2);transition:all .3s}
+.pb-s.dn{background:var(--g)}
+.pb-s.ac{background:var(--a);box-shadow:0 0 8px rgba(59,130,246,.6);width:20px;border-radius:3px}
+.pb-lbl{font-family:'JetBrains Mono',monospace;font-size:.6rem;color:var(--a2);min-width:200px}
+.pb-btn{padding:.42rem 1.2rem;border-radius:100px;font-size:.7rem;font-weight:600;cursor:pointer;border:none;font-family:'Sora',sans-serif;transition:all .2s}
+.pb-play{background:var(--a);color:#fff}
+.pb-play:hover{box-shadow:0 4px 16px rgba(59,130,246,.4)}
+.pb-reset{background:var(--muted2);color:var(--muted)}
+.pb-reset:hover{background:var(--bg3);color:var(--text)}
+
+/* METRICS PAGE */
+.metrics-wrap{max-width:1300px;margin:0 auto;padding:2.5rem 3rem}
+.m-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.mk{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.1rem 1.2rem;transition:all .3s}
+.mk:hover{border-color:rgba(59,130,246,.2)}
+.mk-ic{font-size:1.4rem;display:block;margin-bottom:.5rem}
+.mk-v{font-family:'JetBrains Mono',monospace;font-size:1.6rem;font-weight:500;line-height:1;color:var(--a2);margin-bottom:.25rem}
+.mk-l{font-size:.64rem;color:var(--muted)}
+.mk-delta{font-size:.62rem;color:var(--g2);margin-top:.25rem;font-family:'JetBrains Mono',monospace}
+.m2-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.m2c{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.25rem}
+.m2c-t{font-size:.75rem;font-weight:600;margin-bottom:1rem;display:flex;align-items:center;gap:.45rem}
+.pipeline-row{display:flex;align-items:center;justify-content:space-between;padding:.45rem 0;border-bottom:1px solid var(--line2);font-size:.7rem}
+.pipeline-row:last-child{border-bottom:none}
+.pr-stage{color:var(--muted)}
+.pr-val{font-family:'JetBrains Mono',monospace;font-weight:500;color:var(--text)}
+.pr-bar{height:4px;border-radius:2px;margin-top:.25rem}
+.team-row{display:flex;align-items:center;gap:.75rem;padding:.5rem 0;border-bottom:1px solid var(--line2)}
+.team-row:last-child{border-bottom:none}
+.team-av{width:30px;height:30px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;flex-shrink:0}
+.team-info{flex:1}
+.team-name{font-size:.72rem;font-weight:500;margin-bottom:.15rem}
+.team-role{font-size:.62rem;color:var(--muted)}
+.team-status{font-size:.6rem;padding:.18rem .45rem;border-radius:100px;font-family:'JetBrains Mono',monospace}
+.ts-ok{background:rgba(34,197,94,.08);color:var(--g2);border:1px solid rgba(34,197,94,.18)}
+.ts-busy{background:rgba(245,158,11,.08);color:#fde68a;border:1px solid rgba(245,158,11,.18)}
+
+/* ONBOARDING PAGE */
+.ob-wrap{max-width:1300px;margin:0 auto;padding:2.5rem 3rem}
+.ob-steps{display:flex;flex-direction:column;gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:10px;overflow:hidden}
+.ob-step{background:var(--card);padding:1.5rem 1.75rem;display:flex;gap:1.4rem;align-items:flex-start;transition:background .3s}
+.ob-step:hover{background:#0b0f1e}
+.ob-num{width:38px;height:38px;border-radius:9px;background:linear-gradient(135deg,var(--a),var(--p));display:flex;align-items:center;justify-content:center;font-family:'JetBrains Mono',monospace;font-size:.78rem;font-weight:700;color:#fff;flex-shrink:0}
+.ob-content{flex:1}
+.ob-title{font-size:.9rem;font-weight:600;margin-bottom:.4rem}
+.ob-desc{font-size:.72rem;color:var(--muted);line-height:1.75;margin-bottom:.6rem}
+.ob-auto{font-size:.68rem;color:var(--a2);font-family:'JetBrains Mono',monospace;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.14);border-radius:6px;padding:.45rem .7rem;line-height:1.6}
+.ob-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
+.ob-tag{font-size:.55rem;padding:.15rem .5rem;border:1px solid var(--line2);color:var(--muted);border-radius:5px;font-family:'JetBrains Mono',monospace}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="top">
+  <div class="top-brand">
+    <div class="top-ic">🛡️</div>
+    <div class="top-name">Corretora <span>360°</span></div>
+    <div class="top-tag">Sistema Completo · IA + n8n</div>
+  </div>
+  <div class="top-nav">
+    <button class="tn act" onclick="showPage('dores')">Diagnóstico</button>
+    <button class="tn idle" onclick="showPage('flow')">Automação ao Vivo</button>
+    <button class="tn idle" onclick="showPage('metrics')">Resultados</button>
+    <button class="tn idle" onclick="showPage('onboarding')">Onboarding Equipe</button>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 1: DIAGNÓSTICO ═══════════════ -->
+<div class="page on" id="pg-dores">
+  <div class="hero-sec">
+    <div class="hs-grid">
+      <div>
+        <div class="hs-badge">🔴 Diagnóstico real da corretora</div>
+        <h1 class="hs-title">As dores que travam<br>o crescimento da <em>corretora</em>.</h1>
+        <p class="hs-sub">Com apenas <strong>2 sócios</strong> e alta rotatividade de equipe, a operação depende de pessoas — e quando alguém sai, o conhecimento vai junto. A solução não é contratar mais. É <strong>automatizar os processos</strong> para que o sistema funcione independente de quem está na equipe.</p>
+        <div class="dores-list">
+          <div class="dor"><span class="dor-ic">🔄</span><div><div class="dor-t">Alta rotatividade de equipe</div><div class="dor-d">Quando um colaborador sai, leva junto leads em andamento, relacionamentos com clientes e o know-how do processo. Os sócios ficam sobrecarregados toda vez que precisam reintegrar alguém.</div></div></div>
+          <div class="dor"><span class="dor-ic">📋</span><div><div class="dor-t">Leads perdidos por falta de follow-up</div><div class="dor-d">Sem sistema, leads caem no esquecimento. Cotações pedidas e nunca respondidas. Clientes que foram embora porque ninguém retornou.</div></div></div>
+          <div class="dor"><span class="dor-ic">⏳</span><div><div class="dor-t">Renovações perdidas por falta de controle</div><div class="dor-d">Apólices vencendo sem aviso. Cliente ligando para reclamar que ficou sem seguro. Receita recorrente sendo perdida por falta de processo.</div></div></div>
+          <div class="dor"><span class="dor-ic">📊</span><div><div class="dor-t">Sócios sem visibilidade da operação</div><div class="dor-d">Não há relatório consolidado. Os 2 donos precisam perguntar para cada pessoa o que está acontecendo — e as respostas nunca são completas.</div></div></div>
+          <div class="dor"><span class="dor-ic">🕐</span><div><div class="dor-t">Tarefas manuais consumindo tempo dos sócios</div><div class="dor-d">Preencher planilhas, enviar e-mails, cobrar proposta, lembrar de ligar — tudo manual. Os sócios estão operando em vez de crescer o negócio.</div></div></div>
+        </div>
+      </div>
+      <div class="hs-right">
+        <div class="stat-card red"><div class="sc-val red">-60%</div><div class="sc-lbl">Leads que viram cotação hoje<br><strong style="color:var(--text)">Com automação: +95% de resposta em até 2 minutos</strong></div></div>
+        <div class="stat-card blue"><div class="sc-val blue">3×</div><div class="sc-lbl">Mais renovações avisadas a tempo<br><strong style="color:var(--text)">Alertas automáticos em 30, 15 e 5 dias antes</strong></div></div>
+        <div class="stat-card purple"><div class="sc-val purple">100%</div><div class="sc-lbl">Onboarding novo colaborador<br><strong style="color:var(--text)">Processo documentado e automatizado — qualquer pessoa opera</strong></div></div>
+        <div class="stat-card green"><div class="sc-val green">2h</div><div class="sc-lbl">Para implementar o primeiro fluxo<br><strong style="color:var(--text)">Sistema rodando hoje mesmo, não em meses</strong></div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SOLUÇÕES -->
+  <div style="max-width:1300px;margin:0 auto;padding:0 3rem 1rem">
+    <div style="font-size:.62rem;font-family:'JetBrains Mono',monospace;color:var(--a2);letter-spacing:.14em;text-transform:uppercase;margin-bottom:.85rem;display:flex;align-items:center;gap:.5rem"><span style="display:block;width:10px;height:1px;background:var(--a2)"></span>O que vamos automatizar</div>
+  </div>
+  <div class="sol-grid" style="margin:0 3rem 4rem">
+    <div class="sol-c"><span class="sol-n">01</span><span class="sol-ic">⚡</span><div class="sol-t">Captação & Qualificação</div><p class="sol-d">Lead entra pelo site, WhatsApp ou indicação. IA qualifica em segundos, calcula score e já dispara mensagem personalizada — sem nenhuma ação humana.</p><div class="sol-tags"><span class="sol-tag">Webhook</span><span class="sol-tag">GPT-4</span><span class="sol-tag">Score</span></div></div>
+    <div class="sol-c"><span class="sol-n">02</span><span class="sol-ic">🤖</span><div class="sol-t">CRM Automático</div><p class="sol-d">Cada lead, proposta e cliente é registrado automaticamente no CRM. Histórico completo, notas de atendimento e próxima ação definida — sem depender de memória.</p><div class="sol-tags"><span class="sol-tag">Google Sheets</span><span class="sol-tag">Notion</span><span class="sol-tag">Pipedrive</span></div></div>
+    <div class="sol-c"><span class="sol-n">03</span><span class="sol-ic">🔔</span><div class="sol-t">Follow-up Inteligente</div><p class="sol-d">Sistema monitora leads sem resposta e dispara mensagens de acompanhamento nos intervalos certos: 4h, 24h e 48h — por prioridade, sem spam.</p><div class="sol-tags"><span class="sol-tag">n8n</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">E-mail</span></div></div>
+    <div class="sol-c"><span class="sol-n">04</span><span class="sol-ic">📅</span><div class="sol-t">Renovação Automática</div><p class="sol-d">Apólices monitoradas 365 dias. Aviso ao cliente em 30, 15 e 5 dias antes do vencimento. Nunca mais uma renovação perdida por descuido.</p><div class="sol-tags"><span class="sol-tag">Scheduler</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">E-mail</span></div></div>
+    <div class="sol-c"><span class="sol-n">05</span><span class="sol-ic">👥</span><div class="sol-t">Onboarding de Equipe</div><p class="sol-d">Processo de integração documentado e automatizado. Novo colaborador recebe acesso, treinamento e checklist automaticamente. Rotatividade deixa de ser um problema.</p><div class="sol-tags"><span class="sol-tag">Automação</span><span class="sol-tag">Checklist</span><span class="sol-tag">Docs</span></div></div>
+    <div class="sol-c"><span class="sol-n">06</span><span class="sol-ic">📊</span><div class="sol-t">Dashboard dos Sócios</div><p class="sol-d">Relatório diário automático no WhatsApp dos 2 donos: leads do dia, propostas abertas, renovações próximas, conversão da equipe. Visibilidade total sem esforço.</p><div class="sol-tags"><span class="sol-tag">Power BI</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">Daily Report</span></div></div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 2: AUTOMAÇÃO AO VIVO ═══════════════ -->
+<div class="page" id="pg-flow">
+  <div class="flow-wrap">
+    <div class="fw-title">Automação rodando ao vivo</div>
+    <p class="fw-sub">Clique em "Executar" e veja cada etapa do processo acontecendo em tempo real. Exatamente como vai funcionar na corretora.</p>
+
+    <div class="flow-layout">
+      <div class="stages" id="stages">
+
+        <div class="stage" id="st0">
+          <div class="stage-hdr" onclick="toggleStage(0)">
+            <div class="stage-num" id="sn0">01</div>
+            <div class="stage-info"><div class="stage-title">Lead entra pelo WhatsApp / Site</div><div class="stage-desc">Webhook recebe dados e inicia o fluxo</div></div>
+            <span class="stage-badge sb-idle" id="sb0">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-wb"><span class="node-ic">🔵</span><div class="node-nm">Webhook<br>entrada</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-val"><span class="node-ic">✅</span><div class="node-nm">Valida<br>dados</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-dup"><span class="node-ic">🔍</span><div class="node-nm">Verifica<br>duplicata</div></div></div>
+            </div>
+            <div class="result-box" id="res0" style="display:none"><strong>✓ Lead recebido</strong>Nome: Carlos Mendes · Seguro Auto · Honda Civic 2023 · Canal: Indicação</div>
+          </div>
+        </div>
+
+        <div class="stage" id="st1">
+          <div class="stage-hdr" onclick="toggleStage(1)">
+            <div class="stage-num" id="sn1">02</div>
+            <div class="stage-info"><div class="stage-title">IA qualifica e calcula score</div><div class="stage-desc">GPT-4 analisa perfil e define prioridade</div></div>
+            <span class="stage-badge sb-idle" id="sb1">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-sc"><span class="node-ic">🧠</span><div class="node-nm">IA Score<br>ML</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-cls"><span class="node-ic">🏷️</span><div class="node-nm">Classifica<br>prioridade</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-tag"><span class="node-ic">🎯</span><div class="node-nm">Aplica<br>tags</div></div></div>
+            </div>
+            <div class="result-box" id="res1" style="display:none"><strong>🔥 Score: 85/100 · QUENTE</strong>Canal indicação (+30) · Veículo novo (+15) · Sem sinistros (+20) · E-mail fornecido (+10) · Seguro auto (+10)</div>
+          </div>
+        </div>
+
+        <div class="stage" id="st2">
+          <div class="stage-hdr" onclick="toggleStage(2)">
+            <div class="stage-num" id="sn2">03</div>
+            <div class="stage-info"><div class="stage-title">CRM atualizado automaticamente</div><div class="stage-desc">Lead salvo com todos os dados e histórico</div></div>
+            <span class="stage-badge sb-idle" id="sb2">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-crm"><span class="node-ic">📋</span><div class="node-nm">Salva no<br>CRM</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-hist"><span class="node-ic">📂</span><div class="node-nm">Cria<br>histórico</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-task"><span class="node-ic">✏️</span><div class="node-nm">Define<br>próx. ação</div></div></div>
+            </div>
+            <div class="result-box" id="res2" style="display:none"><strong>✓ CRM atualizado</strong>ID: LEAD-8847 · Aba Leads · Row 312 · Próxima ação: ligar em até 1h · Responsável: rotacionado automaticamente</div>
+          </div>
+        </div>
+
+        <div class="stage" id="st3">
+          <div class="stage-hdr" onclick="toggleStage(3)">
+            <div class="stage-num" id="sn3">04</div>
+            <div class="stage-info"><div class="stage-title">WhatsApp enviado em segundos</div><div class="stage-desc">Mensagem personalizada + alerta para os sócios</div></div>
+            <span class="stage-badge sb-idle" id="sb3">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-wpp1"><span class="node-ic">💬</span><div class="node-nm">WhatsApp<br>lead</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-wpp2"><span class="node-ic">🚨</span><div class="node-nm">Alerta<br>sócios</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-email"><span class="node-ic">✉️</span><div class="node-nm">E-mail<br>backup</div></div></div>
+            </div>
+            <div class="result-box" id="res3" style="display:none"><strong>✓ Mensagens enviadas em 1.8 segundos</strong>Lead recebeu mensagem personalizada · Sócios alertados: "Lead QUENTE Score 85 · Carlos Mendes · Indicação"</div>
+          </div>
+        </div>
+
+        <div class="stage" id="st4">
+          <div class="stage-hdr" onclick="toggleStage(4)">
+            <div class="stage-num" id="sn4">05</div>
+            <div class="stage-info"><div class="stage-title">Follow-up automático ativado</div><div class="stage-desc">Sistema monitora e reativa se não houver resposta</div></div>
+            <span class="stage-badge sb-idle" id="sb4">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-fu1"><span class="node-ic">⏰</span><div class="node-nm">Timer<br>4h</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-fu2"><span class="node-ic">🔍</span><div class="node-nm">Verifica<br>resposta</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-fu3"><span class="node-ic">💬</span><div class="node-nm">Follow-up<br>automático</div></div></div>
+            </div>
+            <div class="result-box" id="res4" style="display:none"><strong>✓ Cadência ativada</strong>Se sem resposta em 4h → follow-up automático · 24h → 2º contato · 48h → alerta para sócio ligar</div>
+          </div>
+        </div>
+
+        <div class="stage" id="st5">
+          <div class="stage-hdr" onclick="toggleStage(5)">
+            <div class="stage-num" id="sn5">06</div>
+            <div class="stage-info"><div class="stage-title">Relatório diário para os sócios</div><div class="stage-desc">Visibilidade total da operação todo dia às 8h</div></div>
+            <span class="stage-badge sb-idle" id="sb5">aguardando</span>
+          </div>
+          <div class="stage-body">
+            <div class="nodes-row">
+              <div class="node"><div class="node-box" id="n-rep1"><span class="node-ic">📊</span><div class="node-nm">Coleta<br>métricas</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-rep2"><span class="node-ic">🧮</span><div class="node-nm">Consolida<br>dados</div></div></div>
+              <span class="node-arr">→</span>
+              <div class="node"><div class="node-box" id="n-rep3"><span class="node-ic">💬</span><div class="node-nm">Envia<br>relatório</div></div></div>
+            </div>
+            <div class="result-box" id="res5" style="display:none"><strong>✓ Relatório enviado às 8h para os 2 sócios</strong>Leads do dia · Propostas abertas · Renovações próximas · Taxa de conversão · Pendências de equipe</div>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- SIDE PANEL -->
+      <div class="side-panel">
+        <div class="sp-tabs">
+          <button class="sp-tab on" onclick="spTab('log')">Log</button>
+          <button class="sp-tab" onclick="spTab('wpp')">WhatsApp</button>
+        </div>
+        <div class="sp-panel on" id="sp-log">
+          <div class="lg i"><span class="lg-ts">08:00:00</span>Sistema pronto. Aguardando execução...</div>
+        </div>
+        <div class="sp-panel" id="sp-wpp">
+          <div class="wpp">
+            <div class="wpp-h"><div class="wpp-av">👤</div><div class="wpp-i"><b>Carlos Mendes</b><small>online</small></div></div>
+            <div class="wpp-b" id="wppB"><div style="font-size:.66rem;color:var(--muted);padding:.5rem;text-align:center">Aguardando...</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 3: RESULTADOS ═══════════════ -->
+<div class="page" id="pg-metrics">
+  <div class="metrics-wrap">
+    <div class="fw-title">Resultados projetados</div>
+    <p class="fw-sub" style="margin-bottom:2rem">Baseado em casos reais de corretoras que implementaram automação com n8n + IA.</p>
+    <div class="m-grid">
+      <div class="mk"><span class="mk-ic">⚡</span><div class="mk-v">&lt; 2s</div><div class="mk-l">Tempo de resposta ao lead</div><div class="mk-delta">↓ Era: horas ou dias</div></div>
+      <div class="mk"><span class="mk-ic">🎯</span><div class="mk-v">+3×</div><div class="mk-l">Mais reuniões agendadas</div><div class="mk-delta">↑ Sem contratar mais ninguém</div></div>
+      <div class="mk"><span class="mk-ic">🔔</span><div class="mk-v">100%</div><div class="mk-l">Renovações avisadas</div><div class="mk-delta">↑ Era: dependia da memória</div></div>
+      <div class="mk"><span class="mk-ic">👥</span><div class="mk-v">1 dia</div><div class="mk-l">Onboarding novo colaborador</div><div class="mk-delta">↓ Era: semanas de treinamento</div></div>
+    </div>
+    <div class="m2-grid">
+      <div class="m2c">
+        <div class="m2c-t">📊 Funil de Leads (simulado)</div>
+        <div class="pipeline-row"><span class="pr-stage">Leads recebidos</span><div style="flex:1;margin:0 .75rem"><div class="pr-bar" style="background:var(--a);width:100%"></div></div><span class="pr-val">100</span></div>
+        <div class="pipeline-row"><span class="pr-stage">Respondidos em 2min</span><div style="flex:1;margin:0 .75rem"><div class="pr-bar" style="background:var(--a2);width:95%"></div></div><span class="pr-val">95</span></div>
+        <div class="pipeline-row"><span class="pr-stage">Cotação enviada</span><div style="flex:1;margin:0 .75rem"><div class="pr-bar" style="background:var(--p);width:78%"></div></div><span class="pr-val">78</span></div>
+        <div class="pipeline-row"><span class="pr-stage">Proposta aceita</span><div style="flex:1;margin:0 .75rem"><div class="pr-bar" style="background:var(--g);width:35%"></div></div><span class="pr-val">35</span></div>
+        <div class="pipeline-row"><span class="pr-stage">Cliente fidelizado</span><div style="flex:1;margin:0 .75rem"><div class="pr-bar" style="background:var(--g2);width:28%"></div></div><span class="pr-val">28</span></div>
+      </div>
+      <div class="m2c">
+        <div class="m2c-t">👥 Equipe — Visão dos Sócios</div>
+        <div class="team-row"><div class="team-av" style="background:rgba(59,130,246,.15)">👤</div><div class="team-info"><div class="team-name">Colaborador 1</div><div class="team-role">12 leads ativos · 3 propostas abertas</div></div><span class="team-status ts-ok">✓ em dia</span></div>
+        <div class="team-row"><div class="team-av" style="background:rgba(168,85,247,.15)">👤</div><div class="team-info"><div class="team-name">Colaborador 2</div><div class="team-role">8 leads ativos · 5 follow-ups pendentes</div></div><span class="team-status ts-busy">⚠ atenção</span></div>
+        <div class="team-row"><div class="team-av" style="background:rgba(34,197,94,.15)">👤</div><div class="team-info"><div class="team-name">Sócio 1</div><div class="team-role">Visão geral · Dashboard diário</div></div><span class="team-status ts-ok">✓ informado</span></div>
+        <div class="team-row"><div class="team-av" style="background:rgba(245,158,11,.15)">👤</div><div class="team-info"><div class="team-name">Sócio 2</div><div class="team-role">Visão geral · Dashboard diário</div></div><span class="team-status ts-ok">✓ informado</span></div>
+        <div style="margin-top:.75rem;padding:.65rem;background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:7px;font-size:.68rem;color:var(--g2)">✓ Mesmo se sair um colaborador, todos os leads, histórico e processos ficam no sistema</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════ PAGE 4: ONBOARDING ═══════════════ -->
+<div class="page" id="pg-onboarding">
+  <div class="ob-wrap">
+    <div class="fw-title">Onboarding automatizado de equipe</div>
+    <p class="fw-sub" style="margin-bottom:2rem">A solução para o problema de rotatividade: o processo roda independente de quem está na equipe.</p>
+    <div class="ob-steps">
+      <div class="ob-step">
+        <div class="ob-num">01</div>
+        <div class="ob-content">
+          <div class="ob-title">🆕 Novo colaborador contratado</div>
+          <div class="ob-desc">Sócio adiciona o nome e e-mail do novo colaborador em um formulário simples. A partir daí, tudo é automático.</div>
+          <div class="ob-auto">→ Sistema cria conta de acesso, envia e-mail de boas-vindas e gera checklist personalizado de onboarding</div>
+          <div class="ob-tags"><span class="ob-tag">Formulário</span><span class="ob-tag">n8n</span><span class="ob-tag">E-mail automático</span></div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">02</div>
+        <div class="ob-content">
+          <div class="ob-title">📚 Treinamento do processo</div>
+          <div class="ob-desc">Colaborador recebe acesso à base de conhecimento: scripts de atendimento, processo de cotação, como usar o CRM e todas as automações.</div>
+          <div class="ob-auto">→ Vídeos curtos gravados + documentos + quiz de validação enviados automaticamente em 3 dias</div>
+          <div class="ob-tags"><span class="ob-tag">Notion</span><span class="ob-tag">Loom</span><span class="ob-tag">Google Drive</span></div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">03</div>
+        <div class="ob-content">
+          <div class="ob-title">👥 Redistribuição de leads</div>
+          <div class="ob-desc">Quando um colaborador sai, os leads ativos são redistribuídos automaticamente para quem está ativo — sem perder nenhum contato.</div>
+          <div class="ob-auto">→ CRM atualiza responsável automaticamente · Lead recebe mensagem de reapresentação do novo contato</div>
+          <div class="ob-tags"><span class="ob-tag">CRM</span><span class="ob-tag">WhatsApp</span><span class="ob-tag">Round Robin</span></div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">04</div>
+        <div class="ob-content">
+          <div class="ob-title">📊 Acompanhamento de desempenho</div>
+          <div class="ob-desc">Sócios recebem relatório semanal com performance de cada colaborador: leads atendidos, tempo de resposta, cotações enviadas e taxa de conversão.</div>
+          <div class="ob-auto">→ Dashboard automático toda segunda-feira · Alertas quando colaborador está abaixo da meta</div>
+          <div class="ob-tags"><span class="ob-tag">Dashboard</span><span class="ob-tag">WhatsApp</span><span class="ob-tag">KPIs</span></div>
+        </div>
+      </div>
+      <div class="ob-step">
+        <div class="ob-num">05</div>
+        <div class="ob-content">
+          <div class="ob-title">🔒 Saída sem danos</div>
+          <div class="ob-desc">Quando um colaborador sai, o acesso é revogado automaticamente, todos os ativos são transferidos e o processo continua rodando sem interrupção.</div>
+          <div class="ob-auto">→ Checklist de saída automático · Transferência de leads · Revogação de acessos · Relatório de entrega</div>
+          <div class="ob-tags"><span class="ob-tag">Offboarding</span><span class="ob-tag">Segurança</span><span class="ob-tag">Continuidade</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PLAY BAR -->
+<div class="play-bar" id="playBar">
+  <div class="pb-steps">
+    <div class="pb-s" id="ps0"></div><div class="pb-s" id="ps1"></div>
+    <div class="pb-s" id="ps2"></div><div class="pb-s" id="ps3"></div>
+    <div class="pb-s" id="ps4"></div><div class="pb-s" id="ps5"></div>
+  </div>
+  <span class="pb-lbl" id="pbLbl">Vá para "Automação ao Vivo" e clique Executar</span>
+  <button class="pb-btn pb-play" id="pbPlay" onclick="runFlow()">▶ Executar Fluxo</button>
+  <button class="pb-btn pb-reset" onclick="resetFlow()">↺</button>
+</div>
+
+<script>
+let running=false, curStep=-1;
+const $=id=>document.getElementById(id);
+const delay=ms=>new Promise(r=>setTimeout(r,ms));
+const ts=()=>{const d=new Date();return`${String(d.getHours()).padStart(2,'0')}:${String(d.getMinutes()).padStart(2,'0')}:${String(d.getSeconds()).padStart(2,'0')}`};
+
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.tn').forEach(el=>el.classList.replace('act','idle')||el.classList.add('idle'));
+  $(`pg-${p}`).classList.add('on');
+  event.target.classList.replace('idle','act');
+  $('playBar').style.display = p==='flow'?'flex':'none';
+}
+
+// Init: hide play bar on non-flow pages
+document.addEventListener('DOMContentLoaded',()=>{
+  $('playBar').style.display='none';
+});
+
+function toggleStage(n){
+  const s=$(`st${n}`);
+  s.classList.toggle('active-stage');
+}
+
+function spTab(t){
+  ['log','wpp'].forEach(id=>{
+    $(`sp-${id}`).classList.toggle('on',id===t);
+  });
+  document.querySelectorAll('.sp-tab').forEach((el,i)=>{
+    el.classList.toggle('on',['log','wpp'][i]===t);
+  });
+}
+
+function log(msg,type='i'){
+  const p=$('sp-log');
+  const el=document.createElement('div');
+  el.className=`lg ${type} new`;
+  el.innerHTML=`<span class="lg-ts">${ts()}</span>${msg}`;
+  p.appendChild(el);
+  p.scrollTop=99999;
+}
+
+function wppAdd(msg,type='out'){
+  const b=$('wppB');
+  if(b.querySelector('div[style]'))b.innerHTML='';
+  const el=document.createElement('div');
+  el.className=`wm ${type}`;
+  el.innerHTML=msg+`<div class="wmt">${ts()}</div>`;
+  b.appendChild(el);
+  b.scrollTop=99999;
+  spTab('wpp');
+}
+
+function setStepBar(n,lbl){
+  for(let i=0;i<6;i++){
+    const el=$(`ps${i}`);
+    el.classList.remove('ac','dn');
+    if(i<n)el.classList.add('dn');
+    else if(i===n)el.classList.add('ac');
+  }
+  $('pbLbl').textContent=lbl;
+}
+
+function setStage(n,state){
+  const s=$(`st${n}`),sn=$(`sn${n}`),sb=$(`sb${n}`);
+  s.classList.remove('active-stage','done-stage');
+  if(state==='run'){s.classList.add('active-stage');sb.className='stage-badge sb-run';sb.textContent='● executando';}
+  else if(state==='done'){s.classList.add('done-stage');sn.style.background='var(--g)';sn.style.color='#fff';sb.className='stage-badge sb-done';sb.textContent='✓ concluído';}
+}
+
+function setNode(id,state){
+  const el=$(id);if(!el)return;
+  el.classList.remove('n-run','n-done');
+  if(state==='run')el.classList.add('n-run');
+  else if(state==='done')el.classList.add('n-done');
+}
+
+async function runNodes(ids,delay_ms=700){
+  for(const id of ids){
+    setNode(id,'run');
+    await delay(delay_ms);
+    setNode(id,'done');
+    await delay(250);
+  }
+}
+
+async function runFlow(){
+  if(running)return;
+  running=true;
+  $('pbPlay').disabled=true;
+  $('pbPlay').textContent='⟳ Rodando...';
+
+  // STAGE 0
+  setStepBar(0,'Recebendo lead...');
+  setStage(0,'run');
+  log('POST /webhook/cotacao recebido','i');
+  log('Payload: Carlos Mendes · Auto · Honda Civic 2023 · Indicação','i');
+  await runNodes(['n-wb','n-val','n-dup'],700);
+  $('res0').style.display='block';
+  log('✓ Lead válido · Não duplicado · ID: LEAD-8847','s');
+  setStage(0,'done');
+  await delay(400);
+
+  // STAGE 1
+  setStepBar(1,'IA calculando score...');
+  setStage(1,'run');
+  log('🧠 Rodando modelo de qualificação...','p');
+  await delay(400);
+  log('  Canal indicação → +30','p');
+  await delay(300);
+  log('  Veículo 2023 → +15','p');
+  await delay(300);
+  log('  Sem sinistros → +20','p');
+  await delay(300);
+  log('  E-mail fornecido → +10','p');
+  await delay(300);
+  await runNodes(['n-sc','n-cls','n-tag'],700);
+  $('res1').style.display='block';
+  log('✓ Score: 85/100 · Prioridade: 🔥 QUENTE','s');
+  setStage(1,'done');
+  await delay(400);
+
+  // STAGE 2
+  setStepBar(2,'Salvando no CRM...');
+  setStage(2,'run');
+  log('Conectando ao Google Sheets CRM...','i');
+  await runNodes(['n-crm','n-hist','n-task'],700);
+  $('res2').style.display='block';
+  log('✓ Lead salvo · Histórico criado · Responsável atribuído','s');
+  setStage(2,'done');
+  await delay(400);
+
+  // STAGE 3
+  setStepBar(3,'Enviando WhatsApp...');
+  setStage(3,'run');
+  log('Preparando mensagens...','i');
+  await runNodes(['n-wpp1','n-wpp2','n-email'],700);
+  wppAdd('Olá Carlos! 🚗 Recebi sua solicitação de cotação para o Honda Civic 2023.\n\nJá estou buscando as melhores coberturas com as melhores seguradoras. Em até 2 horas você recebe as opções no WhatsApp!\n\nQualquer dúvida é só falar 😊');
+  $('res3').style.display='block';
+  log('✓ WhatsApp enviado ao cliente em 1.8s','s');
+  log('🚨 Sócios alertados: Lead QUENTE · Score 85','w');
+  setStage(3,'done');
+  await delay(400);
+
+  // STAGE 4
+  setStepBar(4,'Ativando follow-up...');
+  setStage(4,'run');
+  log('Configurando cadência de follow-up...','i');
+  await runNodes(['n-fu1','n-fu2','n-fu3'],700);
+  $('res4').style.display='block';
+  log('✓ Follow-up programado: 4h → 24h → 48h','s');
+  setStage(4,'done');
+  await delay(400);
+
+  // STAGE 5
+  setStepBar(5,'Gerando relatório diário...');
+  setStage(5,'run');
+  log('📊 Compilando dados para relatório dos sócios...','i');
+  await runNodes(['n-rep1','n-rep2','n-rep3'],700);
+  wppAdd('☀️ *Relatório Diário · Corretora*\n\n📥 Leads hoje: 12\n🔥 Quentes: 4 | 🟡 Mornos: 5 | 🔵 Frios: 3\n✅ Propostas enviadas: 7\n🔔 Renovações esta semana: 3\n⚠️ Follow-ups pendentes: 2\n\nColaborador 2 tem 5 follow-ups atrasados → verificar');
+  $('res5').style.display='block';
+  log('✓ Relatório enviado para os 2 sócios','s');
+  setStage(5,'done');
+
+  log('──────────────────────────────','i');
+  log('✅ Fluxo completo · 6 etapas · Lead QUENTE processado em 4.2s','s');
+  setStepBar(5,'✓ Fluxo concluído com sucesso!');
+
+  $('pbPlay').disabled=false;
+  $('pbPlay').textContent='✓ Concluído! Repetir?';
+  running=false;
+}
+
+function resetFlow(){
+  running=false;
+  $('pbPlay').disabled=false;
+  $('pbPlay').textContent='▶ Executar Fluxo';
+
+  for(let i=0;i<6;i++){
+    const s=$(`st${i}`),sn=$(`sn${i}`),sb=$(`sb${i}`);
+    s.classList.remove('active-stage','done-stage');
+    sn.style.background='';sn.style.color='';
+    sb.className='stage-badge sb-idle';sb.textContent='aguardando';
+    const res=$(`res${i}`);if(res)res.style.display='none';
+  }
+  ['n-wb','n-val','n-dup','n-sc','n-cls','n-tag','n-crm','n-hist','n-task',
+   'n-wpp1','n-wpp2','n-email','n-fu1','n-fu2','n-fu3','n-rep1','n-rep2','n-rep3']
+  .forEach(id=>{const el=$(id);if(el){el.classList.remove('n-run','n-done');}});
+
+  $('sp-log').innerHTML='<div class="lg i"><span class="lg-ts">08:00:00</span>Sistema resetado. Aguardando execução...</div>';
+  $('wppB').innerHTML='<div style="font-size:.66rem;color:var(--muted);padding:.5rem;text-align:center">Aguardando...</div>';
+  for(let i=0;i<6;i++){const el=$(`ps${i}`);el.classList.remove('ac','dn');}
+  $('pbLbl').textContent='Clique Executar para iniciar';
+  spTab('log');
+}
+</script>
+</body>
+</html>

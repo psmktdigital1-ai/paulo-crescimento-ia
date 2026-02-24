@@ -1,0 +1,841 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HoopStats · App de Basquete Feminino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow+Condensed:wght@400;600;700&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0a0a;--bg2:#111111;--bg3:#181818;
+  --o:#ff6b00;--o2:#ff8c2a;--o3:#ffb366;
+  --w:#f0f0f0;--w2:#aaaaaa;--w3:#555555;
+  --card:#141414;--line:rgba(255,107,0,.12);--line2:rgba(255,255,255,.06);
+  --r:#ef4444;--g:#22c55e;--b:#3b82f6;--p:#a855f7;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--w);font-family:'Barlow Condensed',sans-serif;overflow-x:hidden}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--bg)}::-webkit-scrollbar-thumb{background:var(--o);border-radius:2px}
+
+/* ── COURT TEXTURE BG ── */
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse 120% 60% at 50% -10%,rgba(255,107,0,.06) 0%,transparent 60%);pointer-events:none;z-index:0}
+
+/* ── TOP BAR ── */
+.top{position:sticky;top:0;z-index:100;background:rgba(10,10,10,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--line);padding:.75rem 2.5rem;display:flex;align-items:center;justify-content:space-between}
+.logo{display:flex;align-items:center;gap:.65rem}
+.logo-mark{width:36px;height:36px;background:var(--o);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;flex-shrink:0}
+.logo-text{font-family:'Bebas Neue',sans-serif;font-size:1.5rem;letter-spacing:.05em;line-height:1}
+.logo-text span{color:var(--o)}
+.logo-sub{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--w3);letter-spacing:.1em;margin-top:.1rem}
+.top-live{display:flex;align-items:center;gap:.5rem;background:rgba(239,68,68,.1);border:1px solid rgba(239,68,68,.25);padding:.3rem .85rem;border-radius:100px;font-family:'DM Mono',monospace;font-size:.62rem;color:#fca5a5}
+.live-dot{width:6px;height:6px;border-radius:50%;background:var(--r);animation:blink 1s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.1}}
+.top-nav{display:flex;gap:.35rem}
+.tn{padding:.42rem 1rem;border-radius:7px;font-size:.8rem;font-weight:700;letter-spacing:.05em;cursor:pointer;border:none;transition:all .2s;font-family:'Barlow Condensed',sans-serif;text-transform:uppercase}
+.tn.on{background:var(--o);color:#fff}
+.tn.off{background:transparent;color:var(--w3);border:1px solid var(--line2)}
+.tn.off:hover{border-color:rgba(255,107,0,.35);color:var(--o2)}
+
+/* ── PAGES ── */
+.page{display:none;position:relative;z-index:1}
+.page.on{display:block}
+
+/* ══════════════════════════════════════
+   PAGE 1 — LIVE GAME
+══════════════════════════════════════ */
+.game-wrap{max-width:1400px;margin:0 auto;padding:2rem 2.5rem}
+
+/* SCOREBOARD */
+.scoreboard{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:2rem 3rem;display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:2rem;margin-bottom:2rem;position:relative;overflow:hidden}
+.scoreboard::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:linear-gradient(90deg,var(--o),var(--o2),var(--o))}
+.team{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.team-home{align-items:flex-start}
+.team-away{align-items:flex-end}
+.team-name{font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.08em;color:var(--w)}
+.team-city{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--w3);letter-spacing:.12em}
+.team-pts{font-family:'Bebas Neue',sans-serif;font-size:5rem;line-height:1;color:var(--o);text-shadow:0 0 40px rgba(255,107,0,.3)}
+.team-away .team-pts{color:var(--w2)}
+.score-mid{display:flex;flex-direction:column;align-items:center;gap:.5rem}
+.score-sep{font-family:'Bebas Neue',sans-serif;font-size:3rem;color:var(--w3)}
+.score-qtr{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--o2);background:rgba(255,107,0,.1);padding:.3rem .75rem;border-radius:100px;border:1px solid rgba(255,107,0,.2)}
+.score-time{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--w);letter-spacing:.08em}
+.score-status{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--w3);letter-spacing:.1em}
+
+/* PLAYERS GRID */
+.section-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem}
+.sec-title{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;letter-spacing:.08em;color:var(--w)}
+.sec-sub{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--w3)}
+.btn-update{background:var(--o);color:#fff;border:none;padding:.45rem 1.2rem;border-radius:7px;font-family:'Barlow Condensed',sans-serif;font-size:.78rem;font-weight:700;text-transform:uppercase;cursor:pointer;letter-spacing:.05em;transition:all .2s}
+.btn-update:hover{background:var(--o2);box-shadow:0 4px 16px rgba(255,107,0,.4)}
+
+.players-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-bottom:2rem}
+.player-card{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:1.1rem;position:relative;overflow:hidden;transition:all .3s;cursor:pointer}
+.player-card:hover{border-color:rgba(255,107,0,.35);transform:translateY(-2px)}
+.player-card.mvp{border-color:rgba(255,107,0,.5);box-shadow:0 0 24px rgba(255,107,0,.1)}
+.pc-top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:.85rem}
+.pc-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.3rem;flex-shrink:0;border:2px solid var(--line2)}
+.pc-av.mvp-av{border-color:var(--o)}
+.pc-info{flex:1;margin-left:.65rem}
+.pc-name{font-family:'Bebas Neue',sans-serif;font-size:1.05rem;letter-spacing:.05em;line-height:1.1;margin-bottom:.2rem}
+.pc-num{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--o2)}
+.pc-badge{font-family:'DM Mono',monospace;font-size:.52rem;padding:.15rem .4rem;border-radius:4px;margin-left:auto}
+.pc-mvp{background:rgba(255,107,0,.15);color:var(--o2);border:1px solid rgba(255,107,0,.3)}
+.pc-ok{background:rgba(34,197,94,.08);color:#86efac;border:1px solid rgba(34,197,94,.2)}
+
+.pc-stats{display:grid;grid-template-columns:1fr 1fr 1fr;gap:.5rem}
+.pst{text-align:center}
+.pst-val{font-family:'Bebas Neue',sans-serif;font-size:1.4rem;color:var(--o);line-height:1}
+.pst-val.dim{color:var(--w2)}
+.pst-lbl{font-family:'DM Mono',monospace;font-size:.52rem;color:var(--w3);letter-spacing:.06em;margin-top:.1rem}
+
+.pc-bar-row{margin-top:.75rem}
+.pc-bar-lbl{display:flex;justify-content:space-between;font-family:'DM Mono',monospace;font-size:.55rem;color:var(--w3);margin-bottom:.3rem}
+.pc-bar{height:4px;background:rgba(255,255,255,.07);border-radius:2px;overflow:hidden}
+.pc-fill{height:100%;border-radius:2px;background:linear-gradient(90deg,var(--o),var(--o2));transition:width 1s ease}
+
+.pc-new{position:absolute;top:.6rem;right:.6rem;background:var(--r);color:#fff;font-family:'DM Mono',monospace;font-size:.5rem;padding:.12rem .35rem;border-radius:3px;animation:fadeIn .5s ease;display:none}
+.pc-new.show{display:block}
+@keyframes fadeIn{from{opacity:0;transform:scale(.8)}to{opacity:1;transform:scale(1)}}
+
+/* LIVE LOG */
+.live-log{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.ll-hdr{background:rgba(255,107,0,.08);border-bottom:1px solid var(--line);padding:.75rem 1.25rem;display:flex;align-items:center;gap:.5rem;font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.06em}
+.ll-body{padding:.75rem;max-height:200px;overflow-y:auto;display:flex;flex-direction:column;gap:.3rem}
+.ll-e{font-family:'DM Mono',monospace;font-size:.63rem;padding:.3rem .6rem;border-radius:5px;border-left:2px solid transparent;background:rgba(255,255,255,.02);line-height:1.5}
+.ll-e.pts{border-color:var(--o);color:var(--o3)}
+.ll-e.ast{border-color:var(--b);color:#93c5fd}
+.ll-e.reb{border-color:var(--g);color:#86efac}
+.ll-e.fal{border-color:var(--r);color:#fca5a5}
+.ll-e.blk{border-color:var(--p);color:#d8b4fe}
+.ll-e.new{animation:llIn .3s ease}
+@keyframes llIn{from{opacity:0;transform:translateX(6px)}to{opacity:1;transform:none}}
+.ll-ts{color:var(--w3);margin-right:.4rem}
+
+/* ══════════════════════════════════════
+   PAGE 2 — PARENT VIEW (App dos Pais)
+══════════════════════════════════════ */
+.parent-wrap{max-width:420px;margin:0 auto;padding:2rem 1.5rem}
+.phone-frame{background:var(--bg2);border:2px solid var(--line);border-radius:28px;overflow:hidden;box-shadow:0 40px 80px rgba(0,0,0,.6)}
+.phone-notch{background:var(--bg);height:28px;display:flex;align-items:center;justify-content:center}
+.notch-bar{width:90px;height:6px;background:var(--bg3);border-radius:3px}
+.phone-body{padding:1.25rem}
+
+.app-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem}
+.app-logo{font-family:'Bebas Neue',sans-serif;font-size:1.3rem;letter-spacing:.06em;color:var(--o)}
+.app-notif{width:28px;height:28px;background:var(--bg3);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;position:relative}
+.notif-badge{position:absolute;top:-3px;right:-3px;width:13px;height:13px;background:var(--r);border-radius:50%;font-family:'DM Mono',monospace;font-size:.45rem;display:flex;align-items:center;justify-content:center;color:#fff;border:1px solid var(--bg)}
+
+.my-player{background:linear-gradient(135deg,rgba(255,107,0,.15),rgba(255,107,0,.04));border:1px solid rgba(255,107,0,.25);border-radius:14px;padding:1.1rem;margin-bottom:1rem}
+.mp-head{display:flex;align-items:center;gap:.75rem;margin-bottom:1rem}
+.mp-av{width:50px;height:50px;border-radius:50%;background:rgba(255,107,0,.15);display:flex;align-items:center;justify-content:center;font-size:1.4rem;border:2px solid var(--o)}
+.mp-name{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.05em}
+.mp-pos{font-family:'DM Mono',monospace;font-size:.58rem;color:var(--o2)}
+.mp-score{text-align:right;margin-left:auto}
+.mp-pts{font-family:'Bebas Neue',sans-serif;font-size:2.2rem;color:var(--o);line-height:1}
+.mp-pts-l{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--w3)}
+.mp-stats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:.4rem}
+.mps{text-align:center;background:rgba(255,255,255,.04);border-radius:7px;padding:.5rem .3rem}
+.mps-v{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;color:var(--w);line-height:1}
+.mps-l{font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3);margin-top:.1rem}
+
+.section-title{font-family:'Bebas Neue',sans-serif;font-size:1rem;letter-spacing:.06em;color:var(--w);margin-bottom:.65rem}
+.game-result{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:.85rem;margin-bottom:.5rem}
+.gr-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:.5rem}
+.gr-date{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--w3)}
+.gr-badge{font-family:'DM Mono',monospace;font-size:.58rem;padding:.15rem .5rem;border-radius:100px}
+.gr-w{background:rgba(34,197,94,.1);color:#86efac;border:1px solid rgba(34,197,94,.2)}
+.gr-l{background:rgba(239,68,68,.1);color:#fca5a5;border:1px solid rgba(239,68,68,.2)}
+.gr-score{font-family:'Bebas Neue',sans-serif;font-size:1.2rem;letter-spacing:.04em;color:var(--w)}
+.gr-pts{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--o2)}
+
+/* ranking tab */
+.ranking-list{display:flex;flex-direction:column;gap:.4rem}
+.rank-row{display:flex;align-items:center;gap:.6rem;background:var(--card);border:1px solid var(--line2);border-radius:8px;padding:.6rem .85rem}
+.rank-row.me{border-color:rgba(255,107,0,.3);background:rgba(255,107,0,.05)}
+.rank-n{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;width:20px;color:var(--w3)}
+.rank-n.top{color:var(--o)}
+.rank-av{width:28px;height:28px;border-radius:50%;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.rank-name{font-family:'Barlow Condensed',sans-serif;font-size:.85rem;font-weight:600;flex:1}
+.rank-pts{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--o)}
+
+/* app tabs */
+.app-tabs{display:flex;gap:.4rem;margin-bottom:1rem}
+.at{flex:1;padding:.42rem;border-radius:7px;font-size:.72rem;font-weight:700;text-transform:uppercase;cursor:pointer;border:none;text-align:center;transition:all .2s;font-family:'Barlow Condensed',sans-serif;letter-spacing:.04em}
+.at.on{background:var(--o);color:#fff}
+.at.off{background:var(--bg3);color:var(--w3)}
+
+/* ══════════════════════════════════════
+   PAGE 3 — AUTOMATION
+══════════════════════════════════════ */
+.auto-wrap{max-width:1300px;margin:0 auto;padding:2rem 2.5rem}
+.auto-grid{display:grid;grid-template-columns:1fr 340px;gap:1.5rem;align-items:start}
+
+.pipe-stages{display:flex;flex-direction:column;gap:.85rem}
+.pipe-stage{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s}
+.pipe-stage.run{border-color:rgba(255,107,0,.4);box-shadow:0 0 24px rgba(255,107,0,.08)}
+.pipe-stage.done{border-color:rgba(34,197,94,.25)}
+.ps-hdr{display:flex;align-items:center;gap:.85rem;padding:.95rem 1.2rem}
+.ps-num{width:30px;height:30px;border-radius:7px;background:var(--bg3);display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.7rem;transition:all .3s}
+.pipe-stage.run .ps-num{background:var(--o);color:#fff}
+.pipe-stage.done .ps-num{background:var(--g);color:#fff}
+.ps-info{flex:1}
+.ps-title{font-size:.88rem;font-weight:700;letter-spacing:.02em;margin-bottom:.15rem}
+.ps-desc{font-size:.66rem;color:var(--w3)}
+.ps-badge{font-family:'DM Mono',monospace;font-size:.56rem;padding:.18rem .5rem;border-radius:100px}
+.psb-idle{background:rgba(255,255,255,.05);color:var(--w3)}
+.psb-run{background:rgba(255,107,0,.12);color:var(--o2);border:1px solid rgba(255,107,0,.2);animation:blink 1s ease-in-out infinite}
+.psb-done{background:rgba(34,197,94,.08);color:#86efac;border:1px solid rgba(34,197,94,.2)}
+.ps-body{padding:0 1.2rem 1.1rem;display:none}
+.pipe-stage.run .ps-body,.pipe-stage.done .ps-body{display:block}
+.ps-nodes{display:flex;align-items:center;gap:.35rem;flex-wrap:wrap;margin-bottom:.75rem}
+.pn{display:flex;flex-direction:column;align-items:center;gap:.2rem}
+.pn-box{background:var(--bg3);border:1.5px solid var(--line2);border-radius:7px;padding:.5rem .45rem;text-align:center;min-width:70px;transition:all .3s}
+.pn-box.run{border-color:var(--o);background:rgba(255,107,0,.07);animation:nrun .9s ease-in-out infinite}
+.pn-box.done{border-color:var(--g);background:rgba(34,197,94,.05)}
+@keyframes nrun{0%,100%{box-shadow:0 0 8px rgba(255,107,0,.15)}50%{box-shadow:0 0 22px rgba(255,107,0,.35)}}
+.pn-ic{font-size:1.1rem;display:block}
+.pn-nm{font-family:'DM Mono',monospace;font-size:.55rem;color:var(--w3);line-height:1.3}
+.pn-box.run .pn-nm{color:var(--o2)}
+.pn-box.done .pn-nm{color:#86efac}
+.pn-arr{color:var(--w3);font-size:.75rem}
+.ps-res{background:rgba(34,197,94,.05);border:1px solid rgba(34,197,94,.15);border-radius:7px;padding:.7rem .9rem;font-family:'DM Mono',monospace;font-size:.64rem;color:#86efac;line-height:1.65;display:none}
+.ps-res strong{display:block;color:var(--g);margin-bottom:.25rem}
+
+/* side log */
+.auto-side{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;position:sticky;top:75px}
+.as-hdr{background:rgba(255,107,0,.07);border-bottom:1px solid var(--line);padding:.7rem 1.1rem;font-family:'Bebas Neue',sans-serif;font-size:.95rem;letter-spacing:.07em;display:flex;align-items:center;gap:.5rem}
+.as-body{padding:.8rem;height:500px;overflow-y:auto;display:flex;flex-direction:column;gap:.32rem}
+.al{font-family:'DM Mono',monospace;font-size:.59rem;line-height:1.55;padding:.28rem .5rem;border-radius:4px;border-left:2px solid transparent;background:rgba(255,255,255,.02)}
+.al.i{border-color:var(--b);color:#93c5fd}
+.al.s{border-color:var(--g);color:#86efac}
+.al.w{border-color:var(--o);color:var(--o3)}
+.al.a{border-color:var(--p);color:#d8b4fe}
+.al-ts{color:var(--w3);margin-right:.35rem}
+.al.new{animation:ali .3s ease}
+@keyframes ali{from{opacity:0;transform:translateX(5px)}to{opacity:1;transform:none}}
+
+/* ══════════════════════════════════════
+   PAGE 4 — STATS SEASON
+══════════════════════════════════════ */
+.season-wrap{max-width:1300px;margin:0 auto;padding:2rem 2.5rem}
+.season-top{display:grid;grid-template-columns:repeat(5,1fr);gap:.85rem;margin-bottom:2rem}
+.sk{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1rem;text-align:center}
+.sk-v{font-family:'Bebas Neue',sans-serif;font-size:2rem;color:var(--o);line-height:1}
+.sk-l{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--w3);margin-top:.2rem}
+.leaderboard{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.lb-hdr{display:grid;grid-template-columns:40px 1fr 60px 60px 60px 60px 60px 60px 80px;gap:.5rem;padding:.65rem 1.25rem;background:rgba(255,107,0,.07);border-bottom:1px solid var(--line);font-family:'DM Mono',monospace;font-size:.58rem;color:var(--w3);letter-spacing:.06em}
+.lb-row{display:grid;grid-template-columns:40px 1fr 60px 60px 60px 60px 60px 60px 80px;gap:.5rem;padding:.75rem 1.25rem;border-bottom:1px solid var(--line2);align-items:center;transition:background .2s}
+.lb-row:hover{background:rgba(255,107,0,.04)}
+.lb-row:last-child{border-bottom:none}
+.lb-rank{font-family:'Bebas Neue',sans-serif;font-size:1rem;color:var(--w3)}
+.lb-rank.g{color:#ffd700}
+.lb-rank.s{color:#c0c0c0}
+.lb-rank.b{color:#cd7f32}
+.lb-player{display:flex;align-items:center;gap:.5rem}
+.lb-av{width:28px;height:28px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem}
+.lb-name{font-size:.8rem;font-weight:700}
+.lb-pos{font-family:'DM Mono',monospace;font-size:.54rem;color:var(--w3)}
+.lb-val{font-family:'DM Mono',monospace;font-size:.75rem;text-align:center;color:var(--w2)}
+.lb-val.hi{color:var(--o);font-weight:500}
+.lb-score{text-align:center}
+.lb-score-v{font-family:'Bebas Neue',sans-serif;font-size:1.1rem;color:var(--o)}
+.lb-score-bar{height:3px;border-radius:2px;background:rgba(255,107,0,.2);margin-top:.2rem}
+.lb-score-fill{height:100%;border-radius:2px;background:var(--o)}
+
+/* PLAY BAR */
+.play-bar{position:fixed;bottom:1.25rem;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:.75rem;background:rgba(10,10,10,.96);border:1px solid var(--line);border-radius:100px;padding:.65rem 1.75rem;backdrop-filter:blur(14px);z-index:200}
+.pb-dots{display:flex;gap:.38rem}
+.pb-d{width:7px;height:7px;border-radius:50%;background:var(--w3);transition:all .3s}
+.pb-d.dn{background:var(--g)}
+.pb-d.ac{background:var(--o);box-shadow:0 0 8px rgba(255,107,0,.7);width:20px;border-radius:3px}
+.pb-lbl{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--o2);min-width:180px}
+.pb-play{background:var(--o);color:#fff;border:none;padding:.42rem 1.3rem;border-radius:100px;font-family:'Barlow Condensed',sans-serif;font-size:.8rem;font-weight:700;text-transform:uppercase;cursor:pointer;transition:all .2s}
+.pb-play:hover{box-shadow:0 4px 16px rgba(255,107,0,.5)}
+.pb-reset{background:var(--bg3);color:var(--w3);border:none;padding:.42rem .9rem;border-radius:100px;font-size:.75rem;cursor:pointer}
+</style>
+</head>
+<body>
+
+<!-- TOPBAR -->
+<div class="top">
+  <div class="logo">
+    <div class="logo-mark">🏀</div>
+    <div>
+      <div class="logo-text">Hoop<span>Stats</span></div>
+      <div class="logo-sub">Basquete Feminino · U16</div>
+    </div>
+  </div>
+  <div class="top-live"><span class="live-dot"></span>AO VIVO · Q2 08:32</div>
+  <div class="top-nav">
+    <button class="tn on" onclick="pg('game',this)">🏟️ Jogo Ao Vivo</button>
+    <button class="tn off" onclick="pg('parent',this)">📱 App dos Pais</button>
+    <button class="tn off" onclick="pg('auto',this)">⚡ Automação</button>
+    <button class="tn off" onclick="pg('season',this)">📊 Temporada</button>
+  </div>
+</div>
+
+<!-- ══════════ PAGE: GAME ══════════ -->
+<div class="page on" id="pg-game">
+<div class="game-wrap">
+
+  <!-- SCOREBOARD -->
+  <div class="scoreboard">
+    <div class="team team-home">
+      <div class="team-city">EQUIPE CASA</div>
+      <div class="team-name">Leoas FC</div>
+      <div class="team-pts" id="pts-home">38</div>
+    </div>
+    <div class="score-mid">
+      <div class="score-qtr">2º QUARTO</div>
+      <div class="score-time" id="clock">08:32</div>
+      <div class="score-sep">VS</div>
+      <div class="score-status">EM ANDAMENTO</div>
+    </div>
+    <div class="team team-away">
+      <div class="team-city">VISITANTE</div>
+      <div class="team-name">Falcões</div>
+      <div class="team-pts" id="pts-away">29</div>
+    </div>
+  </div>
+
+  <!-- PLAYERS -->
+  <div class="section-hdr">
+    <div><div class="sec-title">Estatísticas das Atletas</div><div class="sec-sub">Atualizando automaticamente via sensor + IA</div></div>
+    <button class="btn-update" onclick="autoUpdate()">⚡ Simular Entrada de Dados</button>
+  </div>
+
+  <div class="players-grid">
+    <!-- Cards gerados por JS -->
+  </div>
+
+  <!-- LIVE LOG -->
+  <div class="live-log">
+    <div class="ll-hdr">🏀 <span>Log de Eventos — Ao Vivo</span></div>
+    <div class="ll-body" id="gameLog">
+      <div class="ll-e pts"><span class="ll-ts">08:47</span>🔥 Ana Paula (10) — 3 PONTOS · Arremesso de 3!</div>
+      <div class="ll-e reb"><span class="ll-ts">08:35</span>💪 Carla Santos (5) — REBOTE OFENSIVO</div>
+      <div class="ll-e ast"><span class="ll-ts">08:20</span>👐 Juliana Lima (7) — ASSISTÊNCIA para Ana Paula</div>
+      <div class="ll-e fal"><span class="ll-ts">08:05</span>⚠️ Beatriz Costa (3) — FALTA pessoal (2ª)</div>
+      <div class="ll-e blk"><span class="ll-ts">07:58</span>🛡️ Maria Oliveira (14) — TOCO no arremesso</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ══════════ PAGE: PARENT ══════════ -->
+<div class="page" id="pg-parent">
+<div class="parent-wrap">
+  <div class="phone-frame">
+    <div class="phone-notch"><div class="notch-bar"></div></div>
+    <div class="phone-body">
+      <div class="app-header">
+        <div class="app-logo">🏀 HoopStats</div>
+        <div class="app-notif">🔔<div class="notif-badge">3</div></div>
+      </div>
+
+      <!-- MY PLAYER CARD -->
+      <div class="my-player">
+        <div class="mp-head">
+          <div class="mp-av">⭐</div>
+          <div>
+            <div class="mp-name">Ana Paula Silva</div>
+            <div class="mp-pos">#10 · ARMADORA · U16</div>
+          </div>
+          <div class="mp-score">
+            <div class="mp-pts" id="mp-pts">18</div>
+            <div class="mp-pts-l">PTS hoje</div>
+          </div>
+        </div>
+        <div class="mp-stats-row">
+          <div class="mps"><div class="mps-v" id="mp-ast">6</div><div class="mps-l">AST</div></div>
+          <div class="mps"><div class="mps-v" id="mp-reb">4</div><div class="mps-l">REB</div></div>
+          <div class="mps"><div class="mps-v" id="mp-fal">2</div><div class="mps-l">FAL</div></div>
+          <div class="mps"><div class="mps-v" id="mp-km">3.2</div><div class="mps-l">KM ✨</div></div>
+        </div>
+      </div>
+
+      <!-- TABS -->
+      <div class="app-tabs">
+        <button class="at on" onclick="appTab('jogos',this)">Jogos</button>
+        <button class="at off" onclick="appTab('ranking',this)">Ranking</button>
+        <button class="at off" onclick="appTab('evolucao',this)">Evolução</button>
+      </div>
+
+      <!-- JOGOS PANEL -->
+      <div id="panel-jogos">
+        <div class="section-title">Histórico de Jogos</div>
+        <div class="game-result">
+          <div class="gr-top"><span class="gr-date">Hoje · 15:00</span><span class="gr-badge gr-w">VITÓRIA</span></div>
+          <div class="gr-score">Leoas 38 × 29 Falcões</div>
+          <div class="gr-pts">Ana Paula: 18 pts · 6 ast · 4 reb · 3.2 km</div>
+        </div>
+        <div class="game-result">
+          <div class="gr-top"><span class="gr-date">15/Jan · 14:00</span><span class="gr-badge gr-w">VITÓRIA</span></div>
+          <div class="gr-score">Leoas 45 × 31 Tigres</div>
+          <div class="gr-pts">Ana Paula: 22 pts · 8 ast · 2 reb · 4.1 km</div>
+        </div>
+        <div class="game-result">
+          <div class="gr-top"><span class="gr-date">08/Jan · 16:00</span><span class="gr-badge gr-l">DERROTA</span></div>
+          <div class="gr-score">Leoas 28 × 34 Panteras</div>
+          <div class="gr-pts">Ana Paula: 14 pts · 5 ast · 3 reb · 3.8 km</div>
+        </div>
+      </div>
+
+      <!-- RANKING PANEL -->
+      <div id="panel-ranking" style="display:none">
+        <div class="section-title">Ranking da Temporada</div>
+        <div class="ranking-list">
+          <div class="rank-row me"><span class="rank-n top">1</span><div class="rank-av">⭐</div><div class="rank-name">Ana Paula Silva</div><span class="rank-pts">892 pts</span></div>
+          <div class="rank-row"><span class="rank-n">2</span><div class="rank-av">🏀</div><div class="rank-name">Carla Santos</div><span class="rank-pts" style="color:var(--w2)">834 pts</span></div>
+          <div class="rank-row"><span class="rank-n">3</span><div class="rank-av">🌟</div><div class="rank-name">Juliana Lima</div><span class="rank-pts" style="color:var(--w2)">801 pts</span></div>
+          <div class="rank-row"><span class="rank-n">4</span><div class="rank-av">🎯</div><div class="rank-name">Beatriz Costa</div><span class="rank-pts" style="color:var(--w2)">756 pts</span></div>
+          <div class="rank-row"><span class="rank-n">5</span><div class="rank-av">💫</div><div class="rank-name">Maria Oliveira</div><span class="rank-pts" style="color:var(--w2)">720 pts</span></div>
+        </div>
+      </div>
+
+      <!-- EVOLUCAO PANEL -->
+      <div id="panel-evolucao" style="display:none">
+        <div class="section-title">Evolução · Últimos 6 Jogos</div>
+        <div style="background:var(--bg3);border-radius:10px;padding:1rem;margin-bottom:.75rem">
+          <div style="font-family:'DM Mono',monospace;font-size:.62rem;color:var(--o2);margin-bottom:.65rem">Pontos por jogo</div>
+          <div style="display:flex;align-items:flex-end;gap:.4rem;height:60px">
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:rgba(255,107,0,.4);border-radius:3px 3px 0 0;width:100%;height:57%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">14</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:rgba(255,107,0,.5);border-radius:3px 3px 0 0;width:100%;height:71%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">16</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:rgba(255,107,0,.6);border-radius:3px 3px 0 0;width:100%;height:63%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">14</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:rgba(255,107,0,.7);border-radius:3px 3px 0 0;width:100%;height:89%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">20</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:rgba(255,107,0,.85);border-radius:3px 3px 0 0;width:100%;height:97%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">22</span></div>
+            <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:.25rem"><div style="background:var(--o);border-radius:3px 3px 0 0;width:100%;height:80%"></div><span style="font-family:'DM Mono',monospace;font-size:.5rem;color:var(--w3)">18</span></div>
+          </div>
+        </div>
+        <div style="background:rgba(255,107,0,.06);border:1px solid rgba(255,107,0,.2);border-radius:8px;padding:.75rem;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--o2);line-height:1.7">
+          ✨ <strong style="color:var(--o)">Insights da IA:</strong><br>
+          Média cresceu 28% nas últimas 3 partidas.<br>
+          Distância percorrida acima da média da categoria.<br>
+          Aproveitamento de 3 pontos: 38% (excelente!).
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ PAGE: AUTOMATION ══════════ -->
+<div class="page" id="pg-auto">
+<div class="auto-wrap">
+  <div style="margin-bottom:2rem">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;margin-bottom:.3rem">Sistema de Automação</div>
+    <div style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--w3)">Como o app coleta, processa e entrega dados automaticamente para os pais</div>
+  </div>
+  <div class="auto-grid">
+    <div class="pipe-stages">
+
+      <div class="pipe-stage" id="ps0">
+        <div class="ps-hdr">
+          <div class="ps-num" id="psn0">01</div>
+          <div class="ps-info"><div class="ps-title">Dados entram via Sensor / App do Treinador</div><div class="ps-desc">Pontos, assistências, faltas, arremessos — lançados pelo treinador</div></div>
+          <span class="ps-badge psb-idle" id="psb0">aguardando</span>
+        </div>
+        <div class="ps-body">
+          <div class="ps-nodes">
+            <div class="pn"><div class="pn-box" id="pn00"><span class="pn-ic">📱</span><div class="pn-nm">App<br>treinador</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn01"><span class="pn-ic">🔵</span><div class="pn-nm">Webhook<br>entrada</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn02"><span class="pn-ic">✅</span><div class="pn-nm">Valida<br>dados</div></div></div>
+          </div>
+          <div class="ps-res" id="psr0"><strong>✓ Dados recebidos</strong>Ana Paula #10 · Q2 08:32 · +3pts arremesso · Distância: 3.2km (GPS)</div>
+        </div>
+      </div>
+
+      <div class="pipe-stage" id="ps1">
+        <div class="ps-hdr">
+          <div class="ps-num" id="psn1">02</div>
+          <div class="ps-info"><div class="ps-title">GPS & Sensor de Movimento calcula km</div><div class="ps-desc">Resolve a limitação atual — distância percorrida automatizada</div></div>
+          <span class="ps-badge psb-idle" id="psb1">aguardando</span>
+        </div>
+        <div class="ps-body">
+          <div class="ps-nodes">
+            <div class="pn"><div class="pn-box" id="pn10"><span class="pn-ic">📍</span><div class="pn-nm">GPS<br>sensor</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn11"><span class="pn-ic">🧮</span><div class="pn-nm">Calcula<br>km</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn12"><span class="pn-ic">💾</span><div class="pn-nm">Salva no<br>banco</div></div></div>
+          </div>
+          <div class="ps-res" id="psr1"><strong>✓ Distância calculada automaticamente</strong>Ana Paula — 3.2km percorridos · 847 kcal · Velocidade máx: 18.4 km/h · Acelerações: 34</div>
+        </div>
+      </div>
+
+      <div class="pipe-stage" id="ps2">
+        <div class="ps-hdr">
+          <div class="ps-num" id="psn2">03</div>
+          <div class="ps-info"><div class="ps-title">IA calcula score e gera insights</div><div class="ps-desc">Análise de performance, tendências e comparativo da categoria</div></div>
+          <span class="ps-badge psb-idle" id="psb2">aguardando</span>
+        </div>
+        <div class="ps-body">
+          <div class="ps-nodes">
+            <div class="pn"><div class="pn-box" id="pn20"><span class="pn-ic">🧠</span><div class="pn-nm">IA score<br>atleta</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn21"><span class="pn-ic">📊</span><div class="pn-nm">Compara<br>categoria</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn22"><span class="pn-ic">💡</span><div class="pn-nm">Gera<br>insights</div></div></div>
+          </div>
+          <div class="ps-res" id="psr2"><strong>🧠 Score IA: 92/100 · MVP do Jogo</strong>Acima da média da categoria em pts (+34%) e km (+18%). Sugestão: aumentar treino de 3 pontos — aproveitamento 38% pode chegar a 45%</div>
+        </div>
+      </div>
+
+      <div class="pipe-stage" id="ps3">
+        <div class="ps-hdr">
+          <div class="ps-num" id="psn3">04</div>
+          <div class="ps-info"><div class="ps-title">App atualiza em tempo real para os pais</div><div class="ps-desc">Notificação push + dashboard atualizado instantaneamente</div></div>
+          <span class="ps-badge psb-idle" id="psb3">aguardando</span>
+        </div>
+        <div class="ps-body">
+          <div class="ps-nodes">
+            <div class="pn"><div class="pn-box" id="pn30"><span class="pn-ic">📱</span><div class="pn-nm">Push<br>notif</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn31"><span class="pn-ic">🔄</span><div class="pn-nm">Atualiza<br>app</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn32"><span class="pn-ic">💬</span><div class="pn-nm">WhatsApp<br>resumo</div></div></div>
+          </div>
+          <div class="ps-res" id="psr3"><strong>✓ Pais notificados em tempo real</strong>Push: "Ana Paula marcou 3 pontos! Placar: 38×29" · WhatsApp ao final: resumo completo do jogo</div>
+        </div>
+      </div>
+
+      <div class="pipe-stage" id="ps4">
+        <div class="ps-hdr">
+          <div class="ps-num" id="psn4">05</div>
+          <div class="ps-info"><div class="ps-title">Relatório pós-jogo gerado automaticamente</div><div class="ps-desc">PDF com estatísticas completas enviado para os pais assinantes</div></div>
+          <span class="ps-badge psb-idle" id="psb4">aguardando</span>
+        </div>
+        <div class="ps-body">
+          <div class="ps-nodes">
+            <div class="pn"><div class="pn-box" id="pn40"><span class="pn-ic">📄</span><div class="pn-nm">Gera<br>PDF</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn41"><span class="pn-ic">📧</span><div class="pn-nm">E-mail<br>pais</div></div></div>
+            <span class="pn-arr">→</span>
+            <div class="pn"><div class="pn-box" id="pn42"><span class="pn-ic">💳</span><div class="pn-nm">Renova<br>assina</div></div></div>
+          </div>
+          <div class="ps-res" id="psr4"><strong>✓ Relatório completo entregue</strong>PDF com: stats completas, km percorridos, comparativo da temporada, insights IA, vídeos dos momentos marcantes</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="auto-side">
+      <div class="as-hdr">⚡ <span>Log da Automação</span></div>
+      <div class="as-body" id="autoLog">
+        <div class="al i"><span class="al-ts">09:00</span>Sistema inicializado · aguardando dados...</div>
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+<!-- ══════════ PAGE: SEASON ══════════ -->
+<div class="page" id="pg-season">
+<div class="season-wrap">
+  <div style="margin-bottom:1.5rem">
+    <div style="font-family:'Bebas Neue',sans-serif;font-size:1.8rem;letter-spacing:.06em;margin-bottom:.3rem">Temporada 2025</div>
+    <div style="font-family:'DM Mono',monospace;font-size:.68rem;color:var(--w3)">18 jogos · Leoas FC · Categoria Sub-16 Feminino</div>
+  </div>
+  <div class="season-top">
+    <div class="sk"><div class="sk-v">18</div><div class="sk-l">Jogos</div></div>
+    <div class="sk"><div class="sk-v">13-5</div><div class="sk-l">Vitórias</div></div>
+    <div class="sk"><div class="sk-v">78%</div><div class="sk-l">Aproveitamento</div></div>
+    <div class="sk"><div class="sk-v">4.2</div><div class="sk-l">Km médio/jogo</div></div>
+    <div class="sk"><div class="sk-v">892</div><div class="sk-l">Ranking 1º lugar</div></div>
+  </div>
+  <div class="leaderboard">
+    <div class="lb-hdr">
+      <span>#</span><span>ATLETA</span><span>PTS</span><span>AST</span><span>REB</span><span>FAL</span><span>KM</span><span>%3P</span><span>SCORE IA</span>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank g">1</span>
+      <div class="lb-player"><div class="lb-av" style="background:rgba(255,107,0,.15)">⭐</div><div><div class="lb-name">Ana Paula Silva</div><div class="lb-pos">#10 · ARM</div></div></div>
+      <span class="lb-val hi">18.4</span><span class="lb-val hi">6.2</span><span class="lb-val">4.1</span><span class="lb-val">2.1</span><span class="lb-val hi">3.9</span><span class="lb-val">38%</span>
+      <div class="lb-score"><div class="lb-score-v">92</div><div class="lb-score-bar"><div class="lb-score-fill" style="width:92%"></div></div></div>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank s">2</span>
+      <div class="lb-player"><div class="lb-av" style="background:rgba(59,130,246,.15)">🏀</div><div><div class="lb-name">Carla Santos</div><div class="lb-pos">#5 · ALA</div></div></div>
+      <span class="lb-val">15.2</span><span class="lb-val">3.8</span><span class="lb-val hi">7.4</span><span class="lb-val">2.8</span><span class="lb-val hi">4.2</span><span class="lb-val">28%</span>
+      <div class="lb-score"><div class="lb-score-v">85</div><div class="lb-score-bar"><div class="lb-score-fill" style="width:85%"></div></div></div>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank b">3</span>
+      <div class="lb-player"><div class="lb-av" style="background:rgba(168,85,247,.15)">🌟</div><div><div class="lb-name">Juliana Lima</div><div class="lb-pos">#7 · ALA-PIV</div></div></div>
+      <span class="lb-val">12.8</span><span class="lb-val hi">8.1</span><span class="lb-val">5.2</span><span class="lb-val">1.9</span><span class="lb-val">3.7</span><span class="lb-val">22%</span>
+      <div class="lb-score"><div class="lb-score-v">80</div><div class="lb-score-bar"><div class="lb-score-fill" style="width:80%"></div></div></div>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">4</span>
+      <div class="lb-player"><div class="lb-av" style="background:rgba(34,197,94,.15)">🎯</div><div><div class="lb-name">Beatriz Costa</div><div class="lb-pos">#3 · PIV</div></div></div>
+      <span class="lb-val">10.5</span><span class="lb-val">2.4</span><span class="lb-val hi">8.9</span><span class="lb-val">3.2</span><span class="lb-val">3.4</span><span class="lb-val">15%</span>
+      <div class="lb-score"><div class="lb-score-v">74</div><div class="lb-score-bar"><div class="lb-score-fill" style="width:74%"></div></div></div>
+    </div>
+    <div class="lb-row">
+      <span class="lb-rank">5</span>
+      <div class="lb-player"><div class="lb-av" style="background:rgba(245,158,11,.15)">💫</div><div><div class="lb-name">Maria Oliveira</div><div class="lb-pos">#14 · ALA</div></div></div>
+      <span class="lb-val">9.8</span><span class="lb-val">4.1</span><span class="lb-val">3.8</span><span class="lb-val hi">1.4</span><span class="lb-val">4.4</span><span class="lb-val">31%</span>
+      <div class="lb-score"><div class="lb-score-v">70</div><div class="lb-score-bar"><div class="lb-score-fill" style="width:70%"></div></div></div>
+    </div>
+  </div>
+  <div style="margin-top:1.25rem;background:rgba(255,107,0,.05);border:1px solid rgba(255,107,0,.15);border-radius:10px;padding:1.1rem 1.3rem;font-family:'DM Mono',monospace;font-size:.67rem;color:var(--o2);line-height:1.8">
+    ✨ <strong style="color:var(--o)">Insights IA da Temporada:</strong> Time com melhor aproveitamento ofensivo da categoria (78%). Ana Paula está na trajetória para ser convocada para a seleção estadual. Carla Santos lidera em rebotes — considerar mais participação nos arremessos. Distância média por jogo (+18% vs temporada passada) indica evolução física notável.
+  </div>
+</div>
+</div>
+
+<!-- PLAY BAR (only on automation tab) -->
+<div class="play-bar" id="playBar" style="display:none">
+  <div class="pb-dots"><div class="pb-d" id="pd0"></div><div class="pb-d" id="pd1"></div><div class="pb-d" id="pd2"></div><div class="pb-d" id="pd3"></div><div class="pb-d" id="pd4"></div></div>
+  <span class="pb-lbl" id="pbLbl">Pronto para simular</span>
+  <button class="pb-play" onclick="runAuto()">▶ SIMULAR</button>
+  <button class="pb-reset" onclick="resetAuto()">↺</button>
+</div>
+
+<script>
+// ── DATA ──────────────────────────────
+const players = [
+  { id:'ana', name:'Ana Paula Silva', num:10, ic:'⭐', pts:18, ast:6, reb:4, fal:2, pct:38, bar:85, mvp:true },
+  { id:'carla', name:'Carla Santos', num:5, ic:'🏀', pts:12, ast:3, reb:7, fal:2, pct:28, bar:70, mvp:false },
+  { id:'juliana', name:'Juliana Lima', num:7, ic:'🌟', pts:8, ast:8, reb:5, fal:1, pct:22, bar:60, mvp:false },
+  { id:'beatriz', name:'Beatriz Costa', num:3, ic:'🎯', pts:6, ast:2, reb:8, fal:3, pct:15, bar:50, mvp:false },
+  { id:'maria', name:'Maria Oliveira', num:14, ic:'💫', pts:10, ast:4, reb:3, fal:1, pct:31, bar:65, mvp:false },
+  { id:'sofia', name:'Sofia Martins', num:11, ic:'🔥', pts:4, ast:1, reb:2, fal:0, pct:20, bar:35, mvp:false },
+  { id:'larissa', name:'Larissa Gomes', num:8, ic:'⚡', pts:0, ast:0, reb:1, fal:1, pct:0, bar:15, mvp:false },
+  { id:'paula', name:'Paula Ramos', num:6, ic:'🎽', pts:0, ast:0, reb:0, fal:0, pct:0, bar:10, mvp:false }
+];
+
+// ── RENDER PLAYERS ──
+function renderPlayers(){
+  const grid = document.querySelector('.players-grid');
+  grid.innerHTML = players.map(p=>`
+    <div class="player-card ${p.mvp?'mvp':''}" id="pc-${p.id}">
+      <span class="pc-new" id="pcn-${p.id}">+ATUALIZADO</span>
+      <div class="pc-top">
+        <div class="pc-av ${p.mvp?'mvp-av':''}">${p.ic}</div>
+        <div class="pc-info">
+          <div class="pc-name">${p.name}</div>
+          <div class="pc-num">#${p.num}</div>
+        </div>
+        ${p.mvp?'<span class="pc-badge pc-mvp">MVP</span>':'<span class="pc-badge pc-ok">OK</span>'}
+      </div>
+      <div class="pc-stats">
+        <div class="pst"><div class="pst-val ${p.pts>0?'':'dim'}" id="v-${p.id}-pts">${p.pts}</div><div class="pst-lbl">PTS</div></div>
+        <div class="pst"><div class="pst-val ${p.ast>0?'':'dim'}" id="v-${p.id}-ast">${p.ast}</div><div class="pst-lbl">AST</div></div>
+        <div class="pst"><div class="pst-val ${p.reb>0?'':'dim'}" id="v-${p.id}-reb">${p.reb}</div><div class="pst-lbl">REB</div></div>
+      </div>
+      <div class="pc-bar-row">
+        <div class="pc-bar-lbl"><span>Score</span><span>${p.bar}%</span></div>
+        <div class="pc-bar"><div class="pc-fill" id="bar-${p.id}" style="width:${p.bar}%"></div></div>
+      </div>
+    </div>
+  `).join('');
+}
+
+renderPlayers();
+
+// ── NAV ──
+const $ = id=>document.getElementById(id);
+const delay = ms=>new Promise(r=>setTimeout(r,ms));
+
+function pg(id, btn){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('on'));
+  document.querySelectorAll('.tn').forEach(el=>{el.classList.remove('on');el.classList.add('off')});
+  $(`pg-${id}`).classList.add('on');
+  btn.classList.replace('off','on');
+  $('playBar').style.display = id==='auto'?'flex':'none';
+}
+
+function appTab(id, btn){
+  ['jogos','ranking','evolucao'].forEach(t=>$(`panel-${t}`).style.display='none');
+  document.querySelectorAll('.at').forEach(el=>{el.classList.remove('on');el.classList.add('off')});
+  $(`panel-${id}`).style.display='block';
+  btn.classList.replace('off','on');
+}
+
+// ── LIVE GAME UPDATER ──
+const events = [
+  {type:'pts', msg:'🔥 Ana Paula (10) — 2 PONTOS · bandeja'},
+  {type:'reb', msg:'💪 Carla Santos (5) — REBOTE DEFENSIVO'},
+  {type:'ast', msg:'👐 Juliana Lima (7) — ASSISTÊNCIA para Beatriz'},
+  {type:'pts', msg:'🎯 Beatriz Costa (3) — 2 PONTOS · dentro do garrafão'},
+  {type:'blk', msg:'🛡️ Maria Oliveira (14) — TOCO em arremesso'},
+  {type:'pts', msg:'🔥 Ana Paula (10) — 3 PONTOS · linha de 3!'},
+  {type:'fal', msg:'⚠️ Sofia Martins (11) — FALTA pessoal'},
+  {type:'ast', msg:'👐 Ana Paula (10) — ASSISTÊNCIA para Carla'},
+  {type:'pts', msg:'🏀 Carla Santos (5) — 2 PONTOS · enterrada'},
+];
+
+let evIdx=0;
+function autoUpdate(){
+  const ev = events[evIdx % events.length];
+  evIdx++;
+
+  // update score
+  const home = parseInt($('pts-home').textContent);
+  if(ev.type==='pts') $('pts-home').textContent = home + (ev.msg.includes('3 PONTOS')?3:2);
+
+  // add log entry
+  const log = $('gameLog');
+  const ts = `0${8-Math.floor(evIdx/4)}:${String(Math.max(0,59-evIdx*7)).padStart(2,'0')}`;
+  const el = document.createElement('div');
+  el.className=`ll-e ${ev.type} new`;
+  el.innerHTML=`<span class="ll-ts">${ts}</span>${ev.msg}`;
+  log.insertBefore(el, log.firstChild);
+
+  // flash player card
+  const playerMap = {'Ana Paula':'ana','Carla':'carla','Juliana':'juliana','Beatriz':'beatriz','Maria':'maria','Sofia':'sofia'};
+  for(const [name, id] of Object.entries(playerMap)){
+    if(ev.msg.includes(name)){
+      const badge = $(`pcn-${id}`);
+      if(badge){ badge.classList.add('show'); setTimeout(()=>badge.classList.remove('show'),2000); }
+      // bump stat
+      const p = players.find(x=>x.id===id);
+      if(p && ev.type==='pts'){
+        p.pts += (ev.msg.includes('3 PONTOS')?3:2);
+        $(`v-${id}-pts`).textContent=p.pts;
+        if(id==='ana'){$('mp-pts').textContent=p.pts;}
+      }
+      break;
+    }
+  }
+}
+
+// clock
+let secs=8*60+32;
+setInterval(()=>{
+  if(secs<=0)return;
+  secs--;
+  const m=Math.floor(secs/60),s=secs%60;
+  $('clock').textContent=`${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+},1000);
+
+// ── AUTOMATION FLOW ──
+let autoRunning=false;
+
+function alog(msg,type='i'){
+  const p=$('autoLog');
+  const el=document.createElement('div');
+  const ts=new Date();
+  const t=`${String(ts.getHours()).padStart(2,'0')}:${String(ts.getMinutes()).padStart(2,'0')}:${String(ts.getSeconds()).padStart(2,'0')}`;
+  el.className=`al ${type} new`;
+  el.innerHTML=`<span class="al-ts">${t}</span>${msg}`;
+  p.appendChild(el);
+  p.scrollTop=99999;
+}
+
+function setStep(n,lbl){
+  for(let i=0;i<5;i++){
+    const d=$(`pd${i}`);d.classList.remove('ac','dn');
+    if(i<n)d.classList.add('dn');else if(i===n)d.classList.add('ac');
+  }
+  $('pbLbl').textContent=lbl;
+}
+
+function setPS(n,state){
+  const el=$(`ps${n}`),num=$(`psn${n}`),badge=$(`psb${n}`);
+  el.classList.remove('run','done');
+  if(state==='run'){el.classList.add('run');badge.className='ps-badge psb-run';badge.textContent='● executando';}
+  else if(state==='done'){el.classList.add('done');num.style.background='var(--g)';num.style.color='#fff';badge.className='ps-badge psb-done';badge.textContent='✓ concluído';}
+}
+
+function setPNode(id,state){
+  const el=$(id);if(!el)return;
+  el.classList.remove('run','done');
+  if(state==='run')el.classList.add('run');
+  else if(state==='done')el.classList.add('done');
+}
+
+async function runNodes(ids){
+  for(const id of ids){
+    setPNode(id,'run');await delay(650);setPNode(id,'done');await delay(200);
+  }
+}
+
+async function runAuto(){
+  if(autoRunning)return;
+  autoRunning=true;
+
+  // STAGE 0
+  setStep(0,'Recebendo dados do treinador...');
+  setPS(0,'run');
+  alog('POST /api/game-stats recebido','i');
+  alog('Payload: Ana Paula #10 · Q2 · pts:+3 · arremesso 3','i');
+  await runNodes(['pn00','pn01','pn02']);
+  $('psr0').style.display='block';
+  alog('✓ Dados validados · ID: STAT-4421','s');
+  setPS(0,'done');await delay(400);
+
+  // STAGE 1
+  setStep(1,'Processando GPS e movimento...');
+  setPS(1,'run');
+  alog('🛰️ Lendo dados do sensor GPS...','w');
+  await delay(500);
+  alog('  Trajeto Q2: 847m · Vel.máx: 18.4km/h','w');
+  alog('  Sprints detectados: 12 · Acelerações: 34','w');
+  await runNodes(['pn10','pn11','pn12']);
+  $('psr1').style.display='block';
+  alog('✓ Km calculados automaticamente: 3.2km','s');
+  setPS(1,'done');await delay(400);
+
+  // STAGE 2
+  setStep(2,'IA analisando performance...');
+  setPS(2,'run');
+  alog('🧠 Rodando modelo de análise...','a');
+  await delay(400);
+  alog('  Comparativo categoria: pts +34% · km +18%','a');
+  alog('  Tendência 6 jogos: progressão +28%','a');
+  alog('  Score final: 92/100 · MVP do jogo','a');
+  await runNodes(['pn20','pn21','pn22']);
+  $('psr2').style.display='block';
+  alog('✓ Insights gerados · Score 92/100 MVP','s');
+  setPS(2,'done');await delay(400);
+
+  // STAGE 3
+  setStep(3,'Notificando pais...');
+  setPS(3,'run');
+  alog('📱 Enviando push notification...','i');
+  await runNodes(['pn30','pn31','pn32']);
+  $('psr3').style.display='block';
+  alog('✓ Push enviado · App atualizado · WhatsApp enviado','s');
+  setPS(3,'done');await delay(400);
+
+  // STAGE 4
+  setStep(4,'Gerando relatório pós-jogo...');
+  setPS(4,'run');
+  alog('📄 Gerando PDF com stats completas...','i');
+  await runNodes(['pn40','pn41','pn42']);
+  $('psr4').style.display='block';
+  alog('✓ PDF enviado para 12 pais assinantes','s');
+  alog('✓ Assinaturas verificadas · 0 renovações pendentes','s');
+  alog('──────────────────────────────','i');
+  alog('✅ Pipeline completo · 5 etapas · 4.8s total','s');
+  setStep(4,'✓ Pipeline concluído!');
+
+  autoRunning=false;
+}
+
+function resetAuto(){
+  autoRunning=false;
+  for(let i=0;i<5;i++){
+    const el=$(`ps${i}`),num=$(`psn${i}`),badge=$(`psb${i}`);
+    el.classList.remove('run','done');
+    num.style.background='';num.style.color='';
+    badge.className='ps-badge psb-idle';badge.textContent='aguardando';
+    $(`psr${i}`).style.display='none';
+  }
+  ['pn00','pn01','pn02','pn10','pn11','pn12','pn20','pn21','pn22','pn30','pn31','pn32','pn40','pn41','pn42']
+    .forEach(id=>{const el=$(id);if(el){el.classList.remove('run','done');}});
+  $('autoLog').innerHTML='<div class="al i"><span class="al-ts">09:00</span>Sistema resetado. Aguardando dados...</div>';
+  for(let i=0;i<5;i++){const d=$(`pd${i}`);d.classList.remove('ac','dn');}
+  $('pbLbl').textContent='Pronto para simular';
+}
+</script>
+</body>
+</html>
