@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 @keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .srv-wrap{background:var(--ink2);border-top:1px solid var(--line)}
 .srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
-.srv-c{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s;cursor:default}
+.srv-c{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s}
 .srv-c:hover{background:#10112a}
 .srv-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--plasma),transparent);opacity:0;transition:opacity .3s}
 .srv-c:hover::after{opacity:1}
@@ -99,10 +99,12 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .srv-d{font-size:.76rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
 .tags{display:flex;flex-wrap:wrap;gap:.4rem}
 .tag{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid rgba(0,212,255,.15);color:var(--cyan);border-radius:100px;font-family:'DM Mono',monospace}
+
+/* PORTFOLIO — grid 3 cols, SEM valores, SEM ROI */
 .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
 .pcard{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
 .pcard:hover{border-color:rgba(0,212,255,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.pthumb{height:160px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pthumb{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .pt-cor{background:linear-gradient(135deg,#050f18,#0a1f2e)}
 .pt-cli{background:linear-gradient(135deg,#050f0d,#081f18)}
 .pt-cnt{background:linear-gradient(135deg,#0f0a05,#1f150a)}
@@ -127,9 +129,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .pcats{display:flex;gap:.4rem;margin-bottom:.65rem;flex-wrap:wrap}
 .pcat{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:100px;border:1px solid rgba(0,212,255,.18);color:var(--cyan);font-family:'DM Mono',monospace}
 .pcard h4{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:.35rem;letter-spacing:-.02em}
-.pcard p{font-size:.72rem;color:var(--muted);line-height:1.65;margin-bottom:.65rem}
-.presult{display:inline-flex;align-items:center;gap:.4rem;background:rgba(0,212,255,.05);border:1px solid rgba(0,212,255,.14);border-radius:100px;padding:.22rem .7rem;font-size:.62rem;color:var(--cyan);font-family:'DM Mono',monospace;margin-bottom:.65rem}
-.plink{font-size:.68rem;color:var(--cyan2);display:flex;align-items:center;gap:.4rem;letter-spacing:.04em;font-weight:500}
+.pcard p{font-size:.72rem;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.plink{font-size:.7rem;color:var(--cyan2);display:flex;align-items:center;gap:.4rem;letter-spacing:.04em;font-weight:500}
+
 .proc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
 .proc-c{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:2rem;transition:all .3s}
 .proc-c:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
@@ -168,6 +170,13 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
 .wpp-float::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:wppRing 2.5s ease-in-out infinite}
 @keyframes wppRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
 @keyframes wppPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+/* CASE PAGE — embedded dentro do index */
+#casePage{display:none;position:fixed;inset:0;z-index:500;background:var(--ink);overflow-y:auto}
+.case-back{position:fixed;top:1.2rem;left:1.5rem;z-index:600;display:flex;align-items:center;gap:.5rem;background:rgba(4,5,15,.9);border:1px solid var(--line);backdrop-filter:blur(12px);padding:.55rem 1.1rem;border-radius:100px;font-size:.72rem;color:var(--cyan);cursor:pointer;text-decoration:none;transition:all .2s}
+.case-back:hover{background:rgba(0,212,255,.08);border-color:rgba(0,212,255,.3)}
+#caseFrame{width:100%;height:100vh;border:none}
+
 @media(max-width:1024px){
   nav{padding:1rem 1.5rem}.nav-links{display:none}
   .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem}.hero-r{display:none}
@@ -179,6 +188,12 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
 </style>
 </head>
 <body>
+
+<!-- CASE PAGE OVERLAY -->
+<div id="casePage">
+  <a class="case-back" onclick="closeCase()">← Voltar ao portfólio</a>
+  <iframe id="caseFrame" src=""></iframe>
+</div>
 
 <a href="https://wa.me/5511951131232?text=Olá%20Paulo!%20Vi%20seu%20portfólio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" class="wpp-float" title="Falar no WhatsApp">💬</a>
 
@@ -248,7 +263,7 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
   <div class="sec-inner">
     <div class="lbl rev">Serviços</div>
     <h2 class="sh rev">O que posso fazer<br>pelo seu <em>negócio</em>.</h2>
-    <p class="ssub rev">Do primeiro dashboard à operação completa com IA. Cada serviço desenhado para gerar resultado mensurável — sem enrolação.</p>
+    <p class="ssub rev">Do primeiro dashboard à operação completa com IA. Cada projeto é desenhado sob medida — escopo, prazo e investimento definidos juntos.</p>
     <div class="srv-grid rev">
       <div class="srv-c"><span class="srv-num">01</span><span class="srv-ico">⚡</span><div class="srv-t">Automação com IA & n8n</div><p class="srv-d">Fluxos que eliminam trabalho manual e integram sistemas. Do CRM ao relatório automático, tudo conectado com inteligência.</p><div class="tags"><span class="tag">n8n</span><span class="tag">Python</span><span class="tag">OpenAI</span></div></div>
       <div class="srv-c"><span class="srv-num">02</span><span class="srv-ico">📊</span><div class="srv-t">Mídia de Performance</div><p class="srv-d">Estratégia e gestão de campanhas em Google, Meta, Amazon e Retail Media com foco total em ROAS e escala real.</p><div class="tags"><span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">ROAS</span></div></div>
@@ -260,91 +275,72 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
   </div>
 </section>
 
-<!-- PORTFOLIO — 6 cases com links corrigidos -->
 <section class="sec" id="portfolio" style="border-top:1px solid var(--line)">
   <div class="sec-inner">
     <div class="lbl rev">Portfólio</div>
     <h2 class="sh rev">Projetos reais,<br><em>resultados</em> reais.</h2>
-    <p class="ssub rev">Clique em cada projeto para ver o processo completo — automações ao vivo, dashboards e a estratégia por trás de cada entrega.</p>
+    <p class="ssub rev">Clique para ver a simulação ao vivo — cada projeto mostra o fluxo completo funcionando, da entrada de dados à decisão automatizada.</p>
     <div class="port-grid">
 
-      <a href="case-corretora.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-cor">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">corretora_automation.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-corretora.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cor"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">corretora_automation.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">Seguros</span><span class="pcat">Automação</span><span class="pcat">WhatsApp</span></div>
           <h4>Corretora de Seguros 360°</h4>
-          <p>Captação, qualificação por IA, CRM automático, follow-up e renovações. O corretor só atende quem tem interesse real.</p>
-          <div class="presult">📈 3× mais cotações fechadas</div>
+          <p>Captação, qualificação por IA, CRM automático, follow-up e renovações. O corretor atende quem tem interesse real.</p>
           <div class="plink">Ver simulação ao vivo →</div>
         </div>
-      </a>
+      </div>
 
-      <a href="case-clinica.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-cli">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">clinica_scheduler.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-clinica.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cli"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">clinica_scheduler.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">Saúde</span><span class="pcat">Agenda 24h</span><span class="pcat">Reativação</span></div>
           <h4>Clínica Médica Automação</h4>
-          <p>Agendamento 24h via WhatsApp, -70% no-show, reativação de inativos e relatório semanal automático.</p>
-          <div class="presult">⏱️ +45% pacientes reativados</div>
+          <p>Agendamento 24h via WhatsApp, redução de no-show, reativação de pacientes e relatório semanal automático.</p>
           <div class="plink">Ver simulação ao vivo →</div>
         </div>
-      </a>
+      </div>
 
-      <a href="case-barbearia.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-bar">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">barbearia_bot.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-barbearia.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-bar"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">barbearia_bot.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">Barbearia</span><span class="pcat">Fidelidade</span><span class="pcat">Bot</span></div>
           <h4>Barbearia Bot & Pontos</h4>
-          <p>Agendamento automático, programa de pontos sem app, reativação em 25 dias e -80% no-show.</p>
-          <div class="presult">🏆 +60% clientes retornam</div>
+          <p>Agendamento automático, programa de pontos sem app, reativação em 25 dias e drastica redução de no-show.</p>
           <div class="plink">Ver simulação ao vivo →</div>
         </div>
-      </a>
+      </div>
 
-      <a href="case-contabil.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-cnt">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">contabil_pipeline.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-contabil.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cnt"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">contabil_pipeline.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">Contabilidade</span><span class="pcat">IA</span><span class="pcat">Relatórios</span></div>
           <h4>Escritório Contábil AI</h4>
-          <p>Cobrança automática, docs organizados por IA, DRE em 12 minutos e alertas fiscais 7 dias antes.</p>
-          <div class="presult">📉 -80% tempo operacional</div>
+          <p>Cobrança automática de documentos, organização por IA, relatório DRE gerado em minutos e alertas fiscais.</p>
           <div class="plink">Ver simulação ao vivo →</div>
         </div>
-      </a>
+      </div>
 
-      <a href="case-agencia.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-age">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">agencia_performance.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-agencia.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-age"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">agencia_performance.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">Agência</span><span class="pcat">Performance</span><span class="pcat">BI</span></div>
           <h4>Agência de Performance</h4>
           <p>Dashboard unificado Google + Meta + TikTok, relatórios automáticos para clientes e alertas de anomalia em tempo real.</p>
-          <div class="presult">🎯 ROAS 3.8× nas campanhas</div>
           <div class="plink">Ver simulação ao vivo →</div>
         </div>
-      </a>
+      </div>
 
-      <a href="case-basquete.html" target="_blank" class="pcard rev">
-        <div class="pthumb pt-ret">
-          <div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">hoopstats_app.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div>
-        </div>
+      <div onclick="openCase('case-basquete.html')" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-ret"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">hoopstats_app.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></div>
         <div class="pbody">
           <div class="pcats"><span class="pcat">App</span><span class="pcat">Basquete</span><span class="pcat">SaaS</span></div>
           <h4>HoopStats · App de Basquete</h4>
           <p>Plataforma SaaS completa com estatísticas ao vivo, comparativo de jogadores e análise de desempenho por IA.</p>
-          <div class="presult">🏀 Análise em tempo real</div>
           <div class="plink">Ver demo ao vivo →</div>
         </div>
-      </a>
+      </div>
 
     </div>
   </div>
@@ -372,9 +368,9 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
       <div>
         <div class="lbl rev">Sobre Paulo</div>
         <h2 class="sh rev">Onde <em>publicidade</em><br>encontra dados e IA.</h2>
-        <p class="ap rev">Sou <strong>Paulo</strong>, formado em <strong>Publicidade e Propaganda</strong> com pós-graduação em <strong>Ciências de Dados e Inteligência Artificial</strong>. Atuo como <strong>Coordenador de Mídia de Performance</strong> com foco em Retail Media e Commerce.</p>
-        <p class="ap rev">Minha diferença: <strong>visão estratégica de marketing + domínio técnico de dados e IA</strong>. Trabalho sozinho — você fala <strong>diretamente comigo</strong> em todas as etapas. Sem intermediários, sem surpresas.</p>
-        <p class="ap rev">Estrutura completa de desenvolvimento no meu computador: Python, n8n, VS Code, PostgreSQL, GitHub — tudo pronto para criar e entregar soluções reais.</p>
+        <p class="ap rev">Sou <strong>Paulo Santos</strong>, formado em <strong>Publicidade e Propaganda</strong> com pós-graduação em <strong>Ciências de Dados e Inteligência Artificial</strong>. Atuo como <strong>Coordenador de Mídia de Performance</strong> com foco em Retail Media e Commerce.</p>
+        <p class="ap rev">Minha diferença: <strong>visão estratégica de marketing + domínio técnico de dados e IA</strong>. Trabalho de forma direta — você fala <strong>comigo em todas as etapas</strong>. Sem intermediários, sem surpresas.</p>
+        <p class="ap rev">Estrutura completa: Python, n8n, VS Code, PostgreSQL, GitHub — tudo pronto para criar e entregar soluções reais.</p>
         <div class="sk-wrap rev">
           <span class="sk">Python</span><span class="sk">n8n</span><span class="sk">PostgreSQL</span><span class="sk">VS Code</span><span class="sk">Power BI</span><span class="sk">Looker Studio</span><span class="sk">GA4</span><span class="sk">Google Ads</span><span class="sk">Meta Ads</span><span class="sk">Amazon Ads</span><span class="sk">OpenAI API</span><span class="sk">Scikit-learn</span><span class="sk">Pandas</span><span class="sk">GitHub</span><span class="sk">SQL</span><span class="sk">Jupyter</span>
         </div>
@@ -383,8 +379,8 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
         <div class="cred rev"><div class="cred-yr">Atual · Coordenador</div><div class="cred-t">Mídia de Performance · Retail Media & Commerce</div><div class="cred-s">Gestão e estratégia de campanhas em larga escala com foco em ROAS e retail media.</div></div>
         <div class="cred rev"><div class="cred-yr">Pós-Graduação</div><div class="cred-t">Ciências de Dados & Inteligência Artificial</div><div class="cred-s">Machine Learning, modelos preditivos e aplicações práticas de IA em negócios.</div></div>
         <div class="cred rev"><div class="cred-yr">Graduação</div><div class="cred-t">Publicidade e Propaganda</div><div class="cred-s">Estratégia de marca, comportamento do consumidor e campanhas de marketing.</div></div>
-        <div class="cred rev"><div class="cred-yr">Agora · Builder & Freelancer</div><div class="cred-t">Automações, BI e Soluções com IA</div><div class="cred-s">Portfólio ativo no GitHub. Atendimento 100% direto, sem terceiros.</div></div>
-        <div class="manifesto rev"><p>"Não vendo ferramenta. Vendo resultado. E resultado precisa de dados, automação e inteligência — não só de boa vontade."</p><cite>— Paulo · Growth AI</cite></div>
+        <div class="cred rev"><div class="cred-yr">Agora · Builder & Consultor</div><div class="cred-t">Automações, BI e Soluções com IA</div><div class="cred-s">Portfólio ativo no GitHub. Atendimento 100% direto, sem terceiros.</div></div>
+        <div class="manifesto rev"><p>"Não vendo ferramenta. Vendo resultado. E resultado precisa de dados, automação e inteligência — não só de boa vontade."</p><cite>— Paulo Santos · Growth AI</cite></div>
       </div>
     </div>
   </div>
@@ -394,7 +390,7 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
   <div class="cta-orb"></div>
   <div class="lbl rev" style="justify-content:center">Vamos trabalhar juntos</div>
   <h2 class="sh rev" style="font-size:clamp(2.5rem,5vw,4rem);max-width:680px;margin:0 auto 1rem">Pronto para transformar seus dados em <em>crescimento</em>?</h2>
-  <p class="ssub rev" style="margin:0 auto 3rem;text-align:center">Me conta o desafio. Em até 24h respondo com análise e caminho claro.</p>
+  <p class="ssub rev" style="margin:0 auto 3rem;text-align:center">Me conta o desafio. Em até 24h respondo com análise e proposta personalizada.</p>
   <div class="cta-btns rev">
     <a href="https://wa.me/5511951131232?text=Olá%20Paulo!%20Vi%20seu%20portfólio%20e%20quero%20conversar." target="_blank" class="btn-wha">💬 Falar no WhatsApp</a>
     <a href="mailto:paulo.santos@ghowthia.com.br" class="btn-primary">✉ Enviar e-mail</a>
@@ -404,14 +400,36 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
 </section>
 
 <footer>
-  <div class="fl">Paulo <span>Growth AI</span></div>
+  <div class="fl">Paulo Santos · <span>Growth AI</span></div>
   <div class="flinks"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank">LinkedIn</a></div>
-  <div class="fcopy">© 2025 Paulo Growth AI · Dados, IA & Performance</div>
+  <div class="fcopy">© 2025 Paulo Santos · Growth AI · Dados, IA & Performance</div>
 </footer>
 
 <script>
+// CASE OVERLAY — abre na mesma aba sem nova janela
+function openCase(url) {
+  const page = document.getElementById('casePage');
+  const frame = document.getElementById('caseFrame');
+  frame.src = url;
+  page.style.display = 'block';
+  document.body.style.overflow = 'hidden';
+  window.scrollTo(0,0);
+}
+function closeCase() {
+  const page = document.getElementById('casePage');
+  const frame = document.getElementById('caseFrame');
+  page.style.display = 'none';
+  frame.src = '';
+  document.body.style.overflow = '';
+}
+// ESC fecha
+document.addEventListener('keydown', e => { if(e.key === 'Escape') closeCase(); });
+
+// SCROLL REVEAL
 const obs=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*70)})},{threshold:.08});
 document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+// HERO ANIMATION
 const steps=[['s1','st1'],['s2','st2'],['s3','st3'],['s4','st4']];
 let cur=0;
 function runAuto(){
