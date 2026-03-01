@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>Barbearia · Agenda e Fidelização · Paulo Growth AI</title>
+<title>Agência de Performance · Dashboard Unificado · Paulo Growth AI</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
@@ -187,19 +187,267 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
   .mc-grid{grid-template-columns:1fr 1fr}
   footer{flex-direction:column;gap:.75rem;text-align:center}
 }
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVE — max-width: 768px
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── LAYOUT BASE ── */
+  body { overflow-x: hidden !important; }
+
+  /* ── NAV / TOP BAR ── */
+  .top, nav, .header {
+    padding: .75rem 1rem !important;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .top-nav, .nav-links { display: none !important; }
+  .top-ic { width: 28px !important; height: 28px !important; font-size: .9rem !important; }
+
+  /* ── HERO / SECTION PADDING ── */
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 2rem 1rem !important;
+  }
+
+  /* ── ALL MULTI-COLUMN GRIDS → single column ── */
+  .hs-grid,
+  .sol-grid,
+  .flow-layout,
+  .main,
+  .layout,
+  .players-grid,
+  .kpi-strip,
+  .ch-grid,
+  .metrics-grid,
+  .mp-stats-row,
+  .pc-stats,
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:1fr 320px"],
+  [style*="grid-template-columns:1fr 340px"],
+  [style*="grid-template-columns:320px 1fr"],
+  [style*="grid-template-columns:1fr auto 1fr"] {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* ── SCOREBOARD SPECIAL CASE (basquete) ── */
+  .scoreboard {
+    padding: 1.25rem !important;
+    gap: 1rem !important;
+  }
+
+  /* ── SIDEBAR PANELS → full width ── */
+  .sidebar, .panel, .right-col, [style*="width:320px"], [style*="width: 320px"],
+  [style*="width:340px"], [style*="width: 340px"],
+  [style*="flex:0 0"], [style*="flex: 0 0"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* ── PADDING LARGE → compact ── */
+  [style*="padding: 4rem 3rem"], [style*="padding:4rem 3rem"],
+  [style*="padding: 2.5rem 3rem"], [style*="padding:2.5rem 3rem"],
+  [style*="padding: 3rem"], [style*="padding:3rem"],
+  [style*="margin: 2rem 3rem"], [style*="margin:2rem 3rem"] {
+    padding: 1.25rem 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* ── OVERFLOW CONTAINERS ── */
+  .layout { height: auto !important; overflow: visible !important; }
+  .main   { height: auto !important; overflow: visible !important; }
+
+  /* ── HEADINGS ── */
+  h1 { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
+  h2 { font-size: clamp(1.3rem, 6vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
+  .sh, .hs-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; }
+
+  /* ── HERO BIG NUMBERS ── */
+  .hero-num, .big-stat, .score-val, .team-score {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+
+  /* ── STAT CARDS STRIP ── */
+  .stat-strip, .kpi-strip {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: .6rem !important;
+  }
+
+  /* ── NODE / FLOW DIAGRAMS ── */
+  .node-row, .flow-nodes, .fn-row {
+    flex-wrap: wrap !important;
+    gap: .5rem !important;
+  }
+  .node-box { min-width: 0 !important; max-width: 100% !important; flex: 1 1 40% !important; }
+  .node-arrow { display: none !important; }
+
+  /* ── STEP BAR / FIXED BOTTOM PILL ── */
+  .step-bar, .step-indicator, .sb-lbl {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+    font-size: .58rem !important;
+  }
+  .sb-lbl { min-width: 0 !important; max-width: 45vw !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+
+  /* ── TABLE OVERFLOW ── */
+  table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+  .tb-row, .log-row { font-size: .68rem !important; }
+
+  /* ── CHAT / WHATSAPP PANELS ── */
+  .chat-panel, .wpp-panel { max-height: 300px !important; }
+
+  /* ── PROGRESS / PAGINATION BARS ── */
+  .pb-lbl { min-width: 0 !important; display: none !important; }
+
+  /* ── BACK BUTTON spacing on mobile ── */
+  #back-to-portfolio, #sim-back-btn {
+    font-size: .68rem !important;
+    padding: .45rem .85rem !important;
+  }
+
+  /* ── CASE FILES SPECIFIC ── */
+  .pcard { padding: 1.2rem !important; }
+  .port-grid { grid-template-columns: 1fr !important; }
+  .srv-grid  { grid-template-columns: 1fr !important; }
+  .proc-grid { grid-template-columns: 1fr !important; }
+  .about-grid{ grid-template-columns: 1fr !important; }
+  .stats     { flex-direction: column !important; gap: 1rem !important; }
+  .hero      { grid-template-columns: 1fr !important; padding: 5rem 1rem 2rem !important; }
+  .hero-r    { display: none !important; }
+
+  /* ── CASE HERO SECTION ── */
+  .ch-hero { padding: 5rem 1.2rem 2rem !important; }
+  .ch-tags { flex-wrap: wrap !important; }
+  .ch-btns { flex-direction: column !important; gap: .75rem !important; }
+  .ch-btns a, .btn-primary, .btn-ghost, .btn-white {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── MINI CASES GRID ── */
+  .mini-cases { grid-template-columns: 1fr !important; }
+
+  /* ── AGENCIA DASHBOARD SPECIFIC ── */
+  .kpi-strip { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── BASQUETE SPECIFIC ── */
+  .team-side { align-items: center !important; }
+  .players-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── FOOTER ── */
+  footer { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; padding: 1.5rem 1rem !important; }
+
+}
+
+/* ── SMALL PHONES (360-480px) extra tweaks ── */
+@media (max-width: 480px) {
+  .top, nav, .header { padding: .65rem .85rem !important; }
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 1.5rem .85rem !important;
+  }
+  .stat-strip, .kpi-strip { grid-template-columns: 1fr !important; }
+  .players-grid           { grid-template-columns: 1fr !important; }
+  h1 { font-size: clamp(1.4rem, 8vw, 2rem) !important; }
+}
+
+
+@media (max-width: 768px) {
+  /* inline grid overrides for case files */
+  div[style*="grid-template-columns:1fr 420px"],
+  div[style*="grid-template-columns: 1fr 420px"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  div[style*="grid-template-columns:1fr 1fr"],
+  div[style*="grid-template-columns: 1fr 1fr"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  div[style*="grid-template-columns:repeat(3,1fr)"],
+  div[style*="grid-template-columns: repeat(3,1fr)"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+  /* case hero layout */
+  div[style*="padding:8rem 3rem"],
+  div[style*="padding: 8rem 3rem"],
+  div[style*="padding:7rem 3rem"],
+  div[style*="padding: 7rem 3rem"] {
+    padding: 4.5rem 1rem 2rem !important;
+  }
+  div[style*="padding:4rem 3rem"],
+  div[style*="padding: 4rem 3rem"],
+  div[style*="padding:3rem"],
+  div[style*="padding: 3rem"] {
+    padding: 1.5rem 1rem !important;
+  }
+  /* fix any fixed 420px sidebar */
+  div[style*="width:420px"],
+  div[style*="width: 420px"] {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  /* nav links in case files */
+  .nav-links { display: none !important; }
+  nav { padding: .75rem 1rem !important; }
+  .breadcrumb { padding: 0 1rem !important; font-size: .7rem !important; }
+  /* CTA buttons full width */
+  .cta-group, .btn-group {
+    flex-direction: column !important;
+    gap: .75rem !important;
+  }
+  a.btn-primary, a.btn-ghost, a.btn-white,
+  .btn-primary, .btn-ghost, .btn-white {
+    display: block !important;
+    width: 100% !important;
+    text-align: center !important;
+    box-sizing: border-box !important;
+  }
+  /* metrics row */
+  div[style*="display:grid"][style*="gap:.75rem"] {
+    display: flex !important;
+    flex-direction: column !important;
+  }
+}
+
 </style>
-<style>:root{--accent:#1a1a1a;--cyan:#1a1a1a;--cyan2:#444;--cyan3:#f5f5f5;}
-.sec-eyebrow,.mc-val,.cr-n,.roi-val,.mr{color:#1a1a1a!important}
-.sec-eyebrow::before,.pain-result,.fn-badge,.hero-eyebrow{background:#1a1a1a!important;color:#fff!important;border-color:rgba(26,26,26,.2)!important}
-.fn:hover{border-color:#1a1a1a!important;background:#f5f5f5!important}
-.btn-primary:hover{background:#333!important}
-.tech-card:hover{border-color:#1a1a1a!important}
-.step-num{background:#1a1a1a!important}
-.mini-case:hover{border-color:#1a1a1a!important}
-.ch-category{border-color:#e0e0e0!important;color:#1a1a1a!important;background:#f5f5f5!important}
+<style>:root{--accent:#6366f1;--cyan:#6366f1;--cyan2:#818cf8;--cyan3:#eef2ff;}
+.sec-eyebrow,.mc-val,.cr-n,.roi-val,.mr{color:#6366f1!important}
+.sec-eyebrow::before{background:#6366f1!important}
+.fn:hover{border-color:#6366f1!important;background:#eef2ff!important}
+.fn-badge{background:#eef2ff!important;color:#6366f1!important;border-color:rgba(99,102,241,.2)!important}
+.btn-primary:hover{background:#6366f1!important}
+.tech-card:hover{border-color:#6366f1!important}
+.step-num{background:#6366f1!important}
 </style>
 </head>
 <body>
+<a href="index.html" id="back-to-portfolio" style="
+  position:fixed;top:1.1rem;left:1.2rem;z-index:9999;
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:rgba(2,3,10,.88);border:1px solid rgba(0,212,255,.22);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:.5rem 1rem;border-radius:100px;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  color:#00D4FF;text-decoration:none;
+  transition:all .2s;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.4)
+" onmouseover="this.style.background='rgba(0,212,255,.1)';this.style.borderColor='rgba(0,212,255,.5)'"
+   onmouseout="this.style.background='rgba(2,3,10,.88)';this.style.borderColor='rgba(0,212,255,.22)'">
+  ← Voltar ao portfólio
+</a>
 <nav>
   <a href="index.html" class="nav-brand">
     <div class="nav-ic">⚡</div>
@@ -212,26 +460,26 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
     <a href="https://wa.me/5511951131232" class="nav-cta" target="_blank">💬 Falar Agora</a>
   </div>
 </nav>
-<div class="breadcrumb"><a href="index.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Barbearia</span></div>
+<div class="breadcrumb"><a href="index.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Agência de Performance</span></div>
 
 <section class="case-hero">
 <div class="ch-top">
   <div class="reveal">
-    <div class="ch-category">✂️ Barbearia</div>
-    <h1 class="ch-title">Agenda cheia, <em>fidelidade automática</em> e clientes voltando sem precisar pedir.</h1>
-    <p class="ch-sub">Agenda gerenciada pelo WhatsApp no improviso. Clientes sumindo após 30 dias sem contato. Sem programa de fidelidade para competir com redes maiores. Automatizamos tudo — a barbearia virou referência no bairro.</p>
+    <div class="ch-category" style="border-color:#e0e7ff;color:#6366f1;background:#eef2ff">📊 Agência de Performance Digital</div>
+    <h1 class="ch-title">Dashboard que une <em>6 plataformas</em> e chega todo dia às 9h automaticamente.</h1>
+    <p class="ch-sub">Gestores passavam 2 horas por dia abrindo Google Ads, Meta, TikTok, GA4, Programática e Afiliados separadamente. Sem visão consolidada, sem alertas de anomalia. Criamos um pipeline que faz tudo automaticamente.</p>
     <div class="ch-actions">
-      <a href="https://wa.me/5511951131232?text=Quero%20automação%20para%20minha%20barbearia" class="btn-primary" target="_blank">💬 Quero esse sistema</a>
-      <a href="index.html#cases" class="btn-ghost">← Ver todos os cases</a>
+      <a href="https://wa.me/5511951131232?text=Quero%20dashboard%20unificado%20para%20minha%20agência" class="btn-primary" target="_blank">💬 Quero esse dashboard</a>
+      <a href="simulacao-agencia-performance.html" class="btn-ghost">▶ Ver simulação ao vivo</a>
     </div>
   </div>
   <div class="metrics-card reveal" data-d="2">
-    <div class="mc-label">// resultados em 60 dias</div>
+    <div class="mc-label">// o que o sistema entrega</div>
     <div class="mc-grid">
-      <div class="mc-item"><div class="mc-val">+60%</div><div class="mc-desc">Clientes que voltaram após 30 dias de inatividade</div></div>
-      <div class="mc-item"><div class="mc-val">-80%</div><div class="mc-desc">No-shows — quase zero falta sem aviso</div></div>
-      <div class="mc-item"><div class="mc-val">Auto</div><div class="mc-desc">Agendamento via WhatsApp 24h por dia</div></div>
-      <div class="mc-item"><div class="mc-val">Pontos</div><div class="mc-desc">Programa de fidelidade sem precisar de app</div></div>
+      <div class="mc-item"><div class="mc-val">6</div><div class="mc-desc">Plataformas consolidadas em 1 dashboard</div></div>
+      <div class="mc-item"><div class="mc-val">9h</div><div class="mc-desc">Relatório chegando todo dia sem precisar abrir nada</div></div>
+      <div class="mc-item"><div class="mc-val">Zero</div><div class="mc-desc">Trabalho manual de coleta de dados</div></div>
+      <div class="mc-item"><div class="mc-val">Real-time</div><div class="mc-desc">Alertas automáticos de anomalia de ROAS/CPA</div></div>
     </div>
   </div>
 </div>
@@ -240,31 +488,25 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
 <section class="pain-section">
 <div class="container">
   <div class="sec-eyebrow reveal">O problema</div>
-  <h2 class="sec-title reveal">4 problemas que toda barbearia tem mas ninguém resolve.</h2>
-  <div class="pain-grid" style="grid-template-columns:repeat(2,1fr)">
+  <h2 class="sec-title reveal">2 horas por dia jogadas fora em coleta manual.</h2>
+  <div class="pain-grid" style="grid-template-columns:repeat(3,1fr)">
     <div class="pain-card reveal" data-d="1">
-      <span class="pain-ic">📱</span>
-      <div class="pain-title">Agenda caótica pelo WhatsApp</div>
-      <p class="pain-desc">Cada barbeiro tem o próprio WhatsApp. Cliente manda mensagem, barbeiro vê quando pode, confirma na mão, anota num papel ou app separado. Confusão, conflito de horário e cliente esperando resposta horas depois.</p>
-      <span class="pain-cost">Custo: conflitos de agenda + clientes que desistem de esperar resposta</span>
+      <span class="pain-ic">🔄</span>
+      <div class="pain-title">7+ abas abertas todo dia</div>
+      <p class="pain-desc">Google Ads, Meta Business, TikTok Ads, GA4, DSP Programática, Afiliados e ainda o Excel para consolidar. Processo repetitivo, demorado e sujeito a erro humano.</p>
+      <span class="pain-cost">Custo: 2h/dia × R$80/h × 22 dias = R$3.520/mês</span>
     </div>
     <div class="pain-card reveal" data-d="2">
-      <span class="pain-ic">🔁</span>
-      <div class="pain-title">Clientes sumindo depois de 30 dias</div>
-      <p class="pain-desc">Cliente cortou o cabelo, amou, mas não voltou em 3 semanas. Sem nenhuma mensagem da barbearia, ele foi para a mais próxima de casa. Sem fidelização, não existe recorrência.</p>
-      <span class="pain-cost">Custo: cada cliente vale R$50-80/mês de LTV — sendo desperdiçado</span>
+      <span class="pain-ic">📉</span>
+      <div class="pain-title">Sem visão de ROAS consolidado real</div>
+      <p class="pain-desc">Cada plataforma mostra um número diferente com atribuições distintas. Impossível calcular o ROI real do investimento total sem compilar na mão — e quando terminava, os dados já estavam desatualizados.</p>
+      <span class="pain-cost">Custo: decisões de orçamento baseadas em dados errados</span>
     </div>
     <div class="pain-card reveal" data-d="3">
-      <span class="pain-ic">🏆</span>
-      <div class="pain-title">Sem programa de fidelidade para competir</div>
-      <p class="pain-desc">Redes de barbearia têm app com pontos, desconto na 5ª visita, promoções exclusivas. A barbearia independente não tem nada disso. O cliente que acumula ponto não vai embora — e você não tem como oferecer isso sem sistema.</p>
-      <span class="pain-cost">Custo: desvantagem competitiva direta frente às redes</span>
-    </div>
-    <div class="pain-card reveal" data-d="4">
-      <span class="pain-ic">❌</span>
-      <div class="pain-title">No-shows sem aviso derrubam o faturamento</div>
-      <p class="pain-desc">Cliente marcou às 15h. Barbeiro esperando. Às 15h15 nenhuma mensagem. Ligou, não atendeu. Horário perdido, faturamento que não vai voltar. Acontecia 3-4 vezes por semana.</p>
-      <span class="pain-cost">Custo: 4 no-shows/semana × R$60 = R$960/mês perdido</span>
+      <span class="pain-ic">🚨</span>
+      <div class="pain-title">Anomalias detectadas tarde demais</div>
+      <p class="pain-desc">ROAS caiu 40% numa campanha? CPA de uma ad set disparou? Ninguém sabia até a próxima vez que alguém olhava aquela plataforma específica. Dinheiro sendo queimado em silêncio.</p>
+      <span class="pain-cost">Custo: budget desperdiçado em campanhas com problema</span>
     </div>
   </div>
 </div>
@@ -273,27 +515,28 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
 <section class="section-pad">
 <div class="container">
   <div class="sec-eyebrow reveal">A solução</div>
-  <h2 class="sec-title reveal">Sistema completo de agenda, fidelidade e reativação.</h2>
+  <h2 class="sec-title reveal">Pipeline automático de dados.<br>Relatório às 9h sem tocar em nada.</h2>
   <div class="steps-grid">
     <div class="step-list reveal">
-      <div class="step-item"><div class="step-num">01</div><div class="step-content"><div class="step-title">Agendamento automático pelo WhatsApp</div><div class="step-desc">Cliente manda "quero agendar" a qualquer hora. Bot pergunta: serviço, barbeiro preferido, dia e horário. Verifica disponibilidade em tempo real e confirma automaticamente. Nenhum humano precisa intervir.</div><div class="step-result">→ Agenda preenchida 24h/dia, sem esforço</div></div></div>
-      <div class="step-item"><div class="step-num">02</div><div class="step-content"><div class="step-title">Confirmação e lembrete automático</div><div class="step-desc">24h antes: "Olá João! Seu corte está marcado amanhã às 15h com Rafael. Confirma? Responda SIM ou NÃO." NÃO = horário liberado e próximo da lista de espera é notificado automaticamente.</div><div class="step-result">→ -80% de no-show</div></div></div>
-      <div class="step-item"><div class="step-num">03</div><div class="step-content"><div class="step-title">Programa de pontos sem precisar de app</div><div class="step-desc">A cada visita, cliente acumula pontos automaticamente. Bot informa o saldo via WhatsApp. Na 5ª visita: "Você ganhou um serviço grátis!" Tudo pelo WhatsApp, sem download de app, sem complexidade.</div><div class="step-result">→ Fidelidade que compete com as grandes redes</div></div></div>
-      <div class="step-item"><div class="step-num">04</div><div class="step-content"><div class="step-title">Reativação automática de clientes sumidos</div><div class="step-desc">Cliente não veio em 25 dias? Sistema dispara: "Ei João, faz 25 dias desde seu último corte 💈 Sua hora está chegando! Agora está um pouco mais barato para clientes fiéis — quer agendar?" Taxa de retorno média: 40-55%.</div><div class="step-result">→ Clientes inativos virando receita recorrente</div></div></div>
-      <div class="step-item"><div class="step-num">05</div><div class="step-content"><div class="step-title">Avaliação pós-atendimento e upsell</div><div class="step-desc">2h após o corte: "Como foi seu atendimento, João? De 1 a 5." 5 estrelas = pede indicação automática. 4 ou menos = alerta para o dono resolver. Também sugere serviço adicional para a próxima visita.</div><div class="step-result">→ NPS monitorado + novos serviços vendidos</div></div></div>
+      <div class="step-item"><div class="step-num">01</div><div class="step-content"><div class="step-title">Coleta automática das 6 plataformas</div><div class="step-desc">n8n se conecta via API com Google Ads, Meta Graph, TikTok Business, GA4, plataforma de DSP e rede de afiliados. Todo dia às 6h coleta automaticamente: investimento, impressões, cliques, conversões e receita.</div><div class="step-result">→ Dados do dia disponíveis às 6:30h</div></div></div>
+      <div class="step-item"><div class="step-num">02</div><div class="step-content"><div class="step-title">Consolidação e cálculo de métricas</div><div class="step-desc">Dados unificados em modelo único com atribuição configurada pelo cliente. Cálculo automático de ROAS total, CPA blended, parcela de investimento por canal e comparativo com período anterior.</div><div class="step-result">→ Visão real do retorno total do investimento</div></div></div>
+      <div class="step-item"><div class="step-num">03</div><div class="step-content"><div class="step-title">Detecção de anomalias por IA</div><div class="step-desc">Sistema compara métricas do dia com a média dos últimos 7 dias. Variação acima do threshold configurado dispara alerta imediato no WhatsApp do gestor: "ROAS do Meta caiu 35% — verificar campanha X".</div><div class="step-result">→ Problemas detectados antes do gestor chegar</div></div></div>
+      <div class="step-item"><div class="step-num">04</div><div class="step-content"><div class="step-title">Relatório diário às 9h</div><div class="step-desc">Resumo executivo no WhatsApp e e-mail: performance por canal, destaques positivos e negativos, budget consumido vs planejado, projeção do mês. Dashboard visual em Google Sheets atualizado automaticamente.</div><div class="step-result">→ Gestor começa o dia já informado</div></div></div>
     </div>
     <div class="flow-card reveal" data-d="2">
-      <div class="fc-label">// fluxo completo do cliente</div>
+      <div class="fc-label">// pipeline diário · 6h às 9h</div>
       <div class="flow-nodes">
-        <div class="fn"><span class="fn-ic">💬</span><div class="fn-info"><div class="fn-name">WhatsApp Bot 24h</div><div class="fn-tech">Agendamento automático</div></div><span class="fn-badge">agenda</span></div>
+        <div class="fn"><span class="fn-ic">⏰</span><div class="fn-info"><div class="fn-name">Trigger Diário</div><div class="fn-tech">Todo dia às 06:00</div></div><span class="fn-badge">schedule</span></div>
         <div class="fn-arrow">↓</div>
-        <div class="fn"><span class="fn-ic">🔔</span><div class="fn-info"><div class="fn-name">Lembrete 24h antes</div><div class="fn-tech">Confirmar ou Cancelar</div></div><span class="fn-badge">lembrete</span></div>
+        <div class="fn"><span class="fn-ic">📡</span><div class="fn-info"><div class="fn-name">Coleta via API</div><div class="fn-tech">Google · Meta · TikTok · GA4 · DSP · Afil.</div></div><span class="fn-badge">collect</span></div>
         <div class="fn-arrow">↓</div>
-        <div class="fn"><span class="fn-ic">✂️</span><div class="fn-info"><div class="fn-name">Atendimento</div><div class="fn-tech">Pontos creditados automaticamente</div></div><span class="fn-badge">visita</span></div>
+        <div class="fn"><span class="fn-ic">🧮</span><div class="fn-info"><div class="fn-name">Consolida e Calcula</div><div class="fn-tech">ROAS · CPA · Budget · Comparativo</div></div><span class="fn-badge">process</span></div>
         <div class="fn-arrow">↓</div>
-        <div class="fn"><span class="fn-ic">⭐</span><div class="fn-info"><div class="fn-name">Avaliação + Upsell</div><div class="fn-tech">NPS · Próximo serviço</div></div><span class="fn-badge">pós-visit</span></div>
+        <div class="fn"><span class="fn-ic">🚨</span><div class="fn-info"><div class="fn-name">Detecção de Anomalia</div><div class="fn-tech">IA · Variação vs média 7 dias</div></div><span class="fn-badge">alert</span></div>
         <div class="fn-arrow">↓</div>
-        <div class="fn"><span class="fn-ic">🔄</span><div class="fn-info"><div class="fn-name">Reativação em 25 dias</div><div class="fn-tech">Se não agendar → mensagem automática</div></div><span class="fn-badge">retorno</span></div>
+        <div class="fn"><span class="fn-ic">📊</span><div class="fn-info"><div class="fn-name">Atualiza Dashboard</div><div class="fn-tech">Google Sheets · Looker Studio</div></div><span class="fn-badge">update</span></div>
+        <div class="fn-arrow">↓</div>
+        <div class="fn"><span class="fn-ic">💬</span><div class="fn-info"><div class="fn-name">Relatório 9h</div><div class="fn-tech">WhatsApp · E-mail · Gestores</div></div><span class="fn-badge">deliver</span></div>
       </div>
     </div>
   </div>
@@ -302,28 +545,27 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
 
 <section class="section-pad" style="background:var(--bg3);padding:5rem 0">
 <div class="container">
-  <div class="sec-eyebrow reveal">ROI para a barbearia</div>
-  <h2 class="sec-title reveal">Conta simples. Retorno rápido.</h2>
-  <table class="roi-table reveal">
-    <thead><tr><th>Ganho com automação</th><th>Cálculo</th><th>Valor/mês</th></tr></thead>
-    <tbody>
-      <tr><td>Eliminação de no-shows</td><td>4 no-shows/semana × R$65 × 80% redução</td><td class="roi-val">R$832/mês</td></tr>
-      <tr><td>Clientes inativos reativados</td><td>15 clientes/mês × R$65</td><td class="roi-val">R$975/mês</td></tr>
-      <tr><td>Novos agendamentos fora do horário</td><td>8 agendamentos/mês × R$65</td><td class="roi-val">R$520/mês</td></tr>
-      <tr><td>Retenção melhorada (programa de pontos)</td><td>Ticket médio +20% por visita adicional/mês</td><td class="roi-val">R$600/mês</td></tr>
-      <tr style="background:#e8f5e9"><td><strong>Total estimado</strong></td><td>—</td><td class="roi-val"><strong>R$2.927/mês</strong></td></tr>
-      <tr><td>Custo do sistema (Starter)</td><td>R$1.997 ÷ 12 + R$397 + R$150 ferramentas</td><td style="color:#c62828;font-weight:700;font-family:'JetBrains Mono',monospace">R$713/mês</td></tr>
-    </tbody>
-  </table>
+  <div class="sec-eyebrow reveal">Stack tecnológica</div>
+  <h2 class="sec-title reveal">APIs e ferramentas integradas.</h2>
+  <div class="tech-grid" style="grid-template-columns:repeat(4,1fr)">
+    <div class="tech-card reveal" data-d="1"><span class="tc-ic">⚡</span><div class="tc-name">n8n</div><div class="tc-role">Orquestrador — conecta todas as APIs e executa o pipeline</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="2"><span class="tc-ic">📊</span><div class="tc-name">Google Ads API</div><div class="tc-role">Campanhas Search, Display e YouTube</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="3"><span class="tc-ic">📘</span><div class="tc-name">Meta Graph API</div><div class="tc-role">Facebook Ads e Instagram Ads unificados</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="4"><span class="tc-ic">🎵</span><div class="tc-name">TikTok Business API</div><div class="tc-role">Campanhas TikTok Ads em tempo real</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="1"><span class="tc-ic">📈</span><div class="tc-name">GA4 API</div><div class="tc-role">Dados de sessão, conversão e comportamento</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="2"><span class="tc-ic">📋</span><div class="tc-name">Google Sheets</div><div class="tc-role">Banco de dados e dashboard atualizado em tempo real</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="3"><span class="tc-ic">📉</span><div class="tc-name">Looker Studio</div><div class="tc-role">Visualização avançada dos dados consolidados</div><span class="tc-price tc-free">Gratuito</span></div>
+    <div class="tech-card reveal" data-d="4"><span class="tc-ic">💬</span><div class="tc-name">WhatsApp API</div><div class="tc-role">Relatório e alertas de anomalia para gestores</div><span class="tc-price tc-paid">~R$97/mês</span></div>
+  </div>
 </div>
 </section>
 
 <section class="section-pad">
 <div class="container">
   <div class="cta-block reveal">
-    <h3>Sua barbearia ainda<br>gerencia agenda pelo WhatsApp?</h3>
-    <p>O bot de agendamento pode estar funcionando em 1 semana. Começa pequeno, gera resultado rápido, depois expande para fidelidade e reativação.</p>
-    <a href="https://wa.me/5511951131232?text=Quero%20automação%20para%20minha%20barbearia" class="btn-white" target="_blank">💬 Quero começar pela agenda</a>
+    <h3>Sua agência ainda abre<br>7 plataformas todo dia?</h3>
+    <p>Em 2 semanas entrego o pipeline rodando. Seus gestores começam o dia já com o relatório no WhatsApp e tempo para o que importa: otimizar campanhas.</p>
+    <a href="https://wa.me/5511951131232?text=Quero%20dashboard%20automático%20para%20minha%20agência" class="btn-white" target="_blank">💬 Quero o diagnóstico gratuito</a>
   </div>
 </div>
 </section>
@@ -355,14 +597,14 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
           </div>
         </div>
       </a>
-      <a href="case-agencia.html" class="mini-case reveal" data-d="3">
-        <div class="mini-stripe" style="background:#6366f1"></div>
+      <a href="case-clinica.html" class="mini-case reveal" data-d="3">
+        <div class="mini-stripe" style="background:#10b981"></div>
         <div class="mini-body">
-          <div class="mini-cat">📊 Agência Performance</div>
-          <div class="mini-title">Dashboard 6 plataformas</div>
+          <div class="mini-cat">🏥 Clínica Médica</div>
+          <div class="mini-title">Agendamento e fidelização</div>
           <div class="mini-results">
-            <div><div class="mr">6</div><div class="mr-l">Plataformas</div></div>
-            <div><div class="mr">9h</div><div class="mr-l">Rel. diário</div></div>
+            <div><div class="mr">-70%</div><div class="mr-l">Faltas</div></div>
+            <div><div class="mr">+45%</div><div class="mr-l">Retorno</div></div>
           </div>
         </div>
       </a>
@@ -393,30 +635,5 @@ if(fns.length){
   },1100);
 }
 </script>
-<script>
-(function(){
-  // When loaded inside iframe (overlay), intercept navigation
-  var inIframe = (window.self !== window.top);
-  document.addEventListener('click', function(e) {
-    var a = e.target.closest('a');
-    if (!a) return;
-    var href = a.getAttribute('href');
-    if (!href) return;
-    // Close overlay: links to index.html or portfolio-paulo.html
-    if (href === 'index.html' || href === 'portfolio-paulo.html' || href.startsWith('index.html#') || href.startsWith('portfolio-paulo.html#')) {
-      if (inIframe) {
-        e.preventDefault();
-        window.parent.postMessage({ type: 'closeOverlay' }, '*');
-      } else {
-        a.href = 'index.html';
-      }
-    }
-    // Stay in iframe: links to other case files
-    if (inIframe && href.match(/^case-.*\.html/) && !href.startsWith('http')) {
-      e.preventDefault();
-      window.location.href = href;
-    }
-  }, true);
-})();
-</script>
+
 </body></html>
