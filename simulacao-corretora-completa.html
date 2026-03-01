@@ -196,9 +196,198 @@ body{background:var(--bg);color:var(--text);font-family:'Sora',sans-serif;font-w
 .ob-auto{font-size:.68rem;color:var(--a2);font-family:'JetBrains Mono',monospace;background:rgba(59,130,246,.06);border:1px solid rgba(59,130,246,.14);border-radius:6px;padding:.45rem .7rem;line-height:1.6}
 .ob-tags{display:flex;flex-wrap:wrap;gap:.3rem;margin-top:.6rem}
 .ob-tag{font-size:.55rem;padding:.15rem .5rem;border:1px solid var(--line2);color:var(--muted);border-radius:5px;font-family:'JetBrains Mono',monospace}
+
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVE — max-width: 768px
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── LAYOUT BASE ── */
+  body { overflow-x: hidden !important; }
+
+  /* ── NAV / TOP BAR ── */
+  .top, nav, .header {
+    padding: .75rem 1rem !important;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .top-nav, .nav-links { display: none !important; }
+  .top-ic { width: 28px !important; height: 28px !important; font-size: .9rem !important; }
+
+  /* ── HERO / SECTION PADDING ── */
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 2rem 1rem !important;
+  }
+
+  /* ── ALL MULTI-COLUMN GRIDS → single column ── */
+  .hs-grid,
+  .sol-grid,
+  .flow-layout,
+  .main,
+  .layout,
+  .players-grid,
+  .kpi-strip,
+  .ch-grid,
+  .metrics-grid,
+  .mp-stats-row,
+  .pc-stats,
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:1fr 320px"],
+  [style*="grid-template-columns:1fr 340px"],
+  [style*="grid-template-columns:320px 1fr"],
+  [style*="grid-template-columns:1fr auto 1fr"] {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* ── SCOREBOARD SPECIAL CASE (basquete) ── */
+  .scoreboard {
+    padding: 1.25rem !important;
+    gap: 1rem !important;
+  }
+
+  /* ── SIDEBAR PANELS → full width ── */
+  .sidebar, .panel, .right-col, [style*="width:320px"], [style*="width: 320px"],
+  [style*="width:340px"], [style*="width: 340px"],
+  [style*="flex:0 0"], [style*="flex: 0 0"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* ── PADDING LARGE → compact ── */
+  [style*="padding: 4rem 3rem"], [style*="padding:4rem 3rem"],
+  [style*="padding: 2.5rem 3rem"], [style*="padding:2.5rem 3rem"],
+  [style*="padding: 3rem"], [style*="padding:3rem"],
+  [style*="margin: 2rem 3rem"], [style*="margin:2rem 3rem"] {
+    padding: 1.25rem 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* ── OVERFLOW CONTAINERS ── */
+  .layout { height: auto !important; overflow: visible !important; }
+  .main   { height: auto !important; overflow: visible !important; }
+
+  /* ── HEADINGS ── */
+  h1 { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
+  h2 { font-size: clamp(1.3rem, 6vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
+  .sh, .hs-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; }
+
+  /* ── HERO BIG NUMBERS ── */
+  .hero-num, .big-stat, .score-val, .team-score {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+
+  /* ── STAT CARDS STRIP ── */
+  .stat-strip, .kpi-strip {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: .6rem !important;
+  }
+
+  /* ── NODE / FLOW DIAGRAMS ── */
+  .node-row, .flow-nodes, .fn-row {
+    flex-wrap: wrap !important;
+    gap: .5rem !important;
+  }
+  .node-box { min-width: 0 !important; max-width: 100% !important; flex: 1 1 40% !important; }
+  .node-arrow { display: none !important; }
+
+  /* ── STEP BAR / FIXED BOTTOM PILL ── */
+  .step-bar, .step-indicator, .sb-lbl {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+    font-size: .58rem !important;
+  }
+  .sb-lbl { min-width: 0 !important; max-width: 45vw !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+
+  /* ── TABLE OVERFLOW ── */
+  table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+  .tb-row, .log-row { font-size: .68rem !important; }
+
+  /* ── CHAT / WHATSAPP PANELS ── */
+  .chat-panel, .wpp-panel { max-height: 300px !important; }
+
+  /* ── PROGRESS / PAGINATION BARS ── */
+  .pb-lbl { min-width: 0 !important; display: none !important; }
+
+  /* ── BACK BUTTON spacing on mobile ── */
+  #back-to-portfolio, #sim-back-btn {
+    font-size: .68rem !important;
+    padding: .45rem .85rem !important;
+  }
+
+  /* ── CASE FILES SPECIFIC ── */
+  .pcard { padding: 1.2rem !important; }
+  .port-grid { grid-template-columns: 1fr !important; }
+  .srv-grid  { grid-template-columns: 1fr !important; }
+  .proc-grid { grid-template-columns: 1fr !important; }
+  .about-grid{ grid-template-columns: 1fr !important; }
+  .stats     { flex-direction: column !important; gap: 1rem !important; }
+  .hero      { grid-template-columns: 1fr !important; padding: 5rem 1rem 2rem !important; }
+  .hero-r    { display: none !important; }
+
+  /* ── CASE HERO SECTION ── */
+  .ch-hero { padding: 5rem 1.2rem 2rem !important; }
+  .ch-tags { flex-wrap: wrap !important; }
+  .ch-btns { flex-direction: column !important; gap: .75rem !important; }
+  .ch-btns a, .btn-primary, .btn-ghost, .btn-white {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── MINI CASES GRID ── */
+  .mini-cases { grid-template-columns: 1fr !important; }
+
+  /* ── AGENCIA DASHBOARD SPECIFIC ── */
+  .kpi-strip { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── BASQUETE SPECIFIC ── */
+  .team-side { align-items: center !important; }
+  .players-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── FOOTER ── */
+  footer { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; padding: 1.5rem 1rem !important; }
+
+}
+
+/* ── SMALL PHONES (360-480px) extra tweaks ── */
+@media (max-width: 480px) {
+  .top, nav, .header { padding: .65rem .85rem !important; }
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 1.5rem .85rem !important;
+  }
+  .stat-strip, .kpi-strip { grid-template-columns: 1fr !important; }
+  .players-grid           { grid-template-columns: 1fr !important; }
+  h1 { font-size: clamp(1.4rem, 8vw, 2rem) !important; }
+}
+
 </style>
 </head>
 <body>
+<a id="sim-back-btn" href="javascript:history.back()" style="
+  position:fixed;top:1.1rem;left:1.2rem;z-index:9999;
+  display:inline-flex;align-items:center;gap:.45rem;
+  background:rgba(2,3,10,.88);border:1px solid rgba(0,212,255,.22);
+  backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  padding:.5rem 1rem;border-radius:100px;
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  color:#00D4FF;text-decoration:none;
+  transition:all .2s;white-space:nowrap;
+  box-shadow:0 4px 20px rgba(0,0,0,.4)
+" onmouseover="this.style.background='rgba(0,212,255,.1)';this.style.borderColor='rgba(0,212,255,.5)'"
+   onmouseout="this.style.background='rgba(2,3,10,.88)';this.style.borderColor='rgba(0,212,255,.22)'">
+  ← Voltar ao case
+</a>
 
 <!-- TOPBAR -->
 <div class="top">
