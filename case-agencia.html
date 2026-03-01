@@ -200,18 +200,18 @@ footer{background:var(--bg3);border-top:1px solid var(--line);padding:2rem 3rem;
 </head>
 <body>
 <nav>
-  <a href="portfolio-paulo.html" class="nav-brand">
+  <a href="index.html" class="nav-brand">
     <div class="nav-ic">⚡</div>
     <div class="nav-name">Paulo <span>Growth AI</span></div>
   </a>
   <div class="nav-links">
-    <a href="portfolio-paulo.html#cases">← Todos os cases</a>
-    <a href="portfolio-paulo.html#precos">Preços</a>
-    <a href="portfolio-paulo.html#faq">FAQ</a>
+    <a href="index.html#cases">← Todos os cases</a>
+    <a href="index.html#precos">Preços</a>
+    <a href="index.html#faq">FAQ</a>
     <a href="https://wa.me/5511951131232" class="nav-cta" target="_blank">💬 Falar Agora</a>
   </div>
 </nav>
-<div class="breadcrumb"><a href="portfolio-paulo.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Agência de Performance</span></div>
+<div class="breadcrumb"><a href="index.html">Portfólio</a><span class="breadcrumb-sep">›</span><span>Agência de Performance</span></div>
 
 <section class="case-hero">
 <div class="ch-top">
@@ -385,5 +385,31 @@ if(fns.length){
     fi=(fi+1)%fns.length;
   },1100);
 }
+</script>
+<script>
+(function(){
+  // When loaded inside iframe (overlay), intercept navigation
+  var inIframe = (window.self !== window.top);
+  document.addEventListener('click', function(e) {
+    var a = e.target.closest('a');
+    if (!a) return;
+    var href = a.getAttribute('href');
+    if (!href) return;
+    // Close overlay: links to index.html or portfolio-paulo.html
+    if (href === 'index.html' || href === 'portfolio-paulo.html' || href.startsWith('index.html#') || href.startsWith('portfolio-paulo.html#')) {
+      if (inIframe) {
+        e.preventDefault();
+        window.parent.postMessage({ type: 'closeOverlay' }, '*');
+      } else {
+        a.href = 'index.html';
+      }
+    }
+    // Stay in iframe: links to other case files
+    if (inIframe && href.match(/^case-.*\.html/) && !href.startsWith('http')) {
+      e.preventDefault();
+      window.location.href = href;
+    }
+  }, true);
+})();
 </script>
 </body></html>
