@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paulo Santos · Growth AI</title>
+<meta name="description" content="Dados, IA & Automação para negócios. Portfólio, serviços e contato.">
+<meta property="og:title" content="Paulo Santos · Growth AI">
+<meta property="og:description" content="Dados, IA & Automação aplicados a negócios reais.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Sora:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --purple: #6C3FFF;
+  --cyan:   #00D4FF;
+  --teal:   #00FFEA;
+  --ink:    #02030A;
+  --muted:  #888AAA;
+  --card:   rgba(255,255,255,0.05);
+  --line:   rgba(255,255,255,0.08);
+}
+
+html { font-size: 16px; }
+
+body {
+  min-height: 100vh;
+  background: #050610;
+  color: #fff;
+  font-family: 'Sora', sans-serif;
+  overflow-x: hidden;
+  padding-bottom: 4rem;
+}
+
+/* ── BG ─────────────────────────────────── */
+.bg-wrap {
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+}
+.bg-orb {
+  position: absolute; border-radius: 50%;
+  filter: blur(80px); opacity: .18;
+}
+.bg-orb-1 { width: 600px; height: 600px; top: -200px; left: -100px; background: var(--purple); }
+.bg-orb-2 { width: 500px; height: 500px; bottom: -100px; right: -100px; background: var(--cyan); opacity: .12; }
+.bg-grid {
+  position: absolute; inset: 0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  background-size: 48px 48px;
+}
+
+/* ── WRAPPER ────────────────────────────── */
+.wrapper {
+  position: relative; z-index: 1;
+  max-width: 520px; margin: 0 auto;
+  padding: 3rem 1.25rem 2rem;
+  display: flex; flex-direction: column; align-items: center; gap: 0;
+}
+
+/* ── AVATAR ─────────────────────────────── */
+.avatar-wrap { margin-bottom: 1.2rem; position: relative; }
+.avatar {
+  width: 88px; height: 88px; border-radius: 22px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-size: 2rem; font-weight: 700; color: #fff;
+  letter-spacing: -1px; position: relative;
+  box-shadow: 0 0 0 3px rgba(108,63,255,.3), 0 0 0 6px rgba(108,63,255,.1);
+  animation: avatarPulse 3s ease-in-out infinite;
+}
+@keyframes avatarPulse {
+  0%, 100% { box-shadow: 0 0 0 3px rgba(108,63,255,.3), 0 0 0 6px rgba(108,63,255,.1); }
+  50% { box-shadow: 0 0 0 4px rgba(0,212,255,.35), 0 0 0 8px rgba(0,212,255,.1); }
+}
+.avatar-badge {
+  position: absolute; bottom: -6px; right: -6px;
+  background: var(--cyan); color: #050610;
+  font-family: 'JetBrains Mono', monospace; font-size: .55rem; font-weight: 700;
+  padding: .2rem .45rem; border-radius: 5px; letter-spacing: .05em;
+  border: 2px solid #050610;
+}
+
+/* ── IDENTITY ───────────────────────────── */
+.identity { text-align: center; margin-bottom: 1.8rem; }
+.id-name {
+  font-size: 1.45rem; font-weight: 700; letter-spacing: -.03em;
+  background: linear-gradient(135deg, #fff 40%, var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; margin-bottom: .2rem;
+}
+.id-brand {
+  font-family: 'JetBrains Mono', monospace; font-size: .72rem;
+  color: var(--cyan); letter-spacing: .22em; text-transform: uppercase;
+  margin-bottom: .8rem;
+}
+.id-bio {
+  font-size: .88rem; color: rgba(255,255,255,.55); line-height: 1.65;
+  max-width: 360px; margin: 0 auto .9rem;
+}
+.id-tags { display: flex; gap: .5rem; flex-wrap: wrap; justify-content: center; }
+.id-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+  padding: .28rem .7rem; border-radius: 100px;
+  border: 1px solid rgba(255,255,255,.12);
+  color: rgba(255,255,255,.45); letter-spacing: .08em;
+}
+
+/* ── SECTION LABEL ──────────────────────── */
+.sec-label {
+  width: 100%; text-align: left;
+  font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+  color: rgba(255,255,255,.25); letter-spacing: .22em; text-transform: uppercase;
+  padding: 1.6rem 0 .6rem;
+  display: flex; align-items: center; gap: .6rem;
+}
+.sec-label::after {
+  content: ''; flex: 1; height: 1px; background: rgba(255,255,255,.06);
+}
+
+/* ── LINK CARDS ─────────────────────────── */
+.links { width: 100%; display: flex; flex-direction: column; gap: .7rem; }
+
+.link-card {
+  width: 100%; display: flex; align-items: center; gap: 1rem;
+  background: rgba(255,255,255,.04);
+  border: 1px solid rgba(255,255,255,.08);
+  border-radius: 16px; padding: 1rem 1.2rem;
+  text-decoration: none; color: #fff;
+  transition: all .22s;
+  position: relative; overflow: hidden;
+  cursor: pointer;
+}
+.link-card::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(135deg, rgba(108,63,255,.08), rgba(0,212,255,.05));
+  opacity: 0; transition: opacity .22s;
+}
+.link-card:hover {
+  border-color: rgba(108,63,255,.4);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 32px rgba(108,63,255,.15);
+}
+.link-card:hover::before { opacity: 1; }
+.link-card:active { transform: translateY(0); }
+
+/* icon */
+.lc-icon {
+  width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.2rem; position: relative; z-index: 1;
+}
+.lc-icon.purple { background: rgba(108,63,255,.18); }
+.lc-icon.cyan   { background: rgba(0,212,255,.12); }
+.lc-icon.green  { background: rgba(0,255,140,.1); }
+.lc-icon.pink   { background: rgba(255,100,200,.1); }
+.lc-icon.wpp    { background: rgba(37,211,102,.15); }
+.lc-icon.li     { background: rgba(0,119,181,.2); }
+.lc-icon.ig     { background: rgba(225,50,120,.12); }
+.lc-icon.orange { background: rgba(249,115,22,.12); }
+
+/* text */
+.lc-text { flex: 1; position: relative; z-index: 1; }
+.lc-title { font-weight: 600; font-size: .95rem; color: #fff; margin-bottom: .1rem; }
+.lc-sub { font-size: .76rem; color: rgba(255,255,255,.4); }
+
+/* arrow */
+.lc-arrow {
+  font-size: .85rem; color: rgba(255,255,255,.2);
+  transition: transform .2s, color .2s; position: relative; z-index: 1;
+}
+.link-card:hover .lc-arrow { transform: translateX(3px); color: var(--cyan); }
+
+/* featured card */
+.link-card.featured {
+  background: linear-gradient(135deg, rgba(108,63,255,.15), rgba(0,212,255,.08));
+  border-color: rgba(108,63,255,.35);
+  padding: 1.2rem 1.2rem;
+}
+.link-card.featured .lc-title { font-size: 1rem; }
+.link-card.featured .lc-sub { color: rgba(255,255,255,.55); }
+
+/* wpp highlight */
+.link-card.wpp-card {
+  background: rgba(37,211,102,.07);
+  border-color: rgba(37,211,102,.2);
+}
+.link-card.wpp-card:hover {
+  border-color: rgba(37,211,102,.5);
+  box-shadow: 0 8px 32px rgba(37,211,102,.15);
+}
+
+/* ── MINI STATS ─────────────────────────── */
+.stats-row {
+  width: 100%; display: grid; grid-template-columns: repeat(3, 1fr);
+  gap: .6rem; margin-top: .4rem;
+}
+.stat-card {
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px; padding: .9rem .8rem; text-align: center;
+}
+.stat-num {
+  font-family: 'Sora', sans-serif; font-size: 1.4rem; font-weight: 700;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  background-clip: text; line-height: 1;
+}
+.stat-lbl { font-size: .68rem; color: rgba(255,255,255,.35); margin-top: .3rem; line-height: 1.3; }
+
+/* ── SERVICES MINI LIST ─────────────────── */
+.srv-list { width: 100%; display: flex; flex-direction: column; gap: .5rem; }
+.srv-item {
+  display: flex; align-items: center; gap: .75rem;
+  background: rgba(255,255,255,.03); border: 1px solid rgba(255,255,255,.06);
+  border-radius: 12px; padding: .8rem 1rem;
+  transition: border-color .2s;
+}
+.srv-item:hover { border-color: rgba(108,63,255,.25); }
+.srv-dot {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: .85rem;
+}
+.srv-info { flex: 1; }
+.srv-name-mini { font-size: .85rem; font-weight: 500; color: rgba(255,255,255,.8); }
+.srv-stack { font-family: 'JetBrains Mono', monospace; font-size: .6rem; color: var(--cyan); margin-top: .1rem; }
+.srv-tag-badge {
+  font-family: 'JetBrains Mono', monospace; font-size: .55rem;
+  padding: .2rem .55rem; border-radius: 100px;
+  background: rgba(108,63,255,.12); color: rgba(108,63,255,.9);
+  border: 1px solid rgba(108,63,255,.2); white-space: nowrap;
+}
+
+/* ── FOOTER ─────────────────────────────── */
+.lt-footer {
+  margin-top: 2.5rem; text-align: center;
+  font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+  color: rgba(255,255,255,.18); letter-spacing: .1em;
+}
+
+/* ── ANIMATIONS ─────────────────────────── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+.wrapper > * {
+  animation: fadeUp .5s ease both;
+}
+.wrapper > *:nth-child(1) { animation-delay: .05s; }
+.wrapper > *:nth-child(2) { animation-delay: .1s; }
+.wrapper > *:nth-child(3) { animation-delay: .15s; }
+.wrapper > *:nth-child(4) { animation-delay: .2s; }
+.wrapper > *:nth-child(5) { animation-delay: .25s; }
+.wrapper > *:nth-child(6) { animation-delay: .3s; }
+.wrapper > *:nth-child(7) { animation-delay: .35s; }
+.wrapper > *:nth-child(8) { animation-delay: .4s; }
+.wrapper > *:nth-child(9) { animation-delay: .45s; }
+.wrapper > *:nth-child(10) { animation-delay: .5s; }
+.wrapper > *:nth-child(11) { animation-delay: .55s; }
+.wrapper > *:nth-child(12) { animation-delay: .6s; }
+.wrapper > *:nth-child(13) { animation-delay: .65s; }
+.wrapper > *:nth-child(14) { animation-delay: .7s; }
+
+@media (max-width: 400px) {
+  .wrapper { padding: 2.2rem 1rem 2rem; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+}
+</style>
+</head>
+<body>
+
+<div class="bg-wrap">
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-grid"></div>
+</div>
+
+<div class="wrapper">
+
+  <!-- AVATAR -->
+  <div class="avatar-wrap">
+    <div class="avatar">
+      PS
+      <div class="avatar-badge">Growth AI</div>
+    </div>
+  </div>
+
+  <!-- IDENTITY -->
+  <div class="identity">
+    <div class="id-name">Paulo Santos</div>
+    <div class="id-brand">Growth AI</div>
+    <p class="id-bio">Pós-graduado em Ciências de Dados & IA. Transformo processos em automações, dados em decisões e operações em resultados.</p>
+    <div class="id-tags">
+      <span class="id-tag">Dados</span>
+      <span class="id-tag">IA Generativa</span>
+      <span class="id-tag">Automação</span>
+      <span class="id-tag">Retail Media</span>
+      <span class="id-tag">E-commerce</span>
+    </div>
+  </div>
+
+  <!-- MINI STATS -->
+  <div class="stats-row">
+    <div class="stat-card">
+      <div class="stat-num">−80%</div>
+      <div class="stat-lbl">tempo operacional eliminado</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">6+</div>
+      <div class="stat-lbl">projetos entregues</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-num">12</div>
+      <div class="stat-lbl">serviços disponíveis</div>
+    </div>
+  </div>
+
+  <!-- CONTATO PRINCIPAL -->
+  <div class="sec-label">contato direto</div>
+  <div class="links">
+
+    <a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20Linktree%20e%20quero%20saber%20mais%20sobre%20seus%20servi%C3%A7os." target="_blank" class="link-card wpp-card featured">
+      <div class="lc-icon wpp">💬</div>
+      <div class="lc-text">
+        <div class="lc-title">WhatsApp — Falar agora</div>
+        <div class="lc-sub">Diagnóstico gratuito · (11) 95113-1232</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- CONTEÚDO & REDES -->
+  <div class="sec-label">redes sociais</div>
+  <div class="links">
+
+    <a href="https://www.instagram.com/paulosantos.growthai" target="_blank" class="link-card">
+      <div class="lc-icon ig">📸</div>
+      <div class="lc-text">
+        <div class="lc-title">Instagram</div>
+        <div class="lc-sub">@paulosantos.growthai · Dados, IA e bastidores</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+
+    <a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank" class="link-card">
+      <div class="lc-icon li">💼</div>
+      <div class="lc-text">
+        <div class="lc-title">LinkedIn</div>
+        <div class="lc-sub">Trajetória, projetos e conexões profissionais</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- PORTFOLIO & LANDING -->
+  <div class="sec-label">portfólio & serviços</div>
+  <div class="links">
+
+    <a href="https://paulo-crescimento-ia.vercel.app" target="_blank" class="link-card featured">
+      <div class="lc-icon purple">🗂️</div>
+      <div class="lc-text">
+        <div class="lc-title">Portfólio de Cases</div>
+        <div class="lc-sub">Cases reais com simulações interativas · automação, IA, dashboards</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+
+    <a href="landing-paulo.html" target="_blank" class="link-card">
+      <div class="lc-icon cyan">🚀</div>
+      <div class="lc-text">
+        <div class="lc-title">Página de Serviços</div>
+        <div class="lc-sub">Todos os serviços disponíveis · diagnóstico gratuito</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+
+  </div>
+
+  <!-- SERVIÇOS INDIVIDUAIS -->
+  <div class="sec-label">serviços individuais para empresas</div>
+  <div class="srv-list">
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(108,63,255,.15)">🤖</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Automação de Cobranças e Documentos</div>
+        <div class="srv-stack">n8n · GPT-4 · WhatsApp API</div>
+      </div>
+      <span class="srv-tag-badge">contábil</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(108,63,255,.15)">📋</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">CRM + Cotação Automática para Corretoras</div>
+        <div class="srv-stack">n8n · WhatsApp · Google Sheets</div>
+      </div>
+      <span class="srv-tag-badge">seguros</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(0,212,255,.1)">📊</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Dashboard Unificado de Performance</div>
+        <div class="srv-stack">Power BI · Python · Google Ads API · Meta API</div>
+      </div>
+      <span class="srv-tag-badge">agências</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(0,255,140,.08)">📅</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Automação de Agendamento e Clientes</div>
+        <div class="srv-stack">n8n · WhatsApp · Google Calendar</div>
+      </div>
+      <span class="srv-tag-badge">clínicas</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(108,63,255,.15)">🎯</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Lead Scoring com IA</div>
+        <div class="srv-stack">Python · GPT-4 · CRM API</div>
+      </div>
+      <span class="srv-tag-badge">vendas</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(0,212,255,.1)">🔍</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Análise de Dados e Relatório Estratégico</div>
+        <div class="srv-stack">Python · SQL · Power BI · Looker Studio</div>
+      </div>
+      <span class="srv-tag-badge">gestão</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(255,100,200,.1)">🛒</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Estratégia de Retail Media</div>
+        <div class="srv-stack">Amazon Ads · Mercado Livre · Shopee Ads</div>
+      </div>
+      <span class="srv-tag-badge">e-commerce</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(255,100,200,.1)">📈</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Consultoria de E-commerce & Performance</div>
+        <div class="srv-stack">GA4 · Meta Ads · Google Ads · Looker Studio</div>
+      </div>
+      <span class="srv-tag-badge">e-commerce</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(0,255,140,.08)">💬</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Chatbot Inteligente com IA</div>
+        <div class="srv-stack">n8n · GPT-4 · WhatsApp API · Typebot</div>
+      </div>
+      <span class="srv-tag-badge">atendimento</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(108,63,255,.15)">🏀</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">App de Estatísticas Esportivas</div>
+        <div class="srv-stack">React · Python · n8n · Supabase</div>
+      </div>
+      <span class="srv-tag-badge">esportes</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(108,63,255,.15)">🌐</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Site / Portfólio Profissional</div>
+        <div class="srv-stack">HTML · CSS · JS · Vercel · GitHub</div>
+      </div>
+      <span class="srv-tag-badge">branding</span>
+    </div>
+
+    <div class="srv-item">
+      <div class="srv-dot" style="background:rgba(255,100,200,.1)">🎨</div>
+      <div class="srv-info">
+        <div class="srv-name-mini">Identidade Visual + Kit de Marca</div>
+        <div class="srv-stack">Figma · SVG · Canva Pro</div>
+      </div>
+      <span class="srv-tag-badge">branding</span>
+    </div>
+
+  </div>
+
+  <!-- CTA FINAL -->
+  <div class="sec-label">diagnóstico gratuito</div>
+  <div class="links">
+    <a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Quero%20agendar%20um%20diagn%C3%B3stico%20gratuito%20de%2030%20minutos." target="_blank" class="link-card featured">
+      <div class="lc-icon purple">⚡</div>
+      <div class="lc-text">
+        <div class="lc-title">Diagnóstico gratuito · 30 min</div>
+        <div class="lc-sub">Entenda onde estão os gargalos do seu negócio · sem compromisso</div>
+      </div>
+      <div class="lc-arrow">→</div>
+    </a>
+  </div>
+
+  <!-- FOOTER -->
+  <div class="lt-footer">
+    © 2025 Paulo Santos · Growth AI<br>
+    Dados · IA · Automação · Retail Media
+  </div>
+
+</div>
+
+<script>
+// Track clicks (optional analytics)
+document.querySelectorAll('.link-card, .srv-item').forEach(card => {
+  card.addEventListener('click', function() {
+    this.style.transform = 'scale(0.98)';
+    setTimeout(() => this.style.transform = '', 150);
+  });
+});
+</script>
+
+</body>
+</html>
