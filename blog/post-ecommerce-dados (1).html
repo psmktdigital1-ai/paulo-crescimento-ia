@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>E-commerce sem dados integrados: como você está investindo em mídia sem saber o que realmente converte | Paulo Santos</title>
+<meta name="description" content="Veja por que e-commerces que não integram Google Ads, Meta Ads e dados de vendas tomam decisões erradas de mídia — e como resolver com dashboards e automação.">
+<meta name="keywords" content="ecommerce dados integrados, dashboard ecommerce, google ads meta ads integração, roas ecommerce, analytics loja virtual automação">
+<meta name="author" content="Paulo Santos"><meta name="robots" content="index, follow">
+<meta property="og:title" content="E-commerce sem dados integrados: como você está investindo em mídia sem saber o que realmente converte">
+<meta property="og:description" content="Veja por que e-commerces que não integram Google Ads, Meta Ads e dados de vendas tomam decisões erradas de mídia — e como resolver com dashboards e automação.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://paulo-crescimento-ia.vercel.app/blog/post-ecommerce-dados.html">
+<meta property="og:image" content="images/cover-ecommerce-dados.png?w=1400&q=85&auto=format&fit=crop">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"Article","headline":"E-commerce sem dados integrados: como você está investindo em mídia sem saber o que realmente converte","description":"Veja por que e-commerces que não integram Google Ads, Meta Ads e dados de vendas tomam decisões erradas de mídia — e como resolver com dashboards e automação.","author":{"@type":"Person","name":"Paulo Santos"},"publisher":{"@type":"Organization","name":"Growth AI"},"datePublished":"2026-02-16","dateModified":"2026-02-16","image":"https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1400&q=85&auto=format&fit=crop","mainEntityOfPage":{"@type":"WebPage","@id":"https://paulo-crescimento-ia.vercel.app/blog/post-ecommerce-dados.html"}}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080C10;--bg2:#0D1218;--bg3:#121A22;--teal:#00B4C6;--teal2:#00D4C8;--purple:#7B4FD4;--purple2:#9B6FF4;--gold:#C9A84C;--gold2:#F0CC72;--white:#EEF2F5;--body:#A8B4C0;--muted:#556070;--border:rgba(0,180,198,0.12);--border2:rgba(123,79,212,0.15);--mono:'JetBrains Mono',monospace;--head:'Syne',sans-serif;--sans:'DM Sans',sans-serif;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--white);font-family:var(--sans);line-height:1.6;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;z-index:0;pointer-events:none;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");opacity:.5}
+nav{position:fixed;top:0;inset-inline:0;z-index:100;display:flex;align-items:center;justify-content:space-between;padding:0 3rem;height:64px;background:rgba(8,12,16,.92);backdrop-filter:blur(20px);border-bottom:1px solid var(--border)}
+.nav-logo{font-family:var(--head);font-size:1rem;font-weight:800;text-decoration:none;display:flex;align-items:center;gap:.5rem}
+.nav-logo .dot{width:8px;height:8px;border-radius:50%;background:var(--teal)}.nav-logo span{color:var(--white)}.nav-logo em{color:var(--teal);font-style:normal}
+.nav-back{font-size:.82rem;color:var(--muted);text-decoration:none;font-family:var(--mono);transition:color .2s}.nav-back:hover{color:var(--teal)}
+.nav-cta{background:linear-gradient(135deg,var(--purple),var(--teal));color:#fff;font-weight:600;padding:.45rem 1.1rem;border-radius:8px;font-family:var(--sans);font-size:.82rem;text-decoration:none}
+.post-cover{width:100%;height:460px;position:relative;overflow:hidden;margin-top:64px}
+.post-cover img{width:100%;height:100%;object-fit:cover;display:block;filter:brightness(.55) saturate(.8)}
+.cover-gradient{position:absolute;inset:0;background:linear-gradient(to bottom,transparent 20%,rgba(8,12,16,.9) 100%)}
+.cover-content{position:absolute;bottom:0;left:0;right:0;max-width:820px;margin:0 auto;padding:3rem}
+.cover-cats{display:flex;gap:.5rem;margin-bottom:1rem;flex-wrap:wrap}
+.cat{font-family:var(--mono);font-size:.55rem;padding:.25rem .7rem;border-radius:100px;letter-spacing:.1em;text-transform:uppercase;font-weight:500}
+.cat-auto{background:rgba(0,180,198,.12);color:var(--teal);border:1px solid rgba(0,180,198,.2)}
+.cat-ia{background:rgba(123,79,212,.12);color:var(--purple2);border:1px solid rgba(123,79,212,.2)}
+.cat-dados{background:rgba(201,168,76,.1);color:var(--gold2);border:1px solid rgba(201,168,76,.2)}
+.cat-clinica{background:rgba(0,229,160,.08);color:#34d399;border:1px solid rgba(0,229,160,.15)}
+.cat-mkt{background:rgba(239,68,68,.07);color:#fca5a5;border:1px solid rgba(239,68,68,.15)}
+.cover-title{font-family:var(--head);font-size:clamp(1.8rem,4vw,2.8rem);font-weight:800;line-height:1.12;letter-spacing:-.03em;color:#fff;margin-bottom:.8rem}
+.cover-meta{font-family:var(--mono);font-size:.6rem;color:rgba(255,255,255,.45);display:flex;gap:.8rem;flex-wrap:wrap}
+.post-layout{max-width:1100px;margin:0 auto;padding:4rem 3rem 5rem;display:grid;grid-template-columns:1fr 280px;gap:4rem;align-items:start;position:relative;z-index:1}
+article{}.lead{font-size:1.08rem;color:var(--body);line-height:1.85;margin-bottom:2rem;border-left:3px solid var(--teal);padding-left:1.2rem}
+article h2{font-family:var(--head);font-size:1.65rem;font-weight:700;line-height:1.18;letter-spacing:-.025em;color:var(--white);margin:2.5rem 0 .9rem}
+article h3{font-family:var(--head);font-size:1.2rem;font-weight:700;color:var(--white);margin:2rem 0 .7rem}
+article p{font-size:.97rem;color:var(--body);line-height:1.85;margin-bottom:1.2rem}
+article strong{color:var(--white);font-weight:600}article em{color:var(--teal2);font-style:italic}
+article ul,article ol{padding-left:1.4rem;margin-bottom:1.3rem}
+article li{font-size:.97rem;color:var(--body);line-height:1.8;margin-bottom:.4rem}
+.pull-quote{border-left:3px solid var(--purple);padding:1.1rem 1.4rem;margin:2rem 0;background:rgba(123,79,212,.06);border-radius:0 12px 12px 0}
+.pull-quote p{font-family:var(--head);font-size:1.15rem;color:var(--white);line-height:1.45;margin:0}
+.highlight{background:rgba(0,180,198,.06);border:1px solid rgba(0,180,198,.14);border-radius:13px;padding:1.3rem 1.5rem;margin:1.8rem 0}
+.hl-label{font-family:var(--mono);font-size:.58rem;color:var(--teal);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.6rem}
+.highlight p{font-size:.9rem;color:var(--body);line-height:1.7;margin:0}
+.warn-box{background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.16);border-radius:13px;padding:1.3rem 1.5rem;margin:1.8rem 0}
+.warn-box p{font-size:.9rem;color:var(--body);line-height:1.7;margin:0}
+.stats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:1rem;margin:2rem 0;background:var(--bg2);border:1px solid var(--border);border-radius:16px;padding:1.5rem}
+.stat{text-align:center}.stat-num{font-family:var(--head);font-size:2.4rem;font-weight:800;line-height:1;margin-bottom:.2rem}
+.stat-num.teal{color:var(--teal)}.stat-num.gold{color:var(--gold2)}.stat-num.purple{color:var(--purple2)}.stat-label{font-size:.75rem;color:var(--muted)}
+.post-img{width:100%;border-radius:13px;overflow:hidden;margin:2rem 0}.post-img img{width:100%;display:block;object-fit:cover;filter:brightness(.8) saturate(.85)}
+.post-img figcaption{font-family:var(--mono);font-size:.58rem;color:var(--muted);padding:.5rem .8rem}
+.steps{display:flex;flex-direction:column;gap:.8rem;margin:1.5rem 0}
+.step{display:flex;align-items:flex-start;gap:1rem;background:var(--bg2);border:1px solid var(--border);border-radius:12px;padding:1rem 1.2rem}
+.step-num{font-family:var(--head);font-size:1.3rem;font-weight:800;color:var(--teal);line-height:1;flex-shrink:0;min-width:28px}
+.step-title{font-size:.92rem;font-weight:600;color:var(--white);margin-bottom:.2rem}.step-desc{font-size:.85rem;color:var(--muted);line-height:1.55}
+.post-divider{border:none;border-top:1px solid var(--border);margin:2.5rem 0}
+.share-row{display:flex;align-items:center;gap:.8rem;flex-wrap:wrap;margin-top:2rem}
+.share-label{font-family:var(--mono);font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase}
+.share-btn{display:inline-flex;align-items:center;gap:.4rem;padding:.5rem 1rem;border-radius:8px;font-size:.8rem;font-weight:600;text-decoration:none;cursor:pointer;border:none;font-family:var(--sans);transition:opacity .2s}
+.share-btn:hover{opacity:.75}.share-wpp{background:rgba(34,197,94,.1);color:#4ade80;border:1px solid rgba(34,197,94,.2)!important}
+.share-copy{background:rgba(0,180,198,.1);color:var(--teal);border:1px solid rgba(0,180,198,.2)}
+.ad-inline{background:var(--bg3);border:1px dashed rgba(255,255,255,.07);border-radius:12px;padding:1rem 1.5rem;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;min-height:90px;margin:2rem 0}
+.post-sidebar{position:sticky;top:80px;display:flex;flex-direction:column;gap:1.2rem}
+.sidebar-card{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.3rem}
+.sidebar-label{font-family:var(--mono);font-size:.58rem;color:var(--muted);letter-spacing:.14em;text-transform:uppercase;margin-bottom:1rem}
+.toc-list{list-style:none}.toc-list li{margin-bottom:.5rem}
+.toc-list a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s;display:flex;gap:.5rem;line-height:1.4}
+.toc-list a:hover{color:var(--teal)}.toc-list a::before{content:'·';color:var(--teal);flex-shrink:0}
+.author-card{background:var(--bg2);border:1px solid var(--border2);border-radius:14px;padding:1.3rem}
+.author-av{width:48px;height:48px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-size:1.2rem;margin-bottom:.8rem}
+.author-name{font-family:var(--head);font-size:.92rem;font-weight:700;color:var(--white);margin-bottom:.2rem}
+.author-bio{font-size:.8rem;color:var(--muted);line-height:1.55;margin-bottom:1rem}
+.cta-port{display:flex;align-items:center;justify-content:center;gap:.5rem;background:linear-gradient(135deg,var(--purple),var(--teal));color:#fff;font-size:.8rem;font-weight:600;padding:.65rem 1rem;border-radius:9px;text-decoration:none;transition:opacity .2s}
+.cta-port:hover{opacity:.85}
+.ad-sidebar{background:var(--bg3);border:1px dashed rgba(255,255,255,.07);border-radius:12px;padding:1rem;display:flex;align-items:center;justify-content:center;font-family:var(--mono);font-size:.56rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;min-height:250px;text-align:center}
+.comments{max-width:820px;margin:0 auto;padding:0 3rem 5rem;position:relative;z-index:1}
+.comments-title{font-family:var(--head);font-size:1.3rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;letter-spacing:-.02em}
+.comment-form{background:var(--bg2);border:1px solid var(--border);border-radius:14px;padding:1.5rem;margin-bottom:2.5rem}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:.8rem;margin-bottom:.8rem}
+.form-input,.form-textarea{width:100%;background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:9px;padding:.7rem 1rem;color:var(--white);font-size:.88rem;font-family:var(--sans);outline:none;transition:border-color .2s}
+.form-input:focus,.form-textarea:focus{border-color:rgba(0,180,198,.4)}.form-input::placeholder,.form-textarea::placeholder{color:var(--muted)}
+.form-textarea{resize:vertical;min-height:90px;margin-bottom:.8rem}
+.submit-btn{background:linear-gradient(135deg,var(--purple),var(--teal));color:#fff;font-size:.85rem;font-weight:600;padding:.7rem 1.3rem;border-radius:9px;border:none;cursor:pointer;font-family:var(--sans)}
+.comment-item{display:flex;gap:1rem;margin-bottom:1.5rem;padding-bottom:1.5rem;border-bottom:1px solid var(--border)}
+.c-av{width:36px;height:36px;border-radius:50%;background:linear-gradient(135deg,var(--purple),var(--teal));display:flex;align-items:center;justify-content:center;font-size:.9rem;flex-shrink:0}
+.c-name{font-size:.88rem;font-weight:600;color:var(--white)}.c-date{font-family:var(--mono);font-size:.58rem;color:var(--muted);margin-left:.6rem}
+.c-text{font-size:.87rem;color:var(--body);line-height:1.65;margin-top:.3rem}
+.related{max-width:1100px;margin:0 auto;padding:0 3rem 5rem;position:relative;z-index:1}
+.related-title{font-family:var(--head);font-size:1.2rem;font-weight:700;color:var(--white);margin-bottom:1.5rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+.related-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.3rem}
+.rel-card{text-decoration:none;color:inherit;display:block;background:var(--bg2);border:1px solid var(--border);border-radius:12px;overflow:hidden;transition:all .2s}
+.rel-card:hover{border-color:rgba(0,180,198,.25);transform:translateY(-2px)}
+.rel-img{width:100%;aspect-ratio:16/9;overflow:hidden}
+.rel-img img{width:100%;height:100%;object-fit:cover;filter:brightness(.75) saturate(.8);transition:transform .3s;display:block}
+.rel-card:hover .rel-img img{transform:scale(1.05)}.rel-body{padding:1rem}
+.rel-cat{font-family:var(--mono);font-size:.56rem;color:var(--muted);letter-spacing:.08em;text-transform:uppercase;margin-bottom:.4rem}
+.rel-card h5{font-family:var(--head);font-size:.92rem;font-weight:700;color:var(--white);line-height:1.3;transition:color .2s}.rel-card:hover h5{color:var(--teal)}
+footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1100px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;position:relative;z-index:1}
+.footer-left{font-family:var(--head);font-weight:700;color:var(--muted);font-size:.88rem}.footer-left em{color:var(--teal);font-style:normal}
+.footer-links{display:flex;gap:1.5rem}.footer-links a{font-size:.82rem;color:var(--muted);text-decoration:none;transition:color .2s}.footer-links a:hover{color:var(--white)}
+.wpp{position:fixed;bottom:2rem;right:2rem;z-index:200;display:flex;align-items:center;gap:.6rem;background:#16a34a;color:#fff;padding:.7rem 1.2rem;border-radius:100px;text-decoration:none;font-size:.82rem;font-weight:600;box-shadow:0 8px 28px rgba(22,163,74,.3);transition:all .2s;font-family:var(--sans)}.wpp:hover{transform:translateY(-2px)}
+.toast{position:fixed;bottom:6rem;right:2rem;z-index:300;background:var(--bg2);border:1px solid var(--teal);color:var(--white);padding:.9rem 1.3rem;border-radius:12px;font-size:.84rem;transform:translateY(20px);opacity:0;transition:all .3s;pointer-events:none}.toast.show{transform:translateY(0);opacity:1}
+.glow-line{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--teal),var(--purple),transparent);opacity:.2}
+@media(max-width:900px){nav{padding:0 1.5rem}.post-cover{height:300px}.cover-content{padding:2rem 1.5rem}.post-layout{grid-template-columns:1fr;padding:2.5rem 1.5rem}.post-sidebar{display:none}.stats-row{grid-template-columns:1fr 1fr}.related-grid{grid-template-columns:1fr}.comments,.related{padding-left:1.5rem;padding-right:1.5rem}footer{padding:1.5rem}}
+</style>
+</head>
+<body>
+<nav>
+  <a href="index.html" class="nav-logo"><div class="dot"></div><span>Paulo <em>Santos</em></span></a>
+  <div style="display:flex;align-items:center;gap:2rem">
+    <a href="index.html" class="nav-back">← Blog</a>
+    <a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog%20e%20quero%20conversar." target="_blank" class="nav-cta">💬 Falar com Paulo</a>
+  </div>
+</nav>
+<div class="post-cover">
+  <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=1400&q=85&auto=format&fit=crop" alt="E-commerce dados analytics dashboard" loading="eager">
+  <div class="cover-gradient"></div>
+  <div class="cover-content">
+    <div class="cover-cats"><span class="cat cat-dados">Dados</span><span class="cat cat-mkt">E-commerce</span></div>
+    <div class="cover-meta"><span>Paulo Santos</span><span>·</span><span>16 Fev 2026</span><span>·</span><span>7 min de leitura</span></div>
+    <h1 class="cover-title">E-commerce sem dados integrados: como você está investindo em mídia sem saber o que realmente converte</h1>
+  </div>
+</div>
+<div class="post-layout">
+<article>
+
+<p class="lead">Você investe em Google Ads, Meta Ads e talvez Retail Media. Cada plataforma mostra um ROAS diferente. Nenhuma conversa com a outra. E no fim do mês você não sabe ao certo qual canal gerou resultado de verdade.</p>
+
+<h2>O problema do dado fragmentado</h2>
+<p>Um e-commerce médio opera com dados em pelo menos 5 lugares diferentes: Google Ads, Meta Ads, GA4, plataforma de e-commerce e planilhas internas. Nenhum desses sistemas conversa nativamente com o outro.</p>
+<p>O resultado é que cada relatório conta uma história diferente. E decisões de onde aumentar ou cortar investimento são tomadas com pedaços do quadro — nunca com a visão completa.</p>
+
+<div class="stats-row">
+  <div class="stat"><div class="stat-num teal">5+</div><div class="stat-label">sistemas com dados desconectados em média</div></div>
+  <div class="stat"><div class="stat-num gold">-30%</div><div class="stat-label">de verba desperdiçada após integração</div></div>
+  <div class="stat"><div class="stat-num purple">1</div><div class="stat-label">painel único para todas as decisões</div></div>
+</div>
+
+<h2>O que acontece quando você integra tudo</h2>
+<div class="steps">
+  <div class="step"><div class="step-num">01</div><div class="step-text"><div class="step-title">Visão unificada de todos os canais</div><div class="step-desc">Google Ads, Meta Ads, TikTok Ads, email marketing e vendas orgânicas no mesmo painel. ROAS real por canal, não o ROAS que cada plataforma quer te mostrar.</div></div></div>
+  <div class="step"><div class="step-num">02</div><div class="step-text"><div class="step-title">Estoque integrado com performance de mídia</div><div class="step-desc">O painel mostra quando um produto está vendendo bem E quando o estoque está acabando — evitando o cenário de pagar para anunciar produto sem estoque.</div></div></div>
+  <div class="step"><div class="step-num">03</div><div class="step-text"><div class="step-title">Alertas automáticos de anomalia</div><div class="step-desc">ROAS caiu abaixo do esperado? CPC disparou? Produto saiu do catálogo? O sistema avisa antes que você perceba no faturamento.</div></div></div>
+  <div class="step"><div class="step-num">04</div><div class="step-text"><div class="step-title">Relatório automático para gestão</div><div class="step-desc">Resumo diário de vendas, mídia e operação enviado automaticamente toda manhã — sem ninguém precisar montar.</div></div></div>
+</div>
+
+<div class="pull-quote"><p>"E-commerce que não sabe de onde vem cada venda está jogando verba no escuro. Integrar os dados não é luxo — é o mínimo para competir."</p></div>
+
+<figure class="post-img">
+  <img src="images/inline-ecommerce-dados.png?w=900&q=80&auto=format&fit=crop" alt="Gestão de e-commerce digital">
+  <figcaption>Com dados integrados, a decisão de onde aumentar ou cortar verba se torna objetiva — não intuitiva.</figcaption>
+</figure>
+
+<h2>O caso do Retail Media integrado</h2>
+<p>Para e-commerces que vendem em marketplaces como Amazon, Mercado Livre e Shopee, a integração é ainda mais crítica. Cada marketplace tem seu próprio painel de Ads — e nenhum deles mostra o quadro completo da operação.</p>
+<p>Com integração, é possível ver <strong>lado a lado</strong>: quanto foi investido em cada marketplace, qual ROAS cada um entregou, quais produtos performam melhor em qual canal e onde a margem real está.</p>
+
+<div class="highlight">
+  <div class="hl-label">✦ Benefício direto</div>
+  <p>E-commerces que integraram dados de mídia e vendas reportam em média 30% de redução no custo por aquisição — simplesmente por parar de investir em canais e produtos que não convertiam, mas que os dashboards isolados não deixavam ver claramente.</p>
+</div>
+
+<hr class="post-divider">
+<div class="ad-inline"><!-- Google AdSense responsivo -->&nbsp;&nbsp;Espaço publicitário · Google AdSense&nbsp;&nbsp;</div>
+<div class="share-row">
+  <span class="share-label">Compartilhar</span>
+  <a href="https://wa.me/?text=Leia%20sobre%20dados%20para%20e-commerce%3A%20https%3A%2F%2Fpaulo-crescimento-ia.vercel.app%2Fblog%2Fpost-ecommerce-dados.html" target="_blank" class="share-btn share-wpp">💬 WhatsApp</a>
+  <button class="share-btn share-copy" onclick="copyLink()">🔗 Copiar link</button>
+</div>
+</article>
+<aside class="post-sidebar">
+  <div class="author-card">
+    <div class="author-av">👤</div>
+    <div class="author-name">Paulo Santos</div>
+    <p class="author-bio">Especialista em Dados, IA e Automação. Implemento soluções práticas para empresas crescerem com tecnologia.</p>
+    <a href="https://paulo-crescimento-ia.vercel.app" target="_blank" class="cta-port">🌐 Ver portfólio completo</a>
+  </div>
+  <div class="sidebar-card">
+    <div class="sidebar-label">Neste artigo</div>
+    <ul class="toc-list"><li><a href="#">O problema do dado fragmentado</a></li>
+<li><a href="#">O que acontece ao integrar</a></li>
+<li><a href="#">Os 4 benefícios principais</a></li>
+<li><a href="#">Retail Media integrado</a></li>
+<li><a href="#">Resultado esperado</a></li></ul>
+  </div>
+  <div class="ad-sidebar"><!-- Google AdSense 300×250 --><br>Anúncio 300×250</div>
+</aside>
+</div>
+<section class="comments">
+  <h3 class="comments-title">Comentários</h3>
+  <div class="comment-form">
+    <div class="form-row">
+      <input type="text" class="form-input" placeholder="Seu nome" id="c-name">
+      <input type="email" class="form-input" placeholder="Seu email" id="c-email">
+    </div>
+    <textarea class="form-textarea" placeholder="Deixe sua dúvida ou comentário..." id="c-text"></textarea>
+    <button class="submit-btn" onclick="submitComment()">Publicar comentário →</button>
+  </div>
+  <div id="comments-list"><div class="comment-item"><div class="c-av">👨</div><div><span class="c-name">Felipe Torres</span><span class="c-date">12 Fev 2026</span><p class="c-text">Exatamente o meu problema. Tenho Google Ads e Meta Ads e nunca sei qual está realmente trazendo venda. Preciso resolver isso.</p></div></div></div>
+</section>
+<section class="related">
+  <h3 class="related-title">Continue lendo</h3>
+  <div class="related-grid"><a href="post-dashboard-decisao.html" class="rel-card">
+      <div class="rel-img"><img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&q=75&auto=format&fit=crop" alt="Dashboard" loading="lazy"></div>
+      <div class="rel-body"><div class="rel-cat">Dados · Power BI</div><h5>Dashboard em tempo real: pare de decidir com dados velhos.</h5></div>
+    </a><a href="post-integracao-sistemas.html" class="rel-card">
+      <div class="rel-img"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=75&auto=format&fit=crop" alt="Integração" loading="lazy"></div>
+      <div class="rel-body"><div class="rel-cat">Automação · Integração</div><h5>Seus sistemas não conversam entre si? Você decide com informação incompleta.</h5></div>
+    </a><a href="post-chatbot-whatsapp.html" class="rel-card">
+      <div class="rel-img"><img src="https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=400&q=75&auto=format&fit=crop" alt="Chatbot" loading="lazy"></div>
+      <div class="rel-body"><div class="rel-cat">IA · Chatbot</div><h5>Chatbot com IA no WhatsApp: atendimento 24h sem contratar mais ninguém.</h5></div>
+    </a></div>
+</section>
+<div class="glow-line"></div>
+<footer>
+  <div class="footer-left">Paulo <em>Santos</em> · Growth AI</div>
+  <div class="footer-links">
+    <a href="index.html">Blog</a>
+    <a href="https://paulo-crescimento-ia.vercel.app" target="_blank">Site</a>
+    <a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a>
+  </div>
+</footer>
+<a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog%20e%20quero%20conversar." target="_blank" class="wpp">💬 Falar com Paulo</a>
+<div class="toast" id="toast">🔗 Link copiado!</div>
+<script>
+function copyLink(){navigator.clipboard.writeText(window.location.href);const t=document.getElementById('toast');t.classList.add('show');setTimeout(()=>t.classList.remove('show'),2500);}
+function submitComment(){const n=document.getElementById('c-name').value.trim();const tx=document.getElementById('c-text').value.trim();if(!n||!tx){alert('Preencha nome e comentário.');return;}const list=document.getElementById('comments-list');const d=document.createElement('div');d.className='comment-item';d.innerHTML=`<div class="c-av">😊</div><div><span class="c-name">${n}</span><span class="c-date">agora</span><p class="c-text">${tx}</p></div>`;list.prepend(d);document.getElementById('c-name').value='';document.getElementById('c-email').value='';document.getElementById('c-text').value='';}
+</script>
+</body>
+</html>
