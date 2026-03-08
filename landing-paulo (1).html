@@ -1,0 +1,1046 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Paulo Santos · Growth AI — Dados, IA & Automação</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ── RESET & VARS ─────────────────────────────────── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+:root {
+  --ink:    #0D0E14;
+  --ink2:   #3D3E4A;
+  --ink3:   #8A8B9A;
+  --bg:     #FAFAFA;
+  --bg2:    #F3F3F7;
+  --bg3:    #EEEEF5;
+  --line:   #E4E4EE;
+  --purple: #5B31F0;
+  --cyan:   #00C4E8;
+  --green:  #00B37E;
+  --white:  #FFFFFF;
+  --r: 14px;
+}
+html { scroll-behavior: smooth; font-size: 16px; }
+body { background: var(--bg); color: var(--ink); font-family: 'DM Sans', sans-serif; font-weight: 400; line-height: 1.6; overflow-x: hidden; }
+a { text-decoration: none; color: inherit; }
+img { max-width: 100%; }
+
+/* ── SCROLLBAR ──────────────────────────────────── */
+::-webkit-scrollbar { width: 3px; }
+::-webkit-scrollbar-track { background: var(--bg); }
+::-webkit-scrollbar-thumb { background: var(--purple); border-radius: 2px; }
+
+/* ── REVEAL ANIMATION ───────────────────────────── */
+.rev { opacity: 0; transform: translateY(28px); transition: opacity .65s ease, transform .65s ease; }
+.rev.in { opacity: 1; transform: translateY(0); }
+.rev-d1 { transition-delay: .1s; }
+.rev-d2 { transition-delay: .2s; }
+.rev-d3 { transition-delay: .3s; }
+.rev-d4 { transition-delay: .4s; }
+
+/* ── NAV ────────────────────────────────────────── */
+nav {
+  position: sticky; top: 0; z-index: 200;
+  background: rgba(250,250,250,.92);
+  backdrop-filter: blur(18px);
+  border-bottom: 1px solid var(--line);
+  padding: .9rem 0;
+}
+.nav-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.nav-logo { display: flex; align-items: center; gap: .65rem; }
+.nav-mark {
+  width: 34px; height: 34px; border-radius: 9px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif; font-weight: 600; font-size: .78rem;
+  color: #fff; letter-spacing: -.5px; flex-shrink: 0;
+}
+.nav-name { font-weight: 600; font-size: .95rem; color: var(--ink); letter-spacing: -.02em; }
+.nav-name span { color: var(--purple); }
+.nav-links { display: flex; gap: 2rem; align-items: center; }
+.nav-links a { font-size: .82rem; color: var(--ink2); font-weight: 500; transition: color .2s; }
+.nav-links a:hover { color: var(--purple); }
+.nav-cta {
+  background: var(--purple); color: #fff !important;
+  padding: .52rem 1.2rem; border-radius: 8px; font-size: .82rem !important;
+  font-weight: 600 !important; transition: background .2s, transform .15s !important;
+}
+.nav-cta:hover { background: #4a25d4 !important; transform: translateY(-1px); }
+
+/* ── SECTIONS ───────────────────────────────────── */
+.sec { padding: 7rem 0; }
+.sec-inner { max-width: 1160px; margin: 0 auto; padding: 0 2rem; }
+.sec-tag {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+  color: var(--purple); letter-spacing: .18em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.sec-tag::before {
+  content: ''; width: 18px; height: 2px;
+  background: var(--purple); border-radius: 1px;
+}
+.sec-title {
+  font-family: 'Instrument Serif', serif; font-size: clamp(2.2rem, 4vw, 3.2rem);
+  font-weight: 400; line-height: 1.12; letter-spacing: -.03em;
+  color: var(--ink); margin-bottom: 1.2rem;
+}
+.sec-sub { font-size: 1.05rem; color: var(--ink2); line-height: 1.75; max-width: 520px; }
+
+/* ── HERO ───────────────────────────────────────── */
+#hero {
+  min-height: 92vh; display: flex; flex-direction: column; justify-content: center;
+  padding: 8rem 0 5rem; position: relative; overflow: hidden;
+}
+.hero-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+  display: grid; grid-template-columns: 1fr 420px; gap: 5rem; align-items: center;
+}
+.hero-eyebrow {
+  font-family: 'JetBrains Mono', monospace; font-size: .7rem;
+  color: var(--purple); letter-spacing: .22em; text-transform: uppercase;
+  margin-bottom: 1.5rem; display: flex; align-items: center; gap: .5rem;
+}
+.hero-eyebrow::before { content: ''; width: 24px; height: 2px; background: var(--purple); border-radius: 1px; }
+.hero-h1 {
+  font-family: 'Instrument Serif', serif;
+  font-size: clamp(3rem, 5.5vw, 5rem);
+  font-weight: 400; line-height: 1.04; letter-spacing: -.04em;
+  color: var(--ink); margin-bottom: 1.6rem;
+}
+.hero-h1 em { font-style: italic; color: var(--purple); }
+.hero-sub {
+  font-size: 1.08rem; color: var(--ink2); line-height: 1.8;
+  max-width: 480px; margin-bottom: 2.5rem;
+}
+.hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: var(--purple); color: #fff;
+  padding: .85rem 1.8rem; border-radius: 10px;
+  font-weight: 600; font-size: .95rem; transition: all .2s;
+  box-shadow: 0 4px 20px rgba(91,49,240,.2);
+}
+.btn-primary:hover { background: #4a25d4; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(91,49,240,.3); }
+.btn-secondary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: transparent; color: var(--ink);
+  padding: .85rem 1.8rem; border-radius: 10px; border: 1.5px solid var(--line);
+  font-weight: 500; font-size: .95rem; transition: all .2s;
+}
+.btn-secondary:hover { border-color: var(--purple); color: var(--purple); transform: translateY(-2px); }
+
+/* hero right — stat card */
+.hero-card {
+  background: var(--white); border: 1px solid var(--line);
+  border-radius: 20px; padding: 2rem;
+  box-shadow: 0 2px 8px rgba(0,0,0,.04), 0 24px 64px rgba(0,0,0,.06);
+}
+.hero-card-tag {
+  font-family: 'JetBrains Mono', monospace; font-size: .62rem;
+  color: var(--ink3); letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: 1.2rem;
+}
+.stat-row {
+  display: flex; flex-direction: column; gap: .1rem;
+  padding: 1rem 0; border-bottom: 1px solid var(--line);
+}
+.stat-row:last-of-type { border-bottom: none; padding-bottom: 0; }
+.stat-row:first-of-type { padding-top: 0; }
+.stat-num {
+  font-family: 'Instrument Serif', serif; font-size: 2.8rem;
+  font-weight: 400; line-height: 1; letter-spacing: -.04em; color: var(--ink);
+}
+.stat-num span { color: var(--purple); }
+.stat-label { font-size: .82rem; color: var(--ink2); }
+.stat-seg {
+  font-family: 'JetBrains Mono', monospace; font-size: .6rem;
+  color: var(--ink3); letter-spacing: .1em; margin-top: .15rem;
+}
+
+/* hero bg decoration */
+.hero-bg-circle {
+  position: absolute; width: 600px; height: 600px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,49,240,.06) 0%, transparent 70%);
+  top: -100px; right: -150px; pointer-events: none;
+}
+.hero-bg-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(var(--line) 1px, transparent 1px),
+                    linear-gradient(90deg, var(--line) 1px, transparent 1px);
+  background-size: 56px 56px; opacity: .35;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, black 30%, transparent 100%);
+}
+
+/* ── TRUST BAR ──────────────────────────────────── */
+#trust {
+  border-top: 1px solid var(--line); border-bottom: 1px solid var(--line);
+  padding: 2rem 0; background: var(--white);
+}
+.trust-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; gap: 3rem; flex-wrap: wrap;
+}
+.trust-label { font-family: 'JetBrains Mono', monospace; font-size: .64rem; color: var(--ink3); letter-spacing: .15em; text-transform: uppercase; white-space: nowrap; }
+.trust-pills { display: flex; gap: .75rem; flex-wrap: wrap; }
+.trust-pill {
+  font-family: 'JetBrains Mono', monospace; font-size: .68rem;
+  padding: .38rem .9rem; border-radius: 100px;
+  border: 1px solid var(--line); color: var(--ink2); background: var(--bg2);
+}
+
+/* ── SOBRE ──────────────────────────────────────── */
+#sobre { background: var(--white); }
+.sobre-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 6rem; align-items: center; }
+.sobre-left .sec-title { margin-bottom: .8rem; }
+.sobre-body { font-size: 1rem; color: var(--ink2); line-height: 1.85; margin-bottom: 2rem; }
+.sobre-badges { display: flex; flex-direction: column; gap: .75rem; }
+.badge-item {
+  display: flex; align-items: center; gap: .8rem;
+  padding: .9rem 1.1rem; border-radius: 10px;
+  border: 1px solid var(--line); background: var(--bg);
+  transition: border-color .2s;
+}
+.badge-item:hover { border-color: var(--purple); }
+.badge-icon {
+  width: 36px; height: 36px; border-radius: 9px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center; font-size: 1rem;
+}
+.badge-icon.purple { background: rgba(91,49,240,.1); }
+.badge-icon.cyan   { background: rgba(0,196,232,.1); }
+.badge-icon.green  { background: rgba(0,179,126,.1); }
+.badge-text { font-size: .88rem; color: var(--ink); font-weight: 500; }
+.badge-sub  { font-size: .76rem; color: var(--ink3); }
+
+/* sobre right — visual */
+.sobre-right { position: relative; }
+.sobre-card-main {
+  background: var(--ink); color: #fff; border-radius: 20px;
+  padding: 2.5rem; margin-bottom: 1rem;
+  box-shadow: 0 20px 60px rgba(13,14,20,.12);
+}
+.scm-eyebrow { font-family: 'JetBrains Mono', monospace; font-size: .62rem; color: rgba(255,255,255,.4); letter-spacing: .18em; text-transform: uppercase; margin-bottom: 1rem; }
+.scm-title { font-family: 'Instrument Serif', serif; font-size: 1.7rem; line-height: 1.2; margin-bottom: .5rem; }
+.scm-title em { color: #00C4E8; font-style: italic; }
+.scm-sub { font-size: .85rem; color: rgba(255,255,255,.5); line-height: 1.7; }
+.sobre-card-mini {
+  display: grid; grid-template-columns: 1fr 1fr; gap: .75rem;
+}
+.scmini {
+  background: var(--bg2); border: 1px solid var(--line); border-radius: 12px;
+  padding: 1.1rem; transition: border-color .2s;
+}
+.scmini:hover { border-color: var(--purple); }
+.scmini-num { font-family: 'Instrument Serif', serif; font-size: 1.9rem; color: var(--purple); line-height: 1; }
+.scmini-label { font-size: .78rem; color: var(--ink2); margin-top: .25rem; }
+
+/* ── SERVIÇOS ────────────────────────────────────── */
+#servicos { background: var(--bg); }
+.servicos-intro { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; margin-bottom: 4rem; align-items: end; }
+.srv-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; }
+.srv-card {
+  background: var(--white); border: 1px solid var(--line); border-radius: 16px;
+  padding: 1.6rem; transition: all .25s; cursor: default; position: relative; overflow: hidden;
+}
+.srv-card::before {
+  content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  opacity: 0; transition: opacity .25s;
+}
+.srv-card:hover { border-color: transparent; box-shadow: 0 8px 40px rgba(91,49,240,.1); transform: translateY(-3px); }
+.srv-card:hover::before { opacity: 1; }
+.srv-num { font-family: 'JetBrains Mono', monospace; font-size: .65rem; color: var(--ink3); letter-spacing: .1em; margin-bottom: .9rem; }
+.srv-icon { font-size: 1.4rem; margin-bottom: .8rem; }
+.srv-name { font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: .4rem; line-height: 1.3; }
+.srv-desc { font-size: .82rem; color: var(--ink2); line-height: 1.6; margin-bottom: 1rem; }
+.srv-price { font-family: 'JetBrains Mono', monospace; font-size: .75rem; color: var(--purple); font-weight: 500; }
+.srv-tools { display: flex; gap: .35rem; flex-wrap: wrap; margin-top: .75rem; }
+.srv-tool {
+  font-family: 'JetBrains Mono', monospace; font-size: .58rem;
+  padding: .18rem .5rem; border-radius: 4px; background: var(--bg2);
+  color: var(--ink3);
+}
+
+/* ── CASES ───────────────────────────────────────── */
+#cases { background: var(--white); }
+.cases-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-top: 4rem; }
+.case-card {
+  border: 1px solid var(--line); border-radius: 20px; overflow: hidden;
+  transition: box-shadow .25s, transform .2s;
+}
+.case-card:hover { box-shadow: 0 16px 56px rgba(0,0,0,.08); transform: translateY(-4px); }
+.case-header {
+  padding: 1.8rem 2rem 1.4rem;
+  border-bottom: 1px solid var(--line);
+}
+.case-seg {
+  font-family: 'JetBrains Mono', monospace; font-size: .65rem;
+  color: var(--purple); letter-spacing: .15em; text-transform: uppercase;
+  margin-bottom: .6rem;
+}
+.case-title { font-weight: 600; font-size: 1.05rem; color: var(--ink); margin-bottom: .3rem; }
+.case-subtitle { font-size: .84rem; color: var(--ink2); }
+.case-stats { display: grid; grid-template-columns: repeat(3, 1fr); }
+.case-stat {
+  padding: 1.2rem 1.6rem; border-right: 1px solid var(--line);
+  display: flex; flex-direction: column; gap: .2rem;
+}
+.case-stat:last-child { border-right: none; }
+.cs-num {
+  font-family: 'Instrument Serif', serif; font-size: 2rem;
+  font-weight: 400; line-height: 1; color: var(--ink);
+}
+.cs-num.green { color: var(--green); }
+.cs-num.purple { color: var(--purple); }
+.cs-label { font-size: .75rem; color: var(--ink2); }
+
+/* ── PROCESSO ───────────────────────────────────── */
+#processo { background: var(--bg); }
+.proc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1.5rem; margin-top: 4rem; }
+.proc-step {
+  padding: 1.8rem; border-radius: 16px; border: 1px solid var(--line);
+  background: var(--white); position: relative;
+}
+.proc-step::after {
+  content: '→'; position: absolute; right: -1rem; top: 50%;
+  transform: translateY(-50%); color: var(--line); font-size: 1.2rem; z-index: 1;
+}
+.proc-step:last-child::after { display: none; }
+.proc-num {
+  width: 36px; height: 36px; border-radius: 10px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'JetBrains Mono', monospace; font-size: .75rem;
+  font-weight: 500; color: #fff; margin-bottom: 1rem;
+}
+.proc-title { font-weight: 600; font-size: .95rem; color: var(--ink); margin-bottom: .5rem; }
+.proc-desc { font-size: .83rem; color: var(--ink2); line-height: 1.6; }
+
+/* ── DEPOIMENTOS ────────────────────────────────── */
+#depoimentos { background: var(--white); }
+.dep-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.25rem; margin-top: 4rem; }
+.dep-card {
+  background: var(--bg); border: 1px solid var(--line); border-radius: 16px;
+  padding: 1.8rem; transition: border-color .2s;
+}
+.dep-card:hover { border-color: var(--purple); }
+.dep-stars { color: #F5A623; font-size: 1rem; letter-spacing: 2px; margin-bottom: 1rem; }
+.dep-quote { font-size: .92rem; color: var(--ink); line-height: 1.75; margin-bottom: 1.4rem; font-style: italic; }
+.dep-author { display: flex; align-items: center; gap: .75rem; }
+.dep-av {
+  width: 38px; height: 38px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 600; font-size: .85rem; color: #fff;
+}
+.dep-name { font-weight: 600; font-size: .85rem; color: var(--ink); }
+.dep-role { font-size: .75rem; color: var(--ink3); }
+
+/* ── DIAGNÓSTICO (FORM) ─────────────────────────── */
+#diagnostico {
+  background: var(--ink); color: #fff;
+  position: relative; overflow: hidden;
+}
+#diagnostico .sec-tag { color: var(--cyan); }
+#diagnostico .sec-tag::before { background: var(--cyan); }
+.diag-inner { display: grid; grid-template-columns: 1fr 460px; gap: 6rem; align-items: start; }
+.diag-title {
+  font-family: 'Instrument Serif', serif; font-size: clamp(2rem, 3.5vw, 2.8rem);
+  font-weight: 400; line-height: 1.15; letter-spacing: -.03em; color: #fff; margin-bottom: 1rem;
+}
+.diag-title em { color: var(--cyan); font-style: italic; }
+.diag-sub { font-size: 1rem; color: rgba(255,255,255,.55); line-height: 1.8; margin-bottom: 2rem; }
+.diag-items { display: flex; flex-direction: column; gap: .75rem; }
+.diag-item {
+  display: flex; align-items: flex-start; gap: .75rem;
+  font-size: .9rem; color: rgba(255,255,255,.7);
+}
+.diag-item::before {
+  content: '✓'; width: 20px; height: 20px; border-radius: 6px;
+  background: rgba(0,196,232,.15); color: var(--cyan);
+  display: flex; align-items: center; justify-content: center;
+  font-size: .72rem; font-weight: 700; flex-shrink: 0; margin-top: .1rem;
+}
+.diag-bg-orb {
+  position: absolute; width: 500px; height: 500px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(91,49,240,.15), transparent 70%);
+  top: -100px; right: -100px; pointer-events: none;
+}
+
+/* form */
+.diag-form {
+  background: var(--white); border-radius: 20px; padding: 2.5rem;
+  box-shadow: 0 32px 80px rgba(0,0,0,.25);
+}
+.form-title { font-weight: 700; font-size: 1.1rem; color: var(--ink); margin-bottom: .3rem; }
+.form-sub { font-size: .83rem; color: var(--ink2); margin-bottom: 1.8rem; }
+.form-group { margin-bottom: 1rem; }
+.form-group label { display: block; font-size: .78rem; font-weight: 600; color: var(--ink); margin-bottom: .4rem; }
+.form-group input, .form-group select, .form-group textarea {
+  width: 100%; padding: .7rem .9rem; border-radius: 8px;
+  border: 1.5px solid var(--line); background: var(--bg);
+  font-family: 'DM Sans', sans-serif; font-size: .88rem; color: var(--ink);
+  transition: border-color .2s; outline: none;
+}
+.form-group input:focus, .form-group select:focus, .form-group textarea:focus {
+  border-color: var(--purple); background: #fff;
+}
+.form-group textarea { resize: vertical; min-height: 90px; line-height: 1.6; }
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.btn-form {
+  width: 100%; padding: .9rem; border-radius: 10px;
+  background: var(--purple); color: #fff; border: none; cursor: pointer;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .95rem;
+  transition: all .2s; margin-top: .5rem;
+  box-shadow: 0 4px 20px rgba(91,49,240,.25);
+}
+.btn-form:hover { background: #4a25d4; transform: translateY(-1px); box-shadow: 0 8px 32px rgba(91,49,240,.35); }
+.form-note { font-size: .72rem; color: var(--ink3); text-align: center; margin-top: .8rem; }
+
+/* ── FOOTER ──────────────────────────────────────── */
+footer {
+  background: var(--ink); color: rgba(255,255,255,.5);
+  padding: 3rem 0 2rem; border-top: 1px solid rgba(255,255,255,.06);
+}
+.footer-inner {
+  max-width: 1160px; margin: 0 auto; padding: 0 2rem;
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1.5rem;
+}
+.footer-brand { display: flex; align-items: center; gap: .65rem; }
+.footer-mark {
+  width: 32px; height: 32px; border-radius: 8px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex; align-items: center; justify-content: center;
+  font-family: 'DM Sans', sans-serif; font-weight: 700; font-size: .72rem; color: #fff;
+}
+.footer-name { font-size: .88rem; color: rgba(255,255,255,.7); font-weight: 500; }
+.footer-links { display: flex; gap: 1.8rem; }
+.footer-links a { font-size: .8rem; color: rgba(255,255,255,.4); transition: color .2s; }
+.footer-links a:hover { color: rgba(255,255,255,.8); }
+.footer-copy { font-size: .75rem; }
+
+/* ── WHATSAPP FLOAT ─────────────────────────────── */
+.wpp-float {
+  position: fixed; bottom: 1.8rem; right: 1.8rem; z-index: 300;
+  width: 54px; height: 54px; border-radius: 50%;
+  background: #25D366; color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.4rem; box-shadow: 0 8px 28px rgba(37,211,102,.35);
+  transition: transform .2s, box-shadow .2s;
+}
+.wpp-float:hover { transform: scale(1.1); box-shadow: 0 12px 40px rgba(37,211,102,.5); }
+.wpp-float::before {
+  content: ''; position: absolute; width: 100%; height: 100%;
+  border-radius: 50%; background: #25D366; opacity: .4;
+  animation: wppPulse 2s ease-out infinite;
+}
+@keyframes wppPulse { 0% { transform: scale(1); opacity: .4; } 100% { transform: scale(1.7); opacity: 0; } }
+
+/* ── MOBILE ──────────────────────────────────────── */
+@media (max-width: 900px) {
+  .hero-inner       { grid-template-columns: 1fr; }
+  .hero-card        { display: none; }
+  .sobre-grid       { grid-template-columns: 1fr; gap: 3rem; }
+  .srv-grid         { grid-template-columns: 1fr 1fr; }
+  .cases-grid       { grid-template-columns: 1fr; }
+  .proc-grid        { grid-template-columns: 1fr 1fr; }
+  .proc-step::after { display: none; }
+  .dep-grid         { grid-template-columns: 1fr; }
+  .diag-inner       { grid-template-columns: 1fr; }
+  .servicos-intro   { grid-template-columns: 1fr; gap: 1.5rem; }
+  .nav-links        { display: none; }
+  .sobre-card-mini  { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 540px) {
+  .srv-grid  { grid-template-columns: 1fr; }
+  .proc-grid { grid-template-columns: 1fr; }
+  .form-row  { grid-template-columns: 1fr; }
+  .case-stats { grid-template-columns: 1fr 1fr; }
+  .case-stat:nth-child(3) { border-right: none; border-top: 1px solid var(--line); }
+  .hero-h1 { font-size: 2.6rem; }
+  .sec { padding: 4.5rem 0; }
+}
+</style>
+</head>
+<body>
+
+<!-- ── NAV ───────────────────────────────────────── -->
+<nav>
+  <div class="nav-inner">
+    <div class="nav-logo">
+      <div class="nav-mark">PS</div>
+      <span class="nav-name">Paulo Santos <span>· Growth AI</span></span>
+    </div>
+    <div class="nav-links">
+      <a href="#sobre">Sobre</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#cases">Cases</a>
+      <a href="#depoimentos">Clientes</a>
+      <a href="blog/index.html">Blog</a>
+      <a href="#diagnostico" class="nav-cta">Diagnóstico gratuito</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ── HERO ──────────────────────────────────────── -->
+<section id="hero">
+  <div class="hero-bg-grid"></div>
+  <div class="hero-bg-circle"></div>
+  <div class="hero-inner">
+    <div class="hero-left">
+      <div class="hero-eyebrow rev">Dados · IA · Automação</div>
+      <h1 class="hero-h1 rev rev-d1">
+        Seu negócio<br>
+        precisa de <em>dados</em><br>
+        trabalhando por ele.
+      </h1>
+      <p class="hero-sub rev rev-d2">
+        Automações inteligentes, dashboards de decisão e estratégia de dados aplicada ao seu negócio — sem jargão, com resultado mensurável.
+      </p>
+      <div class="hero-btns rev rev-d3">
+        <a href="#diagnostico" class="btn-primary">→ Diagnóstico gratuito</a>
+        <a href="#cases" class="btn-secondary">Ver resultados reais</a>
+      </div>
+    </div>
+    <div class="hero-right rev rev-d2">
+      <div class="hero-card">
+        <div class="hero-card-tag">// resultados entregues</div>
+        <div class="stat-row">
+          <div class="stat-num">−<span>80%</span></div>
+          <div class="stat-label">tempo operacional eliminado</div>
+          <div class="stat-seg">Escritório Contábil · n8n + GPT-4</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num"><span>−60%</span></div>
+          <div class="stat-label">no-shows reduzidos</div>
+          <div class="stat-seg">Clínica de Estética · Automação WhatsApp</div>
+        </div>
+        <div class="stat-row">
+          <div class="stat-num"><span>4×</span></div>
+          <div class="stat-label">mais rápido em cotações</div>
+          <div class="stat-seg">Corretora de Seguros · CRM automatizado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TRUST BAR ─────────────────────────────────── -->
+<div id="trust">
+  <div class="trust-inner">
+    <span class="trust-label">Stack utilizada</span>
+    <div class="trust-pills">
+      <span class="trust-pill">n8n</span>
+      <span class="trust-pill">Python</span>
+      <span class="trust-pill">GPT-4</span>
+      <span class="trust-pill">Power BI</span>
+      <span class="trust-pill">Looker Studio</span>
+      <span class="trust-pill">WhatsApp API</span>
+      <span class="trust-pill">SQL / PostgreSQL</span>
+      <span class="trust-pill">Google Analytics 4</span>
+      <span class="trust-pill">Retail Media</span>
+    </div>
+  </div>
+</div>
+
+<!-- ── SOBRE ──────────────────────────────────────── -->
+<section id="sobre" class="sec" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sobre-grid">
+      <div class="sobre-left">
+        <div class="sec-tag rev">Sobre Paulo Santos</div>
+        <h2 class="sec-title rev rev-d1">Pós-graduado em<br>Dados & IA.<br><em style="font-style:italic;color:var(--purple)">Focado em resultado.</em></h2>
+        <p class="sobre-body rev rev-d2">
+          Trabalho na interseção entre marketing de performance, dados e inteligência artificial. Minha pós-graduação em Ciências de Dados & IA me deu os fundamentos — os projetos aplicados me deram a prática.
+        </p>
+        <p class="sobre-body rev rev-d2" style="margin-top:-.5rem">
+          Cada entrega tem uma premissa: a solução precisa funcionar no negócio real, não só na apresentação.
+        </p>
+        <div class="sobre-badges rev rev-d3">
+          <div class="badge-item">
+            <div class="badge-icon purple">🎓</div>
+            <div>
+              <div class="badge-text">Pós-Graduação em Ciências de Dados & IA</div>
+              <div class="badge-sub">2024 · Em curso</div>
+            </div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-icon cyan">📊</div>
+            <div>
+              <div class="badge-text">Especialista em Retail Media & E-commerce</div>
+              <div class="badge-sub">Amazon Ads · Mercado Livre · Shopee</div>
+            </div>
+          </div>
+          <div class="badge-item">
+            <div class="badge-icon green">⚡</div>
+            <div>
+              <div class="badge-text">Automações com n8n + IA Generativa</div>
+              <div class="badge-sub">n8n · GPT-4 · WhatsApp API · Python</div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="sobre-right rev rev-d2">
+        <div class="sobre-card-main">
+          <div class="scm-eyebrow">// posicionamento</div>
+          <div class="scm-title">Marketing que<br>fala a língua dos <em>dados.</em></div>
+          <div class="scm-sub" style="margin-top:.8rem">Não vendo ferramenta. Resolvo problema. A diferença está em entender o negócio antes de abrir o terminal.</div>
+        </div>
+        <div class="sobre-card-mini">
+          <div class="scmini">
+            <div class="scmini-num">6+</div>
+            <div class="scmini-label">projetos de automação entregues</div>
+          </div>
+          <div class="scmini">
+            <div class="scmini-num">3</div>
+            <div class="scmini-label">segmentos atendidos em 2024–25</div>
+          </div>
+          <div class="scmini">
+            <div class="scmini-num">−80%</div>
+            <div class="scmini-label">redução média de tarefas manuais</div>
+          </div>
+          <div class="scmini">
+            <div class="scmini-num">12</div>
+            <div class="scmini-label">serviços disponíveis à la carte</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── SERVIÇOS ───────────────────────────────────── -->
+<section id="servicos" class="sec">
+  <div class="sec-inner">
+    <div class="servicos-intro">
+      <div>
+        <div class="sec-tag rev">Serviços</div>
+        <h2 class="sec-title rev rev-d1">O que posso<br>fazer pelo<br>seu negócio.</h2>
+      </div>
+      <div class="rev rev-d2" style="padding-top:1rem">
+        <p class="sec-sub">Cada serviço pode ser contratado de forma independente ou combinado em pacote. Diagnóstico gratuito para entender o que faz mais sentido para você.</p>
+      </div>
+    </div>
+    <div class="srv-grid">
+      <!-- 1 -->
+      <div class="srv-card rev">
+        <div class="srv-num">01</div>
+        <div class="srv-icon">🤖</div>
+        <div class="srv-name">Automação de Cobranças e Documentos</div>
+        <div class="srv-desc">Coleta automática de documentos, lembretes inteligentes e DRE gerado por IA. Do 30h/mês para 3h/mês.</div>
+        <div class="srv-tools"><span class="srv-tool">n8n</span><span class="srv-tool">GPT-4</span><span class="srv-tool">WhatsApp</span></div>
+      </div>
+      <!-- 2 -->
+      <div class="srv-card rev rev-d1">
+        <div class="srv-num">02</div>
+        <div class="srv-icon">📋</div>
+        <div class="srv-name">CRM e Cotação para Corretoras</div>
+        <div class="srv-desc">Captação, cotação automática e renovação de apólices com pipeline completo via WhatsApp.</div>
+        <div class="srv-tools"><span class="srv-tool">n8n</span><span class="srv-tool">WhatsApp API</span><span class="srv-tool">Sheets</span></div>
+      </div>
+      <!-- 3 -->
+      <div class="srv-card rev rev-d2">
+        <div class="srv-num">03</div>
+        <div class="srv-icon">📊</div>
+        <div class="srv-name">Dashboard Unificado de Performance</div>
+        <div class="srv-desc">Google Ads + Meta + GA4 + TikTok em um painel único. Atualização automática diária.</div>
+        <div class="srv-tools"><span class="srv-tool">Power BI</span><span class="srv-tool">Python</span><span class="srv-tool">Looker</span></div>
+      </div>
+      <!-- 4 -->
+      <div class="srv-card rev">
+        <div class="srv-num">04</div>
+        <div class="srv-icon">📅</div>
+        <div class="srv-name">Automação de Agendamento</div>
+        <div class="srv-desc">Bot de agendamento via WhatsApp, confirmação, lembrete e pesquisa NPS automática pós-atendimento.</div>
+        <div class="srv-tools"><span class="srv-tool">n8n</span><span class="srv-tool">WhatsApp</span><span class="srv-tool">Calendar</span></div>
+      </div>
+      <!-- 5 -->
+      <div class="srv-card rev rev-d1">
+        <div class="srv-num">05</div>
+        <div class="srv-icon">🎯</div>
+        <div class="srv-name">Lead Scoring com IA</div>
+        <div class="srv-desc">Classificação automática de leads por propensão de compra. Priorize a equipe comercial com dados.</div>
+        <div class="srv-tools"><span class="srv-tool">Python</span><span class="srv-tool">GPT-4</span><span class="srv-tool">CRM API</span></div>
+      </div>
+      <!-- 6 -->
+      <div class="srv-card rev rev-d2">
+        <div class="srv-num">06</div>
+        <div class="srv-icon">🔍</div>
+        <div class="srv-name">Análise de Dados Estratégica</div>
+        <div class="srv-desc">Diagnóstico completo de dados, cruzamento de métricas e apresentação executiva com plano de ação.</div>
+        <div class="srv-tools"><span class="srv-tool">Python</span><span class="srv-tool">SQL</span><span class="srv-tool">Power BI</span></div>
+      </div>
+      <!-- 7 -->
+      <div class="srv-card rev">
+        <div class="srv-num">07</div>
+        <div class="srv-icon">🛒</div>
+        <div class="srv-name">Estratégia de Retail Media</div>
+        <div class="srv-desc">Planejamento e estruturação de campanhas em Amazon, Mercado Livre e Shopee com análise de ROAS real.</div>
+        <div class="srv-tools"><span class="srv-tool">Amazon Ads</span><span class="srv-tool">ML Ads</span><span class="srv-tool">Shopee</span></div>
+      </div>
+      <!-- 8 -->
+      <div class="srv-card rev rev-d1">
+        <div class="srv-num">08</div>
+        <div class="srv-icon">📈</div>
+        <div class="srv-name">Consultoria E-commerce & Performance</div>
+        <div class="srv-desc">Diagnóstico de funil, auditoria de rastreamento e otimização focada em margem real, não só ROAS.</div>
+        <div class="srv-tools"><span class="srv-tool">GA4</span><span class="srv-tool">Meta</span><span class="srv-tool">Google Ads</span></div>
+      </div>
+      <!-- 9 -->
+      <div class="srv-card rev rev-d2">
+        <div class="srv-num">09</div>
+        <div class="srv-icon">💬</div>
+        <div class="srv-name">Chatbot Inteligente com IA</div>
+        <div class="srv-desc">Atendimento e qualificação via WhatsApp com linguagem natural. Escalada inteligente para humano.</div>
+        <div class="srv-tools"><span class="srv-tool">n8n</span><span class="srv-tool">GPT-4</span><span class="srv-tool">Typebot</span></div>
+      </div>
+      <!-- 10 -->
+      <div class="srv-card rev">
+        <div class="srv-num">10</div>
+        <div class="srv-icon">🏀</div>
+        <div class="srv-name">App de Estatísticas Esportivas</div>
+        <div class="srv-desc">Dashboard interativo com dados de performance em tempo real por jogo, jogador e temporada.</div>
+        <div class="srv-tools"><span class="srv-tool">React</span><span class="srv-tool">Python</span><span class="srv-tool">n8n</span></div>
+      </div>
+      <!-- 11 -->
+      <div class="srv-card rev rev-d1">
+        <div class="srv-num">11</div>
+        <div class="srv-icon">🌐</div>
+        <div class="srv-name">Site / Portfólio Profissional</div>
+        <div class="srv-desc">Site moderno com cases interativos, responsivo e com integração WhatsApp para captação de leads.</div>
+        <div class="srv-tools"><span class="srv-tool">HTML/CSS/JS</span><span class="srv-tool">Vercel</span></div>
+      </div>
+      <!-- 12 -->
+      <div class="srv-card rev rev-d2">
+        <div class="srv-num">12</div>
+        <div class="srv-icon">🎨</div>
+        <div class="srv-name">Identidade Visual + Kit de Marca</div>
+        <div class="srv-desc">Logo em SVG, paleta com CMYK, tipografia e 10 templates para Instagram prontos para usar.</div>
+        <div class="srv-tools"><span class="srv-tool">Figma</span><span class="srv-tool">SVG</span><span class="srv-tool">Canva</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── CASES ──────────────────────────────────────── -->
+<section id="cases" class="sec" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-tag rev">Cases reais</div>
+    <h2 class="sec-title rev rev-d1">Projetos entregues.<br>Resultados mensuráveis.</h2>
+    <div class="cases-grid">
+
+      <div class="case-card rev rev-d1">
+        <div class="case-header">
+          <div class="case-seg">Contabilidade</div>
+          <div class="case-title">Automação Operacional — Escritório Contábil</div>
+          <div class="case-subtitle">45 clientes · Coleta de docs + DRE automático + alertas fiscais</div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="cs-num green">−80%</div>
+            <div class="cs-label">tempo operacional</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num purple">3h</div>
+            <div class="cs-label">por mês vs. 30h antes</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num">0</div>
+            <div class="cs-label">prazos perdidos</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card rev rev-d2">
+        <div class="case-header">
+          <div class="case-seg">Seguros</div>
+          <div class="case-title">CRM + Cotação Automática — Corretora</div>
+          <div class="case-subtitle">Pipeline completo · WhatsApp → proposta → renovação</div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="cs-num green">4×</div>
+            <div class="cs-label">mais rápido na cotação</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num purple">100%</div>
+            <div class="cs-label">renovações notificadas</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num">+35%</div>
+            <div class="cs-label">conversão de leads</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card rev rev-d1">
+        <div class="case-header">
+          <div class="case-seg">Saúde & Estética</div>
+          <div class="case-title">Agendamento Inteligente — Clínica</div>
+          <div class="case-subtitle">Bot WhatsApp · confirmação · lembrete · NPS automático</div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="cs-num green">−60%</div>
+            <div class="cs-label">no-shows</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num purple">24/7</div>
+            <div class="cs-label">agendamento automático</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num">NPS</div>
+            <div class="cs-label">coleta automática</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="case-card rev rev-d2">
+        <div class="case-header">
+          <div class="case-seg">Performance · Agência</div>
+          <div class="case-title">Dashboard Unificado — Agência Digital</div>
+          <div class="case-subtitle">Google Ads + Meta + TikTok + GA4 em painel único</div>
+        </div>
+        <div class="case-stats">
+          <div class="case-stat">
+            <div class="cs-num green">4</div>
+            <div class="cs-label">canais unificados</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num purple">−90%</div>
+            <div class="cs-label">tempo de relatório</div>
+          </div>
+          <div class="case-stat">
+            <div class="cs-num">Auto</div>
+            <div class="cs-label">atualização diária</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ── PROCESSO ───────────────────────────────────── -->
+<section id="processo" class="sec">
+  <div class="sec-inner">
+    <div class="sec-tag rev">Como funciona</div>
+    <h2 class="sec-title rev rev-d1">Do diagnóstico<br>ao resultado.</h2>
+    <div class="proc-grid">
+      <div class="proc-step rev">
+        <div class="proc-num">01</div>
+        <div class="proc-title">Diagnóstico gratuito</div>
+        <div class="proc-desc">30 minutos para entender seu negócio, seus dados e onde estão as maiores oportunidades de melhoria.</div>
+      </div>
+      <div class="proc-step rev rev-d1">
+        <div class="proc-num">02</div>
+        <div class="proc-title">Proposta personalizada</div>
+        <div class="proc-desc">Escopo detalhado com entregáveis, prazo e investimento claros. Sem surpresa no meio do projeto.</div>
+      </div>
+      <div class="proc-step rev rev-d2">
+        <div class="proc-num">03</div>
+        <div class="proc-title">Desenvolvimento iterativo</div>
+        <div class="proc-desc">Entrega em etapas com validação constante. Você acompanha o progresso e aprova cada fase.</div>
+      </div>
+      <div class="proc-step rev rev-d3">
+        <div class="proc-num">04</div>
+        <div class="proc-title">Entrega + documentação</div>
+        <div class="proc-desc">Projeto documentado, treinamento para o time e suporte pós-entrega incluso.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DEPOIMENTOS ───────────────────────────────── -->
+<section id="depoimentos" class="sec" style="background:var(--white)">
+  <div class="sec-inner">
+    <div class="sec-tag rev">O que dizem os clientes</div>
+    <h2 class="sec-title rev rev-d1">Resultados que<br>falam por si.</h2>
+    <div class="dep-grid">
+      <div class="dep-card rev">
+        <div class="dep-stars">★★★★★</div>
+        <div class="dep-quote">"O Paulo mapeou nosso processo em uma reunião e em duas semanas a automação estava rodando. Economizamos horas todo mês que antes eram gastas em cobrança manual de documentos."</div>
+        <div class="dep-author">
+          <div class="dep-av" style="background:linear-gradient(135deg,#5B31F0,#00C4E8)">MR</div>
+          <div>
+            <div class="dep-name">Marcos R.</div>
+            <div class="dep-role">Sócio · Escritório Contábil</div>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card rev rev-d1">
+        <div class="dep-stars">★★★★★</div>
+        <div class="dep-quote">"Finalmente consigo ver todos os canais no mesmo lugar e com atualização automática. O que levava 4 horas na sexta-feira agora aparece pronto de manhã. Transformou como a equipe trabalha."</div>
+        <div class="dep-author">
+          <div class="dep-av" style="background:linear-gradient(135deg,#00B37E,#00C4E8)">AC</div>
+          <div>
+            <div class="dep-name">Ana C.</div>
+            <div class="dep-role">Diretora de Marketing · Agência Digital</div>
+          </div>
+        </div>
+      </div>
+      <div class="dep-card rev rev-d2">
+        <div class="dep-stars">★★★★★</div>
+        <div class="dep-quote">"O nosso índice de no-show caiu mais de 60% em dois meses. O bot manda confirmação, lembrete, e ainda coleta avaliação depois. É o tipo de solução que paga ela mesma em semanas."</div>
+        <div class="dep-author">
+          <div class="dep-av" style="background:linear-gradient(135deg,#F97316,#F5A623)">BL</div>
+          <div>
+            <div class="dep-name">Beatriz L.</div>
+            <div class="dep-role">Proprietária · Clínica de Estética</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DIAGNÓSTICO ───────────────────────────────── -->
+<section id="diagnostico" class="sec" style="background:var(--ink)">
+  <div class="diag-bg-orb"></div>
+  <div class="sec-inner" style="position:relative;z-index:2">
+    <div class="diag-inner">
+      <div class="rev">
+        <div class="sec-tag">Diagnóstico gratuito</div>
+        <h2 class="diag-title">Descubra onde<br>estão os <em>gargalos</em><br>do seu negócio.</h2>
+        <p class="diag-sub">30 minutos. Sem compromisso. Você sai com clareza sobre o que automatizar primeiro e qual impacto esperar.</p>
+        <div class="diag-items">
+          <div class="diag-item">Mapeamento dos processos que mais consomem tempo</div>
+          <div class="diag-item">Identificação de dados que você tem mas não usa</div>
+          <div class="diag-item">Recomendação de ferramentas para seu contexto</div>
+          <div class="diag-item">Estimativa de ROI antes de qualquer investimento</div>
+          <div class="diag-item">Sem pitch de venda — só diagnóstico honesto</div>
+        </div>
+      </div>
+      <div class="diag-form rev rev-d2">
+        <div class="form-title">Agende seu diagnóstico</div>
+        <div class="form-sub">Respondo em até 24h para confirmar o horário.</div>
+        <div class="form-row">
+          <div class="form-group">
+            <label>Nome</label>
+            <input type="text" placeholder="Seu nome">
+          </div>
+          <div class="form-group">
+            <label>WhatsApp</label>
+            <input type="tel" placeholder="(11) 99999-9999">
+          </div>
+        </div>
+        <div class="form-group">
+          <label>E-mail</label>
+          <input type="email" placeholder="seu@email.com">
+        </div>
+        <div class="form-group">
+          <label>Segmento do negócio</label>
+          <select>
+            <option value="">Selecione...</option>
+            <option>E-commerce / Marketplace</option>
+            <option>Agência de Marketing</option>
+            <option>Corretora / Financeiro</option>
+            <option>Clínica / Saúde</option>
+            <option>Contabilidade / Jurídico</option>
+            <option>Varejo / Serviços</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Qual o maior desafio operacional hoje?</label>
+          <textarea placeholder="Ex: gastamos horas gerando relatórios manualmente, muitos leads perdidos, processos repetitivos que tomam tempo da equipe..."></textarea>
+        </div>
+        <button class="btn-form" onclick="enviarWhatsApp()">→ Solicitar diagnóstico gratuito</button>
+        <div class="form-note">Ou fale direto: <a href="https://wa.me/5511951131232" target="_blank" style="color:var(--purple)">(11) 95113-1232</a></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ─────────────────────────────────────── -->
+<!-- BLOG CTA -->
+<section style="background:#0D0D1A;border-top:1px solid rgba(123,79,212,.15);padding:4rem 2rem">
+  <div style="max-width:900px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:2rem;flex-wrap:wrap">
+    <div>
+      <div style="font-size:.7rem;font-weight:700;color:#7B4FD4;letter-spacing:.2em;text-transform:uppercase;margin-bottom:.6rem">✦ BLOG · CONTEÚDO GRATUITO</div>
+      <div style="font-family:'Playfair Display',Georgia,serif;font-size:1.6rem;font-weight:700;color:#fff;line-height:1.2;margin-bottom:.5rem">Automação, IA e Dados<br>explicados de forma prática.</div>
+      <p style="font-size:.9rem;color:rgba(255,255,255,.45);margin:0">Artigos toda semana sobre como empresas reais estão usando tecnologia para crescer.</p>
+    </div>
+    <a href="blog/index.html" style="display:inline-flex;align-items:center;gap:.5rem;background:linear-gradient(135deg,#7B4FD4,#00B4C6);color:#fff;font-size:.9rem;font-weight:700;padding:.9rem 1.8rem;border-radius:12px;text-decoration:none;white-space:nowrap;flex-shrink:0">Acessar o blog →</a>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <div class="footer-mark">PS</div>
+      <span class="footer-name">Paulo Santos · Growth AI</span>
+    </div>
+    <div class="footer-links">
+      <a href="#servicos">Serviços</a>
+      <a href="#cases">Cases</a>
+      <a href="blog/index.html">Blog</a>
+      <a href="https://www.instagram.com/paulosantos.growthai" target="_blank">Instagram</a>
+      <a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank">LinkedIn</a>
+    </div>
+    <span class="footer-copy">© 2026 Paulo Santos · Growth AI</span>
+  </div>
+</footer>
+
+<!-- ── WHATSAPP FLOAT ─────────────────────────────── -->
+<a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20sua%20landing%20page%20e%20quero%20agendar%20um%20diagnóstico%20gratuito." target="_blank" class="wpp-float" title="Falar no WhatsApp">💬</a>
+
+<script>
+// ── SCROLL REVEAL ─────────────────────────────────
+const obs = new IntersectionObserver((entries) => {
+  entries.forEach((e, i) => {
+    if (e.isIntersecting) {
+      setTimeout(() => e.target.classList.add('in'), i * 60);
+    }
+  });
+}, { threshold: 0.08 });
+document.querySelectorAll('.rev').forEach(el => obs.observe(el));
+
+// ── FORM → WHATSAPP ───────────────────────────────
+function enviarWhatsApp() {
+  const nome     = document.querySelector('input[placeholder="Seu nome"]').value.trim();
+  const wpp      = document.querySelector('input[placeholder="(11) 99999-9999"]').value.trim();
+  const email    = document.querySelector('input[placeholder="seu@email.com"]').value.trim();
+  const segmento = document.querySelector('select').value;
+  const desafio  = document.querySelector('textarea').value.trim();
+
+  if (!nome || !wpp) {
+    alert('Preencha pelo menos nome e WhatsApp para continuar.');
+    return;
+  }
+
+  const msg = `Olá Paulo! Quero agendar um diagnóstico gratuito.
+
+*Nome:* ${nome}
+*WhatsApp:* ${wpp}
+*E-mail:* ${email || 'não informado'}
+*Segmento:* ${segmento || 'não informado'}
+*Desafio principal:* ${desafio || 'não informado'}`;
+
+  window.open(`https://wa.me/5511951131232?text=${encodeURIComponent(msg)}`, '_blank');
+}
+
+// ── NAV ACTIVE STATE ──────────────────────────────
+const navLinks = document.querySelectorAll('.nav-links a:not(.nav-cta)');
+window.addEventListener('scroll', () => {
+  let current = '';
+  document.querySelectorAll('section[id]').forEach(s => {
+    if (window.scrollY >= s.offsetTop - 200) current = s.id;
+  });
+  navLinks.forEach(a => {
+    a.style.color = a.getAttribute('href') === `#${current}` ? 'var(--purple)' : '';
+  });
+});
+
+// ── HERO ENTRANCE ─────────────────────────────────
+document.querySelectorAll('#hero .rev').forEach((el, i) => {
+  setTimeout(() => el.classList.add('in'), 200 + i * 120);
+});
+</script>
+</body>
+</html>
