@@ -610,20 +610,23 @@ function runAuto(){
 }
 setTimeout(runAuto,1800);
 const navLinks=[]
+}
+</script>
+
 <script>
 function toggleMenu(){
-  var m = document.getElementById("mobileMenu");
-  if(m) m.classList.toggle("open");
+  var m = document.getElementById('mobileMenu');
+  if(m) m.classList.toggle('open');
 }
 function closeMenu(){
-  var m = document.getElementById("mobileMenu");
-  if(m) m.classList.remove("open");
+  var m = document.getElementById('mobileMenu');
+  if(m) m.classList.remove('open');
 }
-document.addEventListener("click", function(e){
-  var m = document.getElementById("mobileMenu");
-  var btn = document.querySelector(".nav-hamburger");
+document.addEventListener('click', function(e){
+  var m = document.getElementById('mobileMenu');
+  var btn = document.querySelector('.nav-hamburger');
   if(m && btn && !m.contains(e.target) && !btn.contains(e.target)){
-    m.classList.remove("open");
+    m.classList.remove('open');
   }
 });
 </script>
