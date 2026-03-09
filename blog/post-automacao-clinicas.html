@@ -39,7 +39,7 @@
 
 <style>
 :root{
-  --bg:#080C10;--bg2:#0D1218;--bg3:#121A22;
+  --bg:#0d1117;--bg2:#111827;--bg3:#161d2e;
   --teal:#00B4C6;--teal2:#00D4C8;--purple:#7B4FD4;--purple2:#9B6FF4;
   --gold:#C9A84C;--gold2:#F0CC72;
   --white:#EEF2F5;--body:#A8B4C0;--muted:#556070;
@@ -205,6 +205,13 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1100px;mar
   .comments,.related{padding-left:1.5rem;padding-right:1.5rem}
   footer{padding:1.5rem}
 }
+
+.nav-hamburger{display:none;background:none;border:1px solid rgba(0,180,198,.2);color:#EEF2F5;font-size:1.2rem;padding:.4rem .75rem;border-radius:8px;cursor:pointer;line-height:1}
+.mobile-menu{display:none;position:fixed;top:64px;left:0;right:0;z-index:99;background:rgba(13,17,23,.97);backdrop-filter:blur(20px);border-bottom:1px solid rgba(0,180,198,.12);padding:1rem 1.5rem;flex-direction:column;gap:0}
+.mobile-menu a{color:#EEF2F5;text-decoration:none;font-size:.95rem;padding:.9rem 0;border-bottom:1px solid rgba(255,255,255,.06);display:block}
+.mobile-menu a:last-child{border-bottom:none}
+.mobile-menu.open{display:flex}
+@media(max-width:768px){.nav-hamburger{display:block}.nav-back{display:none}.nav-cta{display:none}}
 </style>
 </head>
 <body>
@@ -215,7 +222,8 @@ footer{border-top:1px solid var(--border);padding:2rem 3rem;max-width:1100px;mar
     <a href="index.html" class="nav-back">← Blog</a>
     <a href="https://wa.me/5511951131232" target="_blank" class="nav-cta">💬 Falar com Paulo</a>
   </div>
-</nav>
+<button class="nav-hamburger" onclick="togglePostMenu()">☰</button></nav>
+<div class="mobile-menu" id="postMenu"><a href="index.html">📝 Blog</a><a href="../index.html">🌐 Site</a><a href="https://wa.me/5511951131232" target="_blank" style="color:#25D366">💬 WhatsApp</a></div>
 
 <!-- COVER -->
 <div class="post-cover">
@@ -411,5 +419,5 @@ function submitComment(){
 }
 (function(){try{fetch('SUA_URL_APPS_SCRIPT?tipo=pageview&pagina=post-automacao-clinicas&data='+new Date().toLocaleDateString('pt-BR')).catch(()=>{});}catch(e){}})();
 </script>
-</body>
+<script>function togglePostMenu(){document.getElementById("postMenu").classList.toggle("open")}document.addEventListener("click",function(e){var m=document.getElementById("postMenu");var b=document.querySelector(".nav-hamburger");if(m&&b&&!m.contains(e.target)&&!b.contains(e.target))m.classList.remove("open");});</script></body>
 </html>
