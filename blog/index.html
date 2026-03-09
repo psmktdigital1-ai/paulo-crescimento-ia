@@ -3,688 +3,601 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<!-- SEO -->
-<title>Paulo Santos | Blog de Automação, IA e Dados para Empresas</title>
-<meta name="description" content="Aprenda como automação, inteligência artificial e dashboards podem transformar sua empresa. Conteúdo prático para clínicas, corretoras, escritórios e e-commerces.">
-<meta name="keywords" content="automação de processos, inteligência artificial empresas, Power BI, n8n, chatbot whatsapp, dashboard, Paulo Santos, Growth AI">
-<meta name="author" content="Paulo Santos">
-<meta name="robots" content="index, follow">
-
-<!-- Open Graph -->
-<meta property="og:title" content="Paulo Santos | Automação, IA e Dados para Empresas">
-<meta property="og:description" content="Conteúdo educativo sobre como tecnologia pode transformar sua operação.">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://paulo-crescimento-ia.vercel.app/blog">
-<meta property="og:image" content="https://paulo-crescimento-ia.vercel.app/og-image.jpg">
-
-<!-- Schema.org -->
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Blog",
-  "name": "Paulo Santos – Growth AI Blog",
-  "description": "Automação, IA e dados aplicados a negócios reais",
-  "url": "https://paulo-crescimento-ia.vercel.app/blog",
-  "author": {
-    "@type": "Person",
-    "name": "Paulo Santos",
-    "jobTitle": "Especialista em Dados, IA e Automação",
-    "sameAs": ["https://www.instagram.com/paulosantos.growthai","https://wa.me/5511951131232"]
-  }
-}
-</script>
-
+<title>Paulo Growth AI — Dados · IA · Performance</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=Outfit:wght@300;400;600;700;900&display=swap" rel="stylesheet">
 <style>
-/* ── TOKENS — identidade do Instagram: dark teal + roxo + dourado ── */
-:root {
-  --bg:       #080C10;
-  --bg2:      #0D1218;
-  --bg3:      #121A22;
-  --teal:     #00B4C6;
-  --teal2:    #00D4C8;
-  --purple:   #7B4FD4;
-  --purple2:  #9B6FF4;
-  --gold:     #C9A84C;
-  --gold2:    #F0CC72;
-  --white:    #EEF2F5;
-  --body:     #A8B4C0;
-  --muted:    #556070;
-  --border:   rgba(0,180,198,0.12);
-  --border2:  rgba(123,79,212,0.15);
-  --mono:     'JetBrains Mono', monospace;
-  --head:     'Syne', sans-serif;
-  --sans:     'DM Sans', sans-serif;
+:root{--ink:#04050f;--ink2:#080912;--ink3:#0e1020;--cyan:#00d4ff;--cyan2:#00ffea;--plasma:#6c3fff;--ghost:rgba(255,255,255,.05);--ghost2:rgba(255,255,255,.02);--line:rgba(0,212,255,.1);--line2:rgba(255,255,255,.06);--text:#e2e4f0;--muted:#636685;--muted2:#40415a;--card:#0b0c1c;--r:6px}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--ink);color:var(--text);font-family:'Outfit',sans-serif;font-weight:300;overflow-x:hidden;line-height:1.6}
+::-webkit-scrollbar{width:3px}::-webkit-scrollbar-track{background:var(--ink)}::-webkit-scrollbar-thumb{background:var(--cyan);border-radius:2px}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-content:space-between;align-items:center;padding:1.2rem 5rem;background:rgba(4,5,15,.88);backdrop-filter:blur(24px);border-bottom:1px solid var(--line)}
+.logo{font-family:'DM Serif Display',serif;font-size:1.35rem;letter-spacing:-.02em;display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--plasma),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.65rem;color:#fff}
+.logo-txt{color:var(--text)}.logo-txt span{background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:2.5rem;list-style:none}
+.nav-links a{color:#c8d4e0;text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:color .25s}
+.nav-links a:hover{color:var(--cyan)}
+.nav-right{display:flex;gap:.75rem;align-items:center}
+.btn-wpp{background:#25D366;color:#fff;border:none;padding:.6rem 1.3rem;border-radius:var(--r);font-size:.75rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:all .25s}
+.btn-wpp:hover{background:#1ebe59;transform:translateY(-1px);box-shadow:0 8px 24px rgba(37,211,102,.3)}
+.btn-cta{background:linear-gradient(135deg,var(--plasma),var(--cyan));color:#fff;border:none;padding:.6rem 1.5rem;border-radius:var(--r);font-size:.75rem;font-weight:700;cursor:pointer;text-decoration:none;transition:all .25s}
+.btn-cta:hover{transform:translateY(-1px);box-shadow:0 8px 30px rgba(0,212,255,.3)}
+.hero{min-height:100vh;display:grid;grid-template-columns:1.1fr .9fr;align-items:center;padding:8rem 5rem 5rem;position:relative;overflow:hidden;gap:5rem}
+.orb{position:absolute;border-radius:50%;filter:blur(110px);pointer-events:none}
+.o1{width:580px;height:580px;background:rgba(108,63,255,.16);top:-150px;right:-200px;animation:drift 9s ease-in-out infinite}
+.o2{width:380px;height:380px;background:rgba(0,212,255,.07);bottom:-100px;left:-100px;animation:drift 13s ease-in-out infinite reverse}
+.o3{width:240px;height:240px;background:rgba(0,255,234,.05);top:50%;left:40%;animation:drift 11s ease-in-out infinite 2s}
+@keyframes drift{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(25px,-20px) scale(1.04)}66%{transform:translate(-15px,25px) scale(.97)}}
+.hero-l{position:relative;z-index:1}
+.hero-badge{display:inline-flex;align-items:center;gap:.6rem;background:rgba(0,212,255,.06);border:1px solid rgba(0,212,255,.18);padding:.4rem 1rem .4rem .5rem;border-radius:100px;margin-bottom:2rem;animation:fup .7s ease both}
+.badge-dot{width:8px;height:8px;background:var(--cyan2);border-radius:50%;animation:blink 1.8s ease-in-out infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.2}}
+.badge-txt{font-size:.72rem;color:var(--cyan);letter-spacing:.05em}
+.hero h1{font-family:'DM Serif Display',serif;font-size:clamp(3rem,5.5vw,5rem);line-height:1.02;letter-spacing:-.03em;margin-bottom:1.5rem;animation:fup .7s ease .1s both}
+.hero h1 em{font-style:italic;background:linear-gradient(135deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero h1 .outline{-webkit-text-stroke:1.5px rgba(0,212,255,.3);color:transparent}
+.hero-sub{font-size:.95rem;color:var(--muted);line-height:1.85;max-width:490px;margin-bottom:2.5rem;animation:fup .7s ease .2s both}
+.hero-sub strong{color:var(--text);font-weight:600}
+.hero-acts{display:flex;gap:1rem;flex-wrap:wrap;animation:fup .7s ease .3s both}
+.btn-primary{background:linear-gradient(135deg,var(--plasma),var(--cyan));color:#fff;padding:.9rem 2.2rem;border-radius:var(--r);font-weight:700;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s;border:none;cursor:pointer}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(0,212,255,.3)}
+.btn-ghost{background:transparent;color:var(--text);padding:.9rem 2.2rem;border-radius:var(--r);font-weight:400;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s;border:1px solid var(--line2)}
+.btn-ghost:hover{border-color:rgba(0,212,255,.35);color:var(--cyan)}
+.btn-wha{background:#25D366;color:#fff;padding:.9rem 2.2rem;border-radius:var(--r);font-weight:700;font-size:.85rem;text-decoration:none;display:inline-flex;align-items:center;gap:.5rem;transition:all .25s}
+.btn-wha:hover{background:#1ebe59;transform:translateY(-2px);box-shadow:0 12px 40px rgba(37,211,102,.3)}
+.hero-r{position:relative;z-index:1;animation:fup .7s ease .35s both}
+.hcard{background:var(--card);border:1px solid var(--line2);border-radius:16px;padding:2rem;position:relative;overflow:hidden}
+.hcard::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--plasma),var(--cyan),var(--cyan2))}
+.hc-lbl{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--cyan);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.5rem}
+.auto-flow{display:flex;flex-direction:column;gap:.4rem;margin-bottom:1.5rem}
+.af-step{display:flex;align-items:center;gap:.7rem;padding:.55rem .75rem;background:var(--ghost2);border:1px solid var(--line2);border-radius:8px;opacity:.25;transition:all .4s;font-size:.7rem}
+.af-step.active{opacity:1;border-color:rgba(0,212,255,.25);background:rgba(0,212,255,.04)}
+.af-step.done{opacity:.65;border-color:rgba(0,255,234,.12)}
+.af-icon{font-size:1rem;width:24px;text-align:center}
+.af-lbl{color:var(--muted);flex:1}.af-lbl strong{color:var(--text);display:block;font-size:.7rem}
+.af-st{font-family:'DM Mono',monospace;font-size:.58rem;padding:.12rem .5rem;border-radius:100px}
+.af-st.run{background:rgba(0,212,255,.1);color:var(--cyan);animation:pt 1s ease-in-out infinite}
+.af-st.ok{background:rgba(0,255,234,.08);color:var(--cyan2)}
+.af-st.wait{background:rgba(99,102,133,.1);color:var(--muted)}
+.conn{width:2px;height:12px;background:linear-gradient(to bottom,var(--cyan),transparent);margin-left:1.35rem;opacity:.25}
+@keyframes pt{0%,100%{opacity:1}50%{opacity:.3}}
+.mmetrics{display:grid;grid-template-columns:1fr 1fr;gap:.75rem}
+.mm{background:var(--ghost);border:1px solid var(--line2);border-radius:8px;padding:1rem;text-align:center}
+.mm-n{font-family:'DM Serif Display',serif;font-size:1.9rem;background:linear-gradient(135deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.mm-l{font-size:.6rem;color:var(--muted);margin-top:.2rem}
+.stats{background:var(--ink2);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:1.5rem 5rem;display:flex}
+.su{flex:1;display:flex;flex-direction:column;align-items:center;padding:.5rem 1rem;border-right:1px solid var(--line2)}
+.su:last-child{border-right:none}
+.su-n{font-family:'DM Serif Display',serif;font-size:2rem;background:linear-gradient(135deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1;margin-bottom:.3rem}
+.su-l{font-size:.6rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;text-align:center}
+.sec{padding:7rem 5rem;position:relative}
+.sec-inner{max-width:1200px;margin:0 auto}
+.lbl{display:inline-flex;align-items:center;gap:.5rem;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--cyan);letter-spacing:.2em;text-transform:uppercase;margin-bottom:1rem}
+.lbl::before{content:'';display:block;width:16px;height:1px;background:var(--cyan)}
+.sh{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:.75rem}
+.sh em{font-style:italic;background:linear-gradient(135deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.ssub{font-size:.95rem;color:var(--muted);max-width:540px;line-height:1.75;margin-bottom:4rem}
+.rev{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease}
+.rev.in{opacity:1;transform:translateY(0)}
+@keyframes fup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+.ticker{overflow:hidden;padding:.9rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink2)}
+.tick-track{display:flex;animation:tick 22s linear infinite;width:max-content}
+.tick-item{padding:0 3rem;font-family:'DM Mono',monospace;font-size:.65rem;letter-spacing:.08em;color:var(--muted2);white-space:nowrap}
+.tick-item .hi{color:var(--cyan)}
+@keyframes tick{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.srv-wrap{background:var(--ink2);border-top:1px solid var(--line)}
+.srv-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line2);border:1px solid var(--line2);border-radius:12px;overflow:hidden}
+.srv-c{background:var(--card);padding:2.5rem 2rem;position:relative;overflow:hidden;transition:background .3s}
+.srv-c:hover{background:#10112a}
+.srv-c::after{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,transparent,var(--plasma),transparent);opacity:0;transition:opacity .3s}
+.srv-c:hover::after{opacity:1}
+.srv-num{position:absolute;top:1.5rem;right:1.5rem;font-family:'DM Mono',monospace;font-size:.6rem;color:rgba(0,212,255,.18)}
+.srv-ico{font-size:2.2rem;margin-bottom:1.2rem;display:block}
+.srv-t{font-family:'DM Serif Display',serif;font-size:1.2rem;letter-spacing:-.02em;margin-bottom:.6rem}
+.srv-d{font-size:.76rem;color:var(--muted);line-height:1.75;margin-bottom:1.25rem}
+.tags{display:flex;flex-wrap:wrap;gap:.4rem}
+.tag{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.22rem .6rem;border:1px solid rgba(0,212,255,.15);color:var(--cyan);border-radius:100px;font-family:'DM Mono',monospace}
+
+/* PORTFOLIO — grid 3 cols, SEM valores, SEM ROI */
+.port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
+.pcard{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.pcard:hover{border-color:rgba(0,212,255,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.pthumb{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pt-cor{background:linear-gradient(135deg,#050f18,#0a1f2e)}
+.pt-cli{background:linear-gradient(135deg,#050f0d,#081f18)}
+.pt-cnt{background:linear-gradient(135deg,#0f0a05,#1f150a)}
+.pt-ret{background:linear-gradient(135deg,#08051a,#120a2e)}
+.pt-bar{background:linear-gradient(135deg,#0a0a0a,#1a1a1a)}
+.pt-age{background:linear-gradient(135deg,#05080f,#0a1020)}
+.pthumb::before{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(0,212,255,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(0,212,255,.04) 1px,transparent 1px);background-size:22px 22px}
+.pthumb::after{content:'';position:absolute;inset:0;background:linear-gradient(to bottom,transparent 40%,var(--card))}
+.code-block{position:relative;z-index:2;width:88%;background:rgba(4,5,15,.85);border:1px solid var(--line);border-radius:8px;padding:.8rem 1rem;backdrop-filter:blur(8px)}
+.cb-header{display:flex;align-items:center;gap:.4rem;margin-bottom:.65rem}
+.cb-dots{display:flex;gap:.3rem}.cb-dot{width:7px;height:7px;border-radius:50%}.cb-dot.r{background:#ff5f56}.cb-dot.y{background:#ffbd2e}.cb-dot.g{background:#27c93f}
+.cb-name{font-family:'DM Mono',monospace;font-size:.57rem;color:var(--muted2);margin-left:.3rem}
+.cb-line{height:4px;border-radius:2px;margin-bottom:.38rem;background:rgba(255,255,255,.05);overflow:hidden;position:relative}
+.cb-line::after{content:'';position:absolute;top:0;left:0;height:100%;border-radius:2px}
+.cb-line.a::after{background:linear-gradient(90deg,var(--plasma),var(--cyan));animation:cbAnim 2.2s ease-in-out infinite}
+.cb-line.b::after{background:linear-gradient(90deg,var(--cyan),var(--cyan2));animation:cbAnim 2.2s ease-in-out .35s infinite}
+.cb-line.c::after{background:linear-gradient(90deg,var(--plasma),var(--cyan));animation:cbAnim 2.2s ease-in-out .7s infinite}
+.cb-line.d::after{background:linear-gradient(90deg,var(--cyan),var(--cyan2));animation:cbAnim 2.2s ease-in-out 1.05s infinite}
+.w80{--tw:80%}.w55{--tw:55%}.w70{--tw:70%}.w45{--tw:45%}
+@keyframes cbAnim{0%{width:0}55%{width:var(--tw,70%)}100%{width:var(--tw,70%)}}
+.pbody{padding:1.25rem}
+.pcats{display:flex;gap:.4rem;margin-bottom:.65rem;flex-wrap:wrap}
+.pcat{font-size:.58rem;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .55rem;border-radius:100px;border:1px solid rgba(0,212,255,.18);color:var(--cyan);font-family:'DM Mono',monospace}
+.pcard h4{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:.35rem;letter-spacing:-.02em}
+.pcard p{font-size:.72rem;color:var(--muted);line-height:1.65;margin-bottom:.75rem}
+.plink{font-size:.7rem;color:var(--cyan2);display:flex;align-items:center;gap:.4rem;letter-spacing:.04em;font-weight:500}
+
+.proc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:3rem}
+.proc-c{background:var(--card);border:1px solid var(--line2);border-radius:12px;padding:2rem;transition:all .3s}
+.proc-c:hover{border-color:rgba(0,212,255,.2);transform:translateY(-2px)}
+.proc-n{width:38px;height:38px;background:var(--ink);border:2px solid rgba(0,212,255,.28);border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.72rem;color:var(--cyan);margin-bottom:1rem}
+.proc-c h4{font-family:'DM Serif Display',serif;font-size:1.1rem;margin-bottom:.6rem;letter-spacing:-.02em}
+.proc-c p{font-size:.75rem;color:var(--muted);line-height:1.75}
+.about-grid{display:grid;grid-template-columns:1fr 1fr;gap:6rem;align-items:start}
+.ap{font-size:.88rem;color:var(--muted);line-height:1.9;margin-bottom:1.1rem}
+.ap strong{color:var(--text);font-weight:600}
+.sk-wrap{display:flex;flex-wrap:wrap;gap:.4rem;margin-top:1.5rem}
+.sk{font-size:.64rem;padding:.3rem .8rem;background:var(--ghost2);border:1px solid var(--line2);border-radius:6px;color:var(--muted);transition:all .2s;cursor:default;font-family:'DM Mono',monospace}
+.sk:hover{border-color:rgba(0,212,255,.3);color:var(--cyan);background:rgba(0,212,255,.04)}
+.cred{background:var(--card);border:1px solid var(--line2);border-radius:10px;padding:1.75rem;margin-bottom:.75rem;position:relative;overflow:hidden;transition:all .3s}
+.cred:hover{border-color:rgba(0,212,255,.2)}
+.cred::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(to bottom,var(--plasma),var(--cyan))}
+.cred-yr{font-family:'DM Mono',monospace;font-size:.62rem;color:var(--cyan2);margin-bottom:.4rem}
+.cred-t{font-family:'DM Serif Display',serif;font-size:1.05rem;margin-bottom:.3rem}
+.cred-s{font-size:.72rem;color:var(--muted);line-height:1.6}
+.manifesto{background:linear-gradient(135deg,rgba(108,63,255,.1),rgba(0,212,255,.05));border:1px solid rgba(0,212,255,.14);border-radius:12px;padding:2rem;margin-top:.75rem}
+.manifesto p{font-family:'DM Serif Display',serif;font-size:1.05rem;font-style:italic;color:var(--text);line-height:1.65;opacity:.85}
+.manifesto cite{display:block;font-family:'DM Mono',monospace;font-size:.62rem;color:var(--cyan);letter-spacing:.1em;margin-top:1rem;font-style:normal}
+.cta{padding:8rem 5rem;text-align:center;position:relative;overflow:hidden;border-top:1px solid var(--line)}
+.cta-orb{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:600px;background:radial-gradient(circle,rgba(108,63,255,.12) 0%,transparent 65%);pointer-events:none}
+.cta-btns{display:flex;gap:1rem;justify-content:center;flex-wrap:wrap;margin-bottom:2rem}
+.cinfo{font-family:'DM Mono',monospace;font-size:.68rem;color:var(--muted2)}
+.cinfo a{color:var(--cyan2);text-decoration:none}.cinfo a:hover{text-decoration:underline}
+footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:1.5rem;background:var(--ink2)}
+.fl{font-family:'DM Serif Display',serif;font-size:1.15rem}
+.fl span{background:linear-gradient(90deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.flinks{display:flex;gap:2rem}
+.flinks a{font-size:.7rem;color:var(--muted);text-decoration:none;letter-spacing:.04em;transition:color .2s}
+.flinks a:hover{color:var(--cyan)}
+.fcopy{font-family:'DM Mono',monospace;font-size:.6rem;color:var(--muted2)}
+.wpp-float{position:fixed;bottom:2rem;right:2rem;z-index:998;background:#25D366;color:#fff;width:58px;height:58px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;text-decoration:none;box-shadow:0 8px 30px rgba(37,211,102,.4);transition:all .3s;animation:wppPop .5s ease 2s both}
+.wpp-float:hover{transform:scale(1.1);box-shadow:0 12px 40px rgba(37,211,102,.5)}
+.wpp-float::before{content:'';position:absolute;inset:0;border-radius:50%;background:#25D366;animation:wppRing 2.5s ease-in-out infinite}
+@keyframes wppRing{0%{transform:scale(1);opacity:.6}100%{transform:scale(1.7);opacity:0}}
+@keyframes wppPop{from{opacity:0;transform:scale(.5)}to{opacity:1;transform:scale(1)}}
+
+/* CASE PAGE — embedded dentro do index */
+#casePage{display:none;position:fixed;inset:0;z-index:500;background:var(--ink);overflow-y:auto}
+.case-back{position:fixed;top:1.2rem;left:1.5rem;z-index:600;display:flex;align-items:center;gap:.5rem;background:rgba(4,5,15,.9);border:1px solid var(--line);backdrop-filter:blur(12px);padding:.55rem 1.1rem;border-radius:100px;font-size:.72rem;color:var(--cyan);cursor:pointer;text-decoration:none;transition:all .2s}
+.case-back:hover{background:rgba(0,212,255,.08);border-color:rgba(0,212,255,.3)}
+#caseFrame{width:100%;height:100vh;border:none}
+
+@media(max-width:1024px){
+  nav{padding:1rem 1.5rem}.nav-links{display:none}
+  .hero{grid-template-columns:1fr;padding:7rem 1.5rem 3rem}.hero-r{display:none}
+  .stats{padding:1.5rem}.sec{padding:5rem 1.5rem}
+  .srv-grid{grid-template-columns:1fr}.port-grid{grid-template-columns:1fr}
+  .proc-grid{grid-template-columns:1fr}.about-grid{grid-template-columns:1fr;gap:3rem}
+  footer{padding:1.5rem;flex-direction:column;align-items:flex-start}
 }
 
-*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-html { scroll-behavior: smooth; }
-body {
-  background: var(--bg);
-  color: var(--white);
-  font-family: var(--sans);
-  line-height: 1.6;
-  overflow-x: hidden;
+/* ═══════════════════════════════════════════════
+   MOBILE RESPONSIVE — max-width: 768px
+   ═══════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+  /* ── LAYOUT BASE ── */
+  body { overflow-x: hidden !important; }
+
+  /* ── NAV / TOP BAR ── */
+  .top, nav, .header {
+    padding: .75rem 1rem !important;
+    flex-wrap: wrap;
+    gap: .5rem;
+  }
+  .top-nav, .nav-links { display: none !important; }
+  .top-ic { width: 28px !important; height: 28px !important; font-size: .9rem !important; }
+
+  /* ── HERO / SECTION PADDING ── */
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 2rem 1rem !important;
+  }
+
+  /* ── ALL MULTI-COLUMN GRIDS → single column ── */
+  .hs-grid,
+  .sol-grid,
+  .flow-layout,
+  .main,
+  .layout,
+  .players-grid,
+  .kpi-strip,
+  .ch-grid,
+  .metrics-grid,
+  .mp-stats-row,
+  .pc-stats,
+  [style*="grid-template-columns: repeat(2"],
+  [style*="grid-template-columns: repeat(3"],
+  [style*="grid-template-columns: repeat(4"],
+  [style*="grid-template-columns: repeat(5"],
+  [style*="grid-template-columns:1fr 1fr"],
+  [style*="grid-template-columns:1fr 320px"],
+  [style*="grid-template-columns:1fr 340px"],
+  [style*="grid-template-columns:320px 1fr"],
+  [style*="grid-template-columns:1fr auto 1fr"] {
+    grid-template-columns: 1fr !important;
+    display: flex !important;
+    flex-direction: column !important;
+  }
+
+  /* ── SCOREBOARD SPECIAL CASE (basquete) ── */
+  .scoreboard {
+    padding: 1.25rem !important;
+    gap: 1rem !important;
+  }
+
+  /* ── SIDEBAR PANELS → full width ── */
+  .sidebar, .panel, .right-col, [style*="width:320px"], [style*="width: 320px"],
+  [style*="width:340px"], [style*="width: 340px"],
+  [style*="flex:0 0"], [style*="flex: 0 0"] {
+    width: 100% !important;
+    max-width: 100% !important;
+    min-width: 0 !important;
+  }
+
+  /* ── PADDING LARGE → compact ── */
+  [style*="padding: 4rem 3rem"], [style*="padding:4rem 3rem"],
+  [style*="padding: 2.5rem 3rem"], [style*="padding:2.5rem 3rem"],
+  [style*="padding: 3rem"], [style*="padding:3rem"],
+  [style*="margin: 2rem 3rem"], [style*="margin:2rem 3rem"] {
+    padding: 1.25rem 1rem !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+  }
+
+  /* ── OVERFLOW CONTAINERS ── */
+  .layout { height: auto !important; overflow: visible !important; }
+  .main   { height: auto !important; overflow: visible !important; }
+
+  /* ── HEADINGS ── */
+  h1 { font-size: clamp(1.6rem, 7vw, 2.4rem) !important; }
+  h2 { font-size: clamp(1.3rem, 6vw, 2rem) !important; }
+  h3 { font-size: clamp(1.1rem, 5vw, 1.5rem) !important; }
+  .sh, .hs-title { font-size: clamp(1.5rem, 7vw, 2.5rem) !important; }
+
+  /* ── HERO BIG NUMBERS ── */
+  .hero-num, .big-stat, .score-val, .team-score {
+    font-size: clamp(2.5rem, 10vw, 4rem) !important;
+  }
+
+  /* ── STAT CARDS STRIP ── */
+  .stat-strip, .kpi-strip {
+    display: grid !important;
+    grid-template-columns: 1fr 1fr !important;
+    gap: .6rem !important;
+  }
+
+  /* ── NODE / FLOW DIAGRAMS ── */
+  .node-row, .flow-nodes, .fn-row {
+    flex-wrap: wrap !important;
+    gap: .5rem !important;
+  }
+  .node-box { min-width: 0 !important; max-width: 100% !important; flex: 1 1 40% !important; }
+  .node-arrow { display: none !important; }
+
+  /* ── STEP BAR / FIXED BOTTOM PILL ── */
+  .step-bar, .step-indicator, .sb-lbl {
+    left: 50% !important;
+    transform: translateX(-50%) !important;
+    white-space: nowrap !important;
+    font-size: .58rem !important;
+  }
+  .sb-lbl { min-width: 0 !important; max-width: 45vw !important; overflow: hidden !important; text-overflow: ellipsis !important; }
+
+  /* ── TABLE OVERFLOW ── */
+  table { display: block !important; overflow-x: auto !important; -webkit-overflow-scrolling: touch !important; }
+  .tb-row, .log-row { font-size: .68rem !important; }
+
+  /* ── CHAT / WHATSAPP PANELS ── */
+  .chat-panel, .wpp-panel { max-height: 300px !important; }
+
+  /* ── PROGRESS / PAGINATION BARS ── */
+  .pb-lbl { min-width: 0 !important; display: none !important; }
+
+  /* ── BACK BUTTON spacing on mobile ── */
+  #back-to-portfolio, #sim-back-btn {
+    font-size: .68rem !important;
+    padding: .45rem .85rem !important;
+  }
+
+  /* ── CASE FILES SPECIFIC ── */
+  .pcard { padding: 1.2rem !important; }
+  .port-grid { grid-template-columns: 1fr !important; }
+  .srv-grid  { grid-template-columns: 1fr !important; }
+  .proc-grid { grid-template-columns: 1fr !important; }
+  .about-grid{ grid-template-columns: 1fr !important; }
+  .stats     { flex-direction: column !important; gap: 1rem !important; }
+  .hero      { grid-template-columns: 1fr !important; padding: 5rem 1rem 2rem !important; }
+  .hero-r    { display: none !important; }
+
+  /* ── CASE HERO SECTION ── */
+  .ch-hero { padding: 5rem 1.2rem 2rem !important; }
+  .ch-tags { flex-wrap: wrap !important; }
+  .ch-btns { flex-direction: column !important; gap: .75rem !important; }
+  .ch-btns a, .btn-primary, .btn-ghost, .btn-white {
+    width: 100% !important;
+    text-align: center !important;
+    justify-content: center !important;
+  }
+
+  /* ── MINI CASES GRID ── */
+  .mini-cases { grid-template-columns: 1fr !important; }
+
+  /* ── AGENCIA DASHBOARD SPECIFIC ── */
+  .kpi-strip { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── BASQUETE SPECIFIC ── */
+  .team-side { align-items: center !important; }
+  .players-grid { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── FOOTER ── */
+  footer { flex-direction: column !important; align-items: flex-start !important; gap: 1rem !important; padding: 1.5rem 1rem !important; }
+
 }
 
-/* ── NOISE TEXTURE ── */
-body::before {
-  content: '';
-  position: fixed; inset: 0; z-index: 0; pointer-events: none;
-  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
-  opacity: .5;
+/* ── SMALL PHONES (360-480px) extra tweaks ── */
+@media (max-width: 480px) {
+  .top, nav, .header { padding: .65rem .85rem !important; }
+  .hero-sec, .sec, .flow-wrap, .fw, .metrics-wrap, .ob-wrap {
+    padding: 1.5rem .85rem !important;
+  }
+  .stat-strip, .kpi-strip { grid-template-columns: 1fr !important; }
+  .players-grid           { grid-template-columns: 1fr !important; }
+  h1 { font-size: clamp(1.4rem, 8vw, 2rem) !important; }
 }
 
-/* ── NAV ── */
-nav {
-  position: fixed; top: 0; inset-inline: 0; z-index: 100;
-  display: flex; align-items: center; justify-content: space-between;
-  padding: 0 3rem; height: 64px;
-  background: rgba(8,12,16,0.92);
-  backdrop-filter: blur(20px);
-  border-bottom: 1px solid var(--border);
-}
-.nav-logo {
-  font-family: var(--head); font-size: 1rem; font-weight: 800;
-  text-decoration: none; display: flex; align-items: center; gap: .5rem;
-}
-.nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
-.nav-logo span { color: var(--white); }
-.nav-logo em { color: var(--teal); font-style: normal; }
-.nav-links { display: flex; align-items: center; gap: 2rem; }
-.nav-links a { font-size: .82rem; color: var(--muted); text-decoration: none; transition: color .2s; font-family: var(--mono); letter-spacing: .04em; }
-.nav-links a:hover { color: var(--teal); }
-.nav-cta {
-  background: linear-gradient(135deg, var(--purple), var(--teal));
-  color: #fff !important; font-weight: 600 !important;
-  padding: .45rem 1.1rem; border-radius: 8px;
-  font-family: var(--sans) !important; letter-spacing: 0 !important;
-  font-size: .82rem !important;
-}
-
-/* ── HERO ── */
-.hero {
-  position: relative; z-index: 1;
-  padding: 7rem 3rem 4rem;
-  max-width: 1160px; margin: 0 auto;
-}
-.hero-inner {
-  display: grid; grid-template-columns: 1fr 340px;
-  gap: 4rem; align-items: center;
-}
-.hero-tag {
-  display: inline-flex; align-items: center; gap: .6rem;
-  font-family: var(--mono); font-size: .6rem; color: var(--teal);
-  letter-spacing: .2em; text-transform: uppercase;
-  background: rgba(0,180,198,.07); border: 1px solid rgba(0,180,198,.15);
-  padding: .4rem 1rem; border-radius: 100px; margin-bottom: 1.4rem;
-}
-.hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
-@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
-.hero h1 {
-  font-family: var(--head); font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-  font-weight: 800; line-height: 1.08; letter-spacing: -.03em;
-  color: var(--white); margin-bottom: 1.2rem;
-}
-.hero h1 .hl-teal { color: var(--teal); }
-.hero h1 .hl-gold { color: var(--gold2); }
-.hero-sub { font-size: .97rem; color: var(--body); line-height: 1.75; max-width: 520px; margin-bottom: 2rem; }
-.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
-.btn-primary {
-  display: inline-flex; align-items: center; gap: .5rem;
-  background: linear-gradient(135deg, var(--purple), var(--teal));
-  color: #fff; font-size: .88rem; font-weight: 600;
-  padding: .75rem 1.4rem; border-radius: 10px;
-  text-decoration: none; transition: opacity .2s, transform .2s;
-}
-.btn-primary:hover { opacity: .88; transform: translateY(-1px); }
-.btn-ghost {
-  display: inline-flex; align-items: center; gap: .5rem;
-  color: var(--body); font-size: .88rem; text-decoration: none;
-  border: 1px solid var(--border); padding: .75rem 1.4rem; border-radius: 10px;
-  transition: all .2s;
-}
-.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
-
-/* HERO CARD */
-.hero-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 18px; padding: 1.5rem; position: relative; overflow: hidden;
-}
-.hero-card::before {
-  content: ''; position: absolute; top: -60px; right: -60px;
-  width: 180px; height: 180px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,180,198,.12), transparent 70%);
-}
-.hero-card-label { font-family: var(--mono); font-size: .58rem; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .8rem; }
-.hero-card-num { font-family: var(--head); font-size: 3.2rem; font-weight: 800; color: var(--teal); line-height: 1; margin-bottom: .2rem; }
-.hero-card-desc { font-size: .82rem; color: var(--body); margin-bottom: 1.2rem; }
-.topics-list { display: flex; flex-direction: column; gap: .5rem; }
-.topic-item {
-  display: flex; align-items: center; gap: .7rem;
-  font-size: .82rem; color: var(--body); padding: .5rem .8rem;
-  background: rgba(255,255,255,.03); border-radius: 8px;
-  border-left: 2px solid var(--teal);
-}
-.topic-item span { font-size: .75rem; }
-
-/* ── DIVIDER ── */
-.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
-
-/* ── SECTION ── */
-.section { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 3.5rem 3rem; }
-.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
-.section-label {
-  display: flex; align-items: center; gap: .6rem;
-  font-family: var(--mono); font-size: .6rem; color: var(--teal);
-  letter-spacing: .18em; text-transform: uppercase;
-}
-.section-label::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
-.section-title { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-top: .3rem; letter-spacing: -.02em; }
-.see-all { font-family: var(--mono); font-size: .6rem; color: var(--muted); text-decoration: none; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
-.see-all:hover { color: var(--teal); }
-
-/* ── FEATURED POST ── */
-.featured-post {
-  display: grid; grid-template-columns: 1fr 380px;
-  gap: 0; border-radius: 18px; overflow: hidden;
-  border: 1px solid var(--border); background: var(--bg2);
-  text-decoration: none; color: inherit;
-  transition: border-color .3s;
-}
-.featured-post:hover { border-color: rgba(0,180,198,.35); }
-.feat-img {
-  position: relative; min-height: 320px; overflow: hidden;
-  display: flex; align-items: center; justify-content: center;
-}
-.feat-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) saturate(.8); transition: transform .5s; }
-.featured-post:hover .feat-img img { transform: scale(1.04); }
-.feat-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,18,24,.5), transparent); }
-.feat-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
-.post-cats { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
-.cat { font-family: var(--mono); font-size: .55rem; padding: .25rem .7rem; border-radius: 100px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
-.cat-auto  { background: rgba(0,180,198,.1);  color: var(--teal);   border: 1px solid rgba(0,180,198,.2); }
-.cat-ia    { background: rgba(123,79,212,.1); color: var(--purple2);border: 1px solid rgba(123,79,212,.2); }
-.cat-dados { background: rgba(201,168,76,.1); color: var(--gold2);  border: 1px solid rgba(201,168,76,.2); }
-.cat-clinica{background:rgba(0,229,160,.08); color: #34d399;       border: 1px solid rgba(0,229,160,.15); }
-.cat-mkt   { background: rgba(239,68,68,.07); color: #fca5a5;      border: 1px solid rgba(239,68,68,.15); }
-.feat-body h2 { font-family: var(--head); font-size: 1.55rem; font-weight: 700; line-height: 1.2; letter-spacing: -.025em; color: var(--white); margin-bottom: .8rem; }
-.feat-body p { font-size: .9rem; color: var(--body); line-height: 1.7; margin-bottom: 1.4rem; }
-.post-meta { font-family: var(--mono); font-size: .58rem; color: var(--muted); display: flex; gap: .6rem; align-items: center; margin-bottom: 1.2rem; }
-.post-meta .sep { color: var(--border); }
-.read-btn {
-  display: inline-flex; align-items: center; gap: .4rem;
-  font-size: .82rem; font-weight: 600; color: var(--teal);
-  transition: gap .2s;
-}
-.featured-post:hover .read-btn { gap: .7rem; }
-
-/* ── POSTS GRID ── */
-.posts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
-.post-card {
-  background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit;
-  transition: all .25s; display: flex; flex-direction: column;
-}
-.post-card:hover { border-color: rgba(0,180,198,.3); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
-.card-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; }
-.card-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.75) saturate(.8); transition: transform .4s; }
-.post-card:hover .card-img img { transform: scale(1.06); }
-.card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,18,24,.6), transparent 50%); }
-.card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
-.card-body .post-cats { margin-bottom: .6rem; }
-.card-body h3 { font-family: var(--head); font-size: 1rem; font-weight: 700; line-height: 1.3; letter-spacing: -.015em; color: var(--white); margin-bottom: .5rem; transition: color .2s; }
-.post-card:hover .card-body h3 { color: var(--teal); }
-.card-body p { font-size: .82rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: .8rem; }
-.card-meta { font-family: var(--mono); font-size: .56rem; color: var(--muted); }
-
-/* ── WIDE CARD ── */
-.post-wide {
-  grid-column: span 2; display: grid; grid-template-columns: 220px 1fr;
-  gap: 0; background: var(--bg2); border: 1px solid var(--border);
-  border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit;
-  transition: all .25s;
-}
-.post-wide:hover { border-color: rgba(123,79,212,.3); transform: translateY(-2px); }
-.post-wide .card-img { aspect-ratio: unset; min-height: 200px; }
-.post-wide .card-body { padding: 1.5rem; }
-.post-wide .card-body h3 { font-size: 1.12rem; }
-
-/* ── NEWSLETTER ── */
-.nl-wrap { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 3rem 4rem; }
-.nl-card {
-  background: var(--bg2);
-  border: 1px solid var(--border);
-  border-radius: 20px; padding: 3rem;
-  display: grid; grid-template-columns: 1fr auto;
-  gap: 2rem; align-items: center;
-  position: relative; overflow: hidden;
-}
-.nl-card::before {
-  content: ''; position: absolute; right: -100px; top: -100px;
-  width: 300px; height: 300px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(123,79,212,.1), transparent 70%);
-  pointer-events: none;
-}
-.nl-card::after {
-  content: ''; position: absolute; left: -80px; bottom: -80px;
-  width: 240px; height: 240px; border-radius: 50%;
-  background: radial-gradient(circle, rgba(0,180,198,.07), transparent 70%);
-  pointer-events: none;
-}
-.nl-label { font-family: var(--mono); font-size: .58rem; color: var(--teal); letter-spacing: .2em; text-transform: uppercase; margin-bottom: .6rem; }
-.nl-title { font-family: var(--head); font-size: 1.6rem; font-weight: 800; color: var(--white); letter-spacing: -.025em; margin-bottom: .4rem; }
-.nl-sub { font-size: .88rem; color: var(--body); }
-.nl-form { display: flex; gap: .5rem; }
-.nl-input {
-  background: rgba(255,255,255,.05); border: 1px solid var(--border);
-  border-radius: 10px; padding: .75rem 1.1rem;
-  color: var(--white); font-size: .88rem; font-family: var(--sans);
-  width: 280px; outline: none; transition: border-color .2s;
-}
-.nl-input:focus { border-color: rgba(0,180,198,.4); }
-.nl-input::placeholder { color: var(--muted); }
-.nl-btn {
-  background: linear-gradient(135deg, var(--purple), var(--teal));
-  color: #fff; font-size: .85rem; font-weight: 600;
-  padding: .75rem 1.3rem; border-radius: 10px;
-  border: none; cursor: pointer; font-family: var(--sans);
-  white-space: nowrap; transition: opacity .2s;
-}
-.nl-btn:hover { opacity: .85; }
-
-/* ── AD SPACE ── */
-.ad-banner {
-  background: var(--bg3); border: 1px dashed rgba(255,255,255,.08);
-  border-radius: 12px; padding: 1rem 2rem;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: .6rem; color: var(--muted);
-  letter-spacing: .1em; text-transform: uppercase;
-  margin-bottom: 2rem; min-height: 90px;
-}
-.ad-sidebar {
-  background: var(--bg3); border: 1px dashed rgba(255,255,255,.08);
-  border-radius: 12px; padding: 1rem;
-  display: flex; align-items: center; justify-content: center;
-  font-family: var(--mono); font-size: .58rem; color: var(--muted);
-  letter-spacing: .08em; text-transform: uppercase;
-  min-height: 250px; margin-bottom: 1.5rem; text-align: center;
-}
-
-/* ── FOOTER ── */
-footer {
-  position: relative; z-index: 1;
-  border-top: 1px solid var(--border);
-  max-width: 1160px; margin: 0 auto;
-  padding: 3rem;
-  display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr;
-  gap: 3rem;
-}
-.footer-brand {}
-.footer-logo { font-family: var(--head); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: .5rem; }
-.footer-logo em { color: var(--teal); font-style: normal; }
-.footer-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
-.footer-social { display: flex; gap: .6rem; }
-.social-btn {
-  width: 34px; height: 34px; border-radius: 8px;
-  background: var(--bg3); border: 1px solid var(--border);
-  display: flex; align-items: center; justify-content: center;
-  text-decoration: none; font-size: .85rem; transition: all .2s;
-}
-.social-btn:hover { border-color: var(--teal); }
-.footer-col h4 { font-family: var(--mono); font-size: .62rem; color: var(--teal); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem; }
-.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
-.footer-col ul li a { font-size: .83rem; color: var(--muted); text-decoration: none; transition: color .2s; }
-.footer-col ul li a:hover { color: var(--white); }
-.footer-bottom {
-  border-top: 1px solid var(--border); max-width: 1160px; margin: 0 auto;
-  padding: 1.5rem 3rem;
-  display: flex; align-items: center; justify-content: space-between;
-  font-family: var(--mono); font-size: .58rem; color: var(--muted);
-  letter-spacing: .06em;
-}
-
-/* ── WPP FLOAT ── */
-.wpp {
-  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
-  display: flex; align-items: center; gap: .6rem;
-  background: #16a34a; color: #fff;
-  padding: .7rem 1.2rem; border-radius: 100px;
-  text-decoration: none; font-size: .82rem; font-weight: 600;
-  box-shadow: 0 8px 28px rgba(22,163,74,.3);
-  transition: all .2s; font-family: var(--sans);
-}
-.wpp:hover { transform: translateY(-2px); }
-
-/* ── TOAST ── */
-.toast {
-  position: fixed; bottom: 6rem; right: 2rem; z-index: 300;
-  background: var(--bg2); border: 1px solid var(--teal);
-  color: var(--white); padding: .9rem 1.3rem;
-  border-radius: 12px; font-size: .84rem;
-  transform: translateY(20px); opacity: 0;
-  transition: all .3s; pointer-events: none;
-}
-.toast.show { transform: translateY(0); opacity: 1; }
-
-/* ── GLOWING LINES DECO ── */
-.glow-line {
-  width: 100%; height: 1px;
-  background: linear-gradient(to right, transparent, var(--teal), var(--purple), transparent);
-  opacity: .25; margin: 0;
-}
-
-/* ── ANIMATIONS ── */
-@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-.hero-inner { animation: fadeUp .6s ease both; }
-.featured-post { animation: fadeUp .6s .1s ease both; }
-.posts-grid { animation: fadeUp .6s .15s ease both; }
-.nl-card { animation: fadeUp .6s .2s ease both; }
-
-/* ── RESPONSIVE ── */
-@media (max-width: 960px) {
-  nav { padding: 0 1.5rem; }
-  .nav-links a:not(.nav-cta) { display: none; }
-  .hero { padding: 6rem 1.5rem 3rem; }
-  .hero-inner { grid-template-columns: 1fr; }
-  .hero-card { display: none; }
-  .section { padding: 2.5rem 1.5rem; }
-  .featured-post { grid-template-columns: 1fr; }
-  .feat-img { min-height: 220px; }
-  .posts-grid { grid-template-columns: 1fr; }
-  .post-wide { grid-column: span 1; grid-template-columns: 1fr; }
-  .post-wide .card-img { min-height: 160px; }
-  .nl-wrap { padding: 0 1.5rem 3rem; }
-  .nl-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 1.5rem; }
-  .nl-form { flex-direction: column; }
-  .nl-input { width: 100%; }
-  footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
-  .footer-bottom { padding: 1.2rem 1.5rem; flex-direction: column; gap: .6rem; }
-}
 </style>
 </head>
 <body>
 
-<!-- NAV -->
+
+
+<a href="https://wa.me/5511951131232?text=Olá%20Paulo!%20Vi%20seu%20portfólio%20e%20quero%20conversar%20sobre%20um%20projeto." target="_blank" class="wpp-float" title="Falar no WhatsApp">💬</a>
+
 <nav>
-  <a href="index.html" class="nav-logo">
-    <div class="dot"></div>
-    <span>Paulo <em>Santos</em></span>
-  </a>
-  <div class="nav-links">
-    <a href="#posts">Artigos</a>
-    <a href="#categorias">Temas</a>
-    <a href="../index.html">Site</a>
-    <a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog." target="_blank" class="nav-cta">💬 Falar com Paulo</a>
+  <a href="#" class="logo"><div class="logo-mark">PG</div><span class="logo-txt">Paulo<span> Growth AI</span></span></a>
+  <ul class="nav-links">
+    <li><a href="#servicos">Serviços</a></li>
+    <li><a href="#portfolio">Portfólio</a></li>
+    <li><a href="#processo">Processo</a></li>
+    <li><a href="#sobre">Sobre</a></li>
+    <li><a href="blog/index.html" style="color:#00d4ff!important;font-weight:600">Blog</a></li>
+  </ul>
+  <div class="nav-right">
+    <a href="https://wa.me/5511951131232" target="_blank" class="btn-wpp">💬 WhatsApp</a>
+    <a href="#contato" class="btn-cta">Falar comigo</a>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
-  <div class="hero-inner">
-    <div>
-      <div class="hero-tag">Growth AI · Blog</div>
-      <h1>Automação e <span class="hl-teal">IA</span><br>que transformam<br><span class="hl-gold">negócios reais.</span></h1>
-      <p class="hero-sub">Conteúdo educativo sobre como clínicas, corretoras, escritórios e e-commerces estão usando tecnologia para trabalhar menos e crescer mais.</p>
-      <div class="hero-actions">
-        <a href="#posts" class="btn-primary">Explorar artigos →</a>
-        <a href="#newsletter" class="btn-ghost">Receber toda semana</a>
-      </div>
+  <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
+  <div class="hero-l">
+    <div class="hero-badge"><span class="badge-dot"></span><span class="badge-txt">Disponível para novos projetos</span></div>
+    <h1>Dados & <em>IA</em><br>que geram<br><span class="outline">Growth</span></h1>
+    <p class="hero-sub">Sou <strong>Paulo</strong> — especialista em <strong>Mídia de Performance, Retail Media, Automação com IA e Dados</strong>. Transformo informação em resultado mensurável para empresas que querem crescer com inteligência.</p>
+    <div class="hero-acts">
+      <a href="#portfolio" class="btn-primary">Ver portfólio ↓</a>
+      <a href="https://wa.me/5511951131232?text=Olá%20Paulo!" target="_blank" class="btn-wha">💬 WhatsApp</a>
+      <a href="#servicos" class="btn-ghost">Serviços →</a>
     </div>
-    <div class="hero-card">
-      <div class="hero-card-label">Artigos publicados</div>
-      <div class="hero-card-num">08</div>
-      <div class="hero-card-desc">Posts prontos · Novos toda semana</div>
-      <div class="topics-list">
-        <div class="topic-item"><span>⚡</span> Automação de processos</div>
-        <div class="topic-item"><span>🤖</span> Chatbot e IA no WhatsApp</div>
-        <div class="topic-item"><span>📊</span> Dashboards e analytics</div>
-        <div class="topic-item"><span>🏥</span> Clínicas, escritórios, corretoras</div>
-        <div class="topic-item"><span>🛒</span> E-commerce e Retail Media</div>
+  </div>
+  <div class="hero-r">
+    <div class="hcard">
+      <div class="hc-lbl">// Automação em tempo real</div>
+      <div class="auto-flow">
+        <div class="af-step" id="s1"><span class="af-icon">📥</span><div class="af-lbl"><strong>Lead recebido</strong>Formulário do site</div><span class="af-st wait" id="st1">aguardando</span></div>
+        <div class="conn"></div>
+        <div class="af-step" id="s2"><span class="af-icon">🤖</span><div class="af-lbl"><strong>IA classifica</strong>GPT-4 analisa perfil</div><span class="af-st wait" id="st2">aguardando</span></div>
+        <div class="conn"></div>
+        <div class="af-step" id="s3"><span class="af-icon">📊</span><div class="af-lbl"><strong>Score calculado</strong>Lead scoring ML</div><span class="af-st wait" id="st3">aguardando</span></div>
+        <div class="conn"></div>
+        <div class="af-step" id="s4"><span class="af-icon">💬</span><div class="af-lbl"><strong>WhatsApp enviado</strong>Proposta personalizada</div><span class="af-st wait" id="st4">aguardando</span></div>
+      </div>
+      <div class="mmetrics">
+        <div class="mm"><div class="mm-n">3.8×</div><div class="mm-l">ROAS médio</div></div>
+        <div class="mm"><div class="mm-n">-42%</div><div class="mm-l">Redução CPA</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="glow-line"></div>
+<div class="stats">
+  <div class="su"><div class="su-n">5+</div><div class="su-l">Anos Performance</div></div>
+  <div class="su"><div class="su-n">IA</div><div class="su-l">Pós-Graduação</div></div>
+  <div class="su"><div class="su-n">n8n</div><div class="su-l">Automações live</div></div>
+  <div class="su"><div class="su-n">100%</div><div class="su-l">Atendimento direto</div></div>
+</div>
 
-<!-- AD BANNER TOP (Google AdSense / patrocinado) -->
-<div class="section" style="padding-top:2rem;padding-bottom:0">
-  <div class="ad-banner">
-    <!-- Google AdSense: cole o código do banner 728x90 aqui -->
-    Espaço publicitário · 728×90 · Google AdSense
+<div class="ticker">
+  <div class="tick-track">
+    <span class="tick-item"><span class="hi">◈</span> Python · n8n · VS Code · PostgreSQL · Power BI · GA4 · Looker Studio · OpenAI API · Google Ads · Meta Ads · Amazon Ads · Scikit-learn · Pandas · GitHub</span>
+    <span class="tick-item"><span class="hi">◈</span> Retail Media · Performance · Commerce · Growth · Automação · BI · Machine Learning · Lead Scoring · Funil · CRO · ROAS · CPA</span>
+    <span class="tick-item"><span class="hi">◈</span> Python · n8n · VS Code · PostgreSQL · Power BI · GA4 · Looker Studio · OpenAI API · Google Ads · Meta Ads · Amazon Ads · Scikit-learn · Pandas · GitHub</span>
+    <span class="tick-item"><span class="hi">◈</span> Retail Media · Performance · Commerce · Growth · Automação · BI · Machine Learning · Lead Scoring · Funil · CRO · ROAS · CPA</span>
   </div>
 </div>
 
-<!-- FEATURED POST -->
-<section class="section" id="posts" style="padding-top:1.5rem">
-  <div class="section-header">
-    <div>
-      <div class="section-label">Destaque</div>
-      <div class="section-title">Artigo da semana</div>
+<section class="sec srv-wrap" id="servicos">
+  <div class="sec-inner">
+    <div class="lbl rev">Serviços</div>
+    <h2 class="sh rev">O que posso fazer<br>pelo seu <em>negócio</em>.</h2>
+    <p class="ssub rev">Do primeiro dashboard à operação completa com IA. Cada projeto é desenhado sob medida — escopo, prazo e investimento definidos juntos.</p>
+    <div class="srv-grid rev">
+      <div class="srv-c"><span class="srv-num">01</span><span class="srv-ico">⚡</span><div class="srv-t">Automação com IA & n8n</div><p class="srv-d">Fluxos que eliminam trabalho manual e integram sistemas. Do CRM ao relatório automático, tudo conectado com inteligência.</p><div class="tags"><span class="tag">n8n</span><span class="tag">Python</span><span class="tag">OpenAI</span></div></div>
+      <div class="srv-c"><span class="srv-num">02</span><span class="srv-ico">📊</span><div class="srv-t">Mídia de Performance</div><p class="srv-d">Estratégia e gestão de campanhas em Google, Meta, Amazon e Retail Media com foco total em ROAS e escala real.</p><div class="tags"><span class="tag">Google Ads</span><span class="tag">Meta Ads</span><span class="tag">ROAS</span></div></div>
+      <div class="srv-c"><span class="srv-num">03</span><span class="srv-ico">🔬</span><div class="srv-t">Análise de Dados & BI</div><p class="srv-d">Dashboards com dados de múltiplas fontes. Relatórios que você entende e que orientam decisões estratégicas.</p><div class="tags"><span class="tag">Power BI</span><span class="tag">SQL</span><span class="tag">ETL</span></div></div>
+      <div class="srv-c"><span class="srv-num">04</span><span class="srv-ico">🤖</span><div class="srv-t">IA Aplicada ao Marketing</div><p class="srv-d">Lead scoring, previsão de vendas e modelos preditivos com Machine Learning para antecipar tendências.</p><div class="tags"><span class="tag">ML</span><span class="tag">Lead Scoring</span><span class="tag">Previsão</span></div></div>
+      <div class="srv-c"><span class="srv-num">05</span><span class="srv-ico">🚀</span><div class="srv-t">Consultoria Growth</div><p class="srv-d">Diagnóstico completo de funil, mapeamento de oportunidades e implementação de estratégias com IA.</p><div class="tags"><span class="tag">Growth</span><span class="tag">Funil</span><span class="tag">CRO</span></div></div>
+      <div class="srv-c"><span class="srv-num">06</span><span class="srv-ico">♻️</span><div class="srv-t">Parceria Mensal</div><p class="srv-d">Sou uma extensão da sua equipe — cuidando de dados, automações e performance continuamente.</p><div class="tags"><span class="tag">Retainer</span><span class="tag">Mensal</span><span class="tag">Contínuo</span></div></div>
     </div>
   </div>
-  <a href="post-automacao-clinicas.html" class="featured-post">
-    <div class="feat-img">
-      <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80&auto=format&fit=crop" alt="Automação para clínicas">
-      <div class="feat-img-overlay"></div>
+</section>
+
+<section class="sec" id="portfolio" style="border-top:1px solid var(--line)">
+  <div class="sec-inner">
+    <div class="lbl rev">Portfólio</div>
+    <h2 class="sh rev">Projetos reais,<br><em>resultados</em> reais.</h2>
+    <p class="ssub rev">Clique para ver a simulação ao vivo — cada projeto mostra o fluxo completo funcionando, da entrada de dados à decisão automatizada.</p>
+    <div class="port-grid">
+
+      <a href="case-corretora.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cor"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">corretora_automation.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">Seguros</span><span class="pcat">Automação</span><span class="pcat">WhatsApp</span></div>
+          <h4>Corretora de Seguros 360°</h4>
+          <p>Captação, qualificação por IA, CRM automático, follow-up e renovações. O corretor atende quem tem interesse real.</p>
+          <div class="plink">Ver simulação ao vivo →</div>
+        </div>
+      </div>
+
+      <a href="case-clinica.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cli"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">clinica_scheduler.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">Saúde</span><span class="pcat">Agenda 24h</span><span class="pcat">Reativação</span></div>
+          <h4>Clínica Médica Automação</h4>
+          <p>Agendamento 24h via WhatsApp, redução de no-show, reativação de pacientes e relatório semanal automático.</p>
+          <div class="plink">Ver simulação ao vivo →</div>
+        </div>
+      </div>
+
+      <a href="case-barbearia.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-bar"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">barbearia_bot.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">Barbearia</span><span class="pcat">Fidelidade</span><span class="pcat">Bot</span></div>
+          <h4>Barbearia Bot & Pontos</h4>
+          <p>Agendamento automático, programa de pontos sem app, reativação em 25 dias e drastica redução de no-show.</p>
+          <div class="plink">Ver simulação ao vivo →</div>
+        </div>
+      </div>
+
+      <a href="case-contabil.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-cnt"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">contabil_pipeline.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">Contabilidade</span><span class="pcat">IA</span><span class="pcat">Relatórios</span></div>
+          <h4>Escritório Contábil AI</h4>
+          <p>Cobrança automática de documentos, organização por IA, relatório DRE gerado em minutos e alertas fiscais.</p>
+          <div class="plink">Ver simulação ao vivo →</div>
+        </div>
+      </div>
+
+      <a href="case-agencia.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-age"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">agencia_performance.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">Agência</span><span class="pcat">Performance</span><span class="pcat">BI</span></div>
+          <h4>Agência de Performance</h4>
+          <p>Dashboard unificado Google + Meta + TikTok, relatórios automáticos para clientes e alertas de anomalia em tempo real.</p>
+          <div class="plink">Ver simulação ao vivo →</div>
+        </div>
+      </div>
+
+      <a href="case-basquete.html" class="pcard rev" style="cursor:pointer">
+        <div class="pthumb pt-ret"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">hoopstats_app.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
+        <div class="pbody">
+          <div class="pcats"><span class="pcat">App</span><span class="pcat">Basquete</span><span class="pcat">SaaS</span></div>
+          <h4>HoopStats · App de Basquete</h4>
+          <p>Plataforma SaaS completa com estatísticas ao vivo, comparativo de jogadores e análise de desempenho por IA.</p>
+          <div class="plink">Ver demo ao vivo →</div>
+        </div>
+      </div>
+
     </div>
-    <div class="feat-body">
+  </div>
+</section>
+
+<section class="sec" id="processo" style="background:var(--ink2);border-top:1px solid var(--line)">
+  <div class="sec-inner">
+    <div class="lbl rev">Metodologia</div>
+    <h2 class="sh rev">Como <em>trabalho</em><br>com cada cliente.</h2>
+    <p class="ssub rev">Processo claro do primeiro contato à entrega final. Sem surpresas, sem sumiços.</p>
+    <div class="proc-grid">
+      <div class="proc-c rev"><div class="proc-n">01</div><h4>Descoberta</h4><p>Reunião para entender seus desafios, dados e objetivos. Nenhuma solução começa sem clareza sobre o problema real.</p></div>
+      <div class="proc-c rev"><div class="proc-n">02</div><h4>Proposta</h4><p>Proposta personalizada com escopo, entregáveis e prazos. Apresentação ao vivo para tirar todas as dúvidas.</p></div>
+      <div class="proc-c rev"><div class="proc-n">03</div><h4>Kick-off</h4><p>Contrato assinado, acessos configurados e cronograma definido. Board compartilhado para você acompanhar tudo.</p></div>
+      <div class="proc-c rev"><div class="proc-n">04</div><h4>Execução</h4><p>Desenvolvimento com atualizações semanais e marcos claros. Comunicação proativa — você sempre sabe o andamento.</p></div>
+      <div class="proc-c rev"><div class="proc-n">05</div><h4>Entrega</h4><p>Você testa, valida e aprova. Documentação completa e treinamento da sua equipe incluídos em todos os projetos.</p></div>
+      <div class="proc-c rev"><div class="proc-n">06</div><h4>Evolução</h4><p>Opção de retainer mensal para crescimento contínuo. O objetivo é resultado sustentável — não só no lançamento.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="sobre" style="border-top:1px solid var(--line)">
+  <div class="sec-inner">
+    <div class="about-grid">
       <div>
-        <div class="post-cats"><span class="cat cat-auto">Automação</span><span class="cat cat-clinica">Clínicas</span></div>
-        <div class="post-meta"><span>12 Jan 2026</span><span class="sep">·</span><span>6 min de leitura</span></div>
-        <h2>Clínica com agenda cheia e recepção sobrecarregada? O problema não é falta de gente — é falta de automação.</h2>
-        <p>Confirmação de consulta, lembrete de retorno, cobrança de documentos: tudo isso pode acontecer sozinho. Veja como clínicas estão eliminando faltas e liberando a equipe para o que importa.</p>
+        <div class="lbl rev">Sobre Paulo</div>
+        <h2 class="sh rev">Onde <em>publicidade</em><br>encontra dados e IA.</h2>
+        <p class="ap rev">Sou <strong>Paulo Santos</strong>, formado em <strong>Publicidade e Propaganda</strong> com pós-graduação em <strong>Ciências de Dados e Inteligência Artificial</strong>. Atuo como <strong>Coordenador de Mídia de Performance</strong> com foco em Retail Media e Commerce.</p>
+        <p class="ap rev">Minha diferença: <strong>visão estratégica de marketing + domínio técnico de dados e IA</strong>. Trabalho de forma direta — você fala <strong>comigo em todas as etapas</strong>. Sem intermediários, sem surpresas.</p>
+        <p class="ap rev">Estrutura completa: Python, n8n, VS Code, PostgreSQL, GitHub — tudo pronto para criar e entregar soluções reais.</p>
+        <div class="sk-wrap rev">
+          <span class="sk">Python</span><span class="sk">n8n</span><span class="sk">PostgreSQL</span><span class="sk">VS Code</span><span class="sk">Power BI</span><span class="sk">Looker Studio</span><span class="sk">GA4</span><span class="sk">Google Ads</span><span class="sk">Meta Ads</span><span class="sk">Amazon Ads</span><span class="sk">OpenAI API</span><span class="sk">Scikit-learn</span><span class="sk">Pandas</span><span class="sk">GitHub</span><span class="sk">SQL</span><span class="sk">Jupyter</span>
+        </div>
       </div>
-      <span class="read-btn">Ler artigo completo →</span>
-    </div>
-  </a>
-</section>
-
-<div class="divider"></div>
-
-<!-- GRID POSTS -->
-<section class="section" style="padding-top:2.5rem">
-  <div class="section-header">
-    <div>
-      <div class="section-label">Artigos</div>
-      <div class="section-title">Últimas publicações</div>
-    </div>
-    <a href="#" class="see-all">Ver todos →</a>
-  </div>
-
-  <div class="posts-grid" id="grid">
-
-    <!-- WIDE: Chatbot IA -->
-    <a href="post-chatbot-whatsapp.html" class="post-wide" data-cat="ia">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=500&q=80&auto=format&fit=crop" alt="Chatbot WhatsApp IA">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-ia">IA</span><span class="cat cat-auto">Chatbot</span></div>
-        <h3>Como um chatbot com IA no WhatsApp atende clientes 24h — e por que sua empresa ainda não tem um</h3>
-        <p>Leads que chegam às 22h e não são respondidos vão para o concorrente. Entenda como funciona, quem precisa e o que muda na prática.</p>
-        <div class="post-meta" style="margin-top:auto"><span>05 Jan 2026</span><span class="sep">·</span><span>5 min</span></div>
-      </div>
-    </a>
-
-    <!-- CARD: Dashboard -->
-    <a href="post-dashboard-decisao.html" class="post-card" data-cat="dados">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80&auto=format&fit=crop" alt="Dashboard Power BI">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-dados">Dados</span><span class="cat cat-ia">Power BI</span></div>
-        <h3>Você ainda recebe relatório semanal? Isso significa que está decidindo com dados velhos.</h3>
-        <p>Dashboard em tempo real vs. relatório atrasado — o que muda nas decisões e no resultado final.</p>
-        <div class="card-meta">29 Dez 2025 · 5 min</div>
-      </div>
-    </a>
-
-    <!-- CARD: Escritório Contábil -->
-    <a href="post-automacao-escritorio.html" class="post-card" data-cat="automacao">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80&auto=format&fit=crop" alt="Escritório contábil automação">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-auto">Automação</span></div>
-        <h3>Escritório contábil que ainda cobra documentos manualmente está desperdiçando horas todo mês.</h3>
-        <p>Cobrança automática via WhatsApp, organização de documentos e geração de DRE sem intervenção humana.</p>
-        <div class="card-meta">22 Dez 2025 · 6 min</div>
-      </div>
-    </a>
-
-    <!-- CARD: Corretora -->
-    <a href="post-crm-corretora.html" class="post-card" data-cat="ia">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=500&q=80&auto=format&fit=crop" alt="CRM Corretora">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-ia">CRM</span><span class="cat cat-auto">Automação</span></div>
-        <h3>Corretora de seguros: como parar de perder lead por falta de follow-up a tempo.</h3>
-        <p>Qualificação automática, cotação em segundos e follow-up programado para sua equipe comercial.</p>
-        <div class="card-meta">15 Dez 2025 · 5 min</div>
-      </div>
-    </a>
-
-    <!-- WIDE: E-commerce -->
-    <a href="post-ecommerce-dados.html" class="post-wide" data-cat="dados">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&q=80&auto=format&fit=crop" alt="E-commerce dados">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-dados">Dados</span><span class="cat cat-mkt">E-commerce</span></div>
-        <h3>E-commerce sem dados integrados é loja sem vitrine: você vende no escuro.</h3>
-        <p>Como unificar Amazon Ads, Meta Ads e vendas em um único painel e parar de desperdiçar verba.</p>
-        <div class="post-meta" style="margin-top:auto"><span>08 Dez 2025</span><span class="sep">·</span><span>7 min</span></div>
-      </div>
-    </a>
-
-    <!-- CARD: Integração sistemas -->
-    <a href="post-integracao-sistemas.html" class="post-card" data-cat="automacao">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&q=80&auto=format&fit=crop" alt="Integração de sistemas">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-auto">Integração</span></div>
-        <h3>Seus sistemas não conversam entre si? Então sua empresa está trabalhando com informação incompleta.</h3>
-        <p>Como conectar CRM, financeiro, ads e WhatsApp numa operação que funciona sozinha.</p>
-        <div class="card-meta">01 Dez 2025 · 5 min</div>
-      </div>
-    </a>
-
-    <!-- CARD: IA para PMEs -->
-    <a href="post-ia-pme.html" class="post-card" data-cat="ia">
-      <div class="card-img">
-        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=500&q=80&auto=format&fit=crop" alt="IA para pequenas empresas">
-        <div class="card-img-overlay"></div>
-      </div>
-      <div class="card-body">
-        <div class="post-cats"><span class="cat cat-ia">IA</span></div>
-        <h3>Pequena empresa também pode usar IA. O que era privilégio de grandes corporações agora cabe no seu orçamento.</h3>
-        <p>Do chatbot ao relatório automático: aplicações práticas de IA que qualquer empresa pode implementar hoje.</p>
-        <div class="card-meta">24 Nov 2025 · 6 min</div>
-      </div>
-    </a>
-
-  </div>
-</section>
-
-<!-- AD MID PAGE -->
-<div class="section" style="padding-top:0;padding-bottom:1rem">
-  <div class="ad-banner">
-    <!-- Google AdSense: cole o código do banner 728x90 aqui -->
-    Espaço publicitário · 728×90 · Google AdSense
-  </div>
-</div>
-
-<div class="glow-line"></div>
-
-<!-- NEWSLETTER -->
-<section class="nl-wrap" id="newsletter" style="padding-top:3rem">
-  <div class="nl-card">
-    <div>
-      <div class="nl-label">Newsletter · Toda semana</div>
-      <div class="nl-title">Fique à frente da concorrência.</div>
-      <p class="nl-sub">Conteúdo direto sobre automação, IA e dados. Sem enrolação, sem spam.</p>
-    </div>
-    <div>
-      <div class="nl-form">
-        <input class="nl-input" type="email" id="nl-email" placeholder="seu@email.com">
-        <button class="nl-btn" onclick="subscribe()">Quero receber →</button>
+      <div>
+        <div class="cred rev"><div class="cred-yr">Atual · Coordenador</div><div class="cred-t">Mídia de Performance · Retail Media & Commerce</div><div class="cred-s">Gestão e estratégia de campanhas em larga escala com foco em ROAS e retail media.</div></div>
+        <div class="cred rev"><div class="cred-yr">Pós-Graduação</div><div class="cred-t">Ciências de Dados & Inteligência Artificial</div><div class="cred-s">Machine Learning, modelos preditivos e aplicações práticas de IA em negócios.</div></div>
+        <div class="cred rev"><div class="cred-yr">Graduação</div><div class="cred-t">Publicidade e Propaganda</div><div class="cred-s">Estratégia de marca, comportamento do consumidor e campanhas de marketing.</div></div>
+        <div class="cred rev"><div class="cred-yr">Agora · Builder & Consultor</div><div class="cred-t">Automações, BI e Soluções com IA</div><div class="cred-s">Portfólio ativo no GitHub. Atendimento 100% direto, sem terceiros.</div></div>
+        <div class="manifesto rev"><p>"Não vendo ferramenta. Vendo resultado. E resultado precisa de dados, automação e inteligência — não só de boa vontade."</p><cite>— Paulo Santos · Growth AI</cite></div>
       </div>
     </div>
   </div>
 </section>
 
-<div class="glow-line"></div>
+<section class="cta" id="contato">
+  <div class="cta-orb"></div>
+  <div class="lbl rev" style="justify-content:center">Vamos trabalhar juntos</div>
+  <h2 class="sh rev" style="font-size:clamp(2.5rem,5vw,4rem);max-width:680px;margin:0 auto 1rem">Pronto para transformar seus dados em <em>crescimento</em>?</h2>
+  <p class="ssub rev" style="margin:0 auto 3rem;text-align:center">Me conta o desafio. Em até 24h respondo com análise e proposta personalizada.</p>
+  <div class="cta-btns rev">
+    <a href="https://wa.me/5511951131232?text=Olá%20Paulo!%20Vi%20seu%20portfólio%20e%20quero%20conversar." target="_blank" class="btn-wha">💬 Falar no WhatsApp</a>
+    <a href="/cdn-cgi/l/email-protection#f08091859c9fde83919e849f83b097989f8784989991de939f9dde9282" class="btn-primary">✉ Enviar e-mail</a>
+    <a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank" class="btn-ghost">LinkedIn →</a>
+  </div>
+  <div class="cinfo rev">✉ <a href="/cdn-cgi/l/email-protection#d5a5b4a0b9bafba6b4bba1baa695b2bdbaa2a1bdbcb4fbb6bab8fbb7a7"><span class="__cf_email__" data-cfemail="a1d1c0d4cdce8fd2c0cfd5ced2e1c6c9ced6d5c9c8c08fc2cecc8fc3d3">[email&#160;protected]</span></a> &nbsp;·&nbsp; 💬 <a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a> &nbsp;·&nbsp; 🐙 <a href="blog/index.html" style="color:#00d4ff">Blog</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a></div>
+</section>
 
-<!-- FOOTER -->
 <footer>
-  <div class="footer-brand">
-    <div class="footer-logo">Paulo <em>Santos</em></div>
-    <p class="footer-desc">Especialista em Dados, IA e Automação. Ajudo empresas a crescerem usando tecnologia de forma prática e acessível.</p>
-    <div class="footer-social">
-      <a href="https://www.instagram.com/paulosantos.growthai" target="_blank" class="social-btn" title="Instagram">IG</a>
-      <a href="https://wa.me/5511951131232" target="_blank" class="social-btn" title="WhatsApp">WA</a>
-    </div>
-  </div>
-  <div class="footer-col">
-    <h4>Temas</h4>
-    <ul>
-      <li><a href="#">Automação</a></li>
-      <li><a href="#">IA & Chatbot</a></li>
-      <li><a href="#">Dashboards</a></li>
-      <li><a href="#">E-commerce</a></li>
-      <li><a href="#">Clínicas</a></li>
-    </ul>
-  </div>
-  <div class="footer-col">
-    <h4>Serviços</h4>
-    <ul>
-      <li><a href="https://paulo-crescimento-ia.vercel.app" target="_blank">Portfólio</a></li>
-      <li><a href="https://paulo-crescimento-ia.vercel.app/landing-paulo.html" target="_blank">Todos os serviços</a></li>
-      <li><a href="https://wa.me/5511951131232" target="_blank">Consultoria</a></li>
-    </ul>
-  </div>
-  <div class="footer-col">
-    <h4>Contato</h4>
-    <ul>
-      <li><a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a></li>
-      <li><a href="https://www.instagram.com/paulosantos.growthai" target="_blank">Instagram</a></li>
-    </ul>
-  </div>
+  <div class="fl">Paulo Santos · <span>Growth AI</span></div>
+  <div class="flinks"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a><a href="blog/index.html" style="color:#00d4ff">Blog</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank">LinkedIn</a></div>
+  <div class="fcopy">© 2026 Paulo Santos · Growth AI · Dados, IA & Performance</div>
 </footer>
-<div class="footer-bottom">
-  <span>© 2026 Paulo Santos · Growth AI</span>
-  <span>@paulosantos.growthai</span>
-</div>
 
-<a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog%20e%20quero%20conversar." target="_blank" class="wpp">💬 Falar com Paulo</a>
-<div class="toast" id="toast">✅ Inscrito! Até semana que vem.</div>
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+// Navegação direta — sem overlay
 
-<script>
-function subscribe(){
-  const e=document.getElementById('nl-email').value;
-  if(!e||!e.includes('@')){alert('Digite um email válido.');return;}
-  // Cole aqui a URL do seu Google Apps Script
-  const URL='SUA_URL_APPS_SCRIPT';
-  fetch(URL+'?tipo=newsletter&email='+encodeURIComponent(e)+'&origem=blog&data='+new Date().toLocaleDateString('pt-BR')).catch(()=>{});
-  document.getElementById('nl-email').value='';
-  const t=document.getElementById('toast');
-  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);
+// SCROLL REVEAL
+const obs=new IntersectionObserver((es)=>{es.forEach((e,i)=>{if(e.isIntersecting)setTimeout(()=>e.target.classList.add('in'),i*70)})},{threshold:.08});
+document.querySelectorAll('.rev').forEach(el=>obs.observe(el));
+
+// HERO ANIMATION
+const steps=[['s1','st1'],['s2','st2'],['s3','st3'],['s4','st4']];
+let cur=0;
+function runAuto(){
+  steps.forEach(([sId,stId],i)=>{
+    const el=document.getElementById(sId);const st=document.getElementById(stId);
+    if(!el)return;
+    if(i<cur){el.classList.add('done');el.classList.remove('active');if(st){st.className='af-st ok';st.textContent='✓ feito'}}
+    else if(i===cur){el.classList.add('active');el.classList.remove('done');if(st){st.className='af-st run';st.textContent='● rodando'}}
+    else{el.classList.remove('active','done');if(st){st.className='af-st wait';st.textContent='aguardando'}}
+  });
+  cur++;
+  if(cur<=steps.length)setTimeout(runAuto,1300);
+  else setTimeout(()=>{cur=0;steps.forEach(([sId,stId])=>{const el=document.getElementById(sId);const st=document.getElementById(stId);if(el){el.classList.remove('active','done')}if(st){st.className='af-st wait';st.textContent='aguardando'}});setTimeout(runAuto,800)},2500);
 }
-// Analytics
-(function(){try{fetch('SUA_URL_APPS_SCRIPT?tipo=pageview&pagina=blog-index&data='+new Date().toLocaleDateString('pt-BR')).catch(()=>{});}catch(e){}})();
-</script>
-</body>
-</html>
+setTimeout(runAuto,1800);
+const navLinks=
