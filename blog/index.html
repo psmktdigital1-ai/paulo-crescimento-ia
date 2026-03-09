@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- SEO -->
+<title>Paulo Santos | Blog de Automação, IA e Dados para Empresas</title>
+<meta name="description" content="Aprenda como automação, inteligência artificial e dashboards podem transformar sua empresa. Conteúdo prático para clínicas, corretoras, escritórios e e-commerces.">
+<meta name="keywords" content="automação de processos, inteligência artificial empresas, Power BI, n8n, chatbot whatsapp, dashboard, Paulo Santos, Growth AI">
+<meta name="author" content="Paulo Santos">
+<meta name="robots" content="index, follow">
+
+<!-- Open Graph -->
+<meta property="og:title" content="Paulo Santos | Automação, IA e Dados para Empresas">
+<meta property="og:description" content="Conteúdo educativo sobre como tecnologia pode transformar sua operação.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://paulo-crescimento-ia.vercel.app/blog">
+<meta property="og:image" content="https://paulo-crescimento-ia.vercel.app/og-image.jpg">
+
+<!-- Schema.org -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Blog",
+  "name": "Paulo Santos – Growth AI Blog",
+  "description": "Automação, IA e dados aplicados a negócios reais",
+  "url": "https://paulo-crescimento-ia.vercel.app/blog",
+  "author": {
+    "@type": "Person",
+    "name": "Paulo Santos",
+    "jobTitle": "Especialista em Dados, IA e Automação",
+    "sameAs": ["https://www.instagram.com/paulosantos.growthai","https://wa.me/5511951131232"]
+  }
+}
+</script>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+<style>
+/* ── TOKENS — identidade do Instagram: dark teal + roxo + dourado ── */
+:root {
+  --bg:       #080C10;
+  --bg2:      #0D1218;
+  --bg3:      #121A22;
+  --teal:     #00B4C6;
+  --teal2:    #00D4C8;
+  --purple:   #7B4FD4;
+  --purple2:  #9B6FF4;
+  --gold:     #C9A84C;
+  --gold2:    #F0CC72;
+  --white:    #EEF2F5;
+  --body:     #A8B4C0;
+  --muted:    #556070;
+  --border:   rgba(0,180,198,0.12);
+  --border2:  rgba(123,79,212,0.15);
+  --mono:     'JetBrains Mono', monospace;
+  --head:     'Syne', sans-serif;
+  --sans:     'DM Sans', sans-serif;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body {
+  background: var(--bg);
+  color: var(--white);
+  font-family: var(--sans);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* ── NOISE TEXTURE ── */
+body::before {
+  content: '';
+  position: fixed; inset: 0; z-index: 0; pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+  opacity: .5;
+}
+
+/* ── NAV ── */
+nav {
+  position: fixed; top: 0; inset-inline: 0; z-index: 100;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 3rem; height: 64px;
+  background: rgba(8,12,16,0.92);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--border);
+}
+.nav-logo {
+  font-family: var(--head); font-size: 1rem; font-weight: 800;
+  text-decoration: none; display: flex; align-items: center; gap: .5rem;
+}
+.nav-logo .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--teal); }
+.nav-logo span { color: var(--white); }
+.nav-logo em { color: var(--teal); font-style: normal; }
+.nav-links { display: flex; align-items: center; gap: 2rem; }
+.nav-links a { font-size: .82rem; color: var(--muted); text-decoration: none; transition: color .2s; font-family: var(--mono); letter-spacing: .04em; }
+.nav-links a:hover { color: var(--teal); }
+.nav-cta {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff !important; font-weight: 600 !important;
+  padding: .45rem 1.1rem; border-radius: 8px;
+  font-family: var(--sans) !important; letter-spacing: 0 !important;
+  font-size: .82rem !important;
+}
+
+/* ── HERO ── */
+.hero {
+  position: relative; z-index: 1;
+  padding: 7rem 3rem 4rem;
+  max-width: 1160px; margin: 0 auto;
+}
+.hero-inner {
+  display: grid; grid-template-columns: 1fr 340px;
+  gap: 4rem; align-items: center;
+}
+.hero-tag {
+  display: inline-flex; align-items: center; gap: .6rem;
+  font-family: var(--mono); font-size: .6rem; color: var(--teal);
+  letter-spacing: .2em; text-transform: uppercase;
+  background: rgba(0,180,198,.07); border: 1px solid rgba(0,180,198,.15);
+  padding: .4rem 1rem; border-radius: 100px; margin-bottom: 1.4rem;
+}
+.hero-tag::before { content: ''; width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: pulse 2s infinite; }
+@keyframes pulse { 0%,100%{opacity:1} 50%{opacity:.3} }
+.hero h1 {
+  font-family: var(--head); font-size: clamp(2.2rem, 4.5vw, 3.6rem);
+  font-weight: 800; line-height: 1.08; letter-spacing: -.03em;
+  color: var(--white); margin-bottom: 1.2rem;
+}
+.hero h1 .hl-teal { color: var(--teal); }
+.hero h1 .hl-gold { color: var(--gold2); }
+.hero-sub { font-size: .97rem; color: var(--body); line-height: 1.75; max-width: 520px; margin-bottom: 2rem; }
+.hero-actions { display: flex; gap: 1rem; flex-wrap: wrap; }
+.btn-primary {
+  display: inline-flex; align-items: center; gap: .5rem;
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-size: .88rem; font-weight: 600;
+  padding: .75rem 1.4rem; border-radius: 10px;
+  text-decoration: none; transition: opacity .2s, transform .2s;
+}
+.btn-primary:hover { opacity: .88; transform: translateY(-1px); }
+.btn-ghost {
+  display: inline-flex; align-items: center; gap: .5rem;
+  color: var(--body); font-size: .88rem; text-decoration: none;
+  border: 1px solid var(--border); padding: .75rem 1.4rem; border-radius: 10px;
+  transition: all .2s;
+}
+.btn-ghost:hover { border-color: var(--teal); color: var(--teal); }
+
+/* HERO CARD */
+.hero-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 18px; padding: 1.5rem; position: relative; overflow: hidden;
+}
+.hero-card::before {
+  content: ''; position: absolute; top: -60px; right: -60px;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,180,198,.12), transparent 70%);
+}
+.hero-card-label { font-family: var(--mono); font-size: .58rem; color: var(--muted); letter-spacing: .15em; text-transform: uppercase; margin-bottom: .8rem; }
+.hero-card-num { font-family: var(--head); font-size: 3.2rem; font-weight: 800; color: var(--teal); line-height: 1; margin-bottom: .2rem; }
+.hero-card-desc { font-size: .82rem; color: var(--body); margin-bottom: 1.2rem; }
+.topics-list { display: flex; flex-direction: column; gap: .5rem; }
+.topic-item {
+  display: flex; align-items: center; gap: .7rem;
+  font-size: .82rem; color: var(--body); padding: .5rem .8rem;
+  background: rgba(255,255,255,.03); border-radius: 8px;
+  border-left: 2px solid var(--teal);
+}
+.topic-item span { font-size: .75rem; }
+
+/* ── DIVIDER ── */
+.divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+/* ── SECTION ── */
+.section { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 3.5rem 3rem; }
+.section-header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 2rem; }
+.section-label {
+  display: flex; align-items: center; gap: .6rem;
+  font-family: var(--mono); font-size: .6rem; color: var(--teal);
+  letter-spacing: .18em; text-transform: uppercase;
+}
+.section-label::before { content: ''; width: 20px; height: 1px; background: var(--teal); }
+.section-title { font-family: var(--head); font-size: 1.5rem; font-weight: 700; color: var(--white); margin-top: .3rem; letter-spacing: -.02em; }
+.see-all { font-family: var(--mono); font-size: .6rem; color: var(--muted); text-decoration: none; letter-spacing: .1em; text-transform: uppercase; transition: color .2s; }
+.see-all:hover { color: var(--teal); }
+
+/* ── FEATURED POST ── */
+.featured-post {
+  display: grid; grid-template-columns: 1fr 380px;
+  gap: 0; border-radius: 18px; overflow: hidden;
+  border: 1px solid var(--border); background: var(--bg2);
+  text-decoration: none; color: inherit;
+  transition: border-color .3s;
+}
+.featured-post:hover { border-color: rgba(0,180,198,.35); }
+.feat-img {
+  position: relative; min-height: 320px; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+}
+.feat-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.7) saturate(.8); transition: transform .5s; }
+.featured-post:hover .feat-img img { transform: scale(1.04); }
+.feat-img-overlay { position: absolute; inset: 0; background: linear-gradient(to right, rgba(13,18,24,.5), transparent); }
+.feat-body { padding: 2.5rem; display: flex; flex-direction: column; justify-content: space-between; }
+.post-cats { display: flex; gap: .5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+.cat { font-family: var(--mono); font-size: .55rem; padding: .25rem .7rem; border-radius: 100px; letter-spacing: .1em; text-transform: uppercase; font-weight: 500; }
+.cat-auto  { background: rgba(0,180,198,.1);  color: var(--teal);   border: 1px solid rgba(0,180,198,.2); }
+.cat-ia    { background: rgba(123,79,212,.1); color: var(--purple2);border: 1px solid rgba(123,79,212,.2); }
+.cat-dados { background: rgba(201,168,76,.1); color: var(--gold2);  border: 1px solid rgba(201,168,76,.2); }
+.cat-clinica{background:rgba(0,229,160,.08); color: #34d399;       border: 1px solid rgba(0,229,160,.15); }
+.cat-mkt   { background: rgba(239,68,68,.07); color: #fca5a5;      border: 1px solid rgba(239,68,68,.15); }
+.feat-body h2 { font-family: var(--head); font-size: 1.55rem; font-weight: 700; line-height: 1.2; letter-spacing: -.025em; color: var(--white); margin-bottom: .8rem; }
+.feat-body p { font-size: .9rem; color: var(--body); line-height: 1.7; margin-bottom: 1.4rem; }
+.post-meta { font-family: var(--mono); font-size: .58rem; color: var(--muted); display: flex; gap: .6rem; align-items: center; margin-bottom: 1.2rem; }
+.post-meta .sep { color: var(--border); }
+.read-btn {
+  display: inline-flex; align-items: center; gap: .4rem;
+  font-size: .82rem; font-weight: 600; color: var(--teal);
+  transition: gap .2s;
+}
+.featured-post:hover .read-btn { gap: .7rem; }
+
+/* ── POSTS GRID ── */
+.posts-grid { display: grid; grid-template-columns: repeat(3,1fr); gap: 1.5rem; }
+.post-card {
+  background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit;
+  transition: all .25s; display: flex; flex-direction: column;
+}
+.post-card:hover { border-color: rgba(0,180,198,.3); transform: translateY(-3px); box-shadow: 0 16px 40px rgba(0,0,0,.4); }
+.card-img { width: 100%; aspect-ratio: 16/9; overflow: hidden; position: relative; }
+.card-img img { width: 100%; height: 100%; object-fit: cover; filter: brightness(.75) saturate(.8); transition: transform .4s; }
+.post-card:hover .card-img img { transform: scale(1.06); }
+.card-img-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(13,18,24,.6), transparent 50%); }
+.card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+.card-body .post-cats { margin-bottom: .6rem; }
+.card-body h3 { font-family: var(--head); font-size: 1rem; font-weight: 700; line-height: 1.3; letter-spacing: -.015em; color: var(--white); margin-bottom: .5rem; transition: color .2s; }
+.post-card:hover .card-body h3 { color: var(--teal); }
+.card-body p { font-size: .82rem; color: var(--muted); line-height: 1.6; flex: 1; margin-bottom: .8rem; }
+.card-meta { font-family: var(--mono); font-size: .56rem; color: var(--muted); }
+
+/* ── WIDE CARD ── */
+.post-wide {
+  grid-column: span 2; display: grid; grid-template-columns: 220px 1fr;
+  gap: 0; background: var(--bg2); border: 1px solid var(--border);
+  border-radius: 14px; overflow: hidden; text-decoration: none; color: inherit;
+  transition: all .25s;
+}
+.post-wide:hover { border-color: rgba(123,79,212,.3); transform: translateY(-2px); }
+.post-wide .card-img { aspect-ratio: unset; min-height: 200px; }
+.post-wide .card-body { padding: 1.5rem; }
+.post-wide .card-body h3 { font-size: 1.12rem; }
+
+/* ── NEWSLETTER ── */
+.nl-wrap { position: relative; z-index: 1; max-width: 1160px; margin: 0 auto; padding: 0 3rem 4rem; }
+.nl-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 20px; padding: 3rem;
+  display: grid; grid-template-columns: 1fr auto;
+  gap: 2rem; align-items: center;
+  position: relative; overflow: hidden;
+}
+.nl-card::before {
+  content: ''; position: absolute; right: -100px; top: -100px;
+  width: 300px; height: 300px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(123,79,212,.1), transparent 70%);
+  pointer-events: none;
+}
+.nl-card::after {
+  content: ''; position: absolute; left: -80px; bottom: -80px;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(0,180,198,.07), transparent 70%);
+  pointer-events: none;
+}
+.nl-label { font-family: var(--mono); font-size: .58rem; color: var(--teal); letter-spacing: .2em; text-transform: uppercase; margin-bottom: .6rem; }
+.nl-title { font-family: var(--head); font-size: 1.6rem; font-weight: 800; color: var(--white); letter-spacing: -.025em; margin-bottom: .4rem; }
+.nl-sub { font-size: .88rem; color: var(--body); }
+.nl-form { display: flex; gap: .5rem; }
+.nl-input {
+  background: rgba(255,255,255,.05); border: 1px solid var(--border);
+  border-radius: 10px; padding: .75rem 1.1rem;
+  color: var(--white); font-size: .88rem; font-family: var(--sans);
+  width: 280px; outline: none; transition: border-color .2s;
+}
+.nl-input:focus { border-color: rgba(0,180,198,.4); }
+.nl-input::placeholder { color: var(--muted); }
+.nl-btn {
+  background: linear-gradient(135deg, var(--purple), var(--teal));
+  color: #fff; font-size: .85rem; font-weight: 600;
+  padding: .75rem 1.3rem; border-radius: 10px;
+  border: none; cursor: pointer; font-family: var(--sans);
+  white-space: nowrap; transition: opacity .2s;
+}
+.nl-btn:hover { opacity: .85; }
+
+/* ── AD SPACE ── */
+.ad-banner {
+  background: var(--bg3); border: 1px dashed rgba(255,255,255,.08);
+  border-radius: 12px; padding: 1rem 2rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .6rem; color: var(--muted);
+  letter-spacing: .1em; text-transform: uppercase;
+  margin-bottom: 2rem; min-height: 90px;
+}
+.ad-sidebar {
+  background: var(--bg3); border: 1px dashed rgba(255,255,255,.08);
+  border-radius: 12px; padding: 1rem;
+  display: flex; align-items: center; justify-content: center;
+  font-family: var(--mono); font-size: .58rem; color: var(--muted);
+  letter-spacing: .08em; text-transform: uppercase;
+  min-height: 250px; margin-bottom: 1.5rem; text-align: center;
+}
+
+/* ── FOOTER ── */
+footer {
+  position: relative; z-index: 1;
+  border-top: 1px solid var(--border);
+  max-width: 1160px; margin: 0 auto;
+  padding: 3rem;
+  display: grid; grid-template-columns: 1.2fr 1fr 1fr 1fr;
+  gap: 3rem;
+}
+.footer-brand {}
+.footer-logo { font-family: var(--head); font-size: 1.1rem; font-weight: 800; color: var(--white); margin-bottom: .5rem; }
+.footer-logo em { color: var(--teal); font-style: normal; }
+.footer-desc { font-size: .82rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+.footer-social { display: flex; gap: .6rem; }
+.social-btn {
+  width: 34px; height: 34px; border-radius: 8px;
+  background: var(--bg3); border: 1px solid var(--border);
+  display: flex; align-items: center; justify-content: center;
+  text-decoration: none; font-size: .85rem; transition: all .2s;
+}
+.social-btn:hover { border-color: var(--teal); }
+.footer-col h4 { font-family: var(--mono); font-size: .62rem; color: var(--teal); letter-spacing: .15em; text-transform: uppercase; margin-bottom: 1rem; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: .6rem; }
+.footer-col ul li a { font-size: .83rem; color: var(--muted); text-decoration: none; transition: color .2s; }
+.footer-col ul li a:hover { color: var(--white); }
+.footer-bottom {
+  border-top: 1px solid var(--border); max-width: 1160px; margin: 0 auto;
+  padding: 1.5rem 3rem;
+  display: flex; align-items: center; justify-content: space-between;
+  font-family: var(--mono); font-size: .58rem; color: var(--muted);
+  letter-spacing: .06em;
+}
+
+/* ── WPP FLOAT ── */
+.wpp {
+  position: fixed; bottom: 2rem; right: 2rem; z-index: 200;
+  display: flex; align-items: center; gap: .6rem;
+  background: #16a34a; color: #fff;
+  padding: .7rem 1.2rem; border-radius: 100px;
+  text-decoration: none; font-size: .82rem; font-weight: 600;
+  box-shadow: 0 8px 28px rgba(22,163,74,.3);
+  transition: all .2s; font-family: var(--sans);
+}
+.wpp:hover { transform: translateY(-2px); }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 6rem; right: 2rem; z-index: 300;
+  background: var(--bg2); border: 1px solid var(--teal);
+  color: var(--white); padding: .9rem 1.3rem;
+  border-radius: 12px; font-size: .84rem;
+  transform: translateY(20px); opacity: 0;
+  transition: all .3s; pointer-events: none;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── GLOWING LINES DECO ── */
+.glow-line {
+  width: 100%; height: 1px;
+  background: linear-gradient(to right, transparent, var(--teal), var(--purple), transparent);
+  opacity: .25; margin: 0;
+}
+
+/* ── ANIMATIONS ── */
+@keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+.hero-inner { animation: fadeUp .6s ease both; }
+.featured-post { animation: fadeUp .6s .1s ease both; }
+.posts-grid { animation: fadeUp .6s .15s ease both; }
+.nl-card { animation: fadeUp .6s .2s ease both; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 960px) {
+  nav { padding: 0 1.5rem; }
+  .nav-links a:not(.nav-cta) { display: none; }
+  .hero { padding: 6rem 1.5rem 3rem; }
+  .hero-inner { grid-template-columns: 1fr; }
+  .hero-card { display: none; }
+  .section { padding: 2.5rem 1.5rem; }
+  .featured-post { grid-template-columns: 1fr; }
+  .feat-img { min-height: 220px; }
+  .posts-grid { grid-template-columns: 1fr; }
+  .post-wide { grid-column: span 1; grid-template-columns: 1fr; }
+  .post-wide .card-img { min-height: 160px; }
+  .nl-wrap { padding: 0 1.5rem 3rem; }
+  .nl-card { grid-template-columns: 1fr; gap: 1.5rem; padding: 2rem 1.5rem; }
+  .nl-form { flex-direction: column; }
+  .nl-input { width: 100%; }
+  footer { grid-template-columns: 1fr 1fr; gap: 2rem; padding: 2.5rem 1.5rem; }
+  .footer-bottom { padding: 1.2rem 1.5rem; flex-direction: column; gap: .6rem; }
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <div class="dot"></div>
+    <span>Paulo <em>Santos</em></span>
+  </a>
+  <div class="nav-links">
+    <a href="#posts">Artigos</a>
+    <a href="#categorias">Temas</a>
+    <a href="../index.html">Site</a>
+    <a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog." target="_blank" class="nav-cta">💬 Falar com Paulo</a>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-inner">
+    <div>
+      <div class="hero-tag">Growth AI · Blog</div>
+      <h1>Automação e <span class="hl-teal">IA</span><br>que transformam<br><span class="hl-gold">negócios reais.</span></h1>
+      <p class="hero-sub">Conteúdo educativo sobre como clínicas, corretoras, escritórios e e-commerces estão usando tecnologia para trabalhar menos e crescer mais.</p>
+      <div class="hero-actions">
+        <a href="#posts" class="btn-primary">Explorar artigos →</a>
+        <a href="#newsletter" class="btn-ghost">Receber toda semana</a>
+      </div>
+    </div>
+    <div class="hero-card">
+      <div class="hero-card-label">Artigos publicados</div>
+      <div class="hero-card-num">08</div>
+      <div class="hero-card-desc">Posts prontos · Novos toda semana</div>
+      <div class="topics-list">
+        <div class="topic-item"><span>⚡</span> Automação de processos</div>
+        <div class="topic-item"><span>🤖</span> Chatbot e IA no WhatsApp</div>
+        <div class="topic-item"><span>📊</span> Dashboards e analytics</div>
+        <div class="topic-item"><span>🏥</span> Clínicas, escritórios, corretoras</div>
+        <div class="topic-item"><span>🛒</span> E-commerce e Retail Media</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- AD BANNER TOP (Google AdSense / patrocinado) -->
+<div class="section" style="padding-top:2rem;padding-bottom:0">
+  <div class="ad-banner">
+    <!-- Google AdSense: cole o código do banner 728x90 aqui -->
+    Espaço publicitário · 728×90 · Google AdSense
+  </div>
+</div>
+
+<!-- FEATURED POST -->
+<section class="section" id="posts" style="padding-top:1.5rem">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Destaque</div>
+      <div class="section-title">Artigo da semana</div>
+    </div>
+  </div>
+  <a href="post-automacao-clinicas.html" class="featured-post">
+    <div class="feat-img">
+      <img src="https://images.unsplash.com/photo-1631217868264-e5b90bb7e133?w=800&q=80&auto=format&fit=crop" alt="Automação para clínicas">
+      <div class="feat-img-overlay"></div>
+    </div>
+    <div class="feat-body">
+      <div>
+        <div class="post-cats"><span class="cat cat-auto">Automação</span><span class="cat cat-clinica">Clínicas</span></div>
+        <div class="post-meta"><span>12 Jan 2026</span><span class="sep">·</span><span>6 min de leitura</span></div>
+        <h2>Clínica com agenda cheia e recepção sobrecarregada? O problema não é falta de gente — é falta de automação.</h2>
+        <p>Confirmação de consulta, lembrete de retorno, cobrança de documentos: tudo isso pode acontecer sozinho. Veja como clínicas estão eliminando faltas e liberando a equipe para o que importa.</p>
+      </div>
+      <span class="read-btn">Ler artigo completo →</span>
+    </div>
+  </a>
+</section>
+
+<div class="divider"></div>
+
+<!-- GRID POSTS -->
+<section class="section" style="padding-top:2.5rem">
+  <div class="section-header">
+    <div>
+      <div class="section-label">Artigos</div>
+      <div class="section-title">Últimas publicações</div>
+    </div>
+    <a href="#" class="see-all">Ver todos →</a>
+  </div>
+
+  <div class="posts-grid" id="grid">
+
+    <!-- WIDE: Chatbot IA -->
+    <a href="post-chatbot-whatsapp.html" class="post-wide" data-cat="ia">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1611746872915-64382b5c76da?w=500&q=80&auto=format&fit=crop" alt="Chatbot WhatsApp IA">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-ia">IA</span><span class="cat cat-auto">Chatbot</span></div>
+        <h3>Como um chatbot com IA no WhatsApp atende clientes 24h — e por que sua empresa ainda não tem um</h3>
+        <p>Leads que chegam às 22h e não são respondidos vão para o concorrente. Entenda como funciona, quem precisa e o que muda na prática.</p>
+        <div class="post-meta" style="margin-top:auto"><span>05 Jan 2026</span><span class="sep">·</span><span>5 min</span></div>
+      </div>
+    </a>
+
+    <!-- CARD: Dashboard -->
+    <a href="post-dashboard-decisao.html" class="post-card" data-cat="dados">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=500&q=80&auto=format&fit=crop" alt="Dashboard Power BI">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-dados">Dados</span><span class="cat cat-ia">Power BI</span></div>
+        <h3>Você ainda recebe relatório semanal? Isso significa que está decidindo com dados velhos.</h3>
+        <p>Dashboard em tempo real vs. relatório atrasado — o que muda nas decisões e no resultado final.</p>
+        <div class="card-meta">29 Dez 2025 · 5 min</div>
+      </div>
+    </a>
+
+    <!-- CARD: Escritório Contábil -->
+    <a href="post-automacao-escritorio.html" class="post-card" data-cat="automacao">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=500&q=80&auto=format&fit=crop" alt="Escritório contábil automação">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-auto">Automação</span></div>
+        <h3>Escritório contábil que ainda cobra documentos manualmente está desperdiçando horas todo mês.</h3>
+        <p>Cobrança automática via WhatsApp, organização de documentos e geração de DRE sem intervenção humana.</p>
+        <div class="card-meta">22 Dez 2025 · 6 min</div>
+      </div>
+    </a>
+
+    <!-- CARD: Corretora -->
+    <a href="post-crm-corretora.html" class="post-card" data-cat="ia">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1560472355-536de3962603?w=500&q=80&auto=format&fit=crop" alt="CRM Corretora">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-ia">CRM</span><span class="cat cat-auto">Automação</span></div>
+        <h3>Corretora de seguros: como parar de perder lead por falta de follow-up a tempo.</h3>
+        <p>Qualificação automática, cotação em segundos e follow-up programado para sua equipe comercial.</p>
+        <div class="card-meta">15 Dez 2025 · 5 min</div>
+      </div>
+    </a>
+
+    <!-- WIDE: E-commerce -->
+    <a href="post-ecommerce-dados.html" class="post-wide" data-cat="dados">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1563013544-824ae1b704d3?w=500&q=80&auto=format&fit=crop" alt="E-commerce dados">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-dados">Dados</span><span class="cat cat-mkt">E-commerce</span></div>
+        <h3>E-commerce sem dados integrados é loja sem vitrine: você vende no escuro.</h3>
+        <p>Como unificar Amazon Ads, Meta Ads e vendas em um único painel e parar de desperdiçar verba.</p>
+        <div class="post-meta" style="margin-top:auto"><span>08 Dez 2025</span><span class="sep">·</span><span>7 min</span></div>
+      </div>
+    </a>
+
+    <!-- CARD: Integração sistemas -->
+    <a href="post-integracao-sistemas.html" class="post-card" data-cat="automacao">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=500&q=80&auto=format&fit=crop" alt="Integração de sistemas">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-auto">Integração</span></div>
+        <h3>Seus sistemas não conversam entre si? Então sua empresa está trabalhando com informação incompleta.</h3>
+        <p>Como conectar CRM, financeiro, ads e WhatsApp numa operação que funciona sozinha.</p>
+        <div class="card-meta">01 Dez 2025 · 5 min</div>
+      </div>
+    </a>
+
+    <!-- CARD: IA para PMEs -->
+    <a href="post-ia-pme.html" class="post-card" data-cat="ia">
+      <div class="card-img">
+        <img src="https://images.unsplash.com/photo-1677442135703-1787eea5ce01?w=500&q=80&auto=format&fit=crop" alt="IA para pequenas empresas">
+        <div class="card-img-overlay"></div>
+      </div>
+      <div class="card-body">
+        <div class="post-cats"><span class="cat cat-ia">IA</span></div>
+        <h3>Pequena empresa também pode usar IA. O que era privilégio de grandes corporações agora cabe no seu orçamento.</h3>
+        <p>Do chatbot ao relatório automático: aplicações práticas de IA que qualquer empresa pode implementar hoje.</p>
+        <div class="card-meta">24 Nov 2025 · 6 min</div>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<!-- AD MID PAGE -->
+<div class="section" style="padding-top:0;padding-bottom:1rem">
+  <div class="ad-banner">
+    <!-- Google AdSense: cole o código do banner 728x90 aqui -->
+    Espaço publicitário · 728×90 · Google AdSense
+  </div>
+</div>
+
+<div class="glow-line"></div>
+
+<!-- NEWSLETTER -->
+<section class="nl-wrap" id="newsletter" style="padding-top:3rem">
+  <div class="nl-card">
+    <div>
+      <div class="nl-label">Newsletter · Toda semana</div>
+      <div class="nl-title">Fique à frente da concorrência.</div>
+      <p class="nl-sub">Conteúdo direto sobre automação, IA e dados. Sem enrolação, sem spam.</p>
+    </div>
+    <div>
+      <div class="nl-form">
+        <input class="nl-input" type="email" id="nl-email" placeholder="seu@email.com">
+        <button class="nl-btn" onclick="subscribe()">Quero receber →</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-line"></div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">
+    <div class="footer-logo">Paulo <em>Santos</em></div>
+    <p class="footer-desc">Especialista em Dados, IA e Automação. Ajudo empresas a crescerem usando tecnologia de forma prática e acessível.</p>
+    <div class="footer-social">
+      <a href="https://www.instagram.com/paulosantos.growthai" target="_blank" class="social-btn" title="Instagram">IG</a>
+      <a href="https://wa.me/5511951131232" target="_blank" class="social-btn" title="WhatsApp">WA</a>
+    </div>
+  </div>
+  <div class="footer-col">
+    <h4>Temas</h4>
+    <ul>
+      <li><a href="#">Automação</a></li>
+      <li><a href="#">IA & Chatbot</a></li>
+      <li><a href="#">Dashboards</a></li>
+      <li><a href="#">E-commerce</a></li>
+      <li><a href="#">Clínicas</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Serviços</h4>
+    <ul>
+      <li><a href="https://paulo-crescimento-ia.vercel.app" target="_blank">Portfólio</a></li>
+      <li><a href="https://paulo-crescimento-ia.vercel.app/landing-paulo.html" target="_blank">Todos os serviços</a></li>
+      <li><a href="https://wa.me/5511951131232" target="_blank">Consultoria</a></li>
+    </ul>
+  </div>
+  <div class="footer-col">
+    <h4>Contato</h4>
+    <ul>
+      <li><a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a></li>
+      <li><a href="https://www.instagram.com/paulosantos.growthai" target="_blank">Instagram</a></li>
+    </ul>
+  </div>
+</footer>
+<div class="footer-bottom">
+  <span>© 2026 Paulo Santos · Growth AI</span>
+  <span>@paulosantos.growthai</span>
+</div>
+
+<a href="https://wa.me/5511951131232?text=Oi%20Paulo!%20Vi%20seu%20blog%20e%20quero%20conversar." target="_blank" class="wpp">💬 Falar com Paulo</a>
+<div class="toast" id="toast">✅ Inscrito! Até semana que vem.</div>
+
+<script>
+function subscribe(){
+  const e=document.getElementById('nl-email').value;
+  if(!e||!e.includes('@')){alert('Digite um email válido.');return;}
+  // Cole aqui a URL do seu Google Apps Script
+  const URL='SUA_URL_APPS_SCRIPT';
+  fetch(URL+'?tipo=newsletter&email='+encodeURIComponent(e)+'&origem=blog&data='+new Date().toLocaleDateString('pt-BR')).catch(()=>{});
+  document.getElementById('nl-email').value='';
+  const t=document.getElementById('toast');
+  t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3500);
+}
+// Analytics
+(function(){try{fetch('SUA_URL_APPS_SCRIPT?tipo=pageview&pagina=blog-index&data='+new Date().toLocaleDateString('pt-BR')).catch(()=>{});}catch(e){}})();
+</script>
+</body>
+</html>
