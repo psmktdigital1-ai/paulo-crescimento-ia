@@ -102,9 +102,9 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 
 /* PORTFOLIO — grid 3 cols, SEM valores, SEM ROI */
 .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.pcard{background:#0b0c1c;border:1px solid rgba(0,212,255,.1);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
-.pcard:hover{border-color:rgba(0,212,255,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.pthumb{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.pcard{background:#0b0c1c;border:1px solid rgba(0,212,255,.12);border-radius:16px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:flex;flex-direction:column}
+.pcard:hover{border-color:rgba(0,212,255,.35);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,212,255,.08)}
+.pthumb{display:none}
 .pt-cor{background:linear-gradient(135deg,#050f18,#0a1f2e)}
 .pt-cli{background:linear-gradient(135deg,#050f0d,#081f18)}
 .pt-cnt{background:linear-gradient(135deg,#0f0a05,#1f150a)}
@@ -453,59 +453,51 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
     <h2 class="sh rev">Projetos reais,<br><em>resultados</em> reais.</h2>
     <p class="ssub rev">Clique para ver a simulação ao vivo — cada projeto mostra o fluxo completo funcionando, da entrada de dados à decisão automatizada.</p>
     <div class="port-grid">
-
       <a href="case-corretora.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-cor"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">corretora_automation.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">Seguros</span><span class="pcat">Automação</span><span class="pcat">WhatsApp</span></div>
-          <h4>Corretora de Seguros 360°</h4>
-          <p>Captação, qualificação por IA, CRM automático, follow-up e renovações. O corretor atende quem tem interesse real.</p>
-          <div class="plink">Ver simulação ao vivo →</div>
+        <div class="pbody" style="padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem">
+          <div style="font-size:2.2rem;line-height:1">🏢</div>
+          <div class="pcats" style="display:flex;flex-wrap:wrap;gap:.4rem"><span class="pcat">Seguros</span><span class="pcat">Automação</span><span class="pcat">WhatsApp</span></div>
+          <h4 style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:#e2e4f0;letter-spacing:-.02em;margin:0">Corretora de Seguros 360°</h4>
+          <p style="font-size:.82rem;color:#636685;line-height:1.75;margin:0;flex:1">Captação, qualificação por IA, CRM automático, follow-up e renovações. O corretor foca só em quem tem interesse real.</p>
+          <div class="plink" style="font-size:.75rem;color:#00d4ff;letter-spacing:.05em;margin-top:.5rem">Ver simulação ao vivo →</div>
         </div>
-      </div>
-
+      </a>
       <a href="case-clinica.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-cli"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">clinica_scheduler.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">Saúde</span><span class="pcat">Agenda 24h</span><span class="pcat">Reativação</span></div>
-          <h4>Clínica Médica Automação</h4>
-          <p>Agendamento 24h via WhatsApp, redução de no-show, reativação de pacientes e relatório semanal automático.</p>
-          <div class="plink">Ver simulação ao vivo →</div>
+        <div class="pbody" style="padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem">
+          <div style="font-size:2.2rem;line-height:1">🏥</div>
+          <div class="pcats" style="display:flex;flex-wrap:wrap;gap:.4rem"><span class="pcat">Saúde</span><span class="pcat">Agenda 24h</span><span class="pcat">Reativação</span></div>
+          <h4 style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:#e2e4f0;letter-spacing:-.02em;margin:0">Clínica Médica Automação</h4>
+          <p style="font-size:.82rem;color:#636685;line-height:1.75;margin:0;flex:1">Agendamento 24h via WhatsApp, redução de no-show, reativação de pacientes e relatório semanal automático.</p>
+          <div class="plink" style="font-size:.75rem;color:#00d4ff;letter-spacing:.05em;margin-top:.5rem">Ver simulação ao vivo →</div>
         </div>
-      </div>
-
+      </a>
       <a href="case-barbearia.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-bar"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">barbearia_bot.json</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">Barbearia</span><span class="pcat">Fidelidade</span><span class="pcat">Bot</span></div>
-          <h4>Barbearia Bot & Pontos</h4>
-          <p>Agendamento automático, programa de pontos sem app, reativação em 25 dias e drastica redução de no-show.</p>
-          <div class="plink">Ver simulação ao vivo →</div>
+        <div class="pbody" style="padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem">
+          <div style="font-size:2.2rem;line-height:1">✂️</div>
+          <div class="pcats" style="display:flex;flex-wrap:wrap;gap:.4rem"><span class="pcat">Barbearia</span><span class="pcat">Fidelidade</span><span class="pcat">Bot</span></div>
+          <h4 style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:#e2e4f0;letter-spacing:-.02em;margin:0">Barbearia Bot & Pontos</h4>
+          <p style="font-size:.82rem;color:#636685;line-height:1.75;margin:0;flex:1">Agendamento automático, programa de pontos sem app, reativação em 25 dias e redução drástica de no-show.</p>
+          <div class="plink" style="font-size:.75rem;color:#00d4ff;letter-spacing:.05em;margin-top:.5rem">Ver simulação ao vivo →</div>
         </div>
-      </div>
-
+      </a>
       <a href="case-contabil.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-cnt"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">contabil_pipeline.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">Contabilidade</span><span class="pcat">IA</span><span class="pcat">Relatórios</span></div>
-          <h4>Escritório Contábil AI</h4>
-          <p>Cobrança automática de documentos, organização por IA, relatório DRE gerado em minutos e alertas fiscais.</p>
-          <div class="plink">Ver simulação ao vivo →</div>
+        <div class="pbody" style="padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem">
+          <div style="font-size:2.2rem;line-height:1">📊</div>
+          <div class="pcats" style="display:flex;flex-wrap:wrap;gap:.4rem"><span class="pcat">Contabilidade</span><span class="pcat">IA</span><span class="pcat">Relatórios</span></div>
+          <h4 style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:#e2e4f0;letter-spacing:-.02em;margin:0">Escritório Contábil AI</h4>
+          <p style="font-size:.82rem;color:#636685;line-height:1.75;margin:0;flex:1">Cobrança automática de documentos, organização por IA, relatório DRE gerado em minutos e alertas fiscais.</p>
+          <div class="plink" style="font-size:.75rem;color:#00d4ff;letter-spacing:.05em;margin-top:.5rem">Ver simulação ao vivo →</div>
         </div>
-      </div>
-
+      </a>
       <a href="case-agencia.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-age"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">agencia_performance.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">Agência</span><span class="pcat">Performance</span><span class="pcat">BI</span></div>
-          <h4>Agência de Performance</h4>
-          <p>Dashboard unificado Google + Meta + TikTok, relatórios automáticos para clientes e alertas de anomalia em tempo real.</p>
-          <div class="plink">Ver simulação ao vivo →</div>
+        <div class="pbody" style="padding:1.8rem;flex:1;display:flex;flex-direction:column;gap:.8rem">
+          <div style="font-size:2.2rem;line-height:1">📈</div>
+          <div class="pcats" style="display:flex;flex-wrap:wrap;gap:.4rem"><span class="pcat">Agência</span><span class="pcat">Performance</span><span class="pcat">BI</span></div>
+          <h4 style="font-family:'DM Serif Display',serif;font-size:1.15rem;color:#e2e4f0;letter-spacing:-.02em;margin:0">Agência de Performance</h4>
+          <p style="font-size:.82rem;color:#636685;line-height:1.75;margin:0;flex:1">Dashboard unificado Google + Meta + TikTok, relatórios automáticos para clientes e alertas de anomalia em tempo real.</p>
+          <div class="plink" style="font-size:.75rem;color:#00d4ff;letter-spacing:.05em;margin-top:.5rem">Ver simulação ao vivo →</div>
         </div>
-      </div>
-
-      
-
+      </a>
     </div>
   </div>
 </section>
