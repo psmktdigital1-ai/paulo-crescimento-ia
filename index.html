@@ -609,20 +609,23 @@ function runAuto(){
   else setTimeout(()=>{cur=0;steps.forEach(([sId,stId])=>{const el=document.getElementById(sId);const st=document.getElementById(stId);if(el){el.classList.remove('active','done')}if(st){st.className='af-st wait';st.textContent='aguardando'}});setTimeout(runAuto,800)},2500);
 }
 setTimeout(runAuto,1800);
-const navLinks=<script>
+const navLinks=[]
+<script>
 function toggleMenu(){
-  var m = document.getElementById('mobileMenu');
-  if(m) m.classList.toggle('open');
+  var m = document.getElementById("mobileMenu");
+  if(m) m.classList.toggle("open");
 }
 function closeMenu(){
-  var m = document.getElementById('mobileMenu');
-  if(m) m.classList.remove('open');
+  var m = document.getElementById("mobileMenu");
+  if(m) m.classList.remove("open");
 }
-document.addEventListener('click', function(e){
-  var m = document.getElementById('mobileMenu');
-  var btn = document.querySelector('.nav-hamburger');
+document.addEventListener("click", function(e){
+  var m = document.getElementById("mobileMenu");
+  var btn = document.querySelector(".nav-hamburger");
   if(m && btn && !m.contains(e.target) && !btn.contains(e.target)){
-    m.classList.remove('open');
+    m.classList.remove("open");
   }
 });
 </script>
+</body>
+</html>
