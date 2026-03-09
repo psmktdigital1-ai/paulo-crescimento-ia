@@ -17,7 +17,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .logo-mark{width:30px;height:30px;background:linear-gradient(135deg,var(--plasma),var(--cyan));border-radius:8px;display:flex;align-items:center;justify-content:center;font-family:'DM Mono',monospace;font-size:.65rem;color:#fff}
 .logo-txt{color:var(--text)}.logo-txt span{background:linear-gradient(90deg,var(--cyan),var(--cyan2));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .nav-links{display:flex;gap:2.5rem;list-style:none}
-.nav-links a{color:#c8d0da;text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:color .25s}
+.nav-links a{color:#c8d4e0;text-decoration:none;font-size:.78rem;letter-spacing:.08em;text-transform:uppercase;transition:color .25s}
 .nav-links a:hover{color:var(--cyan)}
 .nav-right{display:flex;gap:.75rem;align-items:center}
 .btn-wpp{background:#25D366;color:#fff;border:none;padding:.6rem 1.3rem;border-radius:var(--r);font-size:.75rem;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;gap:.4rem;transition:all .25s}
@@ -79,7 +79,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 .sh{font-family:'DM Serif Display',serif;font-size:clamp(2rem,3.5vw,3.2rem);line-height:1.08;letter-spacing:-.03em;margin-bottom:.75rem}
 .sh em{font-style:italic;background:linear-gradient(135deg,var(--plasma),var(--cyan));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
 .ssub{font-size:.95rem;color:var(--muted);max-width:540px;line-height:1.75;margin-bottom:4rem}
-.rev{opacity:0;transform:translateY(20px);transition:opacity .7s ease,transform .7s ease}
+.rev{opacity:1;transform:translateY(0);transition:opacity .7s ease,transform .7s ease}
 .rev.in{opacity:1;transform:translateY(0)}
 @keyframes fup{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 .ticker{overflow:hidden;padding:.9rem 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);background:var(--ink2)}
@@ -102,7 +102,7 @@ nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;justify-conten
 
 /* PORTFOLIO — grid 3 cols, SEM valores, SEM ROI */
 .port-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem}
-.pcard{background:var(--card);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
+.pcard{background:#0b0c1c;border:1px solid rgba(0,212,255,.1);border:1px solid var(--line2);border-radius:12px;overflow:hidden;transition:all .35s;cursor:pointer;text-decoration:none;color:inherit;display:block}
 .pcard:hover{border-color:rgba(0,212,255,.25);transform:translateY(-4px);box-shadow:0 20px 60px rgba(0,0,0,.5)}
 .pthumb{height:155px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .pt-cor{background:linear-gradient(135deg,#050f18,#0a1f2e)}
@@ -375,7 +375,7 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
     <li><a href="#portfolio">Portfólio</a></li>
     <li><a href="#processo">Processo</a></li>
     <li><a href="#sobre">Sobre</a></li>
-    <li><a href="blog/index.html" style="color:#00B4C6!important;font-weight:600">Blog</a></li>
+    <li><a href="blog/index.html" style="color:#00d4ff!important;font-weight:600">Blog</a></li>
   </ul>
   <div class="nav-right">
     <a href="https://wa.me/5511951131232" target="_blank" class="btn-wpp">💬 WhatsApp</a>
@@ -504,15 +504,7 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
         </div>
       </div>
 
-      <a href="case-basquete.html" class="pcard rev" style="cursor:pointer">
-        <div class="pthumb pt-ret"><div class="code-block"><div class="cb-header"><div class="cb-dots"><div class="cb-dot r"></div><div class="cb-dot y"></div><div class="cb-dot g"></div></div><span class="cb-name">hoopstats_app.py</span></div><div class="cb-line a w80"></div><div class="cb-line b w55"></div><div class="cb-line c w70"></div><div class="cb-line d w45"></div></div></a>
-        <div class="pbody">
-          <div class="pcats"><span class="pcat">App</span><span class="pcat">Basquete</span><span class="pcat">SaaS</span></div>
-          <h4>HoopStats · App de Basquete</h4>
-          <p>Plataforma SaaS completa com estatísticas ao vivo, comparativo de jogadores e análise de desempenho por IA.</p>
-          <div class="plink">Ver demo ao vivo →</div>
-        </div>
-      </div>
+      
 
     </div>
   </div>
@@ -565,15 +557,15 @@ footer{border-top:1px solid var(--line);padding:2rem 5rem;display:flex;justify-c
   <p class="ssub rev" style="margin:0 auto 3rem;text-align:center">Me conta o desafio. Em até 24h respondo com análise e proposta personalizada.</p>
   <div class="cta-btns rev">
     <a href="https://wa.me/5511951131232?text=Olá%20Paulo!%20Vi%20seu%20portfólio%20e%20quero%20conversar." target="_blank" class="btn-wha">💬 Falar no WhatsApp</a>
-    <a href="/cdn-cgi/l/email-protection#e4948591888bca97858a908b97a4838c8b93908c8d85ca878b89ca8696" class="btn-primary">✉ Enviar e-mail</a>
+    <a href="/cdn-cgi/l/email-protection#f08091859c9fde83919e849f83b097989f8784989991de939f9dde9282" class="btn-primary">✉ Enviar e-mail</a>
     <a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank" class="btn-ghost">LinkedIn →</a>
   </div>
-  <div class="cinfo rev">✉ <a href="/cdn-cgi/l/email-protection#a6d6c7d3cac988d5c7c8d2c9d5e6c1cec9d1d2cecfc788c5c9cb88c4d4"><span class="__cf_email__" data-cfemail="4d3d2c382122633e2c2339223e0d2a25223a3925242c632e2220632f3f">[email&#160;protected]</span></a> &nbsp;·&nbsp; 💬 <a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a> &nbsp;·&nbsp; 🐙 <a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a></div>
+  <div class="cinfo rev">✉ <a href="/cdn-cgi/l/email-protection#d5a5b4a0b9bafba6b4bba1baa695b2bdbaa2a1bdbcb4fbb6bab8fbb7a7"><span class="__cf_email__" data-cfemail="a1d1c0d4cdce8fd2c0cfd5ced2e1c6c9ced6d5c9c8c08fc2cecc8fc3d3">[email&#160;protected]</span></a> &nbsp;·&nbsp; 💬 <a href="https://wa.me/5511951131232" target="_blank">WhatsApp</a> &nbsp;·&nbsp; 🐙 <a href="blog/index.html" style="color:#00d4ff">Blog</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a></div>
 </section>
 
 <footer>
   <div class="fl">Paulo Santos · <span>Growth AI</span></div>
-  <div class="flinks"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a><a href="blog/index.html" style="color:#00B4C6">Blog</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank">LinkedIn</a></div>
+  <div class="flinks"><a href="#servicos">Serviços</a><a href="#portfolio">Portfólio</a><a href="#processo">Processo</a><a href="#sobre">Sobre</a><a href="blog/index.html" style="color:#00d4ff">Blog</a><a href="https://github.com/psmktdigital1-ai" target="_blank">GitHub</a><a href="https://www.linkedin.com/in/paulo-santos-30023ab4/" target="_blank">LinkedIn</a></div>
   <div class="fcopy">© 2026 Paulo Santos · Growth AI · Dados, IA & Performance</div>
 </footer>
 
