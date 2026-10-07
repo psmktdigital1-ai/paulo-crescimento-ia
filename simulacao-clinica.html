@@ -266,16 +266,17 @@
     <button class="tn act" onclick="showPage('dores',this)">Diagnóstico</button>
     <button class="tn idle" onclick="showPage('flow',this)">Automação ao Vivo</button>
     <button class="tn idle" onclick="showPage('agenda',this)">Agenda & Reativação</button>
-    <button class="tn idle" onclick="showPage('metrics',this)">Resultados</button>
+    <button class="tn idle" onclick="showPage('metrics',this)">Painel (exemplo)</button>
   </div>
 </div>
+<div style="flex-shrink:0;text-align:center;font-size:.72rem;opacity:.85;padding:.45rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)">Simulação com dados fictícios — não representa resultado de cliente.</div>
 
 <!-- PAGE 1 -->
 <div class="page on" id="pg-dores">
   <div class="hero-sec">
     <div class="hs-grid">
       <div>
-        <div class="hs-badge">🔴 Diagnóstico real da clínica</div>
+        <div class="hs-badge">🔴 Diagnóstico típico de clínica · cenário fictício</div>
         <h1 class="hs-title">As dores que derrubam o<br>faturamento da <em>clínica</em>.</h1>
         <p class="hs-sub">Recepcionista sobrecarregada, pacientes faltando sem aviso e inativos sumindo. O problema não é falta de pacientes — é falta de <strong>processo automatizado</strong> para manter quem já passou pela clínica.</p>
         <div class="dores-list">
@@ -286,10 +287,10 @@
         </div>
       </div>
       <div class="hs-right">
-        <div class="stat-card red"><div class="sc-val red">-70%</div><div class="sc-lbl">Faltas sem aviso após automação<br><strong style="color:var(--text)">Lembrete 48h + fila de espera automática</strong></div></div>
-        <div class="stat-card green"><div class="sc-val green">+45%</div><div class="sc-lbl">Pacientes inativos reativados<br><strong style="color:var(--text)">Campanha automática em 60 dias sem consulta</strong></div></div>
+        <div class="stat-card red"><div class="sc-val red">Lembrete</div><div class="sc-lbl">Confirmação antes de cada consulta<br><strong style="color:var(--text)">Lembrete 48h + fila de espera automática</strong></div></div>
+        <div class="stat-card green"><div class="sc-val green">Reativa</div><div class="sc-lbl">Contato automático com pacientes inativos<br><strong style="color:var(--text)">Campanha automática em 60 dias sem consulta</strong></div></div>
         <div class="stat-card blue"><div class="sc-val blue">24/7</div><div class="sc-lbl">Agendamento online sem recepcionista<br><strong style="color:var(--text)">WhatsApp Bot responde e agenda a qualquer hora</strong></div></div>
-        <div class="stat-card purple"><div class="sc-val purple">R$12k</div><div class="sc-lbl">Retorno estimado por mês<br><strong style="color:var(--text)">Faltas + reativação + horário ampliado</strong></div></div>
+        <div class="stat-card purple"><div class="sc-val purple">Painel</div><div class="sc-lbl">Relatório semanal para a gestão<br><strong style="color:var(--text)">Consultas, no-show, novos vs retorno</strong></div></div>
       </div>
     </div>
   </div>
@@ -297,7 +298,7 @@
   <div class="sol-grid" style="margin:0 3rem 4rem">
     <div class="sol-c"><span class="sol-n">01</span><span class="sol-ic">💬</span><div class="sol-t">Agendamento 24h</div><p class="sol-d">Bot WhatsApp recebe pedidos a qualquer hora. Verifica disponibilidade, confirma e registra — sem recepcionista.</p><div class="sol-tags"><span class="sol-tag">WhatsApp Bot</span><span class="sol-tag">GPT-4</span><span class="sol-tag">Google Calendar</span></div></div>
     <div class="sol-c"><span class="sol-n">02</span><span class="sol-ic">🔔</span><div class="sol-t">Confirmação Automática</div><p class="sol-d">48h antes: confirmação. 2h antes: lembrete. Cancelou? Fila de espera notificada automaticamente.</p><div class="sol-tags"><span class="sol-tag">n8n</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">Lista de Espera</span></div></div>
-    <div class="sol-c"><span class="sol-n">03</span><span class="sol-ic">🔄</span><div class="sol-t">Reativação de Inativos</div><p class="sol-d">Paciente sem consulta há 60 dias recebe mensagem personalizada. Taxa de retorno 35-45%.</p><div class="sol-tags"><span class="sol-tag">Segmentação</span><span class="sol-tag">Campanha</span><span class="sol-tag">CRM</span></div></div>
+    <div class="sol-c"><span class="sol-n">03</span><span class="sol-ic">🔄</span><div class="sol-t">Reativação de Inativos</div><p class="sol-d">Paciente sem consulta há 60 dias recebe mensagem personalizada, com opção de agendar na própria conversa.</p><div class="sol-tags"><span class="sol-tag">Segmentação</span><span class="sol-tag">Campanha</span><span class="sol-tag">CRM</span></div></div>
     <div class="sol-c"><span class="sol-n">04</span><span class="sol-ic">💌</span><div class="sol-t">Follow-up Pós-Consulta</div><p class="sol-d">2 dias: "Como está?" 30 dias: lembrete de retorno. 90 dias: reativação. Tudo automático.</p><div class="sol-tags"><span class="sol-tag">Jornada</span><span class="sol-tag">Personalizado</span><span class="sol-tag">IA</span></div></div>
     <div class="sol-c"><span class="sol-n">05</span><span class="sol-ic">⭐</span><div class="sol-t">NPS Automático</div><p class="sol-d">NPS coletado após cada consulta. 5 estrelas = pede indicação. Baixa = alerta para gestora agir imediatamente.</p><div class="sol-tags"><span class="sol-tag">NPS</span><span class="sol-tag">Alerta</span><span class="sol-tag">Indicação</span></div></div>
     <div class="sol-c"><span class="sol-n">06</span><span class="sol-ic">📊</span><div class="sol-t">Relatório Semanal</div><p class="sol-d">Todo domingo: consultas, faturamento, no-show, novos vs retorno. Gestora acorda segunda sabendo tudo.</p><div class="sol-tags"><span class="sol-tag">Dashboard</span><span class="sol-tag">WhatsApp</span><span class="sol-tag">Automático</span></div></div>
@@ -373,13 +374,13 @@
 <!-- PAGE 4 METRICS -->
 <div class="page" id="pg-metrics">
   <div class="m-wrap">
-    <div class="fw-title">Resultados · Últimos 30 dias</div>
-    <div class="fw-sub">Impacto real da automação na operação e no faturamento</div>
+    <div class="fw-title">Exemplo de painel · dados fictícios</div>
+    <div class="fw-sub">Exemplo do que o painel da clínica mostraria — todos os números são fictícios</div>
     <div class="m-grid">
-      <div class="mk"><span class="mk-ic">❌</span><div class="mk-v">-71%</div><div class="mk-l">Taxa de no-show</div><div class="mk-d">↓ Era 18% · Agora 5.2%</div></div>
-      <div class="mk"><span class="mk-ic">📅</span><div class="mk-v">+34</div><div class="mk-l">Consultas extras/mês</div><div class="mk-d">↑ Reativação + horário ampliado</div></div>
-      <div class="mk"><span class="mk-ic">⭐</span><div class="mk-v">4.8</div><div class="mk-l">NPS médio</div><div class="mk-d">↑ Era 3.9 antes da automação</div></div>
-      <div class="mk"><span class="mk-ic">💰</span><div class="mk-v">R$12.4k</div><div class="mk-l">Receita adicional/mês</div><div class="mk-d">↑ vs antes da automação</div></div>
+      <div class="mk"><span class="mk-ic">❌</span><div class="mk-v">Lembrete</div><div class="mk-l">Controle de no-show</div><div class="mk-d">Confirmação 48h + lembrete 2h antes</div></div>
+      <div class="mk"><span class="mk-ic">📅</span><div class="mk-v">24/7</div><div class="mk-l">Agendamento pelo WhatsApp</div><div class="mk-d">Inclusive fora do horário comercial</div></div>
+      <div class="mk"><span class="mk-ic">⭐</span><div class="mk-v">NPS</div><div class="mk-l">Pesquisa pós-consulta</div><div class="mk-d">Coletada automaticamente após cada consulta</div></div>
+      <div class="mk"><span class="mk-ic">💰</span><div class="mk-v">Reativa</div><div class="mk-l">Campanha de inativos</div><div class="mk-d">Pacientes 60+ dias sem consulta</div></div>
     </div>
     <div class="m2">
       <div class="m2c">
@@ -398,11 +399,11 @@
         <div class="m2c-t">📈 Indicadores chave</div>
         <div style="display:flex;flex-direction:column;gap:.5rem;margin-top:.5rem">
           <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Tempo médio para agendar</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">&lt; 3 min</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Taxa de retorno pós-consulta</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">+45%</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Horas da recepção liberadas</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">3h/dia</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Lembrete de retorno pós-consulta</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">Auto</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Confirmação de consultas</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">Auto</span></div>
           <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Pacientes inativos reativados</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">18/mês</span></div>
-          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">ROI do sistema</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">12× o investimento</span></div>
-          <div style="margin-top:.5rem;padding:.75rem;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:.7rem;text-align:center;color:var(--a2)">Sistema ativo há 90 dias · <strong>R$ 37.200 de retorno acumulado</strong></div>
+          <div style="display:flex;justify-content:space-between;font-size:.7rem;padding:.55rem .75rem;background:rgba(16,185,129,.05);border:1px solid rgba(16,185,129,.12);border-radius:6px"><span style="color:var(--muted)">Relatório para a gestão</span><span style="color:var(--a2);font-family:'JetBrains Mono',monospace">Domingo 18h</span></div>
+          <div style="margin-top:.5rem;padding:.75rem;background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.2);border-radius:8px;font-size:.7rem;text-align:center;color:var(--a2)"><strong>Dados fictícios</strong> · os números ilustram o formato do painel</div>
         </div>
       </div>
     </div>

@@ -316,30 +316,31 @@
     <button class="tn act" onclick="showPage('dores',this)">Diagnóstico</button>
     <button class="tn idle" onclick="showPage('flow',this)">Automação ao Vivo</button>
     <button class="tn idle" onclick="showPage('clientes',this)">Painel de Clientes</button>
-    <button class="tn idle" onclick="showPage('metrics',this)">Resultados</button>
+    <button class="tn idle" onclick="showPage('metrics',this)">Painel (exemplo)</button>
   </div>
 </div>
+<div style="flex-shrink:0;text-align:center;font-size:.72rem;opacity:.85;padding:.45rem 1rem;border-bottom:1px solid rgba(255,255,255,.08)">Simulação com dados fictícios — não representa resultado de cliente.</div>
 
 <!-- PAGE 1: DIAGNÓSTICO -->
 <div class="page on" id="pg-dores">
   <div class="sec">
     <div class="hs-grid">
       <div>
-        <div class="hs-badge">🔴 Diagnóstico real do escritório contábil</div>
+        <div class="hs-badge">🔴 Diagnóstico típico de escritório contábil · cenário fictício</div>
         <h1 class="hs-title">Contador correndo atrás<br>de documento <em>todo mês</em>.</h1>
         <p class="hs-sub">Horas perdidas cobrando documento por cliente. Relatórios montados do zero no Excel. Prazos fiscais só na memória. O contador foi formado para <strong>analisar e aconselhar</strong> — não para operar planilha e ligar para cliente.</p>
         <div class="dores-list">
           <div class="dor"><span class="dor-ic">📄</span><div><div class="dor-t">20-30h/mês só cobrando documentos</div><div class="dor-d">Ligar e mandar mensagem para cada cliente pedindo extrato, notas, folha de ponto. Alguns ignoram, outros mandam errado. Retrabalho constante todo mês.</div></div></div>
-          <div class="dor"><span class="dor-ic">📊</span><div><div class="dor-t">Relatórios gerenciais montados do zero</div><div class="dor-d">DRE, balanço, fluxo de caixa — cada um formatado no Excel, exportado em PDF, enviado por e-mail. 3-4h por cliente que a IA faz em 12 minutos.</div></div></div>
+          <div class="dor"><span class="dor-ic">📊</span><div><div class="dor-t">Relatórios gerenciais montados do zero</div><div class="dor-d">DRE, balanço, fluxo de caixa — cada um formatado no Excel, exportado em PDF, enviado por e-mail. Horas por cliente que a IA pode adiantar como rascunho.</div></div></div>
           <div class="dor"><span class="dor-ic">📅</span><div><div class="dor-t">Prazos fiscais só na memória do contador</div><div class="dor-d">SPED, DCTF, DIRF, folha, guias — centenas de obrigações por cliente por ano. Uma esquecida = multa para o cliente e problema de relacionamento.</div></div></div>
           <div class="dor"><span class="dor-ic">💸</span><div><div class="dor-t">Inadimplência de honorários não monitorada</div><div class="dor-d">Cliente com honorário atrasado continua sendo atendido. Ninguém percebe que é o 3º mês. O problema só aparece quando é grande demais para ignorar.</div></div></div>
         </div>
       </div>
       <div class="hs-right">
-        <div class="stat-card red"><div class="sc-val red">-80%</div><div class="sc-lbl">Tempo em tarefas repetitivas<br><strong style="color:var(--text)">Cobrança, organização e relatórios automatizados</strong></div></div>
+        <div class="stat-card red"><div class="sc-val red">Fluxos</div><div class="sc-lbl">Tarefas repetitivas em fluxos agendados<br><strong style="color:var(--text)">Cobrança, organização e relatórios automatizados</strong></div></div>
         <div class="stat-card gold"><div class="sc-val gold">Auto</div><div class="sc-lbl">Cobrança de documentos todo dia 1<br><strong style="color:var(--text)">Mensagem personalizada por cliente automaticamente</strong></div></div>
-        <div class="stat-card blue"><div class="sc-val blue">Zero</div><div class="sc-lbl">Prazos fiscais perdidos<br><strong style="color:var(--text)">Alertas automáticos 7d, 3d e 1d antes</strong></div></div>
-        <div class="stat-card green"><div class="sc-val green">12min</div><div class="sc-lbl">Para gerar um relatório DRE completo<br><strong style="color:var(--text)">Era 3-4 horas de trabalho manual por cliente</strong></div></div>
+        <div class="stat-card blue"><div class="sc-val blue">Alerta</div><div class="sc-lbl">Aviso antes de cada prazo fiscal<br><strong style="color:var(--text)">Alertas automáticos 7d, 3d e 1d antes</strong></div></div>
+        <div class="stat-card green"><div class="sc-val green">IA</div><div class="sc-lbl">Rascunho de DRE gerado a partir dos documentos<br><strong style="color:var(--text)">Contador revisa, não começa do zero</strong></div></div>
       </div>
     </div>
   </div>
@@ -348,7 +349,7 @@
     <div class="sol-c"><span class="sol-n">01</span><span class="sol-ic">📄</span><div class="sol-t">Cobrança Automática</div><p class="sol-d">Todo dia 1: mensagem personalizada para cada cliente listando exatamente quais documentos precisam ser enviados e o prazo. Lembretes automáticos no dia 5 e 10.</p><div class="sol-tags"><span class="sol-tag">WhatsApp</span><span class="sol-tag">n8n</span><span class="sol-tag">Scheduler</span></div></div>
     <div class="sol-c"><span class="sol-n">02</span><span class="sol-ic">📂</span><div class="sol-t">Organização Automática</div><p class="sol-d">Cliente manda documento. IA identifica tipo, renomeia com padrão correto e salva na pasta certa no Google Drive. Confirmação de recebimento enviada automaticamente.</p><div class="sol-tags"><span class="sol-tag">Google Drive</span><span class="sol-tag">IA OCR</span><span class="sol-tag">Nomenclatura</span></div></div>
     <div class="sol-c"><span class="sol-n">03</span><span class="sol-ic">🧠</span><div class="sol-t">Relatórios por IA</div><p class="sol-d">IA processa documentos recebidos e gera DRE simplificado, evolução de faturamento e alertas de anomalia. Contador revisa — não começa do zero.</p><div class="sol-tags"><span class="sol-tag">GPT-4</span><span class="sol-tag">Análise</span><span class="sol-tag">PDF Auto</span></div></div>
-    <div class="sol-c"><span class="sol-n">04</span><span class="sol-ic">📅</span><div class="sol-t">Calendário Fiscal</div><p class="sol-d">Cada obrigação de cada cliente cadastrada com prazo. Alerta 7, 3 e 1 dia antes. Nunca mais prazo perdido, nunca mais multa por esquecimento.</p><div class="sol-tags"><span class="sol-tag">Alertas</span><span class="sol-tag">Calendar</span><span class="sol-tag">WhatsApp</span></div></div>
+    <div class="sol-c"><span class="sol-n">04</span><span class="sol-ic">📅</span><div class="sol-t">Calendário Fiscal</div><p class="sol-d">Cada obrigação de cada cliente cadastrada com prazo. Alerta 7, 3 e 1 dia antes, com responsável definido.</p><div class="sol-tags"><span class="sol-tag">Alertas</span><span class="sol-tag">Calendar</span><span class="sol-tag">WhatsApp</span></div></div>
     <div class="sol-c"><span class="sol-n">05</span><span class="sol-ic">💰</span><div class="sol-t">Cobrança de Honorários</div><p class="sol-d">Venceu? Link de pagamento automático. 3 dias sem pagar: lembrete. 7 dias: segundo aviso. 15 dias: alerta para o sócio ligar.</p><div class="sol-tags"><span class="sol-tag">Pix</span><span class="sol-tag">Boleto</span><span class="sol-tag">Follow-up</span></div></div>
     <div class="sol-c"><span class="sol-n">06</span><span class="sol-ic">📊</span><div class="sol-t">Dashboard dos Sócios</div><p class="sol-d">Painel em tempo real: clientes ativos, honorários pagos/atrasados, documentos pendentes, próximo prazo fiscal e produtividade da equipe.</p><div class="sol-tags"><span class="sol-tag">Sheets</span><span class="sol-tag">Real-time</span><span class="sol-tag">KPIs</span></div></div>
   </div>
@@ -406,7 +407,7 @@
               <span class="node-arr">→</span>
               <div class="node"><div class="node-box" id="n2d"><span class="node-ic">📧</span><span class="node-nm">Enviado<br>Cliente</span></div></div>
             </div>
-            <div class="result-box"><strong>✅ Relatório gerado em 12 minutos (era 3-4h manual por cliente)</strong>DRE dezembro pronto · Faturamento +18% vs novembro · ⚠️ Custo fornecedores +31% — contador notificado para analisar</div>
+            <div class="result-box"><strong>✅ Relatório DRE gerado automaticamente</strong>DRE dezembro pronto · Faturamento +18% vs novembro · ⚠️ Custo fornecedores +31% — contador notificado para analisar</div>
           </div>
         </div>
 
@@ -523,13 +524,13 @@
 <!-- PAGE 4: METRICS -->
 <div class="page" id="pg-metrics">
   <div class="fw">
-    <div class="fw-title">Resultados · Comparativo Antes × Depois</div>
-    <div class="fw-sub">Impacto real da automação na operação do escritório contábil</div>
+    <div class="fw-title">Exemplo de painel · dados fictícios</div>
+    <div class="fw-sub">Exemplo do que o painel do escritório mostraria — todos os números são fictícios</div>
     <div class="m-grid">
-      <div class="mk"><span class="mk-ic">⏱️</span><div class="mk-v">-80%</div><div class="mk-l">Tempo em tarefas repetitivas</div><div class="mk-d">↓ De 30h/mês para 6h/mês</div></div>
-      <div class="mk"><span class="mk-ic">📊</span><div class="mk-v">12min</div><div class="mk-l">Para gerar relatório DRE</div><div class="mk-d">↓ Era 3-4 horas manual por cliente</div></div>
-      <div class="mk"><span class="mk-ic">📅</span><div class="mk-v">Zero</div><div class="mk-l">Prazos fiscais perdidos</div><div class="mk-d">↑ Alertas automáticos 7d antes</div></div>
-      <div class="mk"><span class="mk-ic">💰</span><div class="mk-v">-85%</div><div class="mk-l">Inadimplência de honorários</div><div class="mk-d">↓ Cobrança automática funcionando</div></div>
+      <div class="mk"><span class="mk-ic">⏱️</span><div class="mk-v">Fluxos</div><div class="mk-l">Tarefas repetitivas</div><div class="mk-d">Cobrança, organização e relatórios agendados</div></div>
+      <div class="mk"><span class="mk-ic">📊</span><div class="mk-v">IA</div><div class="mk-l">Rascunho de DRE</div><div class="mk-d">Gerado a partir dos documentos recebidos</div></div>
+      <div class="mk"><span class="mk-ic">📅</span><div class="mk-v">Alerta</div><div class="mk-l">Prazos fiscais</div><div class="mk-d">Avisos 7d, 3d e 1d antes</div></div>
+      <div class="mk"><span class="mk-ic">💰</span><div class="mk-v">Auto</div><div class="mk-l">Cobrança de honorários</div><div class="mk-d">Pix/boleto + lembretes escalonados</div></div>
     </div>
     <div class="m2">
       <div class="m2c">
@@ -538,7 +539,7 @@
         <div class="br"><span class="br-l">Atend. clientes</span><div class="br-w"><div class="br-b" style="width:25%;background:#3b82f6"></div></div><span class="br-v">25%</span></div>
         <div class="br"><span class="br-l">Revisão relat.</span><div class="br-w"><div class="br-b" style="width:12%;background:#a855f7"></div></div><span class="br-v">12%</span></div>
         <div class="br"><span class="br-l">Operacional</span><div class="br-w"><div class="br-b" style="width:8%;background:#ef4444"></div></div><span class="br-v">8%</span></div>
-        <div style="margin-top:.75rem;font-size:.68rem;color:var(--muted);padding:.55rem .75rem;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);border-radius:6px">Antes da automação: 65% do tempo era operacional — cobrança de docs, formatação de relatórios, cobranças manuais.</div>
+        <div style="margin-top:.75rem;font-size:.68rem;color:var(--muted);padding:.55rem .75rem;background:rgba(201,168,76,.05);border:1px solid rgba(201,168,76,.12);border-radius:6px">Distribuição de tempo da equipe — dados fictícios de exemplo.</div>
       </div>
       <div class="m2c">
         <div class="m2c-t">📈 Indicadores do escritório</div>
@@ -548,7 +549,7 @@
           <div class="kv"><span>Honorários recebidos no prazo</span><span>94%</span></div>
           <div class="kv"><span>Multas fiscais no período</span><span style="color:var(--g2)!important">Zero</span></div>
           <div class="kv"><span>Clientes satisfeitos (NPS)</span><span>4.7 / 5</span></div>
-          <div style="margin-top:.5rem;padding:.75rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:.7rem;text-align:center;color:var(--a2)">Sistema ativo há 4 meses · <strong>240 horas de trabalho economizadas</strong></div>
+          <div style="margin-top:.5rem;padding:.75rem;background:rgba(201,168,76,.06);border:1px solid rgba(201,168,76,.2);border-radius:8px;font-size:.7rem;text-align:center;color:var(--a2)"><strong>Dados fictícios</strong> · os números ilustram o formato do painel</div>
         </div>
       </div>
     </div>
