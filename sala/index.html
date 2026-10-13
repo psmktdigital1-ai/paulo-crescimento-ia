@@ -214,7 +214,7 @@ document.getElementById("strip").addEventListener("click", e => {
 let segs = [], spokenChars = 0, usingAlign = false, speakT0 = 0;
 const RATE = 15; // caracteres por segundo, para estimar quando não há alinhamento
 function parseSegs(text){
-  const out = []; let pos = 0; const re = /<\s*([A-Za-zÀ-ú]+)\s*>([\s\S]*?)<\s*\/\s*\1\s*>/g; let m;
+  const out = []; let pos = 0; const re = /<\s*([A-Za-zÀ-ú]+)\s*>([\s\S]*?)<\s*\/\s*[A-Za-zÀ-ú]+\s*>/g; let m;
   while ((m = re.exec(text))){ const a = byLabel[m[1].toLowerCase()] || (m[1].toLowerCase()==="téo" ? byLabel.teo : null);
     const t = m[2].trim(); if (!t) continue; out.push({id: a ? a.id : null, text: t, start: pos, end: pos + t.length}); pos += t.length; }
   if (!out.length && text.trim()) out.push({id: null, text: text.trim(), start: 0, end: text.trim().length});
@@ -290,7 +290,7 @@ async function end(fromRemote){
   if (c && !fromRemote){ try { await c.endSession(); } catch(e){} }
   $call.classList.remove("end"); $calltxt.textContent = "Ligar"; $call.disabled = false;
   $mute.hidden = true; muted = false; $mute.setAttribute("aria-pressed","false");
-  status("Ligação encerrada. Toque em Ligar para falar de novo.", "");
+  status("Ligação encerrada. Pediu algo? A equipe começa sozinha em até 1 hora, ou toque em ⚡ Fazer agora no Painel para sair em minutos.", "");
 }
 $call.addEventListener("click", () => conv ? end(false) : start());
 $mute.addEventListener("click", () => {
