@@ -111,11 +111,11 @@ const A = [
   {id:"nina", nome:"Nina", area:"LinkedIn & Autoridade",     agent:"agent_4601m4tbab6rehm846b5zhtnwt5j", photo:"f/nina.jpg", m:[167,179,44]},
   {id:"leo",  nome:"Leo",  area:"Pesquisa & Mercado",        agent:"agent_3301m4tbb3tqe4mah7dwx74rnapb", photo:"f/leo.jpg",  m:[162,169,48]},
   {id:"duda", nome:"Duda", area:"Design",                    agent:"agent_5401m4tbc0g0e0a96883b76mdb50", photo:"f/duda.jpg", m:[165,191,50]},
-  {id:"rafa", nome:"Rafa", area:"Engenharia de Dados",       agent:"agent_7801m4vefmbxettvm43szpq65tqk", photo:"f/rafa.jpg", m:[160,176,56]},
-  {id:"carol",nome:"Carol",area:"Power BI & Visualização",   agent:"agent_9201m4vefw36f5kak4cj8nybnpb3", photo:"f/carol.jpg", m:[160,172,54]},
-  {id:"gabi", nome:"Gabi", area:"Mensuração Avançada",       agent:"agent_0301m4veg39rfqea3tx9y4mzyq2q", photo:"f/gabi.jpg", m:[160,190,58]},
-  {id:"igor", nome:"Igor", area:"Insights & Análise",        agent:"agent_6701m4veg9tsfj7bz7q07bp3x6re", photo:"f/igor.jpg", m:[160,199,56]},
-  {id:"caio", nome:"Caio", area:"Música & Trilhas",          agent:"agent_8701m4vpmdhcfahbk0z970wkapab", photo:"f/caio.jpg", m:[156,187,58]}
+  {id:"rafa", nome:"Rafa", area:"Engenharia de Dados",       agent:"agent_7801m4vefmbxettvm43szpq65tqk", photo:"f/rafa.jpg", m:[170,172,56]},
+  {id:"carol",nome:"Carol",area:"Power BI & Visualização",   agent:"agent_9201m4vefw36f5kak4cj8nybnpb3", photo:"f/carol.jpg", m:[160,180,52]},
+  {id:"gabi", nome:"Gabi", area:"Mensuração Avançada",       agent:"agent_0301m4veg39rfqea3tx9y4mzyq2q", photo:"f/gabi.jpg", m:[165,196,52]},
+  {id:"igor", nome:"Igor", area:"Insights & Análise",        agent:"agent_6701m4veg9tsfj7bz7q07bp3x6re", photo:"f/igor.jpg", m:[160,168,56]},
+  {id:"caio", nome:"Caio", area:"Música & Trilhas",          agent:"agent_8701m4vpmdhcfahbk0z970wkapab", photo:"f/caio.jpg", m:[160,153,52]}
 ];
 const qs = new URLSearchParams(location.search);
 let cur = A.find(a => a.id === (qs.get("a")||"").toLowerCase()) || A[0];
