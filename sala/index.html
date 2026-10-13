@@ -10,6 +10,7 @@
 <style>
 :root{--bg:#0A0C1F;--bg2:#12152E;--text:#F4F2FF;--muted:#C9C2EA;--faint:#8D86B5;--cyan:#00D4FF;--green:#2BD46B;--red:#FF4D5E;--line:rgba(255,255,255,.12)}
 *{box-sizing:border-box}
+[hidden]{display:none!important}
 html,body{margin:0;height:100%}
 body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 .room{min-height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 16px 28px;position:relative;
@@ -25,7 +26,7 @@ header .brand span{color:var(--cyan)}
 header a{color:var(--muted);font-size:13px;text-decoration:none;border:1px solid var(--line);padding:7px 12px;border-radius:999px}
 header a:hover{border-color:var(--cyan)}
 main{flex:1;width:100%;max-width:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;position:relative;z-index:1;padding:18px 0}
-.wrap{position:relative;width:min(78vw,340px);aspect-ratio:1}
+.wrap{position:relative;width:min(66vw,320px);aspect-ratio:1;margin:12% 0 10%}
 .ring{position:absolute;inset:-13%;width:126%;height:126%;pointer-events:none;filter:drop-shadow(0 0 14px rgba(123,77,255,.7))}
 .ring .spin{transform-origin:50px 50px;animation:spin 40s linear infinite}
 .talking .ring .spin{animation-duration:9s}
