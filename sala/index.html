@@ -1,0 +1,278 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex,nofollow">
+<title>Sala da Agência</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0A0C1F;--bg2:#12152E;--text:#F4F2FF;--muted:#C9C2EA;--faint:#8D86B5;--cyan:#00D4FF;--green:#2BD46B;--red:#FF4D5E;--line:rgba(255,255,255,.12)}
+*{box-sizing:border-box}
+html,body{margin:0;height:100%}
+body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+.room{min-height:100%;display:flex;flex-direction:column;align-items:center;padding:20px 16px 28px;position:relative;
+  background:
+   radial-gradient(900px 500px at 50% 30%,rgba(123,77,255,.22),transparent 70%),
+   radial-gradient(600px 400px at 85% 85%,rgba(0,212,255,.10),transparent 70%),
+   var(--bg)}
+.room::before{content:"";position:absolute;inset:0;pointer-events:none;opacity:.35;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160' viewBox='0 0 160 160'%3E%3Cg fill='none' stroke='%237B4DFF' stroke-opacity='.35' stroke-width='1'%3E%3Cpath d='M0 40h40l20 20h40M100 60v40l20 20h40M20 160v-40l20-20h20M160 20h-30l-20 20'/%3E%3C/g%3E%3Cg fill='%2300D4FF' fill-opacity='.5'%3E%3Ccircle cx='40' cy='40' r='2'/%3E%3Ccircle cx='100' cy='60' r='2'/%3E%3Ccircle cx='120' cy='120' r='2'/%3E%3Ccircle cx='40' cy='120' r='2'/%3E%3C/g%3E%3C/svg%3E")}
+header{width:100%;max-width:720px;display:flex;justify-content:space-between;align-items:center;gap:12px;position:relative;z-index:1}
+header .brand{font-weight:800;letter-spacing:.02em;font-size:15px}
+header .brand span{color:var(--cyan)}
+header a{color:var(--muted);font-size:13px;text-decoration:none;border:1px solid var(--line);padding:7px 12px;border-radius:999px}
+header a:hover{border-color:var(--cyan)}
+main{flex:1;width:100%;max-width:720px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;position:relative;z-index:1;padding:18px 0}
+.wrap{position:relative;width:min(78vw,340px);aspect-ratio:1}
+.ring{position:absolute;inset:-13%;width:126%;height:126%;pointer-events:none;filter:drop-shadow(0 0 14px rgba(123,77,255,.7))}
+.ring .spin{transform-origin:50px 50px;animation:spin 40s linear infinite}
+.talking .ring .spin{animation-duration:9s}
+.ring .eq{transform-origin:50px 50px;transition:transform .08s linear}
+@keyframes spin{to{transform:rotate(360deg)}}
+.stage{position:absolute;inset:0;border-radius:50%;overflow:hidden;background:#1A1F4A;border:3px solid rgba(255,255,255,.18);box-shadow:0 0 0 6px #0A0C1F,0 20px 60px rgba(0,0,0,.5);transition:transform .08s linear}
+.stage img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;user-select:none;-webkit-user-drag:none}
+.stage .mouth{position:absolute;border-radius:0 0 50% 50% / 0 0 100% 100%;background:radial-gradient(ellipse at 50% 20%,#3A0F18,#16050A 70%);transform-origin:50% 0;height:0}
+.stage .jaw{will-change:transform}
+.stage svg{position:absolute;inset:0;width:100%;height:100%}
+.stage svg .m-open{transform-box:fill-box;transform-origin:50% 30%}
+.name{text-align:center}
+.name h1{margin:0;font-size:28px;font-weight:800;letter-spacing:-.01em}
+.name p{margin:4px 0 0;color:var(--muted);font-size:14px}
+.status{font-size:13px;color:var(--faint);min-height:18px;text-align:center;display:flex;gap:8px;align-items:center;justify-content:center}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--faint)}
+.st-on .dot{background:var(--green);box-shadow:0 0 10px var(--green)}
+.st-talk .dot{background:var(--cyan);box-shadow:0 0 10px var(--cyan)}
+.st-err .dot{background:var(--red)}
+.caption{max-width:560px;min-height:44px;text-align:center;font-size:16px;line-height:1.45;color:var(--text);padding:0 8px;opacity:.95}
+.controls{display:flex;gap:14px;align-items:center}
+.btn{font:inherit;font-weight:800;font-size:16px;border:0;border-radius:999px;padding:15px 28px;cursor:pointer;display:inline-flex;gap:10px;align-items:center;color:#04120A;background:linear-gradient(90deg,#1F8F4A,#2BD46B);box-shadow:0 8px 24px rgba(43,212,107,.35)}
+.btn.end{background:linear-gradient(90deg,#C42A3A,#FF4D5E);color:#fff;box-shadow:0 8px 24px rgba(255,77,94,.35)}
+.btn.round{padding:14px;background:var(--bg2);color:var(--text);border:1px solid var(--line);box-shadow:none}
+.btn.round[aria-pressed="true"]{background:#3A1220;border-color:var(--red)}
+.btn:focus-visible{outline:3px solid var(--cyan);outline-offset:3px}
+.btn[disabled]{opacity:.6;cursor:default}
+.team{width:100%;max-width:720px;position:relative;z-index:1}
+.team h2{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--faint);font-weight:600;margin:0 0 10px;text-align:center}
+.strip{display:flex;gap:10px;overflow-x:auto;padding:4px 2px 8px;justify-content:flex-start;scrollbar-width:thin}
+.chip{flex:0 0 auto;display:flex;flex-direction:column;align-items:center;gap:5px;color:var(--muted);text-decoration:none;font-size:12px;width:64px}
+.chip .mini{width:52px;height:52px;border-radius:50%;overflow:hidden;border:2px solid var(--line);background:#1A1F4A;position:relative}
+.chip .mini img,.chip .mini svg{width:100%;height:100%;object-fit:cover;display:block}
+.chip.cur .mini{border-color:var(--cyan)}
+.chip.cur{color:var(--text)}
+.chip:focus-visible{outline:2px solid var(--cyan);outline-offset:3px;border-radius:12px}
+.note{font-size:12px;color:var(--faint);text-align:center;max-width:520px;margin:0}
+@media (max-width:480px){.name h1{font-size:24px}.btn{padding:14px 22px}}
+@media (prefers-reduced-motion:reduce){.ring .spin{animation:none}}
+</style>
+</head>
+<body>
+<div class="room">
+  <header>
+    <div class="brand">Agência <span>Paulo</span> · Sala</div>
+    <a id="back" href="https://claude.ai/artifact/HWB261tssFLqkCzUdU8SMj" target="_blank" rel="noopener">Painel</a>
+  </header>
+  <main>
+    <div class="wrap" id="wrap">
+      <svg class="ring" viewBox="0 0 100 100" aria-hidden="true" id="ring"></svg>
+      <div class="stage" id="stage"></div>
+    </div>
+    <div class="name"><h1 id="nm"></h1><p id="ar"></p></div>
+    <div class="status" id="status" role="status" aria-live="polite"><span class="dot"></span><span id="sttxt">Toque em Ligar para conversar</span></div>
+    <div class="caption" id="cap" aria-live="polite"></div>
+    <div class="controls">
+      <button class="btn round" id="mute" type="button" aria-pressed="false" aria-label="Silenciar meu microfone" hidden>
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>
+      </button>
+      <button class="btn" id="call" type="button">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M6.6 10.8a15.1 15.1 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1c0 1.25.2 2.45.57 3.6a1 1 0 0 1-.25 1z"/></svg>
+        <span id="calltxt">Ligar</span>
+      </button>
+    </div>
+    <p class="note" id="note">O navegador vai pedir para usar o microfone. Use fone para a conversa ficar mais limpa.</p>
+  </main>
+  <section class="team" aria-label="Equipe">
+    <h2>Chamar outra pessoa da equipe</h2>
+    <nav class="strip" id="strip"></nav>
+  </section>
+</div>
+
+<script src="elevenlabs-client-1.26.0.js"></script>
+<script>
+/* mx,my = centro da boca e mw = largura, em px da foto 320x320 */
+const A = [
+  {id:"lia",  nome:"Lia",  area:"Conteúdo Instagram",        agent:"agent_5001m4tb00y4f0dtx36h5vfts1kn", photo:"f/lia.jpg",  m:[165,182,50]},
+  {id:"teo",  nome:"Téo",  area:"Mídia Paga",                agent:"agent_2901m4tb2zsde5fv95yjzz50hzd4", photo:"f/teo.jpg",  m:[162,174,56]},
+  {id:"davi", nome:"Davi", area:"Dados & Líder de BI",       agent:"agent_6501m4tb8py3fkk81teyfy5bgwxc", photo:"f/davi.jpg", m:[160,181,50]},
+  {id:"bia",  nome:"Bia",  area:"Comercial",                 agent:"agent_7501m4tb7d72ey5svajxzgapmmm8", photo:"f/bia.jpg",  m:[168,205,50]},
+  {id:"max",  nome:"Max",  area:"Marketplace",               agent:"agent_3701m4tb9tvvex4tv0w915w518g8", photo:"f/max.jpg",  m:[160,167,44]},
+  {id:"nina", nome:"Nina", area:"LinkedIn & Autoridade",     agent:"agent_4601m4tbab6rehm846b5zhtnwt5j", photo:"f/nina.jpg", m:[167,179,44]},
+  {id:"leo",  nome:"Leo",  area:"Pesquisa & Mercado",        agent:"agent_3301m4tbb3tqe4mah7dwx74rnapb", photo:"f/leo.jpg",  m:[162,169,48]},
+  {id:"duda", nome:"Duda", area:"Design",                    agent:"agent_5401m4tbc0g0e0a96883b76mdb50", photo:"f/duda.jpg", m:[165,191,50]},
+  {id:"rafa", nome:"Rafa", area:"Engenharia de Dados",       agent:"agent_7801m4vefmbxettvm43szpq65tqk", look:{skin:"#C68E6A", hair:"#2B1B14", shirt:"#3D6BFF", style:"side"}},
+  {id:"carol",nome:"Carol",area:"Power BI & Visualização",   agent:"agent_9201m4vefw36f5kak4cj8nybnpb3", look:{skin:"#F1C7A8", hair:"#8A5A2B", shirt:"#FFC940", style:"long"}},
+  {id:"gabi", nome:"Gabi", area:"Mensuração Avançada",       agent:"agent_0301m4veg39rfqea3tx9y4mzyq2q", look:{skin:"#A8724E", hair:"#1E1410", shirt:"#B04DFF", style:"puff", glasses:true}},
+  {id:"igor", nome:"Igor", area:"Insights & Análise",        agent:"agent_6701m4veg9tsfj7bz7q07bp3x6re", look:{skin:"#E3B08C", hair:"#3A2A20", shirt:"#B6FF3B", style:"curly"}},
+  {id:"caio", nome:"Caio", area:"Música & Trilhas",          agent:"agent_8701m4vpmdhcfahbk0z970wkapab", look:{skin:"#C98E68", hair:"#2A1C14", shirt:"#FF5FA2", style:"curly"}}
+];
+const qs = new URLSearchParams(location.search);
+let cur = A.find(a => a.id === (qs.get("a")||"").toLowerCase()) || A[0];
+
+/* ---------- Rosto ilustrado (para quem ainda não tem foto) ---------- */
+function face(a){
+  const L=a.look,s=L.skin,h=L.hair,shade="rgba(0,0,0,.12)";let back="",front="",extra="";
+  if(L.style==="long"){back=`<path d="M30 54 C26 18 94 18 90 54 L94 104 C80 110 40 110 26 104 Z" fill="${h}"/>`;front=`<path d="M35 50 C36 26 84 22 86 50 C80 38 66 33 52 36 C44 38 38 43 35 50Z" fill="${h}"/><circle cx="37" cy="66" r="2.6" fill="#B6FF3B"/><circle cx="83" cy="66" r="2.6" fill="#B6FF3B"/>`;}
+  else if(L.style==="curly"){front=[34,42,50,58,66,74,82].map((x,i)=>`<circle cx="${x+(i%2?0:1)}" cy="${30+(i%2?3:0)}" r="8.5" fill="${h}"/>`).join("")+`<circle cx="38" cy="40" r="7" fill="${h}"/><circle cx="82" cy="40" r="7" fill="${h}"/>`;extra=`<path d="M37 60 C38 86 82 86 83 60 C78 76 42 76 37 60Z" fill="rgba(29,20,18,.55)"/>`;}
+  else if(L.style==="side"){front=`<path d="M35 50 C33 24 86 20 86 48 C80 34 62 30 48 37 C42 41 38 45 35 50Z" fill="${h}"/>`;}
+  else if(L.style==="puff"){back=`<circle cx="60" cy="36" r="33" fill="${h}"/><circle cx="34" cy="50" r="12" fill="${h}"/><circle cx="86" cy="50" r="12" fill="${h}"/>`;front=`<path d="M37 42 C44 30 76 30 83 42" stroke="#00D4FF" stroke-width="4" fill="none" stroke-linecap="round"/>`;}
+  const glasses=L.glasses?`<g fill="none" stroke="#1B1230" stroke-width="2"><rect x="43" y="50" width="14" height="10" rx="4"/><rect x="63" y="50" width="14" height="10" rx="4"/><path d="M57 54 L63 54"/></g>`:"";
+  return `<svg viewBox="20 12 80 80" aria-hidden="true"><defs><radialGradient id="bg-${a.id}" cx="50%" cy="35%" r="70%"><stop offset="0" stop-color="#3A4A8C"/><stop offset=".6" stop-color="#1A1F4A"/><stop offset="1" stop-color="#0B0E24"/></radialGradient><radialGradient id="fs-${a.id}" cx="40%" cy="32%" r="75%"><stop offset="0" stop-color="#fff" stop-opacity=".28"/><stop offset=".55" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".22"/></radialGradient></defs>
+  <rect x="0" y="0" width="120" height="120" fill="url(#bg-${a.id})"/>${back}
+  <path d="M16 122 C20 92 40 84 60 84 C80 84 100 92 104 122 Z" fill="${L.shirt}"/>
+  <rect x="52" y="70" width="16" height="18" rx="6" fill="${s}"/><rect x="52" y="74" width="16" height="6" fill="${shade}"/>
+  <circle cx="36" cy="57" r="5.5" fill="${s}"/><circle cx="84" cy="57" r="5.5" fill="${s}"/>
+  <ellipse cx="60" cy="54" rx="24" ry="27" fill="${s}"/><ellipse cx="60" cy="54" rx="24" ry="27" fill="url(#fs-${a.id})"/>${extra}${front}
+  <path d="M47 47 Q51 44.5 55 47 M65 47 Q69 44.5 73 47" stroke="#1B1230" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="51" cy="55" r="2.7" fill="#1B1230"/><circle cx="69" cy="55" r="2.7" fill="#1B1230"/><circle cx="52" cy="54" r=".9" fill="#fff"/><circle cx="70" cy="54" r=".9" fill="#fff"/>${glasses}
+  <path d="M60 58 Q58 63 61 64" stroke="${shade}" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <circle cx="46" cy="64" r="4" fill="rgba(255,95,162,.18)"/><circle cx="74" cy="64" r="4" fill="rgba(255,95,162,.18)"/>
+  <path class="m-closed" d="M53 69 Q60 74.5 67 69" stroke="#5A1F2E" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+  <ellipse class="m-open" cx="60" cy="70.5" rx="5.2" ry="3.8" fill="#5A1F2E" opacity="0"/></svg>`;
+}
+
+/* ---------- Anel colorido ---------- */
+const RC=["#7B4DFF","#3D6BFF","#00D4FF","#7BE0FF","#FFC940","#FF8A3D","#FF5FA2","#B04DFF","#7B4DFF"];
+function lerp(a,b,t){const pa=parseInt(a.slice(1),16),pb=parseInt(b.slice(1),16);return `rgb(${Math.round(((pa>>16)&255)*(1-t)+((pb>>16)&255)*t)},${Math.round(((pa>>8)&255)*(1-t)+((pb>>8)&255)*t)},${Math.round((pa&255)*(1-t)+(pb&255)*t)})`;}
+function ringSvg(seed,n=72){let x=0;for(const c of seed)x=(x*31+c.charCodeAt(0))>>>0;const r=()=>{x=(x*1664525+1013904223)>>>0;return x/4294967296};const off=r();let s="";
+  for(let i=0;i<n;i++){const ang=(i/n)*Math.PI*2-Math.PI/2,t=((i/n)+off)%1,k=t*(RC.length-1),j=Math.floor(k),col=lerp(RC[j],RC[j+1],k-j),r1=40,r2=43+r()*5.5,c=Math.cos(ang),si=Math.sin(ang);
+  s+=`<line x1="${(50+c*r1).toFixed(2)}" y1="${(50+si*r1).toFixed(2)}" x2="${(50+c*r2).toFixed(2)}" y2="${(50+si*r2).toFixed(2)}" stroke="${col}"/>`;}
+  return `<g class="spin"><g class="eq" id="eq"><g stroke-width="2.2">${s}</g><circle cx="50" cy="50" r="49" fill="none" stroke="rgba(255,255,255,.12)" stroke-width=".5" stroke-dasharray="1 2.2"/></g></g>`;}
+
+/* ---------- Monta a pessoa ---------- */
+let jaw=null, mouth=null, mOpen=null, mClosed=null, geo=null;
+function render(){
+  document.title = cur.nome + " · Sala da Agência";
+  document.getElementById("nm").textContent = cur.nome;
+  document.getElementById("ar").textContent = cur.area;
+  document.getElementById("ring").innerHTML = ringSvg(cur.id);
+  const st = document.getElementById("stage");
+  jaw=mouth=mOpen=mClosed=null;
+  if (cur.photo){
+    const [mx,my,mw] = cur.m; const P = v => (v/320*100);
+    geo = {mx:P(mx), my:P(my), mw:P(mw)};
+    const maskR = `radial-gradient(ellipse ${P(mw*1.35)}% ${P(62)}% at ${P(mx)}% ${P(my+30)}%, #000 62%, transparent 100%)`;
+    const maskL = `linear-gradient(to bottom, transparent ${P(my-1)}%, #000 ${P(my+3)}%)`;
+    st.innerHTML = `<img src="${cur.photo}" alt="${cur.nome}">
+      <div class="mouth" id="mouth" style="left:${P(mx-mw*0.31)}%;width:${P(mw*0.62)}%;top:${P(my-1)}%"></div>
+      <img class="jaw" id="jaw" src="${cur.photo}" alt="" aria-hidden="true"
+        style="-webkit-mask-image:${maskR},${maskL};mask-image:${maskR},${maskL};-webkit-mask-composite:source-in;mask-composite:intersect">`;
+    jaw = document.getElementById("jaw"); mouth = document.getElementById("mouth");
+  } else {
+    st.innerHTML = face(cur);
+    mOpen = st.querySelector(".m-open"); mClosed = st.querySelector(".m-closed");
+  }
+  const strip = document.getElementById("strip");
+  strip.innerHTML = A.map(a => `<a class="chip${a.id===cur.id?" cur":""}" href="?a=${a.id}" data-a="${a.id}" aria-label="Chamar ${a.nome}, ${a.area}"${a.id===cur.id?' aria-current="true"':""}>
+     <span class="mini">${a.photo?`<img src="${a.photo}" alt="">`:face(a)}</span>${a.nome}</a>`).join("");
+  setMouth(0);
+}
+function setMouth(o){ // o de 0 a 1
+  const stage = document.getElementById("stage");
+  if (jaw){
+    const px = o * 2.7; // % da altura da foto
+    jaw.style.transform = `translateY(${px}%)`;
+    mouth.style.height = `${px + (o>0.02?0.8:0)}%`;
+  } else if (mOpen){
+    mOpen.setAttribute("opacity", o>0.06 ? "1" : "0");
+    mClosed.setAttribute("opacity", o>0.06 ? "0" : "1");
+    mOpen.style.transform = `scaleY(${0.35 + o*1.5})`;
+  }
+  stage.style.transform = `scale(${1 + o*0.012}) translateY(${-o*0.6}%)`;
+  const eq = document.getElementById("eq"); if (eq) eq.style.transform = `scale(${1 + o*0.07})`;
+}
+document.getElementById("strip").addEventListener("click", e => {
+  const c = e.target.closest("[data-a]"); if (!c) return;
+  e.preventDefault();
+  if (conv) return; // não troca no meio da ligação
+  cur = A.find(a => a.id === c.dataset.a) || cur;
+  history.replaceState(null, "", "?a=" + cur.id);
+  document.getElementById("cap").textContent = "";
+  render();
+});
+
+/* ---------- Ligação ---------- */
+let conv=null, raf=0, level=0, speaking=false, muted=false;
+const $st = document.getElementById("status"), $sttxt = document.getElementById("sttxt");
+const $call = document.getElementById("call"), $calltxt = document.getElementById("calltxt"), $mute = document.getElementById("mute");
+function status(t, cls){ $sttxt.textContent = t; $st.className = "status " + (cls||""); }
+function loop(){
+  let v = 0;
+  if (conv && speaking){
+    try { v = conv.getOutputVolume() || 0; } catch(e){ v = 0; }
+  }
+  const target = Math.min(1, Math.pow(Math.min(1, v * 3.2), 0.75));
+  level += (target - level) * (target > level ? 0.55 : 0.3);
+  if (level < 0.01) level = 0;
+  setMouth(level);
+  raf = requestAnimationFrame(loop);
+}
+async function start(){
+  if (!window.ElevenLabsClient){ status("Não consegui carregar a ligação. Recarregue a página.", "st-err"); return; }
+  $call.disabled = true; status("Conectando…", "st-on");
+  try {
+    await navigator.mediaDevices.getUserMedia({audio:true});
+  } catch(e){
+    $call.disabled = false; status("Sem acesso ao microfone. Libere o microfone para este site e tente de novo.", "st-err"); return;
+  }
+  try {
+    conv = await ElevenLabsClient.Conversation.startSession({
+      agentId: cur.agent,
+      connectionType: "webrtc",
+      onConnect: () => { status("Na linha com " + cur.nome + ". Pode falar.", "st-on"); },
+      onDisconnect: () => end(true),
+      onError: (m) => { status("A ligação caiu: " + (m || "erro") , "st-err"); },
+      onModeChange: ({mode}) => {
+        speaking = mode === "speaking";
+        document.getElementById("wrap").classList.toggle("talking", speaking);
+        status(speaking ? cur.nome + " está falando" : "Ouvindo você", speaking ? "st-talk" : "st-on");
+      },
+      onMessage: ({message, source}) => {
+        if (source === "ai" && message) document.getElementById("cap").textContent = message;
+      }
+    });
+    $call.disabled = false; $call.classList.add("end"); $calltxt.textContent = "Desligar";
+    $mute.hidden = false;
+    cancelAnimationFrame(raf); raf = requestAnimationFrame(loop);
+  } catch(e){
+    conv = null; $call.disabled = false;
+    status("Não consegui ligar agora. Se aparecer limite de cota, os créditos do ElevenLabs acabaram.", "st-err");
+  }
+}
+async function end(fromRemote){
+  const c = conv; conv = null; speaking = false;
+  document.getElementById("wrap").classList.remove("talking");
+  cancelAnimationFrame(raf); level = 0; setMouth(0);
+  if (c && !fromRemote){ try { await c.endSession(); } catch(e){} }
+  $call.classList.remove("end"); $calltxt.textContent = "Ligar"; $call.disabled = false;
+  $mute.hidden = true; muted = false; $mute.setAttribute("aria-pressed","false");
+  status("Ligação encerrada. Toque em Ligar para falar de novo.", "");
+}
+$call.addEventListener("click", () => conv ? end(false) : start());
+$mute.addEventListener("click", () => {
+  if (!conv) return; muted = !muted;
+  try { conv.setMicMuted(muted); } catch(e){}
+  $mute.setAttribute("aria-pressed", String(muted));
+  $mute.setAttribute("aria-label", muted ? "Ativar meu microfone" : "Silenciar meu microfone");
+});
+window.addEventListener("pagehide", () => { if (conv) { try { conv.endSession(); } catch(e){} } });
+
+/* modo de teste visual: ?demo=1 mexe a boca sem ligação */
+if (qs.get("demo")){
+  let t=0; (function d(){ t+=1/60; const v=Math.max(0,Math.sin(t*11)*0.5+Math.sin(t*17)*0.35+0.15); setMouth(Math.min(1,v)); requestAnimationFrame(d); })();
+  document.getElementById("wrap").classList.add("talking");
+}
+render();
+</script>
+</body>
+</html>
