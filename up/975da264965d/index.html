@@ -1,0 +1,4 @@
+<!doctype html><meta charset="utf-8"><body style="font-family:sans-serif">Enviando slides para o Instagram…<script>
+(async()=>{const files=[];for(let i=1;i<=8;i++){const b=await (await fetch('lgpd_'+i+'.jpg')).blob();files.push(new File([b],'lgpd_'+i+'.jpg',{type:'image/jpeg'}))}
+if(window.opener){window.opener.postMessage({kind:'paulo-slides',files},'*');document.body.textContent='Pronto: '+files.length+' arquivos enviados.'}else{document.body.textContent='Sem janela de origem.'}})();
+</script>
