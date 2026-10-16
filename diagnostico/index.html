@@ -1,0 +1,207 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diagnóstico gratuito da sua agenda | Paulo Santos</title>
+<meta name="description" content="Em 2 minutos: quanto sua agenda deixa de faturar com faltas e clientes que somem, e como um assistente no WhatsApp resolve isso.">
+<meta property="og:title" content="Quanto sua agenda deixa de faturar?">
+<meta property="og:description" content="Diagnóstico gratuito em 2 minutos, com os números do seu negócio.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#1A1033;--surface:#241845;--surface2:#2E2156;--text:#F5F3FF;--muted:#A99FC9;--cyan:#00D4FF;--purple:#7B4DFF;--lime:#B6FF3B;--orange:#FF8A3D;--line:rgba(255,255,255,.1)}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{background:var(--bg);color:var(--text);font-family:Inter,system-ui,sans-serif}
+body{min-height:100vh;background:radial-gradient(700px 500px at 100% 0%,rgba(91,49,240,.35),transparent 70%),radial-gradient(600px 500px at 0% 100%,rgba(255,107,26,.12),transparent 70%),var(--bg);background-attachment:fixed}
+.wrap{max-width:620px;margin:0 auto;padding:24px 16px 120px}
+header{display:flex;align-items:center;gap:12px;margin-bottom:28px}
+header img{width:44px;height:44px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.2)}
+header b{display:block;font-size:15px}header span{font-size:13px;color:var(--muted)}
+.tag{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:12px;font-weight:700;letter-spacing:.12em;color:var(--cyan);border:1.5px solid var(--cyan);border-radius:999px;padding:6px 12px;margin-bottom:14px}
+h1{font-size:clamp(30px,7vw,42px);line-height:1.05;letter-spacing:-.03em;font-weight:900}
+h1 em{font-style:normal;color:var(--orange)}
+.sub{color:#D9D3F0;font-size:17px;line-height:1.45;margin:14px 0 22px}
+.start{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:#1A1033;font-weight:900;font-size:18px;border:0;border-radius:999px;padding:16px 26px;cursor:pointer}
+.small{font-size:13px;color:var(--muted);margin-top:12px;line-height:1.5}
+#chat{display:flex;flex-direction:column;gap:12px;margin-top:8px}
+.msg{max-width:88%;padding:12px 16px;border-radius:18px;font-size:16px;line-height:1.45;animation:in .25s ease}
+.bot{background:var(--surface);border:1px solid var(--line);border-top-left-radius:6px}
+.me{align-self:flex-end;background:var(--purple);color:#fff;border-top-right-radius:6px}
+@keyframes in{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.typing{display:inline-flex;gap:4px}.typing i{width:7px;height:7px;border-radius:50%;background:var(--muted);animation:b 1s infinite}.typing i:nth-child(2){animation-delay:.15s}.typing i:nth-child(3){animation-delay:.3s}
+@keyframes b{0%,100%{opacity:.3}50%{opacity:1}}
+#input{position:fixed;left:0;right:0;bottom:0;background:rgba(26,16,51,.96);border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom));backdrop-filter:blur(8px)}
+#input .in{max-width:620px;margin:0 auto}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{background:var(--surface2);color:var(--text);border:1px solid var(--line);border-radius:999px;padding:10px 14px;font-size:15px;cursor:pointer;font-family:inherit}
+.chip:hover{border-color:var(--cyan)}
+.row{display:flex;gap:8px}
+.row input,.row textarea{flex:1;background:var(--surface);border:1px solid var(--line);color:var(--text);border-radius:14px;padding:13px 14px;font-size:16px;font-family:inherit;min-width:0}
+.row input:focus,.row textarea:focus{outline:2px solid var(--cyan);border-color:transparent}
+.send{background:var(--lime);color:#1A1033;border:0;border-radius:14px;padding:0 18px;font-weight:900;font-size:16px;cursor:pointer}
+.hint{font-size:12px;color:var(--muted);margin-top:6px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:22px;padding:20px;margin-top:6px;animation:in .3s ease}
+.card h3{font-size:20px;line-height:1.2;margin-bottom:8px}
+.lbl{font-family:"JetBrains Mono",monospace;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--cyan);margin-bottom:8px}
+.big{font-size:44px;font-weight:900;color:var(--orange);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
+.calc{font-size:14px;color:#C9C1E6;line-height:1.5;margin-top:6px}
+.pill{display:inline-block;font-family:"JetBrains Mono",monospace;font-size:10px;letter-spacing:.08em;text-transform:uppercase;border:1.5px solid var(--orange);color:var(--orange);border-radius:999px;padding:3px 8px;margin-left:6px;vertical-align:middle}
+.card p{line-height:1.5;color:#E4DEF8}
+.card ul{list-style:none;margin-top:10px}.card li{padding:8px 0 8px 26px;position:relative;line-height:1.4;border-top:1px solid var(--line)}
+.card li:before{content:"";position:absolute;left:4px;top:15px;width:9px;height:9px;border-radius:50%;background:var(--orange)}
+.fn{display:flex;gap:12px;align-items:flex-start;background:var(--surface2);border-radius:14px;padding:12px;margin-top:8px}
+.fn .n{flex:0 0 30px;height:30px;border-radius:50%;background:var(--lime);color:#1A1033;font-weight:900;display:grid;place-items:center}
+.fn b{display:block}.fn span{font-size:14px;color:#C9C1E6}
+.phone{background:#0b141a;border-radius:26px;padding:14px;border:6px solid #2a2340;max-width:360px;margin:8px auto 0}
+.ph-top{display:flex;align-items:center;gap:10px;color:#e9edef;font-size:14px;padding:4px 4px 12px;border-bottom:1px solid #222}
+.ph-top i{width:30px;height:30px;border-radius:50%;background:var(--purple);display:grid;place-items:center;font-style:normal;font-size:14px}
+.ph-body{background:#0b141a;min-height:260px;padding:12px 2px;display:flex;flex-direction:column;gap:8px}
+.w{max-width:82%;padding:8px 10px 6px;border-radius:10px;font-size:14px;line-height:1.35;color:#e9edef;animation:in .3s ease}
+.w small{display:block;text-align:right;font-size:10px;color:#8696a0;margin-top:2px}
+.w.c{background:#202c33;align-self:flex-start}.w.a{background:#005c4b;align-self:flex-end}
+.w.s{align-self:center;background:#182229;color:#ffd279;font-size:12px;border-radius:8px}
+.cta{display:block;text-align:center;background:var(--lime);color:#1A1033;text-decoration:none;font-weight:900;font-size:18px;border-radius:16px;padding:16px;margin-top:14px}
+.ghost{display:block;text-align:center;color:var(--muted);font-size:14px;margin-top:10px}
+.lgpd{font-size:12px;color:var(--muted);line-height:1.5;margin-top:14px}
+[hidden]{display:none!important}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header><img src="paulo.jpg" onerror="this.style.display='none'" alt=""><div><b>Paulo Santos</b><span>@paulosantos.growth · automação para pequenas empresas</span></div></header>
+
+  <section id="hero">
+    <div class="tag">DIAGNÓSTICO GRATUITO · 2 MIN</div>
+    <h1>Quanto sua agenda <em>deixa de faturar?</em></h1>
+    <p class="sub">Responda 7 perguntas rápidas. Você recebe na hora a conta com os <b>seus</b> números, um diagnóstico do seu atendimento e vê o assistente no WhatsApp funcionando no seu tipo de negócio.</p>
+    <button class="start" id="go">Começar agora →</button>
+    <p class="small">Sem cadastro, sem cartão. Seus dados vão só para o Paulo retornar o contato.</p>
+  </section>
+
+  <div id="chat"></div>
+  <div id="result"></div>
+</div>
+
+<div id="input" hidden><div class="in" id="inbox"></div></div>
+
+<script>
+const WEBHOOK = "https://n8n.paulogrowth.tech/webhook/diagnostico-pme";
+const WPP = "5511985008250";
+const params = new URLSearchParams(location.search);
+const A = { origem: params.get("origem") || params.get("utm_source") || "pagina-diagnostico" };
+const chat = document.getElementById("chat"), inbox = document.getElementById("inbox"), bar = document.getElementById("input");
+
+const NICHOS = ["Barbearia","Clínica / consultório","Salão / estética","Escritório contábil","Corretora de seguros","Academia / personal","Oficina mecânica","Imobiliária","Restaurante / delivery","Outro"];
+const STEPS = [
+  {k:"nicho", q:"Bora! Primeiro: qual é o seu tipo de negócio?", chips:NICHOS},
+  {k:"atendimentos_semana", q:"Quantos atendimentos (ou clientes) vocês fazem por semana, mais ou menos?", num:true, ph:"ex.: 80"},
+  {k:"ticket", q:"Qual o valor médio de cada atendimento, em reais?", num:true, ph:"ex.: 60"},
+  {k:"faltas_semana", q:"Quantas pessoas por semana marcam e não aparecem, ou desmarcam em cima da hora?", num:true, ph:"ex.: 4"},
+  {k:"sumidos_mes", q:"E quantos clientes por mês você sente que somem e não voltam mais?", num:true, ph:"ex.: 10"},
+  {k:"quem_responde", q:"Hoje, quem responde o WhatsApp do negócio?", chips:["Eu mesmo, quando dá","Recepção / secretária","Cada profissional no seu número","Ninguém responde rápido"]},
+  {k:"dor", q:"Em uma frase: o que mais te incomoda no atendimento hoje?", text:true, ph:"ex.: perco cliente porque demoro pra responder"},
+  {k:"contato", q:"Pronto, já tenho a conta. Para eu te mostrar o diagnóstico, me diz seu nome, o nome do negócio e seu WhatsApp:", contact:true}
+];
+let i = 0;
+const fmt = n => n.toLocaleString("pt-BR",{style:"currency",currency:"BRL",maximumFractionDigits:0});
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const sleep = ms => new Promise(r => setTimeout(r, ms));
+
+function add(html, who="bot"){ const d=document.createElement("div"); d.className="msg "+who; d.innerHTML=html; chat.appendChild(d); d.scrollIntoView({behavior:"smooth",block:"end"}); return d; }
+async function botSay(t){ const d=add('<span class="typing"><i></i><i></i><i></i></span>'); await sleep(650); d.innerHTML=t; d.scrollIntoView({behavior:"smooth",block:"end"}); }
+
+async function ask(){
+  const s = STEPS[i]; await botSay(s.q); bar.hidden=false; inbox.innerHTML="";
+  if (s.chips){ const c=document.createElement("div"); c.className="chips"; s.chips.forEach(o=>{const b=document.createElement("button"); b.className="chip"; b.textContent=o; b.onclick=()=>answer(o); c.appendChild(b)}); inbox.appendChild(c); }
+  else if (s.contact){
+    inbox.innerHTML='<div class="row" style="flex-direction:column"><input id="f_nome" placeholder="Seu nome" autocomplete="name"><input id="f_emp" placeholder="Nome do negócio"><div class="row"><input id="f_wpp" placeholder="WhatsApp com DDD" inputmode="tel" autocomplete="tel"><button class="send" id="f_ok">Ver diagnóstico</button></div></div><div class="hint">Usado só para o Paulo te retornar. Nada de lista de spam.</div>';
+    document.getElementById("f_ok").onclick=()=>{ const n=f_nome.value.trim(), e=f_emp.value.trim(), w=f_wpp.value.replace(/\D/g,""); if(!n||!e||w.length<10){ inbox.querySelector(".hint").textContent="Preencha nome, negócio e WhatsApp com DDD."; return;} A.nome=n; A.empresa=e; A.whatsapp=w; add(esc(n)+" · "+esc(e)+" · "+esc(f_wpp.value),"me"); bar.hidden=true; finish(); };
+    f_nome.focus();
+  } else {
+    inbox.innerHTML='<div class="row">'+(s.text?'<textarea id="v" rows="2" placeholder="'+s.ph+'"></textarea>':'<input id="v" '+(s.num?'inputmode="numeric"':'')+' placeholder="'+s.ph+'">')+'<button class="send" id="ok">→</button></div>';
+    const v=document.getElementById("v"); v.focus();
+    const go=()=>{ let val=v.value.trim(); if(s.num){ val=val.replace(/[^\d,\.]/g,"").replace(",","."); if(val===""||isNaN(+val)) return; } if(!val) return; answer(val); };
+    document.getElementById("ok").onclick=go; v.onkeydown=e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); go(); } };
+  }
+}
+function answer(v){ const s=STEPS[i]; A[s.k]=v; add(esc(s.num?v+(s.k==="ticket"?" reais":""):v),"me"); bar.hidden=true; i++; ask(); }
+
+function conta(){
+  const t=+A.ticket||0, f=+A.faltas_semana||0, s=+A.sumidos_mes||0;
+  const faltas=Math.round(f*t*4), sumidos=Math.round(s*t);
+  return {faltas, sumidos, total:faltas+sumidos};
+}
+
+async function finish(){
+  const c=conta(); A.perda_mensal=c.total;
+  await botSay("Fazendo a conta e escrevendo seu diagnóstico… leva uns segundos.");
+  const r=document.getElementById("result");
+  r.innerHTML=`<div class="card"><div class="lbl">A conta com os seus números <span class="pill">Estimativa</span></div>
+    <div class="big">${fmt(c.total)}<span style="font-size:18px;color:var(--muted)"> /mês</span></div>
+    <div class="calc">Faltas: ${A.faltas_semana} por semana × ${fmt(+A.ticket)} × 4 semanas = <b>${fmt(c.faltas)}</b><br>Clientes que somem: ${A.sumidos_mes} por mês × ${fmt(+A.ticket)} (uma visita cada) = <b>${fmt(c.sumidos)}</b><br>Em 12 meses: <b>${fmt(c.total*12)}</b> que deixam de entrar.</div></div>
+    <div class="card" id="diag"><div class="lbl">Seu diagnóstico</div><p><span class="typing"><i></i><i></i><i></i></span></p></div>`;
+  r.scrollIntoView({behavior:"smooth"});
+  let d=null;
+  try{
+    const ctrl=new AbortController(); setTimeout(()=>ctrl.abort(),45000);
+    const res=await fetch(WEBHOOK,{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify(A),signal:ctrl.signal});
+    d=await res.json(); if(typeof d==="string") d=JSON.parse(d);
+  }catch(e){ d=null; }
+  const box=document.getElementById("diag");
+  if(d && d.diagnostico){
+    box.innerHTML=`<div class="lbl">Seu diagnóstico</div><h3>${esc(d.titulo||"")}</h3><p>${esc(d.diagnostico)}</p>
+      <ul>${(d.gargalos||[]).map(g=>"<li>"+esc(g)+"</li>").join("")}</ul>
+      <div class="lbl" style="margin-top:16px">Como o assistente resolveria</div>
+      ${(d.solucao||[]).map((s,k)=>`<div class="fn"><div class="n">${k+1}</div><div><b>${esc(s.funcao)}</b><span>${esc(s.como)}</span></div></div>`).join("")}`;
+  } else {
+    box.innerHTML=`<div class="lbl">Seu diagnóstico</div><h3>O dinheiro está escapando em dois lugares: faltas e clientes que não voltam.</h3><p>Com ${esc(A.atendimentos_semana)} atendimentos por semana, depender de alguém lembrar de confirmar e de chamar o cliente de volta é o que mais pesa. Um assistente no WhatsApp cuidando só da agenda resolve isso:</p>
+      <div class="fn"><div class="n">1</div><div><b>Agenda 24h pelo WhatsApp</b><span>o cliente marca quando lembra, sem esperar alguém responder</span></div></div>
+      <div class="fn"><div class="n">2</div><div><b>Confirma na véspera</b><span>com botão de confirmar ou remarcar, e o horário vago volta pra agenda</span></div></div>
+      <div class="fn"><div class="n">3</div><div><b>Chama de volta quem sumiu</b><span>com horário pronto pra pessoa escolher</span></div></div>`;
+  }
+  await sleep(400); demo();
+}
+
+const DEMOS = {
+  "Barbearia":{p:"Barbearia",c:"Fala! Tem horário amanhã à tarde?",a:"Opa! Amanhã tenho 15h ou 17h30 com o Léo. Qual prefere?",c2:"17h30",a2:"Fechado ✂️ Amanhã 17h30 com o Léo. Te lembro 2h antes!",s:"25 dias depois, se ele não voltar: convite automático com horário pronto"},
+  "Clínica / consultório":{p:"Clínica",c:"Oi, queria marcar uma consulta",a:"Oi! Tenho quinta 9h ou 14h com a Dra. Paula. Qual fica melhor?",c2:"14h",a2:"Agendado! Quinta, 14h. Na véspera te mando confirmação com botão para confirmar ou remarcar.",s:"Se alguém desmarca, o horário é oferecido para a lista de espera"},
+  "Salão / estética":{p:"Salão",c:"Tem horário pra unha sábado?",a:"Tenho sábado 10h ou 13h com a Bruna 💅 Qual você prefere?",c2:"10h",a2:"Pronto! Sábado 10h com a Bruna. Te lembro na sexta.",s:"30 dias depois: lembrete para a cliente voltar, com horário sugerido"},
+  "Escritório contábil":{p:"Contabilidade",c:"Oi, mandei as notas do mês",a:"Recebi 12 notas ✅ Ainda faltam o extrato bancário e a guia do INSS. Quer que eu te lembre amanhã?",c2:"Pode lembrar",a2:"Combinado! Amanhã às 9h te lembro dos 2 documentos que faltam.",s:"Todo mês: checklist de documentos cobrado sozinho, sem o contador correr atrás"},
+  "Corretora de seguros":{p:"Corretora",c:"Oi, meu seguro vence quando?",a:"Seu seguro auto vence em 18 dias. Quer que eu já peça as cotações de renovação?",c2:"Quero",a2:"Feito! O corretor te manda as opções até amanhã.",s:"30 dias antes de cada vencimento: aviso automático para o cliente"},
+  "Academia / personal":{p:"Academia",c:"Oi, tava sumido, ainda tenho horário?",a:"Que bom te ver! 💪 Tenho turma amanhã 7h ou 19h. Qual encaixa?",c2:"19h",a2:"Reservado! Amanhã 19h. Bora voltar com tudo.",s:"Aluno que falta 7 dias seguidos recebe mensagem antes de cancelar"},
+  "Oficina mecânica":{p:"Oficina",c:"E o orçamento do meu carro?",a:"Está pronto: troca de pastilhas e fluido de freio. Quer aprovar e agendar o serviço?",c2:"Pode agendar",a2:"Agendado para quarta, 8h. Te aviso quando o carro estiver pronto.",s:"Orçamento sem resposta em 2 dias: lembrete automático para o cliente"},
+  "Imobiliária":{p:"Imobiliária",c:"Vi o apartamento no portal, ainda está disponível?",a:"Está sim! Posso agendar uma visita: sábado 10h ou segunda 18h?",c2:"Sábado",a2:"Visita marcada sábado 10h com o corretor Rafael. Te mando o endereço na véspera.",s:"Lead do portal respondido em segundos, a qualquer hora"},
+  "Restaurante / delivery":{p:"Restaurante",c:"Quero o mesmo pedido da semana passada",a:"Seu último pedido: 1 marmita executiva + 1 suco. Confirmo para o mesmo endereço?",c2:"Confirma",a2:"Pedido confirmado! Chega em 40 minutos 🛵",s:"Cliente que não pede há 15 dias recebe o cardápio da semana"},
+  "Outro":{p:"Seu negócio",c:"Oi, tem horário essa semana?",a:"Oi! Tenho quinta 10h ou sexta 15h. Qual prefere?",c2:"Sexta",a2:"Agendado! Sexta 15h. Na véspera te mando a confirmação.",s:"Quem sumiu recebe um convite para voltar, com horário pronto"}
+};
+
+async function demo(){
+  const D=DEMOS[A.nicho]||DEMOS["Outro"];
+  const r=document.getElementById("result");
+  const card=document.createElement("div"); card.className="card";
+  card.innerHTML=`<div class="lbl">Demonstração · ${esc(D.p)}</div><h3>Veja o assistente atendendo um cliente seu</h3>
+    <div class="phone"><div class="ph-top"><i>🤖</i><div><b>${esc(A.empresa||D.p)}</b><br><span style="color:#8696a0;font-size:12px">assistente · online</span></div></div><div class="ph-body" id="ph"></div></div>
+    <p class="calc" style="text-align:center;margin-top:8px">Simulação ilustrativa. As mensagens são aprovadas por você antes de ir ao ar.</p>`;
+  r.appendChild(card); card.scrollIntoView({behavior:"smooth"});
+  const ph=card.querySelector("#ph"); const hora=["10:02","10:02","10:03","10:03"];
+  const seq=[["c",D.c],["a",D.a],["c",D.c2],["a",D.a2],["s",D.s]];
+  for(let k=0;k<seq.length;k++){ await sleep(k===0?500:1300); const w=document.createElement("div"); w.className="w "+seq[k][0]; w.innerHTML=esc(seq[k][1])+(seq[k][0]!=="s"?"<small>"+(hora[k]||"10:04")+"</small>":""); ph.appendChild(w); }
+  await sleep(900); cta();
+}
+
+function cta(){
+  const r=document.getElementById("result");
+  const txt=`Oi Paulo! Fiz o diagnóstico: sou ${A.nome}, do(a) ${A.empresa} (${A.nicho}). A conta deu ${fmt(A.perda_mensal)}/mês. Quero ver como implantar o assistente.`;
+  const card=document.createElement("div"); card.className="card";
+  card.innerHTML=`<div class="lbl">Próximo passo</div><h3>Conversa de 15 minutos para montar isso no seu negócio</h3><p>Eu te mostro o assistente rodando com a sua agenda e te passo prazo e valor na hora. Sem compromisso.</p>
+    <a class="cta" target="_blank" rel="noopener" href="https://wa.me/${WPP}?text=${encodeURIComponent(txt)}">Quero implantar · falar no WhatsApp</a>
+    <a class="ghost" href="https://www.instagram.com/paulosantos.growth/" target="_blank" rel="noopener">Ver mais exemplos no Instagram</a>
+    <p class="lgpd">O assistente usa só nome, horário e serviço. O número fica no CNPJ da sua empresa e tudo vai em contrato, de acordo com a LGPD.</p>`;
+  r.appendChild(card);
+}
+
+document.getElementById("go").onclick=()=>{ document.getElementById("hero").hidden=true; ask(); };
+</script>
+</body>
+</html>
