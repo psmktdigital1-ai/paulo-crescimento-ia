@@ -3,9 +3,9 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Diagnóstico gratuito da sua agenda | Paulo Santos</title>
-<meta name="description" content="Em 2 minutos: quanto sua agenda deixa de faturar com faltas e clientes que somem, e como um assistente no WhatsApp resolve isso.">
-<meta property="og:title" content="Quanto sua agenda deixa de faturar?">
+<title>Diagnóstico gratuito do seu negócio | Paulo Santos</title>
+<meta name="description" content="Em 2 minutos: onde o seu negócio perde tempo e dinheiro (agenda, tarefas manuais, relatórios ou orçamentos) e como resolver.">
+<meta property="og:title" content="Onde o seu negócio perde tempo e dinheiro?">
 <meta property="og:description" content="Diagnóstico gratuito em 2 minutos, com os números do seu negócio.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800;900&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
@@ -73,8 +73,8 @@ h1 em{font-style:normal;color:var(--orange)}
 
   <section id="hero">
     <div class="tag">DIAGNÓSTICO GRATUITO · 2 MIN</div>
-    <h1>Quanto sua agenda <em>deixa de faturar?</em></h1>
-    <p class="sub">Responda 7 perguntas rápidas. Você recebe na hora a conta com os <b>seus</b> números, um diagnóstico do seu atendimento e vê o assistente no WhatsApp funcionando no seu tipo de negócio.</p>
+    <h1>Onde o seu negócio <em>perde tempo e dinheiro?</em></h1>
+    <p class="sub">Agenda, tarefas manuais, relatórios ou orçamentos sem retorno. Responda algumas perguntas rápidas e receba na hora a conta com os <b>seus</b> números, um diagnóstico e uma demonstração da solução para o seu caso.</p>
     <button class="start" id="go">Começar agora →</button>
     <p class="small">Sem cadastro, sem cartão. Seus dados vão só para o Paulo retornar o contato.</p>
   </section>
@@ -85,6 +85,22 @@ h1 em{font-style:normal;color:var(--orange)}
 
 <div id="input" hidden><div class="in" id="inbox"></div></div>
 
+<style>
+.flow{display:flex;flex-direction:column;gap:8px;margin-top:8px}
+.fl{display:flex;gap:12px;align-items:center;background:var(--surface2);border-radius:14px;padding:12px 14px;opacity:.35;transition:opacity .4s}
+.fl.on{opacity:1}
+.fl .ic{flex:0 0 34px;height:34px;border-radius:10px;background:#1A1033;display:grid;place-items:center;font-size:18px}
+.fl b{display:block;font-size:15px}.fl span{font-size:13px;color:#C9C1E6}
+.fl .ok{margin-left:auto;color:var(--lime);font-weight:900;font-size:18px;visibility:hidden}.fl.on .ok{visibility:visible}
+.dash{background:#120B26;border:1px solid var(--line);border-radius:18px;padding:14px;margin-top:8px}
+.kpis{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.kpi{background:var(--surface);border-radius:12px;padding:10px}
+.kpi .k{font-size:11px;color:var(--muted)}.kpi .n{font-size:16px;white-space:nowrap;font-weight:900;font-variant-numeric:tabular-nums}.kpi .d{font-size:11px;color:var(--lime)}.kpi .d.neg{color:var(--orange)}
+.bars{margin-top:12px}
+.bar{display:flex;align-items:center;gap:8px;font-size:12px;color:#C9C1E6;margin-top:6px}
+.bar i{display:block;height:12px;border-radius:6px;background:var(--cyan);width:0;transition:width 1s ease}
+.bar span{flex:0 0 92px}
+</style>
 <script>
 const WEBHOOK = "https://n8n.paulogrowth.tech/webhook/diagnostico-pme";
 const WPP = "5511985008250";
@@ -92,15 +108,48 @@ const params = new URLSearchParams(location.search);
 const A = { origem: params.get("origem") || params.get("utm_source") || "pagina-diagnostico" };
 const chat = document.getElementById("chat"), inbox = document.getElementById("inbox"), bar = document.getElementById("input");
 
-const NICHOS = ["Barbearia","Clínica / consultório","Salão / estética","Escritório contábil","Corretora de seguros","Academia / personal","Oficina mecânica","Imobiliária","Restaurante / delivery","Outro"];
-const STEPS = [
-  {k:"nicho", q:"Bora! Primeiro: qual é o seu tipo de negócio?", chips:NICHOS},
-  {k:"atendimentos_semana", q:"Quantos atendimentos (ou clientes) vocês fazem por semana, mais ou menos?", num:true, ph:"ex.: 80"},
-  {k:"ticket", q:"Qual o valor médio de cada atendimento, em reais?", num:true, ph:"ex.: 60"},
-  {k:"faltas_semana", q:"Quantas pessoas por semana marcam e não aparecem, ou desmarcam em cima da hora?", num:true, ph:"ex.: 4"},
-  {k:"sumidos_mes", q:"E quantos clientes por mês você sente que somem e não voltam mais?", num:true, ph:"ex.: 10"},
-  {k:"quem_responde", q:"Hoje, quem responde o WhatsApp do negócio?", chips:["Eu mesmo, quando dá","Recepção / secretária","Cada profissional no seu número","Ninguém responde rápido"]},
-  {k:"dor", q:"Em uma frase: o que mais te incomoda no atendimento hoje?", text:true, ph:"ex.: perco cliente porque demoro pra responder"},
+const FRENTES = {
+  "Agenda e atendimento no WhatsApp": "agenda",
+  "Tarefas manuais e repetitivas": "processos",
+  "Relatórios e números do negócio": "dashboard",
+  "Orçamentos e clientes sem retorno": "vendas"
+};
+const SERVICO = {agenda:"Assistente de agenda no WhatsApp", processos:"Automação de processos", dashboard:"Dashboard de gestão (Power BI)", vendas:"Follow-up automático de orçamentos e leads"};
+const NICHOS = ["Barbearia","Clínica / consultório","Salão / estética","Escritório contábil","Corretora de seguros","Academia / personal","Oficina mecânica","Imobiliária","Restaurante / delivery","Loja / e-commerce","Outro"];
+const HORA = {k:"valor_hora", q:"Quanto vale, em reais, uma hora de trabalho de quem faz isso? (pode ser o seu salário dividido por 180, ou o que você cobra por hora)", num:true, ph:"ex.: 40"};
+const PATHS = {
+  agenda: [
+    {k:"atendimentos_semana", q:"Quantos atendimentos (ou clientes) vocês fazem por semana, mais ou menos?", num:true, ph:"ex.: 80"},
+    {k:"ticket", q:"Qual o valor médio de cada atendimento, em reais?", num:true, ph:"ex.: 60"},
+    {k:"faltas_semana", q:"Quantas pessoas por semana marcam e não aparecem, ou desmarcam em cima da hora?", num:true, ph:"ex.: 4"},
+    {k:"sumidos_mes", q:"E quantos clientes por mês você sente que somem e não voltam mais?", num:true, ph:"ex.: 10"},
+    {k:"quem_responde", q:"Hoje, quem responde o WhatsApp do negócio?", chips:["Eu mesmo, quando dá","Recepção / secretária","Cada profissional no seu número","Ninguém responde rápido"]}
+  ],
+  processos: [
+    {k:"tarefas", q:"Qual dessas tarefas mais come o tempo de vocês?", chips:["Copiar dados entre planilhas e sistemas","Cobrar documentos ou pagamentos","Responder as mesmas perguntas no WhatsApp","Emitir e enviar boletos, notas ou contratos","Montar relatórios e controles"]},
+    {k:"horas_semana", q:"Somando a equipe toda, quantas horas por semana vão nisso?", num:true, ph:"ex.: 10"},
+    HORA,
+    {k:"ferramentas", q:"Onde isso acontece hoje?", chips:["Planilhas","WhatsApp","Sistema de gestão","E-mail","Papel / caderno"]}
+  ],
+  dashboard: [
+    {k:"horas_semana", q:"Quantas horas por semana alguém gasta juntando números e montando relatório?", num:true, ph:"ex.: 5"},
+    HORA,
+    {k:"fontes", q:"De onde vêm os números do negócio hoje?", chips:["Planilhas","Sistema de gestão / ERP","Anúncios (Meta, Google)","Marketplaces","Um pouco de cada"]},
+    {k:"visao", q:"Hoje você sabe, sem abrir planilha, quanto faturou no mês e o que mais deu lucro?", chips:["Sei na hora","Sei mais ou menos","Só no fim do mês","Não sei"]}
+  ],
+  vendas: [
+    {k:"orcamentos_mes", q:"Quantos orçamentos ou contatos de clientes novos vocês recebem por mês?", num:true, ph:"ex.: 40"},
+    {k:"sem_retorno", q:"Desses, quantos ficam sem resposta ou sem acompanhamento depois do primeiro contato?", num:true, ph:"ex.: 15"},
+    {k:"fecha_de_10", q:"De cada 10 orçamentos que vocês acompanham, quantos viram venda?", num:true, ph:"ex.: 3"},
+    {k:"ticket", q:"Qual o valor médio de uma venda, em reais?", num:true, ph:"ex.: 500"}
+  ]
+};
+let STEPS = [
+  {k:"frente", q:"Bora! O que mais te tira tempo ou dinheiro hoje?", chips:Object.keys(FRENTES)},
+  {k:"nicho", q:"E qual é o seu tipo de negócio?", chips:NICHOS}
+];
+const TAIL = [
+  {k:"dor", q:"Em uma frase: o que mais te incomoda nisso hoje?", text:true, ph:"ex.: perco tempo demais com isso"},
   {k:"contato", q:"Pronto, já tenho a conta. Para eu te mostrar o diagnóstico, me diz seu nome, o nome do negócio e seu WhatsApp:", contact:true}
 ];
 let i = 0;
@@ -125,21 +174,40 @@ async function ask(){
     document.getElementById("ok").onclick=go; v.onkeydown=e=>{ if(e.key==="Enter"&&!e.shiftKey){ e.preventDefault(); go(); } };
   }
 }
-function answer(v){ const s=STEPS[i]; A[s.k]=v; add(esc(s.num?v+(s.k==="ticket"?" reais":""):v),"me"); bar.hidden=true; i++; ask(); }
+function answer(v){
+  const s=STEPS[i]; A[s.k]=v;
+  add(esc(v)+(s.num&&(s.k==="ticket"||s.k==="valor_hora")?" reais":""),"me"); bar.hidden=true;
+  if (s.k==="frente"){ A.tipo=FRENTES[v]; A.servico=SERVICO[A.tipo]; }
+  if (s.k==="nicho"){ STEPS = STEPS.concat(PATHS[A.tipo], TAIL); }
+  i++; ask();
+}
 
 function conta(){
-  const t=+A.ticket||0, f=+A.faltas_semana||0, s=+A.sumidos_mes||0;
-  const faltas=Math.round(f*t*4), sumidos=Math.round(s*t);
-  return {faltas, sumidos, total:faltas+sumidos};
+  const n=k=>+A[k]||0;
+  if (A.tipo==="agenda"){
+    const a=Math.round(n("faltas_semana")*n("ticket")*4), b=Math.round(n("sumidos_mes")*n("ticket"));
+    return {total:a+b, titulo:"Quanto deixa de entrar por mês", linhas:[`Faltas: ${n("faltas_semana")} por semana × ${fmt(n("ticket"))} × 4 semanas = <b>${fmt(a)}</b>`,`Clientes que somem: ${n("sumidos_mes")} por mês × ${fmt(n("ticket"))} (uma visita cada) = <b>${fmt(b)}</b>`]};
+  }
+  if (A.tipo==="processos" || A.tipo==="dashboard"){
+    const h=Math.round(n("horas_semana")*4.3), v=Math.round(h*n("valor_hora"));
+    return {total:v, titulo:A.tipo==="dashboard"?"Quanto custa montar relatório na mão por mês":"Quanto custa esse trabalho manual por mês", linhas:[`${n("horas_semana")} horas por semana × 4,3 semanas = <b>${h} horas por mês</b>`,`${h} horas × ${fmt(n("valor_hora"))} por hora = <b>${fmt(v)}</b> em tempo da equipe`]};
+  }
+  const perdidos=n("sem_retorno")*(n("fecha_de_10")/10), v=Math.round(perdidos*n("ticket"));
+  return {total:v, titulo:"Quanto pode estar ficando na mesa por mês", linhas:[`${n("sem_retorno")} orçamentos sem acompanhamento × ${n("fecha_de_10")} em cada 10 que vocês fecham = <b>${perdidos.toLocaleString("pt-BR",{maximumFractionDigits:1})} vendas</b>`,`${perdidos.toLocaleString("pt-BR",{maximumFractionDigits:1})} vendas × ${fmt(n("ticket"))} = <b>${fmt(v)}</b>`]};
+}
+
+function resumo(){
+  const skip=["origem","nome","empresa","whatsapp","perda_mensal","resumo_respostas","conta_texto","servico","tipo"];
+  return Object.entries(A).filter(([k])=>!skip.includes(k)).map(([k,v])=>k.replace(/_/g," ")+": "+v).join(" | ");
 }
 
 async function finish(){
-  const c=conta(); A.perda_mensal=c.total;
+  const c=conta(); A.perda_mensal=c.total; A.resumo_respostas=resumo(); A.conta_texto=c.linhas.join(" ; ").replace(/<[^>]+>/g,"");
   await botSay("Fazendo a conta e escrevendo seu diagnóstico… leva uns segundos.");
   const r=document.getElementById("result");
-  r.innerHTML=`<div class="card"><div class="lbl">A conta com os seus números <span class="pill">Estimativa</span></div>
+  r.innerHTML=`<div class="card"><div class="lbl">${c.titulo} <span class="pill">Estimativa</span></div>
     <div class="big">${fmt(c.total)}<span style="font-size:18px;color:var(--muted)"> /mês</span></div>
-    <div class="calc">Faltas: ${A.faltas_semana} por semana × ${fmt(+A.ticket)} × 4 semanas = <b>${fmt(c.faltas)}</b><br>Clientes que somem: ${A.sumidos_mes} por mês × ${fmt(+A.ticket)} (uma visita cada) = <b>${fmt(c.sumidos)}</b><br>Em 12 meses: <b>${fmt(c.total*12)}</b> que deixam de entrar.</div></div>
+    <div class="calc">${c.linhas.join("<br>")}<br>Em 12 meses: <b>${fmt(c.total*12)}</b>. Conta feita só com os números que você informou.</div></div>
     <div class="card" id="diag"><div class="lbl">Seu diagnóstico</div><p><span class="typing"><i></i><i></i><i></i></span></p></div>`;
   r.scrollIntoView({behavior:"smooth"});
   let d=null;
@@ -152,13 +220,14 @@ async function finish(){
   if(d && d.diagnostico){
     box.innerHTML=`<div class="lbl">Seu diagnóstico</div><h3>${esc(d.titulo||"")}</h3><p>${esc(d.diagnostico)}</p>
       <ul>${(d.gargalos||[]).map(g=>"<li>"+esc(g)+"</li>").join("")}</ul>
-      <div class="lbl" style="margin-top:16px">Como o assistente resolveria</div>
+      <div class="lbl" style="margin-top:16px">Como resolver</div>
       ${(d.solucao||[]).map((s,k)=>`<div class="fn"><div class="n">${k+1}</div><div><b>${esc(s.funcao)}</b><span>${esc(s.como)}</span></div></div>`).join("")}`;
   } else {
-    box.innerHTML=`<div class="lbl">Seu diagnóstico</div><h3>O dinheiro está escapando em dois lugares: faltas e clientes que não voltam.</h3><p>Com ${esc(A.atendimentos_semana)} atendimentos por semana, depender de alguém lembrar de confirmar e de chamar o cliente de volta é o que mais pesa. Um assistente no WhatsApp cuidando só da agenda resolve isso:</p>
-      <div class="fn"><div class="n">1</div><div><b>Agenda 24h pelo WhatsApp</b><span>o cliente marca quando lembra, sem esperar alguém responder</span></div></div>
-      <div class="fn"><div class="n">2</div><div><b>Confirma na véspera</b><span>com botão de confirmar ou remarcar, e o horário vago volta pra agenda</span></div></div>
-      <div class="fn"><div class="n">3</div><div><b>Chama de volta quem sumiu</b><span>com horário pronto pra pessoa escolher</span></div></div>`;
+    const F={agenda:[["Agenda 24h pelo WhatsApp","o cliente marca quando lembra"],["Confirma na véspera","e o horário vago volta pra agenda"],["Chama de volta quem sumiu","com horário pronto pra escolher"]],
+      processos:[["Mapear a tarefa repetida","entender o passo a passo que a equipe faz"],["Automatizar o caminho","os dados passam sozinhos entre WhatsApp, planilha e sistema"],["Avisar só quando precisa de você","a equipe cuida do que exige gente"]],
+      dashboard:[["Juntar as fontes","planilhas, sistema e anúncios num lugar só"],["Painel com o que importa","faturamento, margem e o que vende mais"],["Atualização automática","sem ninguém montar relatório na mão"]],
+      vendas:[["Resposta na hora","todo contato novo recebe retorno em minutos"],["Acompanhamento automático","lembretes no 2º e no 5º dia depois do orçamento"],["Painel do funil","você vê quem está parado e onde a venda trava"]]}[A.tipo];
+    box.innerHTML=`<div class="lbl">Seu diagnóstico</div><h3>O que mais pesa hoje é processo, não esforço.</h3><p>Com os números que você passou, o maior ganho vem de tirar essa parte da mão da equipe. Na prática:</p>`+F.map((f,k)=>`<div class="fn"><div class="n">${k+1}</div><div><b>${f[0]}</b><span>${f[1]}</span></div></div>`).join("");
   }
   await sleep(400); demo();
 }
@@ -167,7 +236,7 @@ const DEMOS = {
   "Barbearia":{p:"Barbearia",c:"Fala! Tem horário amanhã à tarde?",a:"Opa! Amanhã tenho 15h ou 17h30 com o Léo. Qual prefere?",c2:"17h30",a2:"Fechado ✂️ Amanhã 17h30 com o Léo. Te lembro 2h antes!",s:"25 dias depois, se ele não voltar: convite automático com horário pronto"},
   "Clínica / consultório":{p:"Clínica",c:"Oi, queria marcar uma consulta",a:"Oi! Tenho quinta 9h ou 14h com a Dra. Paula. Qual fica melhor?",c2:"14h",a2:"Agendado! Quinta, 14h. Na véspera te mando confirmação com botão para confirmar ou remarcar.",s:"Se alguém desmarca, o horário é oferecido para a lista de espera"},
   "Salão / estética":{p:"Salão",c:"Tem horário pra unha sábado?",a:"Tenho sábado 10h ou 13h com a Bruna 💅 Qual você prefere?",c2:"10h",a2:"Pronto! Sábado 10h com a Bruna. Te lembro na sexta.",s:"30 dias depois: lembrete para a cliente voltar, com horário sugerido"},
-  "Escritório contábil":{p:"Contabilidade",c:"Oi, mandei as notas do mês",a:"Recebi 12 notas ✅ Ainda faltam o extrato bancário e a guia do INSS. Quer que eu te lembre amanhã?",c2:"Pode lembrar",a2:"Combinado! Amanhã às 9h te lembro dos 2 documentos que faltam.",s:"Todo mês: checklist de documentos cobrado sozinho, sem o contador correr atrás"},
+  "Escritório contábil":{p:"Contabilidade",c:"Oi, mandei as notas do mês",a:"Recebi 12 notas ✅ Ainda faltam o extrato bancário e a guia do INSS. Quer que eu te lembre amanhã?",c2:"Pode lembrar",a2:"Combinado! Amanhã às 9h te lembro dos 2 documentos que faltam.",s:"Todo mês: checklist de documentos cobrado sozinho"},
   "Corretora de seguros":{p:"Corretora",c:"Oi, meu seguro vence quando?",a:"Seu seguro auto vence em 18 dias. Quer que eu já peça as cotações de renovação?",c2:"Quero",a2:"Feito! O corretor te manda as opções até amanhã.",s:"30 dias antes de cada vencimento: aviso automático para o cliente"},
   "Academia / personal":{p:"Academia",c:"Oi, tava sumido, ainda tenho horário?",a:"Que bom te ver! 💪 Tenho turma amanhã 7h ou 19h. Qual encaixa?",c2:"19h",a2:"Reservado! Amanhã 19h. Bora voltar com tudo.",s:"Aluno que falta 7 dias seguidos recebe mensagem antes de cancelar"},
   "Oficina mecânica":{p:"Oficina",c:"E o orçamento do meu carro?",a:"Está pronto: troca de pastilhas e fluido de freio. Quer aprovar e agendar o serviço?",c2:"Pode agendar",a2:"Agendado para quarta, 8h. Te aviso quando o carro estiver pronto.",s:"Orçamento sem resposta em 2 dias: lembrete automático para o cliente"},
@@ -175,29 +244,52 @@ const DEMOS = {
   "Restaurante / delivery":{p:"Restaurante",c:"Quero o mesmo pedido da semana passada",a:"Seu último pedido: 1 marmita executiva + 1 suco. Confirmo para o mesmo endereço?",c2:"Confirma",a2:"Pedido confirmado! Chega em 40 minutos 🛵",s:"Cliente que não pede há 15 dias recebe o cardápio da semana"},
   "Outro":{p:"Seu negócio",c:"Oi, tem horário essa semana?",a:"Oi! Tenho quinta 10h ou sexta 15h. Qual prefere?",c2:"Sexta",a2:"Agendado! Sexta 15h. Na véspera te mando a confirmação.",s:"Quem sumiu recebe um convite para voltar, com horário pronto"}
 };
+const FLOWS = {
+  "Copiar dados entre planilhas e sistemas":[["📥","Chega um pedido ou cadastro","pelo WhatsApp, formulário ou e-mail"],["🔄","Os dados vão sozinhos","para a planilha e para o sistema, sem digitar de novo"],["🔎","Confere se falta algo","e pede o que estiver faltando"],["✅","Você só aprova","quando precisa de uma decisão"]],
+  "Cobrar documentos ou pagamentos":[["📅","Chega o dia do vencimento","o sistema sabe quem ainda não pagou ou não enviou"],["💬","Lembrete educado no WhatsApp","com o link ou a lista do que falta"],["📎","O cliente responde e envia","o arquivo vai para a pasta certa"],["✅","Você recebe o resumo","quem está em dia e quem precisa de contato"]],
+  "Responder as mesmas perguntas no WhatsApp":[["💬","Cliente pergunta preço, horário, endereço","a qualquer hora"],["🤖","Resposta na hora","com o texto que você aprovou"],["🙋","Pergunta diferente","é passada para uma pessoa da equipe"],["✅","Ninguém fica sem resposta","e a equipe só atende o que precisa de gente"]],
+  "Emitir e enviar boletos, notas ou contratos":[["🧾","Venda fechada ou mês virou","o gatilho dispara sozinho"],["⚙️","Documento gerado","com os dados do cliente preenchidos"],["📤","Enviado por WhatsApp ou e-mail","com confirmação de entrega"],["✅","Registro na planilha","para você acompanhar"]],
+  "Montar relatórios e controles":[["📊","Os números são coletados","de planilhas, sistema e anúncios"],["🧮","Contas feitas","do mesmo jeito todo mês"],["📬","Relatório pronto","no seu e-mail ou WhatsApp, na hora marcada"],["✅","Você só lê e decide","sem montar nada"]]
+};
 
 async function demo(){
-  const D=DEMOS[A.nicho]||DEMOS["Outro"];
   const r=document.getElementById("result");
-  const card=document.createElement("div"); card.className="card";
-  card.innerHTML=`<div class="lbl">Demonstração · ${esc(D.p)}</div><h3>Veja o assistente atendendo um cliente seu</h3>
-    <div class="phone"><div class="ph-top"><i>🤖</i><div><b>${esc(A.empresa||D.p)}</b><br><span style="color:#8696a0;font-size:12px">assistente · online</span></div></div><div class="ph-body" id="ph"></div></div>
-    <p class="calc" style="text-align:center;margin-top:8px">Simulação ilustrativa. As mensagens são aprovadas por você antes de ir ao ar.</p>`;
-  r.appendChild(card); card.scrollIntoView({behavior:"smooth"});
-  const ph=card.querySelector("#ph"); const hora=["10:02","10:02","10:03","10:03"];
-  const seq=[["c",D.c],["a",D.a],["c",D.c2],["a",D.a2],["s",D.s]];
-  for(let k=0;k<seq.length;k++){ await sleep(k===0?500:1300); const w=document.createElement("div"); w.className="w "+seq[k][0]; w.innerHTML=esc(seq[k][1])+(seq[k][0]!=="s"?"<small>"+(hora[k]||"10:04")+"</small>":""); ph.appendChild(w); }
+  const card=document.createElement("div"); card.className="card"; r.appendChild(card);
+  if (A.tipo==="agenda" || A.tipo==="vendas"){
+    let D=DEMOS[A.nicho]||DEMOS["Outro"];
+    if (A.tipo==="vendas") D={p:A.nicho,c:"Oi, me manda o orçamento?",a:`Claro! Seu orçamento está aqui: ${fmt(+A.ticket||500)}, com tudo que você pediu. Ficou alguma dúvida?`,c2:"Vou ver e te falo",a2:"Combinado! Qualquer dúvida é só chamar 🙂",s:"2 dias sem resposta: lembrete automático com uma condição para fechar"};
+    card.innerHTML=`<div class="lbl">Demonstração · ${esc(D.p)}</div><h3>${A.tipo==="vendas"?"Veja o acompanhamento automático de um orçamento":"Veja o assistente atendendo um cliente seu"}</h3>
+      <div class="phone"><div class="ph-top"><i>🤖</i><div><b>${esc(A.empresa||D.p)}</b><br><span style="color:#8696a0;font-size:12px">assistente · online</span></div></div><div class="ph-body" id="ph"></div></div>
+      <p class="calc" style="text-align:center;margin-top:8px">Simulação ilustrativa. As mensagens são aprovadas por você antes de ir ao ar.</p>`;
+    card.scrollIntoView({behavior:"smooth"});
+    const ph=card.querySelector("#ph"); const hora=["10:02","10:02","10:03","10:03"];
+    const seq=[["c",D.c],["a",D.a],["c",D.c2],["a",D.a2],["s",D.s]];
+    for(let k=0;k<seq.length;k++){ await sleep(k===0?500:1300); const w=document.createElement("div"); w.className="w "+seq[k][0]; w.innerHTML=esc(seq[k][1])+(seq[k][0]!=="s"?"<small>"+(hora[k]||"10:04")+"</small>":""); ph.appendChild(w); }
+  } else if (A.tipo==="processos"){
+    const steps=FLOWS[A.tarefas]||FLOWS["Copiar dados entre planilhas e sistemas"];
+    card.innerHTML=`<div class="lbl">Demonstração · automação</div><h3>Como "${esc(A.tarefas)}" passa a rodar sozinho</h3><div class="flow">${steps.map(s=>`<div class="fl"><div class="ic">${s[0]}</div><div><b>${esc(s[1])}</b><span>${esc(s[2])}</span></div><div class="ok">✓</div></div>`).join("")}</div>
+      <p class="calc" style="margin-top:10px">Exemplo ilustrativo do fluxo. Cada automação é desenhada em cima do jeito que vocês já trabalham.</p>`;
+    card.scrollIntoView({behavior:"smooth"});
+    for (const el of card.querySelectorAll(".fl")){ await sleep(900); el.classList.add("on"); }
+  } else {
+    card.innerHTML=`<div class="lbl">Demonstração · dashboard <span class="pill">Dados ilustrativos</span></div><h3>O que você veria toda manhã, sem montar nada</h3>
+      <div class="dash"><div class="kpis"><div class="kpi"><div class="k">Faturamento do mês</div><div class="n">R$ 84 mil</div><div class="d">▲ 12% vs mês anterior</div></div><div class="kpi"><div class="k">Margem</div><div class="n">31%</div><div class="d neg">▼ 2 p.p.</div></div><div class="kpi"><div class="k">Ticket médio</div><div class="n">R$ 212</div><div class="d">▲ 5%</div></div></div>
+      <div class="bars"><div class="lbl" style="margin:0">Faturamento por canal</div>${[["Loja / balcão",88],["WhatsApp",64],["Instagram",41],["Marketplace",27]].map(b=>`<div class="bar"><span>${b[0]}</span><i data-w="${b[1]}"></i></div>`).join("")}</div></div>
+      <p class="calc" style="margin-top:10px">Painel de exemplo. O seu é montado com os números do seu negócio e atualiza sozinho.</p>`;
+    card.scrollIntoView({behavior:"smooth"});
+    await sleep(300); card.querySelectorAll(".bar i").forEach(b=>b.style.width=b.dataset.w+"%");
+  }
   await sleep(900); cta();
 }
 
 function cta(){
   const r=document.getElementById("result");
-  const txt=`Oi Paulo! Fiz o diagnóstico: sou ${A.nome}, do(a) ${A.empresa} (${A.nicho}). A conta deu ${fmt(A.perda_mensal)}/mês. Quero ver como implantar o assistente.`;
+  const txt=`Oi Paulo! Fiz o diagnóstico: sou ${A.nome}, do(a) ${A.empresa} (${A.nicho}). Meu foco: ${A.frente}. A conta deu ${fmt(A.perda_mensal)}/mês. Quero ver como resolver isso.`;
   const card=document.createElement("div"); card.className="card";
-  card.innerHTML=`<div class="lbl">Próximo passo</div><h3>Conversa de 15 minutos para montar isso no seu negócio</h3><p>Eu te mostro o assistente rodando com a sua agenda e te passo prazo e valor na hora. Sem compromisso.</p>
-    <a class="cta" target="_blank" rel="noopener" href="https://wa.me/${WPP}?text=${encodeURIComponent(txt)}">Quero implantar · falar no WhatsApp</a>
+  card.innerHTML=`<div class="lbl">Próximo passo</div><h3>Conversa de 15 minutos para montar isso no seu negócio</h3><p>Eu te mostro a solução rodando com o seu caso e te passo prazo e valor na hora. Sem compromisso.</p>
+    <a class="cta" target="_blank" rel="noopener" href="https://wa.me/${WPP}?text=${encodeURIComponent(txt)}">Quero resolver · falar no WhatsApp</a>
     <a class="ghost" href="https://www.instagram.com/paulosantos.growth/" target="_blank" rel="noopener">Ver mais exemplos no Instagram</a>
-    <p class="lgpd">O assistente usa só nome, horário e serviço. O número fica no CNPJ da sua empresa e tudo vai em contrato, de acordo com a LGPD.</p>`;
+    <p class="lgpd">Usamos só os dados necessários para a solução funcionar. Tudo fica registrado em contrato, de acordo com a LGPD.</p>`;
   r.appendChild(card);
 }
 
